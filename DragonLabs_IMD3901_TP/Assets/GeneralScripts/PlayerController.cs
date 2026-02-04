@@ -10,16 +10,24 @@ public class PlayerController : NetworkBehaviour
     public Transform camTransform;
     private float xRotation = 0.0f;
 
-    public Camera PcCamera;
+    //public Camera PcCamera;
     //public Camera VrCamera;
 
-    public override void OnNetworkDespawn()
-    {
-        if (!IsOwner)
-        {
-            PcCamera.enabled = false;
-        }
+    //public override void OnNetworkDespawn()
+    //{
+    //    //if (!IsOwner)
+    //    //{
+    //    //    PcCamera.enabled = false;
+    //    //}
 
+    //    //Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
+    //    //Cursor.visible = false;
+    //}
+
+
+
+    private void Start()
+    {
         Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
         Cursor.visible = false;
     }
@@ -27,11 +35,11 @@ public class PlayerController : NetworkBehaviour
 
     void Update()
     {
-        //Networking
-        if (!IsOwner)
-        {
-            return;
-        }
+        ////Networking
+        //if (!IsOwner)
+        //{
+        //    return;
+        //}
 
 
 
