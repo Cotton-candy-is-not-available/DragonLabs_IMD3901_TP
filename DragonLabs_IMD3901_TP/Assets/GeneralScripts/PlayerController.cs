@@ -11,7 +11,6 @@ public class PlayerController : NetworkBehaviour
     private float xRotation = 0.0f;
 
     public Camera PcCamera;
-    //public Camera VrCamera;
 
     public override void OnNetworkSpawn()
     {
