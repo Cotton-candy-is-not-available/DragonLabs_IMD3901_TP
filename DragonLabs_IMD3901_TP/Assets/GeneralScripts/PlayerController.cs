@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public float speed = 5.0f;
     public float mouseSensitivity = 2.0f;
@@ -9,14 +10,44 @@ public class PlayerController : MonoBehaviour
     public Transform camTransform;
     private float xRotation = 0.0f;
 
-    void Start()
+    //public Camera PcCamera;
+    //public Camera VrCamera;
+
+    //public override void OnNetworkDespawn()
+    //{
+    //    //if (!IsOwner)
+    //    //{
+    //    //    PcCamera.enabled = false;
+    //    //}
+
+    //    //Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
+    //    //Cursor.visible = false;
+    //}
+
+
+
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
         Cursor.visible = false;
     }
 
+
     void Update()
     {
+        ////Networking
+        //if (!IsOwner)
+        //{
+        //    return;
+        //}
+
+
+
+
+
+
+
+
         //-1 in the negative direction along x or y, +1 in the positive direction
         Vector2 moveInput = Keyboard.current != null ? new Vector2
             (
