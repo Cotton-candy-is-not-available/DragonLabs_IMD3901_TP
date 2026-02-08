@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6795048928699815896}
   - component: {fileID: 5433857536334856552}
   - component: {fileID: 7114737923713757443}
+  - component: {fileID: 1401507416102090403}
   m_Layer: 0
   m_Name: debugPCPlayer
   m_TagString: Player
@@ -77,6 +78,53 @@ MonoBehaviour:
   charController: {fileID: 5433857536334856552}
   camTransform: {fileID: 7336117257499632179}
   PcCamera: {fileID: 7268449350634651738}
+--- !u!114 &1401507416102090403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123514706950494819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a02a314fa6ef943868c4e32d9217e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRange: 5
+  playerCamera: {fileID: 7268449350634651738}
+  crosshair_access: {fileID: 658142876167766382}
+  pickupController_access: {fileID: 6286499705926140036}
+--- !u!1 &525578296958858651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4518331873797864685}
+  m_Layer: 0
+  m_Name: ObjectHoldArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4518331873797864685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525578296958858651}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.926}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7336117257499632179}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1567635332458221024
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,6 +137,7 @@ GameObject:
   - component: {fileID: 7268449350634651738}
   - component: {fileID: 3590296052468467279}
   - component: {fileID: 574466159439174381}
+  - component: {fileID: 6286499705926140036}
   m_Layer: 0
   m_Name: camera_PC
   m_TagString: Untagged
@@ -108,7 +157,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4518331873797864685}
   m_Father: {fileID: 1051935172956354051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7268449350634651738
@@ -214,6 +264,21 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &6286499705926140036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567635332458221024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912fd566f98522c4097c9ea991cbf85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdArea: {fileID: 4518331873797864685}
+  pickupRange: 5
+  pickupForce: 150
 --- !u!1 &7423730496658982159
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +401,7 @@ GameObject:
   - component: {fileID: 6842884889682359583}
   - component: {fileID: 3435675428500205153}
   - component: {fileID: 1128380002992802821}
+  - component: {fileID: 658142876167766382}
   m_Layer: 5
   m_Name: crosshair
   m_TagString: Untagged
@@ -400,6 +466,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &658142876167766382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683900695573832737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d595c35e33ee347859816ad08f7164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crosshairIMG: {fileID: 1128380002992802821}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  interactColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &9114689213080318020
 GameObject:
   m_ObjectHideFlags: 0
