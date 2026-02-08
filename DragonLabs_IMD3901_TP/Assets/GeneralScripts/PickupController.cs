@@ -1,0 +1,86 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PickupController : MonoBehaviour
+{
+    [SerializeField] Transform holdArea; //will be parented to this
+
+    //the object that is picked up
+    private GameObject heldObj;
+    public GameObject HeldObject => heldObj;
+    private Rigidbody heldObjRB;
+
+    //physics
+    [SerializeField] private float pickupRange = 5.0f;
+    [SerializeField] private float pickupForce = 150.0f;
+
+    private void Update()
+    {
+        //PICKING UP-----------------------------
+        if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
+        {
+            Debug.Log("i was presssed to pickup object");
+
+            if (heldObj == null) //if an object is NOT already being held
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
+                {
+                    //pick up the object
+                    pickupObject(hit.transform.gameObject);
+                }
+            }
+        }
+
+        //DROPPING-----------------------------
+        if (Keyboard.current.tabKey.wasPressedThisFrame && heldObj != null) //if tab was pressed to drop
+        {
+            Debug.Log("tab was presssed to drop object");
+            dropObject();
+        }
+
+        //MOVING-----------------------------
+        if (heldObj != null) //if an object is currently being held
+        {
+            //move the object around
+            moveObject();
+        }
+    }
+
+    /*----------------FUNCTIONS---------------*/
+    void pickupObject(GameObject pickObj)
+    {
+        if (pickObj.GetComponent<Rigidbody>())
+        {
+            heldObjRB = pickObj.GetComponent<Rigidbody>();
+            //make the object float
+            heldObjRB.useGravity = false;
+            heldObjRB.linearDamping = 10;
+            heldObjRB.constraints = RigidbodyConstraints.FreezeRotation; //avoids spinning
+
+            heldObjRB.transform.parent = holdArea; //parent it to the hold area
+            heldObj = pickObj;
+        }
+    }
+    void dropObject()
+    {
+        //make the object float
+        heldObjRB.useGravity = true;
+        heldObjRB.linearDamping = 1;
+        heldObjRB.constraints = RigidbodyConstraints.None; //remove constraints
+
+        heldObj.transform.parent = null; //unparent it from the hold area
+        heldObj = null; //no object being held anymore
+    }
+    void moveObject()
+    {
+        /*since the object is being parented to holdArea (which moves with the player's camera)
+        we have to calculate the difference between it's current position and the new position that the holdArea
+        is located at/looking at*/
+        if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
+        {
+            Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
+            heldObjRB.AddForce(moveDirection * pickupForce); //moev the object in the calculated direction
+        }
+    }
+}
