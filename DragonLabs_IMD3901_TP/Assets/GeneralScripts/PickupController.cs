@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PickupController : MonoBehaviour
 {
@@ -10,9 +11,25 @@ public class PickupController : MonoBehaviour
     public GameObject HeldObject => heldObj;
     private Rigidbody heldObjRB;
 
+    //For objects that need to be thrown
+    public float throwForce = 500f; 
+
+
     //physics
     [SerializeField] private float pickupRange = 5.0f;
     [SerializeField] private float pickupForce = 150.0f;
+
+    // Get current scene name
+    Scene currentScene;
+
+    private void Start()
+    {
+        // Get current scene name
+        currentScene = SceneManager.GetActiveScene();
+    }
+
+
+
 
     private void Update()
     {
@@ -68,8 +85,15 @@ public class PickupController : MonoBehaviour
         heldObjRB.useGravity = true;
         heldObjRB.linearDamping = 1;
         heldObjRB.constraints = RigidbodyConstraints.None; //remove constraints
-
         heldObj.transform.parent = null; //unparent it from the hold area
+
+        //if the current scene is the beer pong minigame, add force so that the object can be thrown
+        if (currentScene.name == "beerPong")
+        {
+            heldObjRB.AddForce(transform.forward * throwForce);
+            //Debug.Log("beerpong scene");
+        }
+
         heldObj = null; //no object being held anymore
     }
     void moveObject()
