@@ -21,7 +21,7 @@ public class PickupController : MonoBehaviour
     //----- For throwing trgectory: Beer Pong---
     //For objects that need to be thrown
     public float throwForce = 500f;
-    int ballMass = 2;
+    int ballMass = 30;
     [SerializeField] tragectoryLine line;
 
     //------------------------------------------
@@ -38,12 +38,12 @@ public class PickupController : MonoBehaviour
     private void Update()
     {
 
-
         //Tragectory Line--------------------
-
-       Vector3 linePos = new Vector3(holdArea.position.x, holdArea.position.y, -8.86f);
-
-       line.ShowTragectoryLine(linePos, transform.forward * throwForce/ballMass);
+        //if (currentScene.name == "beerPong")
+        //{
+        //    line.drawTragectory(transform.forward * throwForce);
+        //}
+        //-----------------------------------
 
         //PICKING UP-----------------------------
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
@@ -107,8 +107,9 @@ public class PickupController : MonoBehaviour
         //if the current scene is the beer pong minigame, add force so that the object can be thrown
         if (currentScene.name == "beerPong")
         {
-            heldObjRB.AddForce(transform.forward * throwForce);
-            //Debug.Log("beerpong scene");
+            //heldObjRB.AddForce(transform.forward * throwForce);
+            Debug.Log("beerpong scene");
+            heldObjRB.linearVelocity = transform.forward * throwForce;
         }
 
         heldObj = null; //no object being held anymore
