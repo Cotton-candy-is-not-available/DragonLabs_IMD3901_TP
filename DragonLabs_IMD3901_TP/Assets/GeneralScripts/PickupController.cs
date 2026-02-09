@@ -21,9 +21,9 @@ public class PickupController : MonoBehaviour
     //----- For throwing trgectory: Beer Pong---
     //For objects that need to be thrown
     public float throwForce = 500f;
-    int ballMass = 30;
     [SerializeField] tragectoryLine line;
-
+    public float mass = 10;
+    bool enableLine = false;
     //------------------------------------------
 
     private void Start()
@@ -37,13 +37,8 @@ public class PickupController : MonoBehaviour
 
     private void Update()
     {
+        enableLine = false;//turn off the line by default --Beer Pong
 
-        //Tragectory Line--------------------
-        //if (currentScene.name == "beerPong")
-        //{
-        //    line.drawTragectory(transform.forward * throwForce);
-        //}
-        //-----------------------------------
 
         //PICKING UP-----------------------------
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
@@ -73,10 +68,22 @@ public class PickupController : MonoBehaviour
         {
             //move the object around
             moveObject();
+
+            //Tragectory Line--------------------
+            if (currentScene.name == "beerPong")//only enable in beerPong scene
+            {
+                enableLine = true;
+            }
+            else
+            {
+                enableLine = false;
+            }
+            //-----------------------------------
         }
 
-
-
+        //----Draw the tragectory line BeerPong
+        line.drawTragectory(transform.forward * throwForce, enableLine);
+        //-----------------------------------
 
 
     }
