@@ -11,16 +11,20 @@ public class PickupController : MonoBehaviour
     public GameObject HeldObject => heldObj;
     private Rigidbody heldObjRB;
 
-    //For objects that need to be thrown
-    public float throwForce = 500f; 
-
-
     //physics
     [SerializeField] private float pickupRange = 5.0f;
     [SerializeField] private float pickupForce = 150.0f;
 
     // Get current scene name
     Scene currentScene;
+
+    //----- For throwing trgectory: Beer Pong---
+    //For objects that need to be thrown
+    public float throwForce = 500f;
+    int ballMass = 2;
+    [SerializeField] tragectoryLine line;
+
+    //------------------------------------------
 
     private void Start()
     {
@@ -33,6 +37,14 @@ public class PickupController : MonoBehaviour
 
     private void Update()
     {
+
+
+        //Tragectory Line--------------------
+
+       Vector3 linePos = new Vector3(holdArea.position.x, holdArea.position.y, -8.86f);
+
+       line.ShowTragectoryLine(linePos, transform.forward * throwForce/ballMass);
+
         //PICKING UP-----------------------------
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
@@ -62,6 +74,11 @@ public class PickupController : MonoBehaviour
             //move the object around
             moveObject();
         }
+
+
+
+
+
     }
 
     /*----------------FUNCTIONS---------------*/
