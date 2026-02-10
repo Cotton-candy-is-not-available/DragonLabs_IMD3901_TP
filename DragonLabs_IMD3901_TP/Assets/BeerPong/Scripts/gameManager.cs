@@ -1,29 +1,52 @@
+using GogoGaga.OptimizedRopesAndCables;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class gameManager : MonoBehaviour
 {
+    GameObject P1;
+    GameObject P2;
 
-    public TMP_Text player1PointsText;
-    public TMP_Text player2PointsText;
+    public Canvas player1PointsCanvas;
+    public Canvas player2PointsCanvas;
 
+    [Header("------------ Points text -------------")]
+    [Header("Player 1 view")]
+    public TMP_Text P1YouPointsText;
+    public TMP_Text P1OppPointsText;
+
+    [Header("Player 2 view")]
+    public TMP_Text P2YouPointsText;
+    public TMP_Text P2OppPointsText;
+
+    [Header("------------ Points -------------")]
     public int player1Points = 0;
     public int player2Points = 0;
 
-
-    public Vector3 BallStartPos;
+    [Header("------------ Ball start pos -------------")]
     public Vector3 P1BallStartPos;
     public Vector3 P2BallStartPos;
 
+    [Header("------------ Prefabs -------------")]
     public GameObject ballPrefab;
 
-    public GameObject newBall;
+    GameObject newBall;
 
     int turn;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
+    {
+        P1 = GameObject.FindGameObjectWithTag("Player");//change to player 1 for netwroking
+        //P2 = GameObject.FindGameObjectWithTag("Player2");
+
+        player1PointsCanvas.transform.parent = P1.transform;
+        //player2PointsCanvas.transform.parent = P2.transform;
+
+
+    }
+
     void Start()
     {
      turn = 1;
@@ -60,7 +83,9 @@ public class gameManager : MonoBehaviour
             if (ballHit.P1Point == true)
             {
                 player1Points+=1;//increase points for player 1
-                player1PointsText.text = ("You: "+ player1Points);//update text
+                P1YouPointsText.text = ("You: "+ player1Points);//update text player 1's side
+                P2OppPointsText.text = ("Them: "+ player1Points);//update text on layer 2's Side
+
                 Debug.Log("player1Points: "+ player1Points);
                 ballHit.P1Point = false;
                 Destroy(newBall);//destroy the ball
@@ -70,7 +95,9 @@ public class gameManager : MonoBehaviour
             if (ballHit.P2Point == true)
             {
                 player2Points+=1;//increase points for player 2
-                player2PointsText.text = ("Them: "+ player2Points);//update text
+                P1OppPointsText.text = ("Them: "+ player2Points);//update text on player 1's side
+                P2YouPointsText.text = ("You: "+ player2Points);//update text on layer 2's Side
+
                 Debug.Log("player2Points: "+ player2Points);
                 ballHit.P2Point = false;
                 Destroy(newBall);//destroy the ball
