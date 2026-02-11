@@ -8,6 +8,9 @@ public class playerInteraction : MonoBehaviour
 
     public Crosshair crosshair_access;
     public PickupController pickupController_access;
+
+    public delegate void InteractionEvent(GameObject interactableObj);
+    public static event InteractionEvent onInteract;
    
     void Update()
     {
@@ -26,7 +29,7 @@ public class playerInteraction : MonoBehaviour
                 if (Keyboard.current.iKey.wasPressedThisFrame) //if e was pressed to eat
                 {
                     Debug.Log("i key was pressed to interact");
-                    
+                    onInteract?.Invoke(hit.collider.gameObject);
                 }
 
                 //Debug.Log("interact was set to true");
