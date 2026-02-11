@@ -68,21 +68,15 @@ public class PickupController : MonoBehaviour
         {
             //move the object around
             moveObject();
-
-            //Tragectory Line--------------------
-            if (currentScene.name == "beerPong")//only enable in beerPong scene
-            {
-                enableLine = true;
-            }
-            else
-            {
-                enableLine = false;
-            }
+            enableLine = true;
             //-----------------------------------
         }
 
-        //----Draw the tragectory line BeerPong
-        line.drawTragectory(transform.forward * throwForce, enableLine);
+        //----Draw the tragectory line BeerPong scene only
+        if (currentScene.name == "beerPong")//only enable in beerPong scene
+        {
+            line.drawTragectory(transform.forward * throwForce, enableLine);
+        }
         //-----------------------------------
 
 
