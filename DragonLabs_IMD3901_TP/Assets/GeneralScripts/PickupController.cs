@@ -21,7 +21,7 @@ public class PickupController : MonoBehaviour
     //----- For throwing trgectory: Beer Pong---
     //For objects that need to be thrown
     public float throwForce = 500f;
-    [SerializeField] tragectoryLine line;
+    //[SerializeField] tragectoryLine line;
     public float mass = 10;
     bool enableLine = false;
     //------------------------------------------
@@ -82,7 +82,7 @@ public class PickupController : MonoBehaviour
         }
 
         //----Draw the tragectory line BeerPong
-        line.drawTragectory(transform.forward * throwForce, enableLine);
+        //line.drawTragectory(transform.forward * throwForce, enableLine);
         //-----------------------------------
 
 

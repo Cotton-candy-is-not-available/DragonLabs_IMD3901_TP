@@ -1,26 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Primitives;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 
 public class ChooseGame : MonoBehaviour
 {
-    private void OnEnable()
+    //public Animator transition;
+
+    public void switchScenes(string sceneName)
     {
-        playerInteraction.onInteract += HandleInteraction;
+        //transition.SetTrigger("Start");
+        SceneManager.LoadScene(sceneName);
+        StartCoroutine(delaySec(sceneName));
+        Debug.Log("before calling coroutine");
     }
 
-    private void OnDisable()
+    IEnumerator delaySec(string sceneName)
     {
-        playerInteraction.onInteract -= HandleInteraction;
+        Time.timeScale = 1f;
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("after calling coroutine");
+        SceneManager.LoadScene(sceneName);
     }
 
-    private void HandleInteraction(GameObject interactableObj)
+    public void switchScenesOverlay(string sceneName2)
     {
-        if (interactableObj == gameObject)
-        {
-            Debug.Log("This game was picked");
-            if (gameObject.name.Contains("screen1"))
-                Debug.Log("Teleporting to game: screen1");
-        }
+        SceneManager.LoadScene(sceneName2, LoadSceneMode.Additive);
+    }
+
+    public void OnExitClick()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
     }
 }

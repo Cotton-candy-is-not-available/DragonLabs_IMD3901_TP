@@ -29,7 +29,6 @@ public class playerInteraction : MonoBehaviour
                 if (Keyboard.current.iKey.wasPressedThisFrame) //if e was pressed to eat
                 {
                     Debug.Log("i key was pressed to interact");
-                    onInteract?.Invoke(hit.collider.gameObject);
                 }
 
                 //Debug.Log("interact was set to true");
