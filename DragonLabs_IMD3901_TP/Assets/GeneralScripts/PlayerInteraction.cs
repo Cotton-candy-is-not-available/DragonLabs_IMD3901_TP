@@ -1,38 +1,47 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class playerInteraction : MonoBehaviour
+public class PlayerInteraction : MonoBehaviour
 {
     public float interactRange = 5f;
     public Camera playerCamera;
 
     public Crosshair crosshair_access;
     public PickupController pickupController_access;
-   
+
     void Update()
     {
-        //creating a ray that shoots out of the camera to detect objects in front of us
-        //we want the ray to be in front of us
+        // DROP (Tab)
+        if (Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            pickupController_access.Drop();
+        }
+
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        RaycastHit hit; //hit box for the ray cast
+        RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, interactRange))
         {
             if (hit.collider.CompareTag("Interactable"))
             {
-                //checking if the ray hits something with a collider that is interactable
                 crosshair_access.setInteract(true);
 
-                if (Keyboard.current.iKey.wasPressedThisFrame) //if e was pressed to eat
+                // GRAB (I)
+                if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
                 {
                     Debug.Log("i key was pressed to interact");
-                    
-                }
 
-                //Debug.Log("interact was set to true");
+                    // IMPORTANT: works even if collider is on a child
+                    Piece piece = hit.collider.GetComponentInParent<Piece>();
+                    if (piece != null)
+                    {
+                        pickupController_access.Grab(piece);
+                    }
+                }
                 return;
             }
         }
-        crosshair_access.setInteract(false); //set it back to false if we look away from the object
+
+        crosshair_access.setInteract(false);
     }
 }
