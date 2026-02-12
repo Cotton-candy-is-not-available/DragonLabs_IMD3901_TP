@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScenes/BitaTestScene.unity
     guid: f0916883790c00d49848eccdd848e9c0
+  - enabled: 1
+    path: Assets/Scenes/FinalMiniGameScenes/beerPong.unity
+    guid: ac56b4eeb7b0ef948b6cebf488a61be6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a2b03db7371b148f5870d991f4e3e7b8, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 38f8db4526e8186408a761921c8a1eb9, type: 2}
   m_UseUCBPForAssetBundles: 0
