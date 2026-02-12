@@ -82,7 +82,7 @@ public class PickupController : MonoBehaviour
         }
 
         //----Draw the tragectory line BeerPong
-        line.drawTragectory(transform.forward * throwForce, enableLine);
+        //line.drawTragectory(transform.forward * throwForce, enableLine);
         //-----------------------------------
 
 
