@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PickupController : MonoBehaviour
 {
@@ -14,8 +15,31 @@ public class PickupController : MonoBehaviour
     [SerializeField] private float pickupRange = 5.0f;
     [SerializeField] private float pickupForce = 150.0f;
 
+    // Get current scene name
+    Scene currentScene;
+
+    //----- For throwing trgectory: Beer Pong---
+    //For objects that need to be thrown
+    public float throwForce = 500f;
+    [SerializeField] tragectoryLine line;
+    public float mass = 10;
+    bool enableLine = false;
+    //------------------------------------------
+
+    private void Start()
+    {
+        // Get current scene name
+        currentScene = SceneManager.GetActiveScene();
+    }
+
+
+
+
     private void Update()
     {
+        enableLine = false;//turn off the line by default --Beer Pong
+
+
         //PICKING UP-----------------------------
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
@@ -44,7 +68,24 @@ public class PickupController : MonoBehaviour
         {
             //move the object around
             moveObject();
+
+            //Tragectory Line--------------------
+            if (currentScene.name == "beerPong")//only enable in beerPong scene
+            {
+                enableLine = true;
+            }
+            else
+            {
+                enableLine = false;
+            }
+            //-----------------------------------
         }
+
+        //----Draw the tragectory line BeerPong
+        //line.drawTragectory(transform.forward * throwForce, enableLine);
+        //-----------------------------------
+
+
     }
 
     /*----------------FUNCTIONS---------------*/
@@ -68,8 +109,16 @@ public class PickupController : MonoBehaviour
         heldObjRB.useGravity = true;
         heldObjRB.linearDamping = 1;
         heldObjRB.constraints = RigidbodyConstraints.None; //remove constraints
-
         heldObj.transform.parent = null; //unparent it from the hold area
+
+        //if the current scene is the beer pong minigame, add force so that the object can be thrown
+        if (currentScene.name == "beerPong")
+        {
+            //heldObjRB.AddForce(transform.forward * throwForce);
+            Debug.Log("beerpong scene");
+            heldObjRB.linearVelocity = transform.forward * throwForce;
+        }
+
         heldObj = null; //no object being held anymore
     }
     void moveObject()
