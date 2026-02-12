@@ -1150,7 +1150,7 @@ GameObject:
   - component: {fileID: 945033642978419501}
   - component: {fileID: 2329308211205747299}
   m_Layer: 0
-  m_Name: debugVRPlayer
+  m_Name: VRPlayerLocal
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
