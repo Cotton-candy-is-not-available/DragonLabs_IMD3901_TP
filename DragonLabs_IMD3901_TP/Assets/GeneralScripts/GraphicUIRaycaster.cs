@@ -59,7 +59,22 @@ public class GraphicUIRaycaster : MonoBehaviour
                             Debug.Log("change scene!");
                             chooseGame_access.switchScenes("BitaTestScene");
                             break;
-                       
+                        /*
+                        
+                         *** Uncomment when change scences is a thing ***
+                         
+                        case "CupPong":
+                            Debug.Log("change scene!");
+                            chooseGame_access.switchScenes("");
+                            break;
+                        case "Parkour":
+                            Debug.Log("change scene!");
+                            chooseGame_access.switchScenes("");
+                        case "TicTacToe":
+                            Debug.Log("change scene!");
+                            chooseGame_access.switchScenes("");
+                        */
+
                     }
                 }
 
