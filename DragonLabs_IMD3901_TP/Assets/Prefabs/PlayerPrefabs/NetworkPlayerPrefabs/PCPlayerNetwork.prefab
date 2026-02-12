@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3005463624241160809}
   - component: {fileID: 1770299751576182079}
   m_Layer: 0
-  m_Name: PC Player
+  m_Name: PCPlayerNetwork
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,6 +322,9 @@ MonoBehaviour:
   holdArea: {fileID: 6868048652202225694}
   pickupRange: 5
   pickupForce: 150
+  throwForce: 500
+  line: {fileID: 0}
+  mass: 10
 --- !u!1 &5077842472569108115
 GameObject:
   m_ObjectHideFlags: 0
