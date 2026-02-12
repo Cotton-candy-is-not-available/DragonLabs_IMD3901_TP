@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class TicTacToeTileSlot : MonoBehaviour
 {
-    [Header("Spawn Point on this tile")]
     public Transform spawnPoint;
 
     private Piece placedPiece;
@@ -20,12 +19,12 @@ public class TicTacToeTileSlot : MonoBehaviour
 
         placedPiece = piece;
 
-        // snap to tile
+        // SNAP to tile spawn point (this breaks it away from HoldPoint)
         piece.transform.SetParent(spawnPoint, true);
         piece.transform.localPosition = Vector3.zero;
         piece.transform.localRotation = Quaternion.identity;
 
-        // optional: face camera
+        // face camera (optional)
         if (faceCamera && cameraTransform != null)
         {
             Vector3 dir = cameraTransform.position - piece.transform.position;
@@ -34,15 +33,19 @@ public class TicTacToeTileSlot : MonoBehaviour
                 piece.transform.rotation = Quaternion.LookRotation(-dir.normalized, Vector3.up);
         }
 
-        // stick: turn off physics
+        // LOCK physics
         Rigidbody rb = piece.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
             rb.isKinematic = true;
             rb.useGravity = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
+
+        // IMPORTANT: stop pickup from re-grabbing it
+        // easiest: remove Interactable tag after placing
+        piece.gameObject.tag = "Untagged";
 
         piece.SetHeld(false);
         piece.MarkPlaced(true);
