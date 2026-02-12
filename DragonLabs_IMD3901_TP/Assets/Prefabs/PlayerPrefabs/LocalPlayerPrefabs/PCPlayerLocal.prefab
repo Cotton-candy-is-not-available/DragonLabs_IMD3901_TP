@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7114737923713757443}
   - component: {fileID: 1401507416102090403}
   m_Layer: 0
-  m_Name: debugPCPlayer
+  m_Name: PCPlayerLocal
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

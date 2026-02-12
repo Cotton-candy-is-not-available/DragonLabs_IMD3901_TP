@@ -77,6 +77,7 @@ public class PickupController : MonoBehaviour
         {
             line.drawTragectory(transform.forward * throwForce, enableLine);
         }
+
         //-----------------------------------
 
 
