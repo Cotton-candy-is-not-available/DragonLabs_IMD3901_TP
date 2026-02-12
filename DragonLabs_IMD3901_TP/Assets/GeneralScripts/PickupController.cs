@@ -20,7 +20,7 @@ public class PickupController : MonoBehaviour
 
     //----- For throwing trgectory: Beer Pong---
     //For objects that need to be thrown
-    public float throwForce = 500f;
+    public float throwForce = 10f;
     [SerializeField] tragectoryLine line;
     public float mass = 10;
     bool enableLine = false;
