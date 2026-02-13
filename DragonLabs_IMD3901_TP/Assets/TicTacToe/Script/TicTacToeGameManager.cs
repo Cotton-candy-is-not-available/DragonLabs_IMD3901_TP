@@ -23,6 +23,11 @@ public class TicTacToeGameManager : MonoBehaviour
     public bool debugLogs = true;
 
     private TicTacToePieceType currentTurn = TicTacToePieceType.X;
+    Piece GetHeldPieceFromHoldPoint()
+    {
+        if (holdPoint == null) return null;
+        return holdPoint.GetComponentInChildren<Piece>();
+    }
 
     void Start()
     {
@@ -60,48 +65,30 @@ public class TicTacToeGameManager : MonoBehaviour
 
     void TryPlaceLookingAtTile()
     {
-        if (playerCamera == null)
-        {
-            if (debugLogs) Debug.Log("Place fail: playerCamera is NULL");
-            return;
-        }
+        if (playerCamera == null) return;
 
         Piece held = GetHeldPieceFromHoldPoint();
-        if (held == null)
-        {
-            if (debugLogs) Debug.Log("Place fail: not holding a Piece (nothing under HoldPoint)");
-            return;
-        }
-
-        if (held.Type != currentTurn)
-        {
-            if (debugLogs) Debug.Log("Place fail: wrong turn. Holding " + held.Type + " but turn is " + currentTurn);
-            return;
-        }
+        if (held == null) { if (debugLogs) Debug.Log("Place fail: not holding a Piece"); return; }
+        if (held.Type != currentTurn) { if (debugLogs) Debug.Log("Place fail: wrong turn"); return; }
 
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        RaycastHit[] hits = Physics.RaycastAll(ray, 10f);
 
-        if (!Physics.Raycast(ray, out RaycastHit hit, 10f))
+        TicTacToeTileSlot tile = null;
+
+        foreach (RaycastHit h in hits)
         {
-            if (debugLogs) Debug.Log("Place fail: raycast hit NOTHING (aim at a tile)");
-            return;
+            // ignore any piece (including the one you're holding)
+            if (h.collider.GetComponentInParent<Piece>() != null)
+                continue;
+
+            tile = h.collider.GetComponentInParent<TicTacToeTileSlot>();
+            if (tile != null) break;
         }
 
-        // IMPORTANT: your collider might be on the tile object itself or child
-        TicTacToeTileSlot tile = hit.collider.GetComponentInParent<TicTacToeTileSlot>();
-        if (tile == null)
-        {
-            if (debugLogs) Debug.Log("Place fail: raycast hit '" + hit.collider.name + "' but it has NO TicTacToeTileSlot in parents");
-            return;
-        }
+        if (tile == null) { if (debugLogs) Debug.Log("Place fail: no tile found"); return; }
+        if (!tile.CanPlace()) { if (debugLogs) Debug.Log("Place fail: tile already filled"); return; }
 
-        if (!tile.CanPlace())
-        {
-            if (debugLogs) Debug.Log("Place fail: tile already has a piece");
-            return;
-        }
-
-        // release from pickup system so it stops following hold point
         if (pickupController != null)
             pickupController.Drop();
 
@@ -113,9 +100,4 @@ public class TicTacToeGameManager : MonoBehaviour
         if (debugLogs) Debug.Log("Placed successfully ✅ Next turn: " + currentTurn);
     }
 
-    Piece GetHeldPieceFromHoldPoint()
-    {
-        if (holdPoint == null) return null;
-        return holdPoint.GetComponentInChildren<Piece>();
-    }
 }
