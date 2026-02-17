@@ -13,6 +13,13 @@ public class TimerController : MonoBehaviour
         if (piñataController_access.isGameOver == false) //if the game is not over the timer should be counting
         {
             elapsedTime -= Time.deltaTime; //calculates all of the time passed since game started
+
+            if (elapsedTime <= 0)
+            {
+                elapsedTime = 0;
+                piñataController_access.isGameOver = true;
+            }
+
             int minutes = Mathf.FloorToInt(elapsedTime / 60);
             int seconds = Mathf.FloorToInt(elapsedTime % 60);
 
