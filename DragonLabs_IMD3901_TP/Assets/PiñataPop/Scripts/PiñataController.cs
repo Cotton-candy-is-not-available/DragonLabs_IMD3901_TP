@@ -5,14 +5,21 @@ public class PiñataController : MonoBehaviour
 {
 
     int piñataHealth = 50;
-    public bool isGameOver = false;
+    Rigidbody piñata_RB;
+
     public ScoresManager scoresManager_access;
     public ParticleSystem confettiPopParticles;
-
+    
+    public bool isGameOver = false;
     bool shouldApplyForce = false;
 
+    private void Start()
+    {
+        //fetch the pinata's rigid body
+        piñata_RB = GetComponent<Rigidbody>();
+    }
 
-    void Update()
+    private void Update()
     {
         Debug.Log("pinata health: " + piñataHealth);
 
@@ -28,7 +35,7 @@ public class PiñataController : MonoBehaviour
     {
         if(collision.gameObject.name == "BatP1")
         {
-            Debug.Log("P1 hit the piñata");
+            //Debug.Log("P1 hit the piñata");
             scoresManager_access.increaseP1Hits();
             shouldApplyForce = true;
             if (piñataHealth > 0 && isGameOver == false)
@@ -38,7 +45,7 @@ public class PiñataController : MonoBehaviour
         }
         else if(collision.gameObject.name == "BatP2")
         {
-            Debug.Log("P2 hit the piñata");
+            //Debug.Log("P2 hit the piñata");
             scoresManager_access.increaseP2Hits();
             shouldApplyForce = true;
             if (piñataHealth > 0 && isGameOver == false)
@@ -50,9 +57,14 @@ public class PiñataController : MonoBehaviour
 
     public void applyHitChargeForce(float hitChargeForce)
     {
-        if(shouldApplyForce == true)
+        /*ensure that the bat is colliding with the pinata at the same time as
+        when the hit charge was released*/
+        if (shouldApplyForce == true) 
         {
             Debug.Log("APPLIED FORCE OF: " + hitChargeForce + " TO PINATA");
+            hitChargeForce = Mathf.Clamp(hitChargeForce, 0f, 30f); //min 0 and max 30
+            //apply force in the Y direction to mimic someone pulling the pinata up
+            piñata_RB.AddForce(transform.up * hitChargeForce, ForceMode.Impulse);
             shouldApplyForce = false; //reset
         }
     }
