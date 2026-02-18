@@ -9,7 +9,6 @@ public class BatChargeHits : MonoBehaviour
     [SerializeField] private Image hitChargeCircle;
     KeyCode selectKey = KeyCode.Mouse0; //left mouse click for PC
     private bool shouldUpdate = false;
-    //[SerializeField] private UnityEvent pinataForce;
 
     public float hitForce = 0.0f;
     public float maxHitForce = 100.0f;
@@ -18,49 +17,41 @@ public class BatChargeHits : MonoBehaviour
 
     private void Update()
     {
-
         if (Input.GetKey(selectKey)) //if LMB is being held down
         {
             indicatorTimer -= Time.deltaTime;
+            indicatorTimer = Mathf.Max(indicatorTimer, 0f);
             hitChargeCircle.enabled = true;
-            hitChargeCircle.fillAmount = indicatorTimer;
-
-            //for looping its charge again
-            if (indicatorTimer <= 0)
-            {
-                float normalizedCharge = 1f - (indicatorTimer / maxIndicatorTimer);
-                normalizedCharge = Mathf.Clamp01(normalizedCharge);
-                hitForce = normalizedCharge * maxHitForce;
-
-                shouldUpdate = false;
-                indicatorTimer = maxIndicatorTimer;
-                hitChargeCircle.fillAmount = maxIndicatorTimer;
-                hitChargeCircle.enabled = false;
-
-                //call function that applies force to piñata
-                piñataController_access.applyHitChargeForce(hitForce);
-            }
+            hitChargeCircle.fillAmount = indicatorTimer / maxIndicatorTimer;
         }
         else //if the LMB is NOT being held down anymore
         {
-            if(shouldUpdate == true)
+            if (shouldUpdate == true)
             {
                 indicatorTimer += Time.deltaTime;
-                hitChargeCircle.fillAmount = indicatorTimer;
-
-                if(indicatorTimer >= maxIndicatorTimer)
+                
+                if (indicatorTimer >= maxIndicatorTimer)
                 {
                     indicatorTimer = maxIndicatorTimer;
-                    hitChargeCircle.fillAmount = maxIndicatorTimer;
                     hitChargeCircle.enabled = false;
                     shouldUpdate = false;
                 }
+                hitChargeCircle.fillAmount = indicatorTimer / maxIndicatorTimer;
             }
         }
 
+        //for looping its charge again
         if (Input.GetKey(selectKey))
         {
             shouldUpdate = true;
+
+            float normalizedCharge = 1f - (indicatorTimer / maxIndicatorTimer);
+            normalizedCharge = Mathf.Clamp01(normalizedCharge);
+            hitForce = normalizedCharge * maxHitForce;
+        }
+        if (Input.GetKeyUp(selectKey)) //apply the hit force when LMB is released
+        {
+            piñataController_access.applyHitChargeForce(hitForce);
         }
     }
 }

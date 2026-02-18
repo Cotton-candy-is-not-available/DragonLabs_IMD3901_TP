@@ -9,6 +9,8 @@ public class PiñataController : MonoBehaviour
     public ScoresManager scoresManager_access;
     public ParticleSystem confettiPopParticles;
 
+    bool shouldApplyForce = false;
+
 
     void Update()
     {
@@ -24,12 +26,12 @@ public class PiñataController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        
         if(collision.gameObject.name == "BatP1")
         {
             Debug.Log("P1 hit the piñata");
             scoresManager_access.increaseP1Hits();
-            if(piñataHealth > 0 && isGameOver == false)
+            shouldApplyForce = true;
+            if (piñataHealth > 0 && isGameOver == false)
             {
                 piñataHealth -= 1;
             }
@@ -38,6 +40,7 @@ public class PiñataController : MonoBehaviour
         {
             Debug.Log("P2 hit the piñata");
             scoresManager_access.increaseP2Hits();
+            shouldApplyForce = true;
             if (piñataHealth > 0 && isGameOver == false)
             {
                 piñataHealth -= 1;
@@ -47,10 +50,11 @@ public class PiñataController : MonoBehaviour
 
     public void applyHitChargeForce(float hitChargeForce)
     {
-
-        Debug.Log("APPLIED FORCE OF: " +  hitChargeForce + " TO PINATA");
-
-
+        if(shouldApplyForce == true)
+        {
+            Debug.Log("APPLIED FORCE OF: " + hitChargeForce + " TO PINATA");
+            shouldApplyForce = false; //reset
+        }
     }
 
 
