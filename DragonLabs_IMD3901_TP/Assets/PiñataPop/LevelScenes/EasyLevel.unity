@@ -3118,14 +3118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffae14e0c2c61834ea98882ee112e2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicatorTimer: 1
-  maxIndicatorTimer: 1
   hitChargeCircle: {fileID: 1339205888}
-  selectKey: 323
-  shouldUpdate: 0
-  pinataForce:
-    m_PersistentCalls:
-      m_Calls: []
+  hitForce: 0
+  maxHitForce: 100
+  "pi\xF1ataController_access": {fileID: 103639275}
 --- !u!1001 &1117887259
 PrefabInstance:
   m_ObjectHideFlags: 0

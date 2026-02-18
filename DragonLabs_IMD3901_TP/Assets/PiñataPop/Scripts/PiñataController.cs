@@ -44,4 +44,14 @@ public class PiñataController : MonoBehaviour
             }
         }
     }
+
+    public void applyHitChargeForce(float hitChargeForce)
+    {
+
+        Debug.Log("APPLIED FORCE OF: " +  hitChargeForce + " TO PINATA");
+
+
+    }
+
+
 }

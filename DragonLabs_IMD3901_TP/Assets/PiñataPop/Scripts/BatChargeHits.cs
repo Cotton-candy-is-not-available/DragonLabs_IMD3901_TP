@@ -4,13 +4,18 @@ using UnityEngine.Events;
 
 public class BatChargeHits : MonoBehaviour
 {
-    [SerializeField] private float indicatorTimer = 1.0f;
-    [SerializeField] private float maxIndicatorTimer = 1.0f;
+    private float indicatorTimer = 1.0f;
+    private float maxIndicatorTimer = 1.0f;
     [SerializeField] private Image hitChargeCircle;
-    [SerializeField] private KeyCode selectKey = KeyCode.Mouse0; //left mouse click for PC
-    [SerializeField] private bool shouldUpdate = false;
-    [SerializeField] private UnityEvent pinataForce;
-   
+    KeyCode selectKey = KeyCode.Mouse0; //left mouse click for PC
+    private bool shouldUpdate = false;
+    //[SerializeField] private UnityEvent pinataForce;
+
+    public float hitForce = 0.0f;
+    public float maxHitForce = 100.0f;
+    public PiñataController piñataController_access;
+
+
     private void Update()
     {
 
@@ -23,11 +28,17 @@ public class BatChargeHits : MonoBehaviour
             //for looping its charge again
             if (indicatorTimer <= 0)
             {
+                float normalizedCharge = 1f - (indicatorTimer / maxIndicatorTimer);
+                normalizedCharge = Mathf.Clamp01(normalizedCharge);
+                hitForce = normalizedCharge * maxHitForce;
+
                 shouldUpdate = false;
                 indicatorTimer = maxIndicatorTimer;
                 hitChargeCircle.fillAmount = maxIndicatorTimer;
                 hitChargeCircle.enabled = false;
-                pinataForce.Invoke();
+
+                //call function that applies force to piñata
+                piñataController_access.applyHitChargeForce(hitForce);
             }
         }
         else //if the LMB is NOT being held down anymore
