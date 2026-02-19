@@ -73,10 +73,10 @@ public class PickupController : MonoBehaviour
         }
 
         //----Draw the tragectory line BeerPong scene only
-        if (currentScene.name == "beerPong")//only enable in beerPong scene
-        {
-            line.drawTragectory(transform.forward * throwForce, enableLine);
-        }
+        //if (currentScene.name == "beerPong")//only enable in beerPong scene
+        //{
+        //    line.drawTragectory(transform.forward * throwForce, enableLine);
+        //}
 
         //-----------------------------------
 

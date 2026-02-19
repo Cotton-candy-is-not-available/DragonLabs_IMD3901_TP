@@ -38,10 +38,10 @@ public class gameManager : MonoBehaviour
 
     private void Awake()
     {
-        P1 = GameObject.FindGameObjectWithTag("Player");//change to player 1 for netwroking
+        //P1 = GameObject.FindGameObjectWithTag("Player");//change to player 1 for netwroking
         //P2 = GameObject.FindGameObjectWithTag("Player2");
 
-        player1PointsCanvas.transform.parent = P1.transform;
+        //player1PointsCanvas.transform.parent = P1.transform;
         //player2PointsCanvas.transform.parent = P2.transform;
 
 

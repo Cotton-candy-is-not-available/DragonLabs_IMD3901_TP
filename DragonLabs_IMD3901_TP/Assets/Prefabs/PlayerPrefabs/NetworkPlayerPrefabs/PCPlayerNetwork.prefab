@@ -322,7 +322,7 @@ MonoBehaviour:
   holdArea: {fileID: 6868048652202225694}
   pickupRange: 5
   pickupForce: 150
-  throwForce: 500
+  throwForce: 10
   line: {fileID: 0}
   mass: 10
 --- !u!1 &5077842472569108115
