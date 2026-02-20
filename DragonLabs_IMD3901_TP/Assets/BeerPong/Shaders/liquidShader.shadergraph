@@ -2944,9 +2944,9 @@
     "m_ShaderOutputName": "Axis",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 1.0,
+        "x": 0.0,
         "y": 0.0,
-        "z": 0.0
+        "z": 1.0
     },
     "m_DefaultValue": {
         "x": 0.0,
@@ -2986,8 +2986,8 @@
     "m_ObjectId": "bc5cf38606ce4c2289aecb803a8fbe60",
     "m_Title": "Wobble functions  group",
     "m_Position": {
-        "x": -3261.999755859375,
-        "y": -923.333251953125
+        "x": -3262.000244140625,
+        "y": -923.3333740234375
     }
 }
 
@@ -3939,9 +3939,9 @@
     "m_ShaderOutputName": "Axis",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 0.0,
+        "x": 1.0,
         "y": 0.0,
-        "z": 1.0
+        "z": 0.0
     },
     "m_DefaultValue": {
         "x": 0.0,
