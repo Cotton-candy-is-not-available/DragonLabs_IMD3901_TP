@@ -1084,7 +1084,7 @@
     "m_ActiveSubTarget": {
         "m_Id": "530cb0091d5c40538c75093cb21c423c"
     },
-    "m_AllowMaterialOverride": false,
+    "m_AllowMaterialOverride": true,
     "m_SurfaceType": 0,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
@@ -2986,8 +2986,8 @@
     "m_ObjectId": "bc5cf38606ce4c2289aecb803a8fbe60",
     "m_Title": "Wobble functions  group",
     "m_Position": {
-        "x": -3262.000244140625,
-        "y": -923.3333740234375
+        "x": -3261.999755859375,
+        "y": -923.333251953125
     }
 }
 
