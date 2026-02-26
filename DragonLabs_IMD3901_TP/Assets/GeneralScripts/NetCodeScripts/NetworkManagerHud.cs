@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -21,6 +22,9 @@ public class NetworkManagerHud : MonoBehaviour
     public Vector2 DrawOffset = new Vector2(10, 10);
 
     public Color LabelColor = Color.black;
+
+    //Network Canvas
+    public Canvas IPAdressCanvas;
 
     void Awake()
     {
@@ -76,6 +80,8 @@ public class NetworkManagerHud : MonoBehaviour
         if (GUILayout.Button("Host (Server + Client)"))
         {
             m_NetworkManager.StartHost();
+            IPAdressCanvas.enabled = false;//hide the canvas
+
         }
 
         GUILayout.BeginHorizontal();
@@ -83,11 +89,14 @@ public class NetworkManagerHud : MonoBehaviour
         if (GUILayout.Button("Server"))
         {
             m_NetworkManager.StartServer();
+            IPAdressCanvas.enabled = false;//hide the canvas
+
         }
 
         if (GUILayout.Button("Client"))
         {
             m_NetworkManager.StartClient();
+            IPAdressCanvas.enabled = false;//hide the canvas
         }
 
         GUILayout.EndHorizontal();
