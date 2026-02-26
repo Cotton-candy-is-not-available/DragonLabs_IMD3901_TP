@@ -3807,7 +3807,7 @@ GameObject:
   - component: {fileID: 1730345330}
   - component: {fileID: 1730345331}
   m_Layer: 0
-  m_Name: TestingNetworkManager
+  m_Name: IPAdressNetworkManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
