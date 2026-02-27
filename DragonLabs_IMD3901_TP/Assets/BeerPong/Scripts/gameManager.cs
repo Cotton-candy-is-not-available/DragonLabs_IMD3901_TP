@@ -35,18 +35,6 @@ public class gameManager : MonoBehaviour
 
     int turn;
 
-
-    private void Awake()
-    {
-        //P1 = GameObject.FindGameObjectWithTag("Player");//change to player 1 for netwroking
-        //P2 = GameObject.FindGameObjectWithTag("Player2");
-
-        //player1PointsCanvas.transform.parent = P1.transform;
-        //player2PointsCanvas.transform.parent = P2.transform;
-
-
-    }
-
     void Start()
     {
      turn = 1;
@@ -78,9 +66,9 @@ public class gameManager : MonoBehaviour
 
         if (newBall != null)//if tha ball exists start checking if points are to be added
         {
-            ballHitCups ballHit = newBall.GetComponent<ballHitCups>();//get the ball collision chekc script
+            ballHitCups ballHit = newBall.GetComponent<ballHitCups>();//get the ball collision check script
 
-            if (ballHit.P1Point == true)
+            if (ballHit.P1Point)
             {
                 player1Points+=1;//increase points for player 1
                 P1YouPointsText.text = ("You: "+ player1Points);//update text player 1's side
@@ -92,7 +80,7 @@ public class gameManager : MonoBehaviour
 
             }
 
-            if (ballHit.P2Point == true)
+            if (ballHit.P2Point)
             {
                 player2Points+=1;//increase points for player 2
                 P1OppPointsText.text = ("Them: "+ player2Points);//update text on player 1's side
@@ -100,6 +88,12 @@ public class gameManager : MonoBehaviour
 
                 Debug.Log("player2Points: "+ player2Points);
                 ballHit.P2Point = false;
+                Destroy(newBall);//destroy the ball
+            }
+
+            if (ballHit.nonCup)//destroy ball if it hits anything else for long enough
+            {
+                //might need to check when thrown?
                 Destroy(newBall);//destroy the ball
             }
         }

@@ -8,6 +8,7 @@ TagManager:
   - cup
   - cup2
   - Player2
+  - beer
   layers:
   - Default
   - TransparentFX

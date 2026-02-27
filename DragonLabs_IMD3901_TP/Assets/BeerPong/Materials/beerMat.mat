@@ -72,7 +72,7 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
-    - _fillLevel: 0.65
+    - _fillLevel: 0.729
     - _wobbleX: -1.68
     - _wobbleZ: 0.16
     m_Colors:
