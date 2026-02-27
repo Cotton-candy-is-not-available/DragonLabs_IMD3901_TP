@@ -80,7 +80,7 @@ public class NetworkManagerHud : MonoBehaviour
         if (GUILayout.Button("Host (Server + Client)"))
         {
             m_NetworkManager.StartHost();
-            IPAdressCanvas.enabled = false;//hide the canvas
+            //IPAdressCanvas.enabled = false;//hide the canvas
 
         }
 
@@ -89,14 +89,14 @@ public class NetworkManagerHud : MonoBehaviour
         if (GUILayout.Button("Server"))
         {
             m_NetworkManager.StartServer();
-            IPAdressCanvas.enabled = false;//hide the canvas
+            //IPAdressCanvas.enabled = false;//hide the canvas
 
         }
 
         if (GUILayout.Button("Client"))
         {
             m_NetworkManager.StartClient();
-            IPAdressCanvas.enabled = false;//hide the canvas
+            //IPAdressCanvas.enabled = false;//hide the canvas
         }
 
         GUILayout.EndHorizontal();
