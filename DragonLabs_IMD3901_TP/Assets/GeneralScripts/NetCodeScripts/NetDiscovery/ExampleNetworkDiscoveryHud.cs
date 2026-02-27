@@ -4,6 +4,8 @@ using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using System.Collections;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -23,10 +25,13 @@ public class ExampleNetworkDiscoveryHud : MonoBehaviour
 
     public Vector2 DrawOffset = new Vector2(10, 210);
 
+    UnityTransport m_Transport;
+
+
     void Awake()
     {
         m_Discovery = GetComponent<ExampleNetworkDiscovery>();
-        m_NetworkManager = GetComponent<NetworkManager>();
+        //m_NetworkManager = GetComponent<NetworkManager>();
     }
 
 #if UNITY_EDITOR
@@ -50,9 +55,9 @@ public class ExampleNetworkDiscoveryHud : MonoBehaviour
     {
         GUILayout.BeginArea(new Rect(DrawOffset, new Vector2(200, 600)));
 
-        if (m_NetworkManager.IsServer || m_NetworkManager.IsClient)
+        if (NetworkManager.Singleton.IsServer || NetworkManager.Singleton.IsClient)
         {
-            if (m_NetworkManager.IsServer)
+            if (NetworkManager.Singleton.IsServer)
             {
                 ServerControlsGUI();
             }
@@ -85,11 +90,12 @@ public class ExampleNetworkDiscoveryHud : MonoBehaviour
             
             foreach (var discoveredServer in discoveredServers)
             {
-                if (GUILayout.Button($"{discoveredServer.Value.ServerName}[{discoveredServer.Key.ToString()}]"))
+                if (GUILayout.Button($"{discoveredServer.Value.ServerName}[{discoveredServer.Key.ToString()}]"))//discovered server value
                 {
-                    UnityTransport transport = (UnityTransport)m_NetworkManager.NetworkConfig.NetworkTransport;
-                    transport.SetConnectionData(discoveredServer.Key.ToString(), discoveredServer.Value.Port);
-                    m_NetworkManager.StartClient();
+                    UnityTransport transport = (UnityTransport)NetworkManager.Singleton.NetworkConfig.NetworkTransport;
+                    //transport.SetConnectionData(discoveredServer.Key.ToString(), discoveredServer.Value.Port);
+                    transport.SetConnectionData(discoveredServer.Key.ToString(), discoveredServer.Value.Port, "0.0.0.0");
+                    NetworkManager.Singleton.StartClient();
                 }
             }
         }
@@ -120,4 +126,12 @@ public class ExampleNetworkDiscoveryHud : MonoBehaviour
             }
         }
     }
+
+
+
+
+    //void ConnectToServer()
+    //{
+    //    HostData[] hostDatas = MasterSe
+    //}
 }
