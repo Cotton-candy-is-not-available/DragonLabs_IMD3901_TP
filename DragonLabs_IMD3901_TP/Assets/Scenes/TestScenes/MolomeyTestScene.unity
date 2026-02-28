@@ -236,6 +236,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: debugVRPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 8842678829648397640, guid: 33594771e3f40404eacc9876f2b17b8d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
