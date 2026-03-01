@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6795048928699815896}
   - component: {fileID: 5433857536334856552}
   - component: {fileID: 1405161824889474254}
-  - component: {fileID: 749537235149274389}
   - component: {fileID: 3005463624241160809}
+  - component: {fileID: 749537235149274389}
   - component: {fileID: 1770299751576182079}
+  - component: {fileID: 263911174542311592}
   m_Layer: 0
   m_Name: PCPlayerNetwork
   m_TagString: Player
@@ -88,24 +89,6 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &749537235149274389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123514706950494819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c8ad5a58b9a9ab438b51a74a2366d30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  speed: 5
-  mouseSensitivity: 8
-  charController: {fileID: 5433857536334856552}
-  camTransform: {fileID: 7336117257499632179}
-  PcCamera: {fileID: 7268449350634651738}
 --- !u!114 &3005463624241160809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +135,7 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &1770299751576182079
+--- !u!114 &749537235149274389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,6 +144,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 123514706950494819}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c8ad5a58b9a9ab438b51a74a2366d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  speed: 5
+  mouseSensitivity: 8
+  charController: {fileID: 5433857536334856552}
+  camTransform: {fileID: 7336117257499632179}
+  PcCamera: {fileID: 7268449350634651738}
+--- !u!114 &1770299751576182079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123514706950494819}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2a02a314fa6ef943868c4e32d9217e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -168,6 +169,23 @@ MonoBehaviour:
   playerCamera: {fileID: 7268449350634651738}
   crosshair_access: {fileID: 469601055121027260}
   pickupController_access: {fileID: 1664022502828155037}
+--- !u!114 &263911174542311592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123514706950494819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc554f887bf8cb47b7414f667df62c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  interactRange: 5
+  playerCamera: {fileID: 7268449350634651738}
+  crosshair_access: {fileID: 469601055121027260}
+  pickupControllerNet_access: {fileID: 1664022502828155037}
 --- !u!1 &1567635332458221024
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +199,7 @@ GameObject:
   - component: {fileID: 3590296052468467279}
   - component: {fileID: 574466159439174381}
   - component: {fileID: 1664022502828155037}
+  - component: {fileID: 999235149978464683}
   m_Layer: 0
   m_Name: cameraPC
   m_TagString: Untagged
@@ -314,7 +333,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567635332458221024}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 912fd566f98522c4097c9ea991cbf85f, type: 3}
   m_Name: 
@@ -325,6 +344,22 @@ MonoBehaviour:
   throwForce: 10
   line: {fileID: 0}
   mass: 10
+--- !u!114 &999235149978464683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567635332458221024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd033519b3041324b9ae3dbd05aad95a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  holdArea: {fileID: 6868048652202225694}
+  pickupRange: 5
+  pickupForce: 150
 --- !u!1 &5077842472569108115
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d595c35e33ee347859816ad08f7164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   crosshairIMG: {fileID: 1128380002992802821}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   interactColor: {r: 0, g: 0, b: 1, a: 1}
