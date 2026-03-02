@@ -14,14 +14,12 @@ public class DebugPlayerController : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-
     void Update()
     {
-        //-1 in the negative direction along x or y, +1 in the positive direction
         Vector2 moveInput = Keyboard.current != null ? new Vector2
             (
                 (Keyboard.current.aKey.isPressed ? -1 : 0) + (Keyboard.current.dKey.isPressed ? 1 : 0),
@@ -29,19 +27,16 @@ public class DebugPlayerController : MonoBehaviour
             ) : Vector2.zero;
 
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        charController.Move(move * speed * Time.deltaTime); //apply the movement to the player
+        charController.Move(move * speed * Time.deltaTime);
 
-        Vector2 mouseDelta = Mouse.current.delta.ReadValue(); //read the values from the mouse
+        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
         float mouseX = mouseDelta.x * mouseSensitivity * Time.deltaTime;
         float mouseY = mouseDelta.y * mouseSensitivity * Time.deltaTime;
 
-        //when we move our mouse up or down, we want the player to look up, not for the camera to flip
-        //create a restriction and clamp the value
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -30f, 80f);
 
-        //euler inputs a number in degrees
         camTransform.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX); //apply it to the camera
+        transform.Rotate(Vector3.up * mouseX);
     }
 }
