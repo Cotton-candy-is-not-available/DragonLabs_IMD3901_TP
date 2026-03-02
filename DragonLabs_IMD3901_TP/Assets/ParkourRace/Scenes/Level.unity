@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &64345177
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 123514706950494819, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_Name
+      value: PCPlayerLocal
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.3025393
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 428.8086
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.8465471
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
 --- !u!1 &87499093
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,9 +846,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactRange: 2
-  playerCam: {fileID: 0}
+  playerCam: {fileID: 1345268256}
   range: 0.5
-  timerText: {fileID: 0}
+  timerText: {fileID: 318152604}
 --- !u!1 &337516147
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,6 +2293,11 @@ Transform:
   - {fileID: 1102072236}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1345268256 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7268449350634651738, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
+  m_PrefabInstance: {fileID: 64345177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1389093559
 GameObject:
   m_ObjectHideFlags: 0
@@ -3302,6 +3364,7 @@ GameObject:
   - component: {fileID: 2008598942}
   - component: {fileID: 2008598941}
   - component: {fileID: 2008598940}
+  - component: {fileID: 2008598943}
   m_Layer: 0
   m_Name: ParkourPlatform_Moving01
   m_TagString: Untagged
@@ -3398,6 +3461,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008598938}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2008598943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008598938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e856c61a66657724c8d2bc3aa9d6b13e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disappearTime: 3
+  visableTime: 6
 --- !u!1 &2042974825
 GameObject:
   m_ObjectHideFlags: 0
@@ -3844,3 +3921,4 @@ SceneRoots:
   - {fileID: 1734857994}
   - {fileID: 468665345}
   - {fileID: 318152606}
+  - {fileID: 64345177}
