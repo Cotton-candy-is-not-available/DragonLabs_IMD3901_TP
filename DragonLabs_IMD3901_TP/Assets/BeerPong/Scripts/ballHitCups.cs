@@ -11,7 +11,7 @@ public class ballHitCups : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //change cup and cup 2 tag to P1Cup and P2Cup
-        if (collision.gameObject.tag == "cup")//if the ball hits a cup
+        if (collision.gameObject.tag == "cup")//if the ball hits a cup //change to layer p1Cup
         {
             P2Point = true;//tell game manager to give a point to player 2
 
