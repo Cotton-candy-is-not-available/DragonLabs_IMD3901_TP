@@ -62,7 +62,7 @@ public class startGame : MonoBehaviour
     //If user chooses the multiplayer option
     public void multiPlayerOptionButton()
     {
-        gameModeOptionPanel.SetActive(false);//hides choose game mode panel on click
+        //gameModeOptionPanel.SetActive(false);//hides choose game mode panel on click
         multiPlayerMode = true;//player chose to play with unity networking
         gameObject.SetActive(false);//hides canvas
 
@@ -105,22 +105,26 @@ public class startGame : MonoBehaviour
     {
         IPAdressText.SetActive(true);//shows ip address to connect to
         NetworkManager.Singleton.StartServer();//start server
+        networkConnectPanel.SetActive(false);//hide net connect panel
+
     }
 
     public void startHost()
     {
         IPAdressText.SetActive(true);//shows ip address to connect to
         NetworkManager.Singleton.StartHost();//start host
+        networkConnectPanel.SetActive(false );//hide net connect panel
     }
 
     public void startClient()
     {
         IPAdressText.SetActive(false);//hides ip address if not already
-        NetworkManager.Singleton.StartHost();
-        //input field fucntion for ipAddress is in NetworkmangerHud
+        NetworkManager.Singleton.StartClient();//join game as client
+        networkConnectPanel.SetActive(false);//hide net connect panel
+
     }
 
-   
+
 
 
 }
