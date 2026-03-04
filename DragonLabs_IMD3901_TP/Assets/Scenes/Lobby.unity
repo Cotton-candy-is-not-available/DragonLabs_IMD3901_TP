@@ -3010,10 +3010,10 @@ MonoBehaviour:
   startPanel: {fileID: 1478273286}
   plateformOptionPanel: {fileID: 699289188}
   gameModeOptionPanel: {fileID: 263262639}
-  networkConnectPanel: {fileID: 0}
+  networkConnectPanel: {fileID: 1520698315}
   PCNetworkManager: {fileID: 1791889088}
   VRNetworkManager: {fileID: 1794644204}
-  IPAdressText: {fileID: 1520698315}
+  IPAdressText: {fileID: 1217244120}
 --- !u!1 &814641303
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,6 +3274,7 @@ GameObject:
   - component: {fileID: 1084386799}
   - component: {fileID: 1084386798}
   - component: {fileID: 1084386797}
+  - component: {fileID: 1084386800}
   m_Layer: 5
   m_Name: IPAdressInputField
   m_TagString: Untagged
@@ -3362,7 +3363,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1084386800}
+        m_TargetAssemblyTypeName: IPAddressInputField, Assembly-CSharp
+        m_MethodName: GetIPAddressInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -3440,6 +3453,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084386795}
   m_CullTransparentMesh: 1
+--- !u!114 &1084386800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084386795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4189a4e01883ea440800e1d9c23702f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputText: 
+  VRBool: {fileID: 805995575}
+  PCBool: {fileID: 805995575}
+  PCNetManagerHud: {fileID: 1791889089}
+  VRNetManagerHud: {fileID: 1794644205}
 --- !u!1 &1090214164
 GameObject:
   m_ObjectHideFlags: 0
@@ -5495,6 +5525,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91effbe9bad8d9340a6417331fc5bf4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PortString: 7777
+  m_ConnectAddress: 127.0.0.1
   DrawOffset: {x: 10, y: 10}
   LabelColor: {r: 0, g: 0, b: 0, a: 1}
   IPAdressCanvas: {fileID: 1217244123}
@@ -5629,6 +5661,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91effbe9bad8d9340a6417331fc5bf4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PortString: 7777
+  m_ConnectAddress: 127.0.0.1
   DrawOffset: {x: 10, y: 10}
   LabelColor: {r: 0, g: 0, b: 0, a: 1}
   IPAdressCanvas: {fileID: 1217244123}

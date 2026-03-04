@@ -28,7 +28,7 @@ public class startGame : MonoBehaviour
     private void Start()
     {
         //turn on start game panel by default
-        startPanel.SetActive(true);//show start panel 
+        //startPanel.SetActive(true);//show start panel 
 
     }
 
@@ -117,10 +117,10 @@ public class startGame : MonoBehaviour
     {
         IPAdressText.SetActive(false);//hides ip address if not already
         NetworkManager.Singleton.StartHost();
+        //input field fucntion for ipAddress is in NetworkmangerHud
     }
 
-
-
+   
 
 
 }
