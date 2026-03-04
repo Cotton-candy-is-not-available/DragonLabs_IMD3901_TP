@@ -77,29 +77,29 @@ public class NetworkManagerHud : MonoBehaviour
 
         GUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Host (Server + Client)"))
-        {
-            m_NetworkManager.StartHost();
-            IPAdressCanvas.enabled = false;//hide the canvas
+        //if (GUILayout.Button("Host (Server + Client)"))
+        //{
+        //    m_NetworkManager.StartHost();
+        //    IPAdressCanvas.enabled = false;//hide the canvas
 
-        }
+        //}
 
-        GUILayout.BeginHorizontal();
+        //GUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("Server"))
-        {
-            m_NetworkManager.StartServer();
-            IPAdressCanvas.enabled = false;//hide the canvas
+        //if (GUILayout.Button("Server"))
+        //{
+        //    m_NetworkManager.StartServer();
+        //    IPAdressCanvas.enabled = false;//hide the canvas
 
-        }
+        //}
 
-        if (GUILayout.Button("Client"))
-        {
-            m_NetworkManager.StartClient();
-            IPAdressCanvas.enabled = false;//hide the canvas
-        }
+        //if (GUILayout.Button("Client"))
+        //{
+        //    m_NetworkManager.StartClient();
+        //    IPAdressCanvas.enabled = false;//hide the canvas
+        //}
 
-        GUILayout.EndHorizontal();
+        //GUILayout.EndHorizontal();
     }
 
     void DrawStatusGUI()
