@@ -25,10 +25,19 @@ public class startGame : MonoBehaviour
     public GameObject IPAdressText;
 
 
+
+    //local single players
+    public GameObject localPCPlayer;
+    public GameObject localVRPlayer;
+
+
     private void Start()
     {
         //turn on start game panel by default
         //startPanel.SetActive(true);//show start panel 
+
+        localPCPlayer.SetActive(false);//turn local PC off by default
+        localVRPlayer.SetActive(false);//turn local VR off by default
 
     }
 
@@ -62,9 +71,8 @@ public class startGame : MonoBehaviour
     //If user chooses the multiplayer option
     public void multiPlayerOptionButton()
     {
-        //gameModeOptionPanel.SetActive(false);//hides choose game mode panel on click
+        gameModeOptionPanel.SetActive(false);//hides choose game mode panel on click
         multiPlayerMode = true;//player chose to play with unity networking
-        gameObject.SetActive(false);//hides canvas
 
         networkConnectPanel.SetActive(true);//show network option(host, client, server)
 
@@ -88,10 +96,17 @@ public class startGame : MonoBehaviour
 
         gameObject.SetActive(false);//hides canvas
 
-        //turn on local player prefabs and disable ability to go to beer pong
+        if (PCMode)//if pc button was clicked earlier
+        {
+            localPCPlayer.SetActive(true);//activate local PC 
 
-        //if vr
-        //turn on XR manager
+        }
+        else if (VRMode)//if VR button was clicked earlier
+        {
+            localVRPlayer.SetActive(true);//activate local VR 
+
+        }
+       //disactivate ability to go to beer pong
     }
 
 
