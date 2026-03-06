@@ -21,11 +21,8 @@ EditorBuildSettings:
     path: Assets/Scenes/FinalMiniGameScenes/beerPong.unity
     guid: ac56b4eeb7b0ef948b6cebf488a61be6
   - enabled: 1
-    path: Assets/Widgets/Scenes/WidgetsQuickstart.unity
-    guid: ab4193cc2415350418cd37b4a39382df
-  - enabled: 1
-    path: Assets/Scenes/NGO_Setup.unity
-    guid: 920ea3455b43ea34bb03a91ba5f3ddee
+    path: Assets/Scenes/Lobby.unity
+    guid: 1d553a812fbbeaa40974bcae0a08aecc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 38f8db4526e8186408a761921c8a1eb9, type: 2}
