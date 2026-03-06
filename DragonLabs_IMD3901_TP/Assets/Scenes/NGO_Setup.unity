@@ -6861,6 +6861,7 @@ GameObject:
   - component: {fileID: 2139139683}
   - component: {fileID: 2139139685}
   - component: {fileID: 2139139684}
+  - component: {fileID: 2139139686}
   m_Layer: 5
   m_Name: Join Session By Code
   m_TagString: Untagged
@@ -6910,7 +6911,19 @@ MonoBehaviour:
       m_Calls: []
   FailedToJoinSession:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2139139686}
+        m_TargetAssemblyTypeName: onSessionJoin, Assembly-CSharp
+        m_MethodName: ifCannotJoin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_EnterSessionButton: {fileID: 0}
 --- !u!114 &2139139685
 MonoBehaviour:
@@ -6938,6 +6951,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2139139686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139139682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66fa590ca18b6640986ee85d38c443d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &513554622998681634
 CanvasRenderer:
   m_ObjectHideFlags: 0
