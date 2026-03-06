@@ -139,6 +139,11 @@ public class startGame : MonoBehaviour
 
     }
 
+    public void hideOnJoin()//for online button
+    {
+        networkConnectPanel.SetActive(false);//hide net connect panel
+    }
+
 
 
 
