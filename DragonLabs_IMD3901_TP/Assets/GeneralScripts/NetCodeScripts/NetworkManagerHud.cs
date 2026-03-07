@@ -16,8 +16,8 @@ public class NetworkManagerHud : MonoBehaviour
     GUIStyle m_LabelTextStyle;
 
     // This is needed to make the port field more convenient. GUILayout.TextField is very limited and we want to be able to clear the field entirely so we can't cache this as ushort.
-    string m_PortString = "7777";
-    string m_ConnectAddress = "127.0.0.1";
+    public string m_PortString = "7777";
+    public string m_ConnectAddress = "127.0.0.1";
 
     public Vector2 DrawOffset = new Vector2(10, 10);
 
@@ -25,6 +25,8 @@ public class NetworkManagerHud : MonoBehaviour
 
     //Network Canvas
     public Canvas IPAdressCanvas;
+
+
 
     void Awake()
     {
@@ -53,6 +55,8 @@ public class NetworkManagerHud : MonoBehaviour
         GUILayout.EndArea();
     }
 
+
+
     void DrawConnectGUI()
     {
         GUILayout.BeginHorizontal();
@@ -64,8 +68,8 @@ public class NetworkManagerHud : MonoBehaviour
 
         GUILayout.BeginHorizontal();
 
-        m_ConnectAddress = GUILayout.TextField(m_ConnectAddress);
-        m_PortString = GUILayout.TextField(m_PortString);
+        m_ConnectAddress = GUILayout.TextField(m_ConnectAddress);//IP address GUI text field
+        m_PortString = GUILayout.TextField(m_PortString);//port GUI text field
         if (ushort.TryParse(m_PortString, out ushort port))
         {
             m_Transport.SetConnectionData(m_ConnectAddress, port);
@@ -77,29 +81,30 @@ public class NetworkManagerHud : MonoBehaviour
 
         GUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Host (Server + Client)"))
-        {
-            m_NetworkManager.StartHost();
-            IPAdressCanvas.enabled = false;//hide the canvas
 
-        }
+        //if (GUILayout.Button("Host (Server + Client)"))
+        //{
+        //    m_NetworkManager.StartHost();
+        //    IPAdressCanvas.enabled = false;//hide the canvas
 
-        GUILayout.BeginHorizontal();
+        //}
 
-        if (GUILayout.Button("Server"))
-        {
-            m_NetworkManager.StartServer();
-            IPAdressCanvas.enabled = false;//hide the canvas
+        //GUILayout.BeginHorizontal();
 
-        }
+        //if (GUILayout.Button("Server"))
+        //{
+        //    m_NetworkManager.StartServer();
+        //    IPAdressCanvas.enabled = false;//hide the canvas
 
-        if (GUILayout.Button("Client"))
-        {
-            m_NetworkManager.StartClient();
-            IPAdressCanvas.enabled = false;//hide the canvas
-        }
+        //}
 
-        GUILayout.EndHorizontal();
+        //if (GUILayout.Button("Client"))
+        //{
+        //    m_NetworkManager.StartClient();
+        //    IPAdressCanvas.enabled = false;//hide the canvas
+        //}
+
+        //GUILayout.EndHorizontal();
     }
 
     void DrawStatusGUI()
