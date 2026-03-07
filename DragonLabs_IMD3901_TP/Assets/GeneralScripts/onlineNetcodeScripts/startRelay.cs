@@ -28,6 +28,8 @@ public class startRelay : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI joinCodeDisplay;
 
+    [SerializeField] int maxPlayerNum = 2;
+
     private void Awake()
     {
         hostButton.onClick.AddListener(() =>
@@ -57,7 +59,7 @@ public class startRelay : MonoBehaviour
     {
         try
         {
-            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(2);//number of people who can join
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayerNum);//number of people who can join
 
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);//get join code
 
