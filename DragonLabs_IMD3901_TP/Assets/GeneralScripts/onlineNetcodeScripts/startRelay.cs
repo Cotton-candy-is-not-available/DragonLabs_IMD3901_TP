@@ -14,7 +14,8 @@ public class startRelay : MonoBehaviour
 {
     //On the network manager the unity transport objecs Protocol type dropt down
     //should be changed to relay unity transport instead of unity transport
-    //and websocket bool option should be checked meaning = True
+    //and websocket bool option should be checked meaning = True (is done so in code or in inspector)
+    //we are using web socket instead of dtls because some firewalls block dtls
 
     //This script can be on an empty game object
     //is currently on a canvas
@@ -64,18 +65,22 @@ public class startRelay : MonoBehaviour
 
             joinCodeDisplay.text = joinCode; //display join code on the screen
             
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(AllocationUtils.ToRelayServerData(allocation, "wss"));//web socket connection type
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(AllocationUtils.ToRelayServerData(allocation, "wss"));//change unity trapsnport protocol to use relay
+            NetworkManager.Singleton.GetComponent<UnityTransport>().UseWebSockets = true;//set websocket checkmark to true
 
             NetworkManager.Singleton.StartHost();
             joinPanel.SetActive(false);//hide the join panel
+            //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
+
 
         }
         catch (RelayServiceException err)
         {
-            Debug.Log(err);
+            Debug.Log("Start host error: " + err);
         }
     }
 
+    //same as client button
     private async void JoinRelay(string joinCode)
     {
         try
@@ -83,14 +88,18 @@ public class startRelay : MonoBehaviour
             Debug.Log("Joining relay with: " + joinCode);
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(AllocationUtils.ToRelayServerData(joinAllocation, "wss"));
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(AllocationUtils.ToRelayServerData(joinAllocation, "wss"));//change unity trapsnport protocol to use relay
+            NetworkManager.Singleton.GetComponent<UnityTransport>().UseWebSockets = true;//set websocket checkmark to true
 
             NetworkManager.Singleton.StartClient();
             joinPanel.SetActive(false);//hide the join panel
+            //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
+
         }
         catch (RelayServiceException err)
         {
-            Debug.Log(err);
+            Debug.Log("Join error: " + err);
+            throw;
         }
     }
 

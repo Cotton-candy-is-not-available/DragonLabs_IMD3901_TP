@@ -4691,7 +4691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 123514706950494819, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5002,6 +5002,8 @@ GameObject:
   - component: {fileID: 1007918417}
   - component: {fileID: 1007918416}
   - component: {fileID: 1007918415}
+  - component: {fileID: 1007918419}
+  - component: {fileID: 1007918418}
   m_Layer: 0
   m_Name: onlineNetManager
   m_TagString: Untagged
@@ -5021,8 +5023,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6960e84d07fb87f47956e7a81d71c4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ProtocolType: 1
-  m_UseWebSockets: 1
+  m_ProtocolType: 0
+  m_UseWebSockets: 0
   m_UseEncryption: 0
   m_MaxPacketQueueSize: 128
   m_MaxPayloadSize: 6144
@@ -5095,6 +5097,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1007918418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007918414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91effbe9bad8d9340a6417331fc5bf4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PortString: 7777
+  m_ConnectAddress: 127.0.0.1
+  DrawOffset: {x: 10, y: 10}
+  LabelColor: {r: 0, g: 0, b: 0, a: 1}
+  IPAdressCanvas: {fileID: 1217244123}
+--- !u!114 &1007918419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007918414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d07b7fb9f3072064db7a619a36c58bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IPAdressText: {fileID: 56504050}
 --- !u!1 &1028178228
 GameObject:
   m_ObjectHideFlags: 0
@@ -5545,7 +5577,7 @@ MonoBehaviour:
   inputText: 
   VRBool: {fileID: 805995575}
   PCBool: {fileID: 805995575}
-  PCNetManagerHud: {fileID: 1791889089}
+  PCNetManagerHud: {fileID: 0}
   VRNetManagerHud: {fileID: 1794644205}
 --- !u!1 &1085787229
 GameObject:
@@ -7609,7 +7641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7825,7 +7857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8147,7 +8179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1753465004
 Transform:
   m_ObjectHideFlags: 0
@@ -8329,7 +8361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8842678829648397640, guid: 33594771e3f40404eacc9876f2b17b8d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8353,7 +8385,7 @@ GameObject:
   - component: {fileID: 1791889092}
   - component: {fileID: 1791889091}
   - component: {fileID: 1791889090}
-  - component: {fileID: 1791889089}
+  - component: {fileID: 1791889094}
   m_Layer: 0
   m_Name: PCNetworkManager
   m_TagString: Untagged
@@ -8361,23 +8393,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1791889089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1791889088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91effbe9bad8d9340a6417331fc5bf4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PortString: 7777
-  m_ConnectAddress: 127.0.0.1
-  DrawOffset: {x: 10, y: 10}
-  LabelColor: {r: 0, g: 0, b: 0, a: 1}
-  IPAdressCanvas: {fileID: 1217244123}
 --- !u!114 &1791889090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8477,6 +8492,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1791889094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791889088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91effbe9bad8d9340a6417331fc5bf4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PortString: 7777
+  m_ConnectAddress: 127.0.0.1
+  DrawOffset: {x: 10, y: 10}
+  LabelColor: {r: 0, g: 0, b: 0, a: 1}
+  IPAdressCanvas: {fileID: 1217244123}
 --- !u!1 &1794644204
 GameObject:
   m_ObjectHideFlags: 0
@@ -9603,7 +9635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9876,7 +9908,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter text...
+  m_text: Enter join code...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
