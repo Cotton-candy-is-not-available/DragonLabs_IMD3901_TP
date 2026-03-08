@@ -9,6 +9,7 @@ public class PiñataController : MonoBehaviour
 
     public ScoresManager scoresManager_access;
     public ParticleSystem confettiPopParticles;
+    public GameObject candy;
     
     public bool isGameOver = false;
     bool shouldApplyForce = false;
@@ -29,6 +30,7 @@ public class PiñataController : MonoBehaviour
             Debug.Log("GAME OVER!");
             isGameOver = true;
             confettiPopParticles.Play();
+            candy.SetActive(true);
         }
     }
     private void OnCollisionEnter(Collision collision)
