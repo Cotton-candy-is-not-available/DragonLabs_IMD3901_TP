@@ -18,10 +18,20 @@ public class activatePouring : NetworkBehaviour
 
     public Transform holdArea;
 
+    [SerializeField] float rotationProgress;
+    [SerializeField] Quaternion PCStartRotation;
+    [SerializeField] Quaternion PCEndRotation;
+
     private void Start()
     {
         // Get current scene name
         currentScene = SceneManager.GetActiveScene();
+
+        PCStartRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//default rotation
+
+        PCEndRotation = Quaternion.Euler(90.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+
+
     }
     // Update is called once per frame
     void Update()
@@ -38,9 +48,11 @@ public class activatePouring : NetworkBehaviour
                 if (Keyboard.current.pKey.isPressed) //if p is pressed to drink
                 {
                     Debug.Log("p key was pressed net pouring");
-                    //pouring = PickupControllerNet.heldObj.GetComponent<pourDetector>();//get the cups pour detector script
-                    holdArea.rotation = Quaternion.Euler(90f, 0f, 0f);
-        //transform.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress);//rotates watering can smoothly
+                //pouring = PickupControllerNet.heldObj.GetComponent<pourDetector>();//get the cups pour detector script
+                //holdArea.rotation = Quaternion.Euler(90f, 0f, 0f);
+                rotationProgress += Time.deltaTime * 5;//slowly rotate
+
+                holdArea.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress);//rotates watering can smoothly
 
                 //pouring.startPouringServerRpc();
                 //pouring.startPouringServerRpc(PickupControllerNet.heldObj.GetComponent<NetworkObject>().NetworkObjectId);
