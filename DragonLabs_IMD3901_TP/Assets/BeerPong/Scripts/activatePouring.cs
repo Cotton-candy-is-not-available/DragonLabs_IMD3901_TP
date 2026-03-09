@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Netcode;
 using UnityEditor.VersionControl;
 using UnityEngine;
@@ -51,20 +52,41 @@ public class activatePouring : NetworkBehaviour
                 //pouring = PickupControllerNet.heldObj.GetComponent<pourDetector>();//get the cups pour detector script
                 //holdArea.rotation = Quaternion.Euler(90f, 0f, 0f);
                 rotationProgress += Time.deltaTime * 5;//slowly rotate
-
                 holdArea.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress);//rotates watering can smoothly
+                pouring.lowerFillLevel();//lower the liquid inside the cup
 
+                StartCoroutine(destroyCup(PickupControllerNet.heldObj));//destoy the cup
+
+                //Destroy(PickupControllerNet.heldObj);
                 //pouring.startPouringServerRpc();
                 //pouring.startPouringServerRpc(PickupControllerNet.heldObj.GetComponent<NetworkObject>().NetworkObjectId);
             }
             else
                 {
                     pouring = PickupControllerNet.heldObj.GetComponent<pourDetector>();//get the cups pour detector script
-                    pouring.StopPouring();//stop pouring
+                    //pouring.StopPouring();//stop pouring
                     Debug.Log("else STOP");
 
                 }
         }
         //}
     }
+
+
+
+
+    IEnumerator destroyCup(GameObject heldObj)
+    {
+        //play poof soundFX
+        //show poof effect(particles?)
+        yield return new WaitForSeconds(3); //waits 3 seconds
+        Destroy(heldObj); //destroy the cup
+    }
+
+
+
+
+
+
+
 }

@@ -154,6 +154,17 @@ MonoBehaviour:
   charController: {fileID: 5433857536334856552}
   camTransform: {fileID: 7336117257499632179}
   PcCamera: {fileID: 7268449350634651738}
+  currentScene: 
+  lobbyP1SpawnPoint: {fileID: 0}
+  lobbyP2SpawnPoint: {fileID: 0}
+  beerPongP1SpawnPoint: {fileID: 4469876989175805423, guid: e2eae4e53b388384f862309365ec501d, type: 3}
+  beerPongP2SpawnPoint: {fileID: 4469876989175805423, guid: e2eae4e53b388384f862309365ec501d, type: 3}
+  "pi\xF1ataPopP1SpawnPoint": {fileID: 0}
+  "pi\xF1ataPopSpawnPoint": {fileID: 0}
+  parkourRaceP1SpawnPoint: {fileID: 0}
+  parkourRaceP2SpawnPoint: {fileID: 0}
+  tickTacToeP1SpawnPoint: {fileID: 0}
+  tickTacToeP2SpawnPoint: {fileID: 0}
 --- !u!114 &1770299751576182079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +214,9 @@ MonoBehaviour:
   PickupControllerNet: {fileID: 999235149978464683}
   held: {fileID: 0}
   holdArea: {fileID: 6868048652202225694}
+  rotationProgress: 0
+  PCStartRotation: {x: 0, y: 0, z: 0, w: 0}
+  PCEndRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1567635332458221024
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +452,7 @@ Transform:
   m_GameObject: {fileID: 7423730496658982159}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.088828, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.8707, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
