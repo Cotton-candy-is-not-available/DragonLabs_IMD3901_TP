@@ -24,9 +24,9 @@ public class startRelay : MonoBehaviour
     [SerializeField] private Button joinButton;
     [SerializeField] private TMP_InputField codeJoin;
 
-    public GameObject joinPanel;
+    public GameObject joinCanvas;
 
-    [SerializeField] TextMeshProUGUI joinCodeDisplay;
+    [SerializeField] GameObject joinCodeDisplay;
 
     [SerializeField] int maxPlayerNum = 2;
 
@@ -65,13 +65,14 @@ public class startRelay : MonoBehaviour
 
             Debug.Log(joinCode);
 
-            joinCodeDisplay.text = joinCode; //display join code on the screen
+            joinCodeDisplay.SetActive(true);
+            joinCodeDisplay.GetComponent<TextMeshProUGUI>().text = joinCode; //display join code on the screen
             
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(AllocationUtils.ToRelayServerData(allocation, "wss"));//change unity trapsnport protocol to use relay
             NetworkManager.Singleton.GetComponent<UnityTransport>().UseWebSockets = true;//set websocket checkmark to true
 
             NetworkManager.Singleton.StartHost();
-            joinPanel.SetActive(false);//hide the join panel
+            joinCanvas.SetActive(false);//hide the join panel
             //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
 
 
@@ -94,7 +95,7 @@ public class startRelay : MonoBehaviour
             NetworkManager.Singleton.GetComponent<UnityTransport>().UseWebSockets = true;//set websocket checkmark to true
 
             NetworkManager.Singleton.StartClient();
-            joinPanel.SetActive(false);//hide the join panel
+            joinCanvas.SetActive(false);//hide the join panel
             //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
 
         }

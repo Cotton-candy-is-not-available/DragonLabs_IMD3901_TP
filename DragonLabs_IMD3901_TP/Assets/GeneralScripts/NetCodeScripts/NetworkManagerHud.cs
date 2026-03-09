@@ -47,81 +47,57 @@ public class NetworkManagerHud : MonoBehaviour
         {
             DrawStatusGUI();
         }
-        else
-        {
-            DrawConnectGUI();
-        }
+        //else
+        //{
+        //    DrawConnectGUI();
+        //}
 
         GUILayout.EndArea();
     }
 
 
 
-    void DrawConnectGUI()
-    {
-        GUILayout.BeginHorizontal();
-        GUILayout.Space(10);
-        GUILayout.Label("Address", m_LabelTextStyle);
-        GUILayout.Label("Port", m_LabelTextStyle);
+    //void DrawConnectGUI()
+    //{
+    //    GUILayout.BeginHorizontal();
+    //    GUILayout.Space(10);
+    //    GUILayout.Label("Address", m_LabelTextStyle);
+    //    GUILayout.Label("Port", m_LabelTextStyle);
 
-        GUILayout.EndHorizontal();
+    //    GUILayout.EndHorizontal();
 
-        GUILayout.BeginHorizontal();
+    //    GUILayout.BeginHorizontal();
 
-        m_ConnectAddress = GUILayout.TextField(m_ConnectAddress);//IP address GUI text field
-        m_PortString = GUILayout.TextField(m_PortString);//port GUI text field
-        if (ushort.TryParse(m_PortString, out ushort port))
-        {
-            m_Transport.SetConnectionData(m_ConnectAddress, port);
-        }
-        else
-        {
-            m_Transport.SetConnectionData(m_ConnectAddress, 7777);
-        }
+    //    m_ConnectAddress = GUILayout.TextField(m_ConnectAddress);//IP address GUI text field
+    //    m_PortString = GUILayout.TextField(m_PortString);//port GUI text field
+    //    if (ushort.TryParse(m_PortString, out ushort port))
+    //    {
+    //        m_Transport.SetConnectionData(m_ConnectAddress, port);
+    //    }
+    //    else
+    //    {
+    //        m_Transport.SetConnectionData(m_ConnectAddress, 7777);
+    //    }
 
-        GUILayout.EndHorizontal();
-
-
-        //if (GUILayout.Button("Host (Server + Client)"))
-        //{
-        //    m_NetworkManager.StartHost();
-        //    IPAdressCanvas.enabled = false;//hide the canvas
-
-        //}
-
-        //GUILayout.BeginHorizontal();
-
-        //if (GUILayout.Button("Server"))
-        //{
-        //    m_NetworkManager.StartServer();
-        //    IPAdressCanvas.enabled = false;//hide the canvas
-
-        //}
-
-        //if (GUILayout.Button("Client"))
-        //{
-        //    m_NetworkManager.StartClient();
-        //    IPAdressCanvas.enabled = false;//hide the canvas
-        //}
-
-        //GUILayout.EndHorizontal();
-    }
+    //    GUILayout.EndHorizontal();
+    //}
 
     void DrawStatusGUI()
     {
-        if (m_NetworkManager.IsServer)
-        {
-            var mode = m_NetworkManager.IsHost ? "Host" : "Server";
-            GUILayout.Label($"{mode} active on port: {m_Transport.ConnectionData.Port.ToString()}", m_LabelTextStyle);
-        }
-        else
-        {
-            if (m_NetworkManager.IsConnectedClient)
-            {
-                GUILayout.Label($"Client connected {m_Transport.ConnectionData.Address}:{m_Transport.ConnectionData.Port.ToString()}", m_LabelTextStyle);
-            }
-        }
+        //if (m_NetworkManager.IsServer)
+        //{
+        //    var mode = m_NetworkManager.IsHost ? "Host" : "Server";
+        //    GUILayout.Label($"{mode} active on port: {m_Transport.ConnectionData.Port.ToString()}", m_LabelTextStyle);
+        //}
+        //else
+        //{
+        //    if (m_NetworkManager.IsConnectedClient)
+        //    {
+        //        GUILayout.Label($"Client connected {m_Transport.ConnectionData.Address}:{m_Transport.ConnectionData.Port.ToString()}", m_LabelTextStyle);
+        //    }
+        //}
 
+        //Exit server button
         if (GUILayout.Button("Shutdown"))
         {
             m_NetworkManager.Shutdown();
