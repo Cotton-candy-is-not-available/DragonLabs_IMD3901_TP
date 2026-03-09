@@ -14,6 +14,10 @@ public class PlayerController : NetworkBehaviour
 
     public Camera PcCamera;
 
+    public GameObject PCplayer;
+    public GameObject VRplayer;
+
+
     [SerializeField] string currentScene;
 
     [Header("----- Lobby spawn points -----")]
@@ -53,6 +57,9 @@ public class PlayerController : NetworkBehaviour
             PcCamera.enabled = false;
         }
 
+        Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
+        Cursor.visible = false;
+
         //spawn positions
         //Print player ids
 
@@ -70,7 +77,9 @@ public class PlayerController : NetworkBehaviour
 
                 case "beerPong":
                     Debug.Log("beer pong scene");
-                    gameObject.transform.transform.position = GameObject.FindGameObjectWithTag("p1SpawnPoint").GetComponent<Transform>().position;
+                    //gameObject.transform.transform.position = GameObject.FindGameObjectWithTag("p1SpawnPoint").GetComponent<Transform>().position;
+                    //NetworkManager.Singleton.NetworkConfig.PlayerPrefab.transform.position = beerPongP1SpawnPoint.position;
+
                     break;
 
                //case "scene name here":
@@ -109,16 +118,18 @@ public class PlayerController : NetworkBehaviour
 
 
 
-        Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
-        Cursor.visible = false;
     }
 
 
 
-    //private void Start()
+    //private NetworkObject SpawnPlayer(ulong clientId)
     //{
-    //    Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
-    //    Cursor.visible = false;
+    //    var player = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
+    //    player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, false);
+
+    //    Debug.Log($"Player spawned with id {clientId}");
+
+    //    return player.GetComponent<NetworkObject>();
     //}
 
 
