@@ -38,7 +38,7 @@ public class gameManager : MonoBehaviour
     void Start()
     {
      turn = 1;
-     P1BallStartPos =  new Vector3(0.0109999999f, 1.60599995f, -6.93300009f);
+     P1BallStartPos =  new Vector3(0.0109999999f, 2.60599995f, -6.93300009f);
 
      P2BallStartPos = new Vector3(0.0109999999f, 1.60599995f, 3.11f);
      Debug.Log("Start turn: "+ turn);

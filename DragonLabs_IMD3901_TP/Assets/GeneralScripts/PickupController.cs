@@ -7,7 +7,7 @@ public class PickupController : MonoBehaviour
     [SerializeField] Transform holdArea; //will be parented to this
 
     //the object that is picked up
-    private GameObject heldObj;
+    public GameObject heldObj;
     public GameObject HeldObject => heldObj;
     private Rigidbody heldObjRB;
 
