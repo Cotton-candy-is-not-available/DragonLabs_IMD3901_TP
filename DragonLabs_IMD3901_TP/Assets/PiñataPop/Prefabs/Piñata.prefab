@@ -83,10 +83,10 @@ PrefabInstance:
       addedObject: {fileID: 4337075795657284916}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 87e961cc3481d85408ef13e9c3f058ea, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1882264383293158691}
+      addedObject: {fileID: 1149664520812112451}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 87e961cc3481d85408ef13e9c3f058ea, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1149664520812112451}
+      addedObject: {fileID: 1882264383293158691}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 87e961cc3481d85408ef13e9c3f058ea, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5694699181849629511}
@@ -250,22 +250,6 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!114 &1882264383293158691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9150303408465533562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb66cbdae19f6bc47a7694e98f951363, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoresManager_access: {fileID: 0}
-  confettiPopParticles: {fileID: 0}
-  candy: {fileID: 0}
-  isGameOver: 0
 --- !u!114 &1149664520812112451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +275,22 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &1882264383293158691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9150303408465533562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb66cbdae19f6bc47a7694e98f951363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  scoresManager_access: {fileID: 0}
+  confettiPopParticles: {fileID: 0}
+  isGameOver: 0
 --- !u!114 &5694699181849629511
 MonoBehaviour:
   m_ObjectHideFlags: 0

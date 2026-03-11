@@ -6,14 +6,15 @@ using UnityEngine;
 public class PiñataController : NetworkBehaviour
 {
 
-    int piñataHealth = 50;
+    int piñataHealth = 10;
     Rigidbody piñata_RB;
 
     public ScoresManager scoresManager_access;
     public ParticleSystem confettiPopParticles;
+    public CandySpawn candySpawner_access;
 
     //public NetworkObject candy;
-    public NetworkObject[] candyList;
+    //public NetworkObject[] candyList;
 
     public bool isGameOver = false;
     bool shouldApplyForce = false;
@@ -22,12 +23,15 @@ public class PiñataController : NetworkBehaviour
     {
         //fetch the pinata's rigid body
         piñata_RB = GetComponent<Rigidbody>();
+        //candy.GetComponent<NetworkObject>();
 
-        StartCoroutine(startDelay(20.0f));
+        //StartCoroutine(startDelay(20.0f));
     }
 
     private void Update()
     {
+        if (!IsServer) return;
+
         Debug.Log("pinata health: " + piñataHealth);
 
         //only play confetti particle if the game is over and the pinata health is 0
@@ -37,7 +41,11 @@ public class PiñataController : NetworkBehaviour
             isGameOver = true;
             //confettiPopParticles.Play();
             //candy.SetActive(true);
-            DropCandyServerRpc();
+            //DropCandyServerRpc();
+
+            //gameObject.GetComponent<CandySpawn>().SpawnCandyServerRpc();
+            candySpawner_access.SpawnCandyServerRpc();
+
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -78,41 +86,36 @@ public class PiñataController : NetworkBehaviour
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
+   /* [ServerRpc(RequireOwnership = false)]
     public void DropCandyServerRpc()
     {
-        confettiPopParticles.Play();
+        //confettiPopParticles.Play();
         //candy.gameObject.SetActive(true);
-        
+       
         foreach (NetworkObject candy in candyList)
         {
-            candy.gameObject.SetActive(true);
-            //candy.Spawn(true);
+            //candy.gameObject.SetActive(true);
+            if (!candy.IsSpawned)
+            {
+                candy.Spawn(true);
+                Debug.Log("candy spawned");
+            }
         }
+        
+        Debug.Log("DropCandyServerRpc has been called");
+
+        confettiPopParticles.Play();
         ShowCandyClientRpc();
     }
 
     [ClientRpc]
     public void ShowCandyClientRpc()
     {
+        Debug.Log("ShowCandyClientRpc has been called");
+
         confettiPopParticles.Play();
         //candy.gameObject.SetActive(true);
-        foreach (NetworkObject candy in candyList)
-        {
-            candy.gameObject.SetActive(true);
-            //candy.Spawn(true);
-        }
-    }
 
-
-    IEnumerator startDelay(float time)
-    {
-        yield return new WaitForSeconds(time);
-        foreach (NetworkObject candy in candyList)
-        {
-            candy.gameObject.SetActive(false);
-            //candy.Spawn(true);
-        }
-    }
+    }*/
 
 }

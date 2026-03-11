@@ -87,7 +87,7 @@ PrefabInstance:
       addedObject: {fileID: 2748041002795990754}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8dffa484e3cc02e4dac80c4a2fa44333, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6424188862783833203}
+      addedObject: {fileID: 2868091740168990565}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8dffa484e3cc02e4dac80c4a2fa44333, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1363272627583337716}
@@ -188,7 +188,7 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
---- !u!64 &6424188862783833203
+--- !u!64 &2868091740168990565
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
