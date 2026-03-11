@@ -1,7 +1,9 @@
+using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 
-public class PiñataController : MonoBehaviour
+public class PiñataController : NetworkBehaviour
 {
 
     int piñataHealth = 50;
@@ -9,8 +11,10 @@ public class PiñataController : MonoBehaviour
 
     public ScoresManager scoresManager_access;
     public ParticleSystem confettiPopParticles;
-    public GameObject candy;
-    
+
+    //public NetworkObject candy;
+    public NetworkObject[] candyList;
+
     public bool isGameOver = false;
     bool shouldApplyForce = false;
 
@@ -18,6 +22,8 @@ public class PiñataController : MonoBehaviour
     {
         //fetch the pinata's rigid body
         piñata_RB = GetComponent<Rigidbody>();
+
+        StartCoroutine(startDelay(20.0f));
     }
 
     private void Update()
@@ -29,8 +35,9 @@ public class PiñataController : MonoBehaviour
         {
             Debug.Log("GAME OVER!");
             isGameOver = true;
-            confettiPopParticles.Play();
-            candy.SetActive(true);
+            //confettiPopParticles.Play();
+            //candy.SetActive(true);
+            DropCandyServerRpc();
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -71,5 +78,41 @@ public class PiñataController : MonoBehaviour
         }
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void DropCandyServerRpc()
+    {
+        confettiPopParticles.Play();
+        //candy.gameObject.SetActive(true);
+        
+        foreach (NetworkObject candy in candyList)
+        {
+            candy.gameObject.SetActive(true);
+            //candy.Spawn(true);
+        }
+        ShowCandyClientRpc();
+    }
+
+    [ClientRpc]
+    public void ShowCandyClientRpc()
+    {
+        confettiPopParticles.Play();
+        //candy.gameObject.SetActive(true);
+        foreach (NetworkObject candy in candyList)
+        {
+            candy.gameObject.SetActive(true);
+            //candy.Spawn(true);
+        }
+    }
+
+
+    IEnumerator startDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        foreach (NetworkObject candy in candyList)
+        {
+            candy.gameObject.SetActive(false);
+            //candy.Spawn(true);
+        }
+    }
 
 }
