@@ -32,17 +32,17 @@ public class startRelay : MonoBehaviour
 
     [SerializeField] int maxPlayerNum = 2;
 
-    private void Awake()
-    {
-        hostButton.onClick.AddListener(() =>
-        {
-            createRelay();
-        });
-        joinButton.onClick.AddListener(() =>
-        {
-            JoinRelay(codeJoin.text);
-        });
-    }
+    //private void Awake()
+  //  {
+   //     hostButton.onClick.AddListener(() =>
+   //     {
+     //       createRelay();
+    //    });
+     //   joinButton.onClick.AddListener(() =>
+     //   {
+      //      JoinRelay(codeJoin.text);
+      //  });
+   // }
 
 
     private async void Start()
