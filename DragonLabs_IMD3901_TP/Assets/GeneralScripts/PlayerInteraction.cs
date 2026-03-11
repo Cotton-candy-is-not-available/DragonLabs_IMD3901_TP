@@ -24,7 +24,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (hit.collider.CompareTag("Interactable"))
             {
-                crosshair_access.setInteract(true);
+                crosshair_access.setInteractServerRpc(true);
 
                 // GRAB (I)
                 if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
@@ -42,6 +42,6 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
-        crosshair_access.setInteract(false);
+        crosshair_access.setInteractServerRpc(false);
     }
 }
