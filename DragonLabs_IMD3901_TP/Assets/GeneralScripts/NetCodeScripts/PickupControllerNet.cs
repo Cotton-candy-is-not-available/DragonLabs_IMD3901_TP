@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PickupControllerNet : NetworkBehaviour
 {
@@ -15,8 +16,30 @@ public class PickupControllerNet : NetworkBehaviour
     [SerializeField] private float pickupRange = 5.0f;
     [SerializeField] private float pickupForce = 150.0f;
 
+    // Get current scene name
+    Scene currentScene;
+
+    //----- For throwing trgectory: Beer Pong---
+    //For objects that need to be thrown
+    public float throwForce = 10f;
+    [SerializeField] tragectoryLine line;
+    public float mass = 10;
+    bool enableLine = false;
+
+    //------------------------------------------
+
+
+    private void Start()
+    {
+        // Get current scene name
+        currentScene = SceneManager.GetActiveScene();
+    }
+
+
     private void Update()
     {
+        enableLine = false;//turn off the line by default --Beer Pong
+
         //PICKING UP-----------------------------
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
@@ -45,7 +68,21 @@ public class PickupControllerNet : NetworkBehaviour
         {
             //move the object around
             moveObject();
+            enableLine = true;
+
         }
+
+        //----Draw the tragectory line BeerPong scene only
+        if (currentScene.name == "beerPong")//only enable in beerPong scene
+        {
+            line.drawTragectory(transform.forward * throwForce, enableLine);
+        }
+
+        //-----------------------------------
+
+
+
+
     }
 
     /*----------------FUNCTIONS---------------*/
@@ -111,6 +148,14 @@ public class PickupControllerNet : NetworkBehaviour
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero; 
             rb.constraints = RigidbodyConstraints.None; //allow full movement
+
+            //if the current scene is the beer pong minigame, add force so that the object can be thrown
+            if (currentScene.name == "beerPong")
+            {
+                //heldObjRB.AddForce(transform.forward * throwForce);
+                Debug.Log("beerpong scene");
+                rb.linearVelocity = transform.forward * throwForce;
+            }
         }
         ClearHeldObjectClientRpc();
     }

@@ -250,7 +250,7 @@ Transform:
   m_GameObject: {fileID: 4609312}
   serializedVersion: 2
   m_LocalRotation: {x: -0.391462, y: -0.5921837, z: 0.39977875, w: -0.57987326}
-  m_LocalPosition: {x: -2.6276078, y: 7.31331, z: -3.0199625}
+  m_LocalPosition: {x: -2.6276078, y: 7.31331, z: 3.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -942,6 +942,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91effbe9bad8d9340a6417331fc5bf4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PortString: 7777
+  m_ConnectAddress: 127.0.0.1
   DrawOffset: {x: 10, y: 10}
   LabelColor: {r: 0, g: 0, b: 0, a: 1}
   IPAdressCanvas: {fileID: 1551452043}
@@ -3236,15 +3238,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2177152998985886548, guid: b0b7eb11218989b439819b3963248d88, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.3
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 2177152998985886548, guid: b0b7eb11218989b439819b3963248d88, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.231
+      value: 4.03
       objectReference: {fileID: 0}
     - target: {fileID: 2177152998985886548, guid: b0b7eb11218989b439819b3963248d88, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.35
+      value: 4.33
       objectReference: {fileID: 0}
     - target: {fileID: 2177152998985886548, guid: b0b7eb11218989b439819b3963248d88, type: 3}
       propertyPath: m_LocalRotation.w
