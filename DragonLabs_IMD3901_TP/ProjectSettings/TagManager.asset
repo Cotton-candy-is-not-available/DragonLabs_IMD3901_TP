@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Interactable
-  - Tile
+  - cup
+  - cup2
+  - Player2
   layers:
   - Default
   - TransparentFX
