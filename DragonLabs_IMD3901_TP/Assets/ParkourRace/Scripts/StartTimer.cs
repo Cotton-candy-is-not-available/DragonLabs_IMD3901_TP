@@ -9,6 +9,8 @@ public class StartTimer : MonoBehaviour
     public TMP_Text timerText;
     private bool countdownStarted = false;
 
+    public Button gameTimer;
+
     void Start()
     {
         timerText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(startTimer % 60f), Mathf.FloorToInt((startTimer * 1000f) % 1000f));
@@ -29,6 +31,7 @@ public class StartTimer : MonoBehaviour
                 startWall.SetActive(false);
                 timerText.enabled = false;
                 Debug.Log("Timer finished");
+                gameTimer.isTimerRunning = true;
             }
         }
     }

@@ -16,7 +16,7 @@ public class Button : MonoBehaviour
     private bool isAnimating = false;
 
     private float timer = 0f;
-    private bool isTimerRunning = false;
+    public bool isTimerRunning = false;
 
     public TMP_Text timerText;
 
