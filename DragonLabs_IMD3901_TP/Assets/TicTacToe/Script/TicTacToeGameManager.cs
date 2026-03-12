@@ -23,6 +23,7 @@ public class TicTacToeGameManager : MonoBehaviour
     public bool debugLogs = true;
 
     private TicTacToePieceType currentTurn = TicTacToePieceType.X;
+    private bool gameOver = false;
 
     void Start()
     {
@@ -31,6 +32,8 @@ public class TicTacToeGameManager : MonoBehaviour
 
     void Update()
     {
+        if (gameOver) return;
+
         bool placePressed =
             (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame) ||
             (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame);
@@ -47,7 +50,10 @@ public class TicTacToeGameManager : MonoBehaviour
 
     void SpawnTurnPiece()
     {
+        if (gameOver) return;
+
         GameObject prefab = currentTurn == TicTacToePieceType.X ? xPrefab : oPrefab;
+
         if (prefab == null)
         {
             Debug.LogWarning("Spawn failed: prefab is missing.");
@@ -137,10 +143,79 @@ public class TicTacToeGameManager : MonoBehaviour
 
         tile.PlacePiece(held);
 
+        if (CheckWinner(currentTurn))
+        {
+            gameOver = true;
+            Debug.Log(currentTurn + " wins!");
+            return;
+        }
+
+        if (IsBoardFull())
+        {
+            gameOver = true;
+            Debug.Log("Draw!");
+            return;
+        }
+
         currentTurn = currentTurn == TicTacToePieceType.X ? TicTacToePieceType.O : TicTacToePieceType.X;
 
         if (debugLogs) Debug.Log("Placed successfully. Next turn: " + currentTurn);
 
         SpawnTurnPiece();
+    }
+
+    bool CheckWinner(TicTacToePieceType pieceType)
+    {
+        int[,] winPatterns = new int[,]
+        {
+            { 0, 1, 2 },
+            { 3, 4, 5 },
+            { 6, 7, 8 },
+
+            { 0, 3, 6 },
+            { 1, 4, 7 },
+            { 2, 5, 8 },
+
+            { 0, 4, 8 },
+            { 2, 4, 6 }
+        };
+
+        for (int i = 0; i < winPatterns.GetLength(0); i++)
+        {
+            int a = winPatterns[i, 0];
+            int b = winPatterns[i, 1];
+            int c = winPatterns[i, 2];
+
+            if (TileMatches(a, pieceType) &&
+                TileMatches(b, pieceType) &&
+                TileMatches(c, pieceType))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool TileMatches(int index, TicTacToePieceType pieceType)
+    {
+        if (tiles == null || index < 0 || index >= tiles.Length || tiles[index] == null)
+            return false;
+
+        TicTacToePieceType? tileType = tiles[index].GetOccupyingType();
+        return tileType.HasValue && tileType.Value == pieceType;
+    }
+
+    bool IsBoardFull()
+    {
+        if (tiles == null || tiles.Length == 0) return false;
+
+        foreach (TicTacToeTileSlot tile in tiles)
+        {
+            if (tile == null || !tile.IsOccupied())
+                return false;
+        }
+
+        return true;
     }
 }
