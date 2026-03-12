@@ -49,6 +49,7 @@ public class PiñataControllerNet : NetworkBehaviour
         }
 
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "BatP1")
