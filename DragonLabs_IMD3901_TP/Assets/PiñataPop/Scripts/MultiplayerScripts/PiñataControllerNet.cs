@@ -6,7 +6,8 @@ using UnityEngine;
 public class PiñataControllerNet : NetworkBehaviour
 {
 
-    int piñataHealth = 10;
+    //int piñataHealth = 10;
+    public NetworkVariable<int> piñataHealth;
     Rigidbody piñata_RB;
 
     public ScoresManagerNet scoresManagerNet_access;
@@ -22,14 +23,26 @@ public class PiñataControllerNet : NetworkBehaviour
         piñata_RB = GetComponent<Rigidbody>();
     }
 
+    public override void OnNetworkSpawn()
+    {
+        //set initial value
+        piñataHealth.Value = 50;
+
+        //upate the values when they are changed
+        piñataHealth.OnValueChanged += OnHealthPointsChanged;
+
+        //set initial value of all the texts when the object spawns
+        UpdateHealthPoints(piñataHealth.Value);
+    }
+
     private void Update()
     {
         if (!IsServer) return;
 
-        Debug.Log("pinata health: " + piñataHealth);
+        Debug.Log("pinata health: " + piñataHealth.Value);
 
         //only play confetti particle if the game is over and the pinata health is 0
-        if (piñataHealth <= 0 && isGameOver == false) 
+        if (piñataHealth.Value <= 0 && isGameOver == false) 
         {
             Debug.Log("GAME OVER!");
             isGameOver = true;
@@ -45,9 +58,9 @@ public class PiñataControllerNet : NetworkBehaviour
             //Debug.Log("P1 hit the piñata");
             scoresManagerNet_access.addP1HitPointServerRpc();
             shouldApplyForce = true;
-            if (piñataHealth > 0 && isGameOver == false)
+            if (piñataHealth.Value > 0 && isGameOver == false)
             {
-                piñataHealth -= 1;
+                piñataHealth.Value -= 1;
             }
         }
         else if(collision.gameObject.name == "BatP2")
@@ -55,9 +68,9 @@ public class PiñataControllerNet : NetworkBehaviour
             //Debug.Log("P2 hit the piñata");
             scoresManagerNet_access.addP2HitPointServerRpc();
             shouldApplyForce = true;
-            if (piñataHealth > 0 && isGameOver == false)
+            if (piñataHealth.Value > 0 && isGameOver == false)
             {
-                piñataHealth -= 1;
+                piñataHealth.Value -= 1;
             }
         }
     }
@@ -75,6 +88,22 @@ public class PiñataControllerNet : NetworkBehaviour
             piñata_RB.AddForce(transform.up * hitChargeForce, ForceMode.Impulse);
             shouldApplyForce = false; //reset
         }
+    }
+
+    //PINATA HEALTH POINTS---------
+    private void OnHealthPointsChanged(int oldValue, int newValue)
+    {
+        UpdateHealthPoints(newValue);
+    }
+    private void UpdateHealthPoints(int value)
+    {
+        piñataHealth.Value = value;
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void subtractHealthPointServerRpc()
+    {
+        piñataHealth.Value -= 1;
+        Debug.Log("subtracted a pinata health point");
     }
 
 }
