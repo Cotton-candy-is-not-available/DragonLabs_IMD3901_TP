@@ -1,9 +1,10 @@
 using GogoGaga.OptimizedRopesAndCables;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class gameManager : MonoBehaviour
+public class gameManager : NetworkBehaviour
 {
     GameObject P1;
     GameObject P2;
@@ -21,8 +22,9 @@ public class gameManager : MonoBehaviour
     public TMP_Text P2OppPointsText;
 
     [Header("------------ Points -------------")]
-    public int player1Points = 0;
-    public int player2Points = 0;
+    public NetworkVariable<int> player1Points = new NetworkVariable<int>();
+    public NetworkVariable<int> player2Points = new NetworkVariable<int>();
+    //public int player2Points = 0;
 
     [Header("------------ Ball start pos -------------")]
     public Vector3 P1BallStartPos;
@@ -40,7 +42,7 @@ public class gameManager : MonoBehaviour
      turn = 1;
      P1BallStartPos =  new Vector3(0f, 4f, -5f);
 
-     P2BallStartPos = new Vector3(0.0109999999f, 1.60599995f, 3.11f);
+     P2BallStartPos = new Vector3(0f, 4f, 5);
      Debug.Log("Start turn: "+ turn);
      newBall = Instantiate(ballPrefab, P1BallStartPos, Quaternion.identity);//instatiate ball infront of player1
 
@@ -68,26 +70,26 @@ public class gameManager : MonoBehaviour
         {
             ballHitCups ballHit = newBall.GetComponent<ballHitCups>();//get the ball collision check script
 
-            if (ballHit.P1Point)
+            if (ballHit.P1Point.Value)
             {
-                player1Points+=1;//increase points for player 1
+                player1Points.Value+=1;//increase points for player 1
                 P1YouPointsText.text = ("You: "+ player1Points);//update text player 1's side
                 P2OppPointsText.text = ("Them: "+ player1Points);//update text on layer 2's Side
 
                 Debug.Log("player1Points: "+ player1Points);
-                ballHit.P1Point = false;
+                ballHit.P1Point.Value = false;//reset to false
                 Destroy(newBall);//destroy the ball
 
             }
 
-            if (ballHit.P2Point)
+            if (ballHit.P2Point.Value)
             {
-                player2Points+=1;//increase points for player 2
+                player2Points.Value+=1;//increase points for player 2
                 P1OppPointsText.text = ("Them: "+ player2Points);//update text on player 1's side
                 P2YouPointsText.text = ("You: "+ player2Points);//update text on layer 2's Side
 
                 Debug.Log("player2Points: "+ player2Points);
-                ballHit.P2Point = false;
+                ballHit.P2Point.Value = false;//reset to false
                 Destroy(newBall);//destroy the ball
             }
 

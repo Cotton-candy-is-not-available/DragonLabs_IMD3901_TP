@@ -76,15 +76,12 @@ public class PlayerController : NetworkBehaviour
                 //    break;
 
                 case "beerPong":
-                    Debug.Log("beer pong scene");
-                    //gameObject.transform.transform.position = GameObject.FindGameObjectWithTag("p1SpawnPoint").GetComponent<Transform>().position;
-                    //NetworkManager.Singleton.NetworkConfig.PlayerPrefab.transform.position = beerPongP1SpawnPoint.position;
-
+                    gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
                     break;
 
-               //case "scene name here":
-               //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
-               //    break;
+                    //case "scene name here":
+                    //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
+                    //    break;
 
             }
             Debug.Log("Player 1 spawned");
