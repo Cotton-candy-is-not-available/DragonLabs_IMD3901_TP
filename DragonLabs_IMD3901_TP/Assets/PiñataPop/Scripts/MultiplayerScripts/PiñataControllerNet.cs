@@ -3,13 +3,13 @@ using Unity.Netcode;
 using UnityEngine;
 
 
-public class PiñataController : NetworkBehaviour
+public class PiñataControllerNet : NetworkBehaviour
 {
 
     int piñataHealth = 10;
     Rigidbody piñata_RB;
 
-    public ScoresManager scoresManager_access;
+    public ScoresManagerNet scoresManagerNet_access;
     public ParticleSystem confettiPopParticles;
     public CandySpawn candySpawner_access;
 
@@ -47,13 +47,14 @@ public class PiñataController : NetworkBehaviour
             candySpawner_access.SpawnCandyServerRpc();
 
         }
+
     }
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "BatP1")
         {
             //Debug.Log("P1 hit the piñata");
-            scoresManager_access.increaseP1Hits();
+            scoresManagerNet_access.addP1HitPointServerRpc();
             shouldApplyForce = true;
             if (piñataHealth > 0 && isGameOver == false)
             {
@@ -63,7 +64,7 @@ public class PiñataController : NetworkBehaviour
         else if(collision.gameObject.name == "BatP2")
         {
             //Debug.Log("P2 hit the piñata");
-            scoresManager_access.increaseP2Hits();
+            scoresManagerNet_access.addP2HitPointServerRpc();
             shouldApplyForce = true;
             if (piñataHealth > 0 && isGameOver == false)
             {
@@ -117,5 +118,6 @@ public class PiñataController : NetworkBehaviour
         //candy.gameObject.SetActive(true);
 
     }*/
+
 
 }
