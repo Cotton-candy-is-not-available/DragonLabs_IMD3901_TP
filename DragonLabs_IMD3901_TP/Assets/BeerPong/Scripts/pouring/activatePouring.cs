@@ -30,7 +30,7 @@ public class activatePouring : NetworkBehaviour
 
         PCStartRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//default rotation
 
-        PCEndRotation = Quaternion.Euler(90.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        PCEndRotation = Quaternion.Euler(-90.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//rotates 90degrees towards player
 
 
     }
@@ -51,7 +51,7 @@ public class activatePouring : NetworkBehaviour
                     Debug.Log("p key was pressed net pouring");
                 //pouring = PickupControllerNet.heldObj.GetComponent<pourDetector>();//get the cups pour detector script
                 //holdArea.rotation = Quaternion.Euler(90f, 0f, 0f);
-                rotationProgress += Time.deltaTime * 5;//slowly rotate
+                rotationProgress += Time.deltaTime * 5;//somewhat slowly rotate; Note: smaller number slower, bigger number faster
                 holdArea.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress);//rotates watering can smoothly
                 pouring.lowerFillLevel();//lower the liquid inside the cup
 

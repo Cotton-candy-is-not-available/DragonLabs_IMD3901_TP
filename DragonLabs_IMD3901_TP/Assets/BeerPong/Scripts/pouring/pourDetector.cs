@@ -50,8 +50,11 @@ public class pourDetector : NetworkBehaviour
     {
         //lower fill level
         time += Time.deltaTime;
+
+        //set fill level variable from script to be original fill level then chnage it
+        //otherwise it is always 0
         // decrease fill level over time
-        fillLevel = Mathf.Lerp(fillLevel, 0, Time.deltaTime);
+        //fillLevel = Mathf.Lerp(fillLevel, 0, Time.deltaTime);
 
         //send over to shader new value of fill level
         rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph

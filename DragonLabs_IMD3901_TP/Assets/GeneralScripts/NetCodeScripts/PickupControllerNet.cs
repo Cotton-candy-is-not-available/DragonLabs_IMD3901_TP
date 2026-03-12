@@ -70,15 +70,24 @@ public class PickupControllerNet : NetworkBehaviour
             moveObject();
             enableLine = true;
 
+            //----Draw the tragectory line BeerPong scene only and only if holding ball
+            if (currentScene.name == "beerPong")//only enable in beerPong scene
+            {
+                if (heldObj.name == "ball(Clone)")
+                {
+                    line.drawTragectory(transform.forward * throwForce, enableLine);
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            //-----------------------------------
+
         }
 
-        //----Draw the tragectory line BeerPong scene only
-        if (currentScene.name == "beerPong")//only enable in beerPong scene
-        {
-            line.drawTragectory(transform.forward * throwForce, enableLine);
-        }
 
-        //-----------------------------------
 
 
 
