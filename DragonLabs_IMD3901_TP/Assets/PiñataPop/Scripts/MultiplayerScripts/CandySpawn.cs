@@ -31,4 +31,37 @@ public class CandySpawn : NetworkBehaviour
 
      }*/
 
+    /* [ServerRpc(RequireOwnership = false)]
+    public void DropCandyServerRpc()
+    {
+        //confettiPopParticles.Play();
+        //candy.gameObject.SetActive(true);
+       
+        foreach (NetworkObject candy in candyList)
+        {
+            //candy.gameObject.SetActive(true);
+            if (!candy.IsSpawned)
+            {
+                candy.Spawn(true);
+                Debug.Log("candy spawned");
+            }
+        }
+        
+        Debug.Log("DropCandyServerRpc has been called");
+
+        confettiPopParticles.Play();
+        ShowCandyClientRpc();
+    }
+
+    [ClientRpc]
+    public void ShowCandyClientRpc()
+    {
+        Debug.Log("ShowCandyClientRpc has been called");
+
+        confettiPopParticles.Play();
+        //candy.gameObject.SetActive(true);
+
+    }*/
+
+
 }

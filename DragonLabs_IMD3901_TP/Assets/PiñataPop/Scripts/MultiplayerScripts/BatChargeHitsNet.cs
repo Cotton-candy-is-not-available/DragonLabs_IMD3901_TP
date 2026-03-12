@@ -1,0 +1,64 @@
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using Unity.Netcode;
+
+public class BatChargeHitsNet : NetworkBehaviour
+{
+    private float indicatorTimer = 1.0f;
+    private float maxIndicatorTimer = 1.0f;
+    public float hitForce = 0.0f;
+    public float maxHitForce = 30.0f;
+
+    [SerializeField] public Image hitChargeCircle;
+    KeyCode selectKey = KeyCode.Mouse0; //left mouse click for PC
+    private bool shouldUpdate = false;
+
+    public PiñataControllerNet piñataControllerNet_access;
+
+
+    private void Update()
+    { 
+        if (Input.GetKey(selectKey)) //if LMB is being held down
+        {
+            indicatorTimer -= Time.deltaTime;
+            indicatorTimer = Mathf.Max(indicatorTimer, 0f);
+            hitChargeCircle.enabled = true;
+            hitChargeCircle.fillAmount = indicatorTimer / maxIndicatorTimer;
+        }
+        else //if the LMB is NOT being held down anymore
+        {
+            if (shouldUpdate == true)
+            {
+                indicatorTimer += Time.deltaTime;
+                
+                if (indicatorTimer >= maxIndicatorTimer)
+                {
+                    indicatorTimer = maxIndicatorTimer;
+                    hitChargeCircle.enabled = false;
+                    shouldUpdate = false;
+                }
+                hitChargeCircle.fillAmount = indicatorTimer / maxIndicatorTimer;
+            }
+        }
+
+        //for looping its charge again
+        if (Input.GetKey(selectKey))
+        {
+            shouldUpdate = true;
+
+            //longer hold = more hit force
+            //shorter hold = weaker hit force
+            float normalizedCharge = 1f - (indicatorTimer / maxIndicatorTimer);
+            normalizedCharge = Mathf.Clamp01(normalizedCharge);
+            hitForce = normalizedCharge * maxHitForce;
+        }
+
+        //apply the hit force when LMB is released
+        if (Input.GetKeyUp(selectKey)) 
+        {
+            piñataControllerNet_access.applyHitChargeForceServerRpc(hitForce);
+        }
+    }
+
+}

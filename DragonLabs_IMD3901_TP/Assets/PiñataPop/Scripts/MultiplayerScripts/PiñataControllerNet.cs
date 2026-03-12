@@ -13,9 +13,6 @@ public class PiñataControllerNet : NetworkBehaviour
     public ParticleSystem confettiPopParticles;
     public CandySpawn candySpawner_access;
 
-    //public NetworkObject candy;
-    //public NetworkObject[] candyList;
-
     public bool isGameOver = false;
     bool shouldApplyForce = false;
 
@@ -23,9 +20,6 @@ public class PiñataControllerNet : NetworkBehaviour
     {
         //fetch the pinata's rigid body
         piñata_RB = GetComponent<Rigidbody>();
-        //candy.GetComponent<NetworkObject>();
-
-        //StartCoroutine(startDelay(20.0f));
     }
 
     private void Update()
@@ -39,15 +33,9 @@ public class PiñataControllerNet : NetworkBehaviour
         {
             Debug.Log("GAME OVER!");
             isGameOver = true;
-            //confettiPopParticles.Play();
-            //candy.SetActive(true);
-            //DropCandyServerRpc();
-
-            //gameObject.GetComponent<CandySpawn>().SpawnCandyServerRpc();
+            confettiPopParticles.Play();
             candySpawner_access.SpawnCandyServerRpc();
-
         }
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -74,7 +62,8 @@ public class PiñataControllerNet : NetworkBehaviour
         }
     }
 
-    public void applyHitChargeForce(float hitChargeForce)
+    [ServerRpc(RequireOwnership = false)]
+    public void applyHitChargeForceServerRpc(float hitChargeForce)
     {
         /*ensure that the bat is colliding with the pinata at the same time as
         when the hit charge was released*/
@@ -87,38 +76,5 @@ public class PiñataControllerNet : NetworkBehaviour
             shouldApplyForce = false; //reset
         }
     }
-
-   /* [ServerRpc(RequireOwnership = false)]
-    public void DropCandyServerRpc()
-    {
-        //confettiPopParticles.Play();
-        //candy.gameObject.SetActive(true);
-       
-        foreach (NetworkObject candy in candyList)
-        {
-            //candy.gameObject.SetActive(true);
-            if (!candy.IsSpawned)
-            {
-                candy.Spawn(true);
-                Debug.Log("candy spawned");
-            }
-        }
-        
-        Debug.Log("DropCandyServerRpc has been called");
-
-        confettiPopParticles.Play();
-        ShowCandyClientRpc();
-    }
-
-    [ClientRpc]
-    public void ShowCandyClientRpc()
-    {
-        Debug.Log("ShowCandyClientRpc has been called");
-
-        confettiPopParticles.Play();
-        //candy.gameObject.SetActive(true);
-
-    }*/
-
 
 }
