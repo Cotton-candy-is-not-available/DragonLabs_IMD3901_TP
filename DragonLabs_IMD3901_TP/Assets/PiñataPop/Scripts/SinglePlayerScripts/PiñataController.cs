@@ -49,16 +49,6 @@ public class PiñataController : MonoBehaviour
                 piñataHealth -= 1;
             }
         }
-        else if(collision.gameObject.name == "BatP2")
-        {
-            //Debug.Log("P2 hit the piñata");
-            scoresManager_access.increaseP2Hits();
-            shouldApplyForce = true;
-            if (piñataHealth > 0 && isGameOver == false)
-            {
-                piñataHealth -= 1;
-            }
-        }
     }
     public void applyHitChargeForce(float hitChargeForce)
     {
