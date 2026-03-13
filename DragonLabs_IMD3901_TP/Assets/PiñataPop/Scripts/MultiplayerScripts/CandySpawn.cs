@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CandySpawn : NetworkBehaviour
 {
-
     public NetworkObject[] candy_prefab_list;
 
     [ServerRpc(RequireOwnership = false)]
@@ -14,54 +13,13 @@ public class CandySpawn : NetworkBehaviour
         //instantiate one of the candy prefabs from the list
         foreach (NetworkObject candy in candy_prefab_list)
         {
-            NetworkObject newCandy = Instantiate(candy, transform.position, Quaternion.identity);
-
             //spawn on network
-            newCandy.Spawn();
-            Debug.Log("candy spawned");
-        }
-    }
-
-
-
-    /* [ServerRpc(RequireOwnership = false)]
-     public void DespawnCandyServerRpc()
-     {
-
-
-     }*/
-
-    /* [ServerRpc(RequireOwnership = false)]
-    public void DropCandyServerRpc()
-    {
-        //confettiPopParticles.Play();
-        //candy.gameObject.SetActive(true);
-       
-        foreach (NetworkObject candy in candyList)
-        {
-            //candy.gameObject.SetActive(true);
-            if (!candy.IsSpawned)
+            for(int i = 0; i < 7; i++) //spawn 7 of each of the 3 candy prefabs in the list
             {
-                candy.Spawn(true);
-                Debug.Log("candy spawned");
+                NetworkObject newCandy = Instantiate(candy, transform.position, Quaternion.identity);
+                newCandy.GetComponent<NetworkObject>().Spawn();
             }
+            //Debug.Log("candies all spawned HOST and CLIENT");
         }
-        
-        Debug.Log("DropCandyServerRpc has been called");
-
-        confettiPopParticles.Play();
-        ShowCandyClientRpc();
     }
-
-    [ClientRpc]
-    public void ShowCandyClientRpc()
-    {
-        Debug.Log("ShowCandyClientRpc has been called");
-
-        confettiPopParticles.Play();
-        //candy.gameObject.SetActive(true);
-
-    }*/
-
-
 }
