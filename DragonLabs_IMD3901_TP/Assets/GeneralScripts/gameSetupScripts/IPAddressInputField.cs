@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class IPAddressInputField : MonoBehaviour
 {
-
+    //Attached to ip address input field
     public string inputText;
 
-    //Accessign scripts
     public startGame VRBool;
     public startGame PCBool;
 
-    public NetworkManagerHud PCNetManagerHud;
-    public NetworkManagerHud VRNetManagerHud;
+    public NetworkManagerHud NetManagerHud;
 
 
 
@@ -21,18 +19,18 @@ public class IPAddressInputField : MonoBehaviour
         {
             inputText = input;
             Debug.Log(input + "input");
-            VRNetManagerHud.m_ConnectAddress = input;//change the VR netHud connected address
+            NetManagerHud.m_ConnectAddress = inputText;//connect to network manager hud
         }
         else if (PCBool.PCMode)//if PC mode was chosen
         {
             inputText = input;
             Debug.Log(input + "input");
-            PCNetManagerHud.m_ConnectAddress = input;//change the PC netHud connected address
+            NetManagerHud.m_ConnectAddress = inputText;//connect to network manager hud
         }
 
-        if(input == null)//use default IP address "127.0.0.1"
+        if (input == null)//use default IP address "127.0.0.1"
         {
-            input = PCNetManagerHud.m_ConnectAddress;
+            input = NetManagerHud.m_ConnectAddress;
             Debug.Log(input + "input");
 
         }
