@@ -9,7 +9,7 @@ public class StartTimer : MonoBehaviour
     public TMP_Text timerText;
     private bool countdownStarted = false;
 
-    public Button gameTimer;
+    public stopTimerButton gameTimer;
 
     void Start()
     {

@@ -10,6 +10,8 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class startRelay : MonoBehaviour
 {
     //On the network manager the unity transport objecs Protocol type dropt down
@@ -20,9 +22,9 @@ public class startRelay : MonoBehaviour
     //This script can be on an empty game object
     //is currently on a canvas
 
-    [SerializeField] private Button hostButton;
-    [SerializeField] private Button joinButton;
-    [SerializeField] private TMP_InputField codeJoin;
+     public Button hostButton;
+     public Button joinButton;
+     public  TMP_InputField codeJoin;
 
     public GameObject joinCanvas;
 
@@ -30,17 +32,17 @@ public class startRelay : MonoBehaviour
 
     [SerializeField] int maxPlayerNum = 2;
 
-    //private void Awake()
-  //  {
-   //     hostButton.onClick.AddListener(() =>
-   //     {
-     //       createRelay();
-    //    });
-     //   joinButton.onClick.AddListener(() =>
-     //   {
-      //      JoinRelay(codeJoin.text);
-      //  });
-   // }
+    private void Awake()
+    {
+        hostButton.onClick.AddListener(() =>
+        {
+            createRelay();
+        });
+        joinButton.onClick.AddListener(() =>
+        {
+            JoinRelay(codeJoin.text);
+        });
+    }
 
 
     private async void Start()
@@ -55,7 +57,7 @@ public class startRelay : MonoBehaviour
     }
 
     //Same as create host button
-    private async void createRelay()//creates an instance of relay so that user can connect to online service
+    public async void createRelay()//creates an instance of relay so that user can connect to online service
     {
         try
         {
@@ -84,7 +86,7 @@ public class startRelay : MonoBehaviour
     }
 
     //same as client button
-    private async void JoinRelay(string joinCode)
+    public async void JoinRelay(string joinCode)
     {
         try
         {

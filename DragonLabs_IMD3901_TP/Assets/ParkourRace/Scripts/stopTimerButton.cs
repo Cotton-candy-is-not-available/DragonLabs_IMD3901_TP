@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
-public class Button : MonoBehaviour
+public class stopTimerButton : MonoBehaviour
 {
     public float interactRange = 2f;
     public Camera playerCam;
