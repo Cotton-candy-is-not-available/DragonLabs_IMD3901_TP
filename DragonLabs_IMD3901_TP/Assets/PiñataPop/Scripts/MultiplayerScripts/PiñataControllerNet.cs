@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class PiñataControllerNet : NetworkBehaviour
 {
-
-    //int piñataHealth = 10;
     public NetworkVariable<int> piñataHealth;
     Rigidbody piñata_RB;
 
@@ -14,9 +12,7 @@ public class PiñataControllerNet : NetworkBehaviour
     public ParticleSystem confettiPopParticles;
     public CandySpawn candySpawner_access;
 
-    //public bool isGameOver = false;
     public NetworkVariable<bool> isGameOver;
-
     bool shouldApplyForce = false;
 
     private void Start()
@@ -28,7 +24,7 @@ public class PiñataControllerNet : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         //set initial value
-        piñataHealth.Value = 50;
+        piñataHealth.Value = 10;
         isGameOver.Value = false;
 
         //upate the values when they are changed
