@@ -8,6 +8,8 @@ TagManager:
   - cup
   - cup2
   - Player2
+  - beer
+  - p1SpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -15,9 +17,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - ball
+  - p1Cup
+  - p2Cup
   - 
   - 
   - 
