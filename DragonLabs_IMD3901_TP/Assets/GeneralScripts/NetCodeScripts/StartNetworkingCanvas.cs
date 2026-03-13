@@ -21,18 +21,18 @@ public class StartNetworkingCanvas : MonoBehaviour
         });
         */
 
-        hostButton.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartHost();
-            Debug.Log("started host");
-            networkCanvas.gameObject.SetActive(false);
-        });
+        //hostButton.onClick.AddListener(() =>
+        //{
+        //    NetworkManager.Singleton.StartHost();
+        //    Debug.Log("started host");
+        //    networkCanvas.gameObject.SetActive(false);
+        //});
 
-        clientButton.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartClient();
-            Debug.Log("started client");
-            networkCanvas.gameObject.SetActive(false);
-        });
+        //clientButton.onClick.AddListener(() =>
+        //{
+        //    NetworkManager.Singleton.StartClient();
+        //    Debug.Log("started client");
+        //    networkCanvas.gameObject.SetActive(false);
+        //});
     }
 }

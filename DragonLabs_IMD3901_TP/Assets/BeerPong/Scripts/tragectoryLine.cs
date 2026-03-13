@@ -10,11 +10,13 @@ public class tragectoryLine : MonoBehaviour
 
     public float timeIntervalPoints = 0.01f;
 
+    public Transform holdAreaPosition;
+
     public void drawTragectory(Vector3 startVelocity, bool enableLine)
     {
         if (enableLine)
         {
-            Vector3 origin = transform.position;//current object pos which is the camera
+            Vector3 origin = holdAreaPosition.position;//current object pos which is the hold area
             lineRenderer.GetComponent<LineRenderer>().enabled = enableLine;
 
             lineRenderer.positionCount = lineSegments;
@@ -30,7 +32,7 @@ public class tragectoryLine : MonoBehaviour
                 var z = (startVelocity.z * time) + (Physics.gravity.z/2 * time * time);
 
                 Vector3 point = new Vector3(x, y, z);
-                lineRenderer.SetPosition(i, origin + point);//move line to be infront of the camera at all times
+                lineRenderer.SetPosition(i, origin + point);//move line to be in hold area at all times
                 time+= timeIntervalPoints;
 
             }

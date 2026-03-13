@@ -1,6 +1,8 @@
+using TreeEditor;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -12,8 +14,44 @@ public class PlayerController : NetworkBehaviour
 
     public Camera PcCamera;
 
+    public GameObject PCplayer;
+    public GameObject VRplayer;
+
+
+    [SerializeField] string currentScene;
+
+    [Header("----- Lobby spawn points -----")]
+
+    public Transform lobbyP1SpawnPoint;
+    public Transform lobbyP2SpawnPoint;
+
+
+
+    [Header("----- Beer pong spawn points -----")]
+
+    public Transform beerPongP1SpawnPoint;
+    public Transform beerPongP2SpawnPoint;
+
+
+    [Header("----- PiñataPop spawn points -----")]
+
+    public Transform piñataPopP1SpawnPoint;
+    public Transform piñataPopSpawnPoint;
+
+    [Header("----- Parkour race spawn points -----")]
+
+    public Transform parkourRaceP1SpawnPoint;
+    public Transform parkourRaceP2SpawnPoint;
+
+
+    [Header("----- Tic tac toe spawn points -----")]
+
+    public Transform tickTacToeP1SpawnPoint;
+    public Transform tickTacToeP2SpawnPoint;
+
     public override void OnNetworkSpawn()
     {
+        currentScene = SceneManager.GetActiveScene().name;
         if (!IsOwner)
         {
             PcCamera.enabled = false;
@@ -21,14 +59,74 @@ public class PlayerController : NetworkBehaviour
 
         Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
         Cursor.visible = false;
+
+        //spawn positions
+        //Print player ids
+
+        //if client is player 1
+        Debug.Log("Client  id: "+ NetworkManager.Singleton.LocalClientId);
+        if (NetworkManager.Singleton.LocalClientId == 0)
+        {
+            //gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
+
+            switch (currentScene)
+            {
+                //case "Lobby":
+                //    gameObject.transform.transform.position = lobbyP1SpawnPoint.position;
+                //    break;
+
+                case "beerPong":
+                    gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
+                    break;
+
+                    //case "scene name here":
+                    //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
+                    //    break;
+
+            }
+            Debug.Log("Player 1 spawned");
+        }
+
+        //if cliet is player 2
+        else if (NetworkManager.Singleton.LocalClientId == 1)
+        {
+            switch (currentScene)
+            {
+                //case "Lobby":
+                //    gameObject.transform.transform.position = lobbyP2SpawnPoint.position;
+                //    break;
+
+                case "beerPong":
+                    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
+                    break;
+
+                //case "scene name here":
+                //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
+                //    break;
+
+
+
+
+            }
+                Debug.Log("Player 2 spawned");
+
+        }
+
+
+
+
     }
 
 
 
-    //private void Start()
+    //private NetworkObject SpawnPlayer(ulong clientId)
     //{
-    //    Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
-    //    Cursor.visible = false;
+    //    var player = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
+    //    player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, false);
+
+    //    Debug.Log($"Player spawned with id {clientId}");
+
+    //    return player.GetComponent<NetworkObject>();
     //}
 
 

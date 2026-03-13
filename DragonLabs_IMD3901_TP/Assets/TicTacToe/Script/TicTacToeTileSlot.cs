@@ -2,52 +2,62 @@ using UnityEngine;
 
 public class TicTacToeTileSlot : MonoBehaviour
 {
-    public Transform spawnPoint;
+    [Header("Per-piece spawn points")]
+    public Transform xSpawnPoint;
+    public Transform oSpawnPoint;
 
     private Piece placedPiece;
+    private TicTacToePieceType? occupyingType = null;
 
     public bool CanPlace()
     {
         return placedPiece == null;
     }
 
-    public void PlacePiece(Piece piece, bool faceCamera, Transform cameraTransform)
+    public bool IsOccupied()
+    {
+        return placedPiece != null;
+    }
+
+    public TicTacToePieceType? GetOccupyingType()
+    {
+        return occupyingType;
+    }
+
+    public void PlacePiece(Piece piece)
     {
         if (piece == null) return;
         if (!CanPlace()) return;
-        if (spawnPoint == null) return;
+
+        Transform targetSpawnPoint = GetSpawnPointForPiece(piece);
+
+        if (targetSpawnPoint == null)
+        {
+            Debug.LogWarning($"No spawn point assigned for piece type {piece.Type} on tile {gameObject.name}");
+            return;
+        }
 
         placedPiece = piece;
+        occupyingType = piece.Type;
 
-        // SNAP to tile spawn point (this breaks it away from HoldPoint)
-        piece.transform.SetParent(spawnPoint, true);
+        piece.transform.SetParent(targetSpawnPoint, false);
         piece.transform.localPosition = Vector3.zero;
         piece.transform.localRotation = Quaternion.identity;
 
-        // face camera (optional)
-        if (faceCamera && cameraTransform != null)
-        {
-            Vector3 dir = cameraTransform.position - piece.transform.position;
-            dir.y = 0f;
-            if (dir.sqrMagnitude > 0.0001f)
-                piece.transform.rotation = Quaternion.LookRotation(-dir.normalized, Vector3.up);
-        }
-
-        // LOCK physics
-        Rigidbody rb = piece.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = true;
-            rb.useGravity = false;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-
-        // IMPORTANT: stop pickup from re-grabbing it
-        // easiest: remove Interactable tag after placing
+        piece.SetPhysicsHeld(true);
         piece.gameObject.tag = "Untagged";
-
         piece.SetHeld(false);
         piece.MarkPlaced(true);
+    }
+
+    private Transform GetSpawnPointForPiece(Piece piece)
+    {
+        if (piece.Type == TicTacToePieceType.X)
+            return xSpawnPoint;
+
+        if (piece.Type == TicTacToePieceType.O)
+            return oSpawnPoint;
+
+        return null;
     }
 }
