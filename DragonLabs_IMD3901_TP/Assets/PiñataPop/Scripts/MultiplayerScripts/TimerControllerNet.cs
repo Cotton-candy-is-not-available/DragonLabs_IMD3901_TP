@@ -96,7 +96,6 @@ public class TimerControllerNet : NetworkBehaviour
         updateTimerClientRpc();
     }
 
-
     [ClientRpc]
     public void updateTimerClientRpc()
     {
