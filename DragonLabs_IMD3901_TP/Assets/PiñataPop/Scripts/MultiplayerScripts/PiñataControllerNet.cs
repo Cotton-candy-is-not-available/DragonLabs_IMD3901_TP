@@ -14,7 +14,9 @@ public class PiñataControllerNet : NetworkBehaviour
     public ParticleSystem confettiPopParticles;
     public CandySpawn candySpawner_access;
 
-    public bool isGameOver = false;
+    //public bool isGameOver = false;
+    public NetworkVariable<bool> isGameOver;
+
     bool shouldApplyForce = false;
 
     private void Start()
@@ -27,6 +29,7 @@ public class PiñataControllerNet : NetworkBehaviour
     {
         //set initial value
         piñataHealth.Value = 50;
+        isGameOver.Value = false;
 
         //upate the values when they are changed
         piñataHealth.OnValueChanged += OnHealthPointsChanged;
@@ -42,10 +45,10 @@ public class PiñataControllerNet : NetworkBehaviour
         Debug.Log("pinata health: " + piñataHealth.Value);
 
         //only play confetti particle if the game is over and the pinata health is 0
-        if (piñataHealth.Value <= 0 && isGameOver == false) 
+        if (piñataHealth.Value <= 0 && isGameOver.Value == false) 
         {
             Debug.Log("GAME OVER!");
-            isGameOver = true;
+            isGameOver.Value = true;
             confettiPopParticles.Play();
             candySpawner_access.SpawnCandyServerRpc();
         }
@@ -58,7 +61,7 @@ public class PiñataControllerNet : NetworkBehaviour
             //Debug.Log("P1 hit the piñata");
             scoresManagerNet_access.addP1HitPointServerRpc();
             shouldApplyForce = true;
-            if (piñataHealth.Value > 0 && isGameOver == false)
+            if (piñataHealth.Value > 0 && isGameOver.Value == false)
             {
                 piñataHealth.Value -= 1;
             }
@@ -68,7 +71,7 @@ public class PiñataControllerNet : NetworkBehaviour
             //Debug.Log("P2 hit the piñata");
             scoresManagerNet_access.addP2HitPointServerRpc();
             shouldApplyForce = true;
-            if (piñataHealth.Value > 0 && isGameOver == false)
+            if (piñataHealth.Value > 0 && isGameOver.Value == false)
             {
                 piñataHealth.Value -= 1;
             }
