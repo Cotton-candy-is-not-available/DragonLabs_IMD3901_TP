@@ -162,7 +162,7 @@ MonoBehaviour:
   lobbyP1SpawnPoint: {fileID: 0}
   lobbyP2SpawnPoint: {fileID: 0}
   beerPongP1SpawnPoint: {fileID: 4469876989175805423, guid: e2eae4e53b388384f862309365ec501d, type: 3}
-  beerPongP2SpawnPoint: {fileID: 4469876989175805423, guid: e2eae4e53b388384f862309365ec501d, type: 3}
+  beerPongP2SpawnPoint: {fileID: 4469876989175805423, guid: 41cf69bdeda3b534d969a93527dc47bc, type: 3}
   "pi\xF1ataPopP1SpawnPoint": {fileID: 0}
   "pi\xF1ataPopSpawnPoint": {fileID: 0}
   parkourRaceP1SpawnPoint: {fileID: 0}

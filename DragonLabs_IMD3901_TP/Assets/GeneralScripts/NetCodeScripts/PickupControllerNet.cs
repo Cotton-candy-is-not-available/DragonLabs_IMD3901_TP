@@ -68,26 +68,24 @@ public class PickupControllerNet : NetworkBehaviour
         {
             //move the object around
             moveObject();
-            enableLine = true;
-
-            //----Draw the tragectory line BeerPong scene only and only if holding ball
-            if (currentScene.name == "beerPong")//only enable in beerPong scene
-            {
-                if (heldObj.name == "ball(Clone)")
-                {
-                    line.drawTragectory(transform.forward * throwForce, enableLine);
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            //-----------------------------------
+            enableLine = true;     
 
         }
 
+        //----Draw the tragectory line BeerPong scene only and only if holding ball
+        if (currentScene.name == "beerPong")//only enable in beerPong scene
+        {
+            if (heldObj != null && heldObj.name == "ball(Clone)")//if the held object is not null and is the ball clone
+            {
+                line.drawTragectory(transform.forward * throwForce, enableLine);//turn on the tragectory line
+            }
+            else
+            {
+                line.drawTragectory(transform.forward * throwForce, enableLine);//hide the tragectory line
+            }
+        }
 
+        //-----------------------------------
 
 
 

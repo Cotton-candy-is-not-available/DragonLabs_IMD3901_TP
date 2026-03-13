@@ -24,7 +24,8 @@ public class gameManager : NetworkBehaviour
     //[Header("------------ Points -------------")]
     //public NetworkVariable<int> player1Points = new NetworkVariable<int>();
     //public NetworkVariable<int> player2Points = new NetworkVariable<int>();
-    ////public int player2Points = 0;
+    public int player1Points = 0;
+    public int player2Points = 0;
 
     [Header("------------ Ball start pos -------------")]
     public Vector3 P1BallStartPos;
@@ -35,7 +36,7 @@ public class gameManager : NetworkBehaviour
 
     [SerializeField] GameObject newBall;
 
-    public beerPongScoreManger scoreManger;
+    //public beerPongScoreManger scoreManger;
 
     int turn;
 
@@ -73,39 +74,37 @@ public class gameManager : NetworkBehaviour
             ballHitCups ballHit = newBall.GetComponent<ballHitCups>();//get the ball collision check script
 
 
-            scoreManger.addP1PointServerRpc();
+            //scoreManger.addP1PointServerRpc();
 
 
 
-            //if (ballHit.P1Point.Value)
-            //{
-            //    //player1Points.Value+=1;//increase points for player 1
-            //    scoreManger.addP1PointServerRpc();
-            //    scoreManger.p1PointsText.text = ("You: "+ scoreManger.P1points.Value);//update text player 1's side
-            //    scoreManger.p2PointsText.text = ("Them: "+ scoreManger.P2points.Value);//update text on layer 2's Side
+            if (ballHit.P1Point)
+            {
+                player1Points+=1;//increase points for player 1
+                P1OppPointsText.text = ("Them: "+ player2Points);//update text on player 1's side
+                P1YouPointsText.text = ("You: "+ player1Points);//update text on layer 2's Side
 
-            //    Debug.Log("player1Points: "+ scoreManger.P1points.Value);
-            //    //ballHit.P1Point.Value = false;//reset to false
-            //    Destroy(newBall);//destroy the ball
+                Debug.Log("player1Points: "+ player1Points);
+                ballHit.P1Point = false;//reset to false
+                Destroy(newBall);//destroy the ball
+            }
 
-            //}
+            if (ballHit.P2Point)
+            {
+                player2Points+=1;//increase points for player 2
+                P2OppPointsText.text = ("Them: "+ player1Points);//update text on player 1's side
+                P2YouPointsText.text = ("You: "+ player2Points);//update text on layer 2's Side
 
-            //if (ballHit.P2Point.Value)
-            //{
-            //    player2Points.Value+=1;//increase points for player 2
-            //    P1OppPointsText.text = ("Them: "+ player2Points.Value);//update text on player 1's side
-            //    P2YouPointsText.text = ("You: "+ player2Points.Value);//update text on layer 2's Side
+                Debug.Log("player2Points: "+ player2Points);
+                ballHit.P2Point = false;//reset to false
+                Destroy(newBall);//destroy the ball
+            }
 
-            //    Debug.Log("player2Points: "+ player2Points.Value);
-            //    ballHit.P2Point.Value = false;//reset to false
-            //    Destroy(newBall);//destroy the ball
-            //}
-
-            //if (ballHit.nonCup)//destroy ball if it hits anything else for long enough
-            //{
-            //    //might need to check when thrown?
-            //    Destroy(newBall);//destroy the ball
-            //}
+            if (ballHit.nonCup)//destroy ball if it hits anything else for long enough
+            {
+                //might need to check when thrown?
+                Destroy(newBall);//destroy the ball
+            }
         }
     }
 }
