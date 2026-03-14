@@ -34,7 +34,7 @@ public class gameManager : NetworkBehaviour
     [Header("------------ Prefabs -------------")]
     public GameObject ballPrefab;
 
-    [SerializeField] GameObject newBall;
+    [SerializeField] NetworkObject newBall;
 
     //public beerPongScoreManger scoreManger;
 
@@ -47,23 +47,26 @@ public class gameManager : NetworkBehaviour
 
      P2BallStartPos = new Vector3(0f, 4f, 5);
      Debug.Log("Start turn: "+ turn);
-     newBall = Instantiate(ballPrefab, P1BallStartPos, Quaternion.identity);//instatiate ball infront of player1
+        //newBall = Instantiate(ballPrefab, P1BallStartPos, Quaternion.identity);//instatiate ball infront of player1
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-       //instatiate ball depending on who's turn it is
+
+        //instatiate ball depending on who's turn it is
         if (newBall == null && turn == 1)//if player 1 turn
         {
-           newBall = Instantiate(ballPrefab, P2BallStartPos, Quaternion.identity);//instatiate ball infront of player2
-           turn = 2;//now player 2's turn
+            spawnBallServerRPC(P1BallStartPos);//spawn the ball infornt of player 1
+            turn = 2;//now player 2's turn
            Debug.Log("Turn: "+ turn);
         }
         else if (newBall == null && turn == 2)//if player 2 turn
         {
-            newBall = Instantiate(ballPrefab, P1BallStartPos, Quaternion.identity);//instatiate ball infront of player2
+            spawnBallServerRPC(P2BallStartPos);//spawn the ball infront of player 2
+
             turn = 1;//now player 1's turn
             Debug.Log("Turn: "+ turn);
 
@@ -86,7 +89,8 @@ public class gameManager : NetworkBehaviour
 
                 Debug.Log("player1Points: "+ player1Points);
                 ballHit.P1Point = false;//reset to false
-                Destroy(newBall);//destroy the ball
+                despawnBallServerRPC();//destroy the ball
+
             }
 
             if (ballHit.P2Point)
@@ -97,14 +101,47 @@ public class gameManager : NetworkBehaviour
 
                 Debug.Log("player2Points: "+ player2Points);
                 ballHit.P2Point = false;//reset to false
-                Destroy(newBall);//destroy the ball
+                despawnBallServerRPC();//destroy the ball
+
             }
 
             if (ballHit.nonCup)//destroy ball if it hits anything else for long enough
             {
                 //might need to check when thrown?
-                Destroy(newBall);//destroy the ball
+                //Destroy(newBall);//destroy the ball
             }
         }
     }
+
+
+
+
+
+
+    //Ball spawning and despawning
+
+    [ServerRpc(RequireOwnership = false)]
+    void spawnBallServerRPC(Vector3 startPos)
+    {
+        newBall = Instantiate(ballPrefab,startPos, Quaternion.identity).GetComponent<NetworkObject>();//instatiate the object
+        newBall.Spawn();//spawn it over the network
+        Debug.Log("newBall: " + newBall);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void despawnBallServerRPC()
+    {
+        newBall.Despawn();//destroy the ball
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
