@@ -5971,8 +5971,7 @@ MonoBehaviour:
   inputText: 
   VRBool: {fileID: 805995575}
   PCBool: {fileID: 805995575}
-  PCNetManagerHud: {fileID: 0}
-  VRNetManagerHud: {fileID: 0}
+  NetManagerHud: {fileID: 1007918418}
 --- !u!1 &1085787229
 GameObject:
   m_ObjectHideFlags: 0
