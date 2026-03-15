@@ -16,6 +16,8 @@ public class DebugPlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        DontDestroyOnLoad(gameObject);//keeps single player constant in all scenes
     }
 
     void Update()

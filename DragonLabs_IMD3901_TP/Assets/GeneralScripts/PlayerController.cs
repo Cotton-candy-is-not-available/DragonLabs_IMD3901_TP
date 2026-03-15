@@ -49,6 +49,9 @@ public class PlayerController : NetworkBehaviour
     public Transform tickTacToeP1SpawnPoint;
     public Transform tickTacToeP2SpawnPoint;
 
+
+    bool isLocked = true;
+
     public override void OnNetworkSpawn()
     {
         currentScene = SceneManager.GetActiveScene().name;
@@ -119,15 +122,7 @@ public class PlayerController : NetworkBehaviour
 
 
 
-    //private NetworkObject SpawnPlayer(ulong clientId)
-    //{
-    //    var player = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
-    //    player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, false);
 
-    //    Debug.Log($"Player spawned with id {clientId}");
-
-    //    return player.GetComponent<NetworkObject>();
-    //}
 
 
     void Update()
@@ -160,5 +155,27 @@ public class PlayerController : NetworkBehaviour
         //euler inputs a number in degrees
         camTransform.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX); //apply it to the camera
+
+
+
+        //unlock and lock cursor when escape key is pressed
+        if (Keyboard.current.uKey.wasPressedThisFrame)//press u to unlock cursor; change to escape
+        {
+            if (isLocked)
+            {
+                isLocked = !isLocked;
+                Cursor.lockState = CursorLockMode.None; //locks the cursor to the screen, so it moves with the camera
+                Cursor.visible = true;//shows cursor 
+            }
+            else
+            {
+                isLocked = !isLocked;
+                Cursor.lockState = CursorLockMode.Locked; //unlocks the cursor to the screen
+                Cursor.visible = false;//hides cursor 
+            }
+        }
+
+
+
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,15 @@ public class ChooseGame : MonoBehaviour
         SceneManager.LoadScene(sceneName);
         StartCoroutine(delaySec(sceneName));
         Debug.Log("before calling coroutine");
+    }
+
+    public void switchScenesNet(string sceneName)
+    {
+        //transition.SetTrigger("Start");
+        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        Debug.Log("netowkr switch scenes");
+        //StartCoroutine(delaySec(sceneName));
+        //Debug.Log("before calling coroutine");
     }
 
     IEnumerator delaySec(string sceneName)

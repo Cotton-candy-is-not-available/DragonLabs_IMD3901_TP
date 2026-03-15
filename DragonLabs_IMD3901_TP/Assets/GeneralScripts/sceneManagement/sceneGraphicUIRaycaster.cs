@@ -16,11 +16,13 @@ public class sceneGraphicUIRaycaster : MonoBehaviour
     PointerEventData m_PointerEventData;
     EventSystem m_EventSystem;
     //public Crosshair crossHair_access;
-    public ChooseGame chooseGame_access;
+    public ChooseGame chooseGameAccess;
     bool hoveringButton = false; //to check if the buttons on the world space UI are being hovered
 
 
     public GameObject pinataPopButton;
+
+    [SerializeField] startGame startGameAccess;
 
 
     void Start()
@@ -51,38 +53,70 @@ public class sceneGraphicUIRaycaster : MonoBehaviour
             //for every result returned, output the name of the GameObject on the Canvas hit by the Ray
             foreach (RaycastResult result in results)
             {
+                Debug.Log("raycast " );
+
                 //check if the left Mouse button is clicked
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     string clickedButtonName = result.gameObject.name;
                     Debug.Log("Clicked " + result.gameObject.name);
-                    switch (clickedButtonName)
-                    {
-                        case "pinataPopButton":
-                            Debug.Log("change scene!");
-                            chooseGame_access.switchScenes("BitaTestScene");
-                            break;
-                            /*
 
-                             *** Uncomment when change scences is a thing ***
-
-                            case "CupPong":
+                    if (startGameAccess.singlePlayerMode)
+                    { //if single player mode was chosen
+                        switch (clickedButtonName)
+                        {
+                            case "pinataPopButton":
                                 Debug.Log("change scene!");
-                                chooseGame_access.switchScenes("");
+                                chooseGameAccess.switchScenes("SinglePlayer");//pinata pop single player scene
                                 break;
-                            case "Parkour":
-                                Debug.Log("change scene!");
-                                chooseGame_access.switchScenes("");
-                            case "TicTacToe":
-                                Debug.Log("change scene!");
-                                chooseGame_access.switchScenes("");
-                            */
+                                /*
 
+                                 *** Uncomment when change scences is a thing ***
+
+                                case "CupPong":
+                                    Debug.Log("change scene!");
+                                    chooseGame_access.switchScenes("");
+                                    break;
+                                case "Parkour":
+                                    Debug.Log("change scene!");
+                                    chooseGame_access.switchScenes("");
+                                case "TicTacToe":
+                                    Debug.Log("change scene!");
+                                    chooseGame_access.switchScenes("");
+                                */
+
+                        }
+                    }
+                    else if (startGameAccess.multiPlayerMode)//if multiplayer mode was chosen
+                    {
+                        switch (clickedButtonName)
+                        {
+
+                            case "pinataPopButton":
+                                Debug.Log("change scene!");
+                                chooseGameAccess.switchScenesNet("beerPong");
+                                break;
+                                /*
+
+                                 *** Uncomment when change scences is a thing ***
+
+                                case "CupPong":
+                                    Debug.Log("change scene!");
+                                    chooseGame_access.switchScenes("");
+                                    break;
+                                case "Parkour":
+                                    Debug.Log("change scene!");
+                                    chooseGame_access.switchScenes("");
+                                case "TicTacToe":
+                                    Debug.Log("change scene!");
+                                    chooseGame_access.switchScenes("");
+                                */
+                        }
                     }
                 }
 
-                if (result.gameObject == pinataPopButton) {
-                    pinataPopButton.GetComponent<Button>().Select();
+                if (result.gameObject.GetComponent<Button>()) {
+                    result.gameObject.GetComponent<Button>().Select();
                 }
                 else
                 {
