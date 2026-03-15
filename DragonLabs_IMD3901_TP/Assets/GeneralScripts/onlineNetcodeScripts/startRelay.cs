@@ -32,6 +32,8 @@ public class startRelay : MonoBehaviour
 
     [SerializeField] int maxPlayerNum = 2;
 
+    [SerializeField] hasStarted hasStartedAccesss;
+
     private void Awake()
     {
         hostButton.onClick.AddListener(() =>
@@ -47,12 +49,16 @@ public class startRelay : MonoBehaviour
 
     private async void Start()
     {
+        if (hasStartedAccesss.gameHasStarted) return;//don't run relay authentication is game has already started
+
         await UnityServices.InitializeAsync();//initialises unity services so that API and relay can run
         AuthenticationService.Instance.SignedIn += () =>
         {
             Debug.Log("Signed in: " + AuthenticationService.Instance.PlayerId);//get player ID
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();//creates account for user anonymously
+
+        hasStartedAccesss.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
 
     }
 

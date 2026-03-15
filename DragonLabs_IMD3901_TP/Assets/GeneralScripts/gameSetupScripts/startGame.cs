@@ -39,15 +39,19 @@ public class startGame : MonoBehaviour
     public GameObject IPAdressText;
     public GameObject joinCodeText;
 
+    [SerializeField] hasStarted hasStartedAccesss;
 
     private void Start()
     {
+        if (hasStartedAccesss.gameHasStarted) return;//don't run relay authentication is game has already started
+
         //turn on start game panel by default
         startPanel.SetActive(true);//show start panel 
 
         localPCPlayer.SetActive(false);//turn local PC off by default
         localVRPlayer.SetActive(false);//turn local VR off by default
 
+        hasStartedAccesss.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
     }
 
     //start button function to get players into the game
