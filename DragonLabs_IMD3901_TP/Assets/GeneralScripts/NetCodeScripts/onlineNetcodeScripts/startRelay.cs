@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.Netcode;
@@ -7,6 +8,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +37,8 @@ public class startRelay : MonoBehaviour
     [SerializeField] hasStarted hasStartedAccesss;
 
     [SerializeField] startGame startGameAccesss;
+
+    [SerializeField] string textToCopy;
 
 
     private void Awake()
@@ -77,6 +81,8 @@ public class startRelay : MonoBehaviour
 
             Debug.Log(joinCode);
 
+            textToCopy = joinCode;//lets player copy join code to send to other players
+
             joinCodeDisplay.SetActive(true);
             joinCodeDisplay.GetComponent<TextMeshProUGUI>().text = joinCode; //display join code on the screen
             
@@ -114,6 +120,17 @@ public class startRelay : MonoBehaviour
             Debug.Log("Join error: " + err);
             throw;
         }
+    }
+
+
+
+    public void copyJoinCode()
+    {
+        // Copy the text to the clipboard.
+
+        EditorGUIUtility.systemCopyBuffer = textToCopy;
+        Debug.Log("copied code: " + textToCopy);
+
     }
 
 
