@@ -45,8 +45,23 @@ public class gameManager : NetworkBehaviour
 
     int turn;
 
+    public GameObject player1;
+    public GameObject player2;
+
+    public Transform p1StartPos;
+    public Transform p2StartPos;
+
     void Start()
     {
+        ////find both player in the scene
+        //player1 = GameObject.FindWithTag("Player1");
+        //player2 = GameObject.FindWithTag("Player2");
+
+        ////Set their start positions
+        //player1.transform.transform.position = p1StartPos.position;
+        //player2.transform.transform.position = p2StartPos.position;
+
+
         //turn = 0;//prevents game from starting
         turn = 1;
         P1BallStartPos =  new Vector3(0f, 3f, -5f);
@@ -64,6 +79,8 @@ public class gameManager : NetworkBehaviour
         //    //turn = 1;
 
         //}
+
+
 
             //instatiate ball depending on who's turn it is
             if (newBall == null && turn == 1)//if player 1 turn

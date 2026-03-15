@@ -32,13 +32,11 @@ public class ballHitCups : NetworkBehaviour
 
         }
 
-        //if(coll)
-
 
 
     }
 
-    private void OnTriggerEnter(Collider trigger)
+    private void OnTriggerStay(Collider trigger)
     {
         if (trigger.gameObject.tag == "cup1")//if the ball hits player 1 Cup 
         {
@@ -50,6 +48,15 @@ public class ballHitCups : NetworkBehaviour
         {
             P1Point = true;//tell game manager to give a point to player 1
 
+        }
+    }
+
+
+    private void Update()
+    {
+        if(gameObject.transform.position.y < 0)
+        {
+            gameObject.GetComponent<NetworkObject>().Despawn();//destroy ball when it goes anywhere below floor level
         }
     }
 

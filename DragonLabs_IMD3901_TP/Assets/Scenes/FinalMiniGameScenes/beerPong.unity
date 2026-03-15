@@ -3669,6 +3669,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 328693812341857719, guid: 77045e3cfbc0809438e63c4e28614995, type: 3}
+      propertyPath: p1StartPos
+      value: 
+      objectReference: {fileID: 4469876989175805423, guid: e2eae4e53b388384f862309365ec501d, type: 3}
+    - target: {fileID: 328693812341857719, guid: 77045e3cfbc0809438e63c4e28614995, type: 3}
+      propertyPath: p2StartPos
+      value: 
+      objectReference: {fileID: 4469876989175805423, guid: 41cf69bdeda3b534d969a93527dc47bc, type: 3}
+    - target: {fileID: 328693812341857719, guid: 77045e3cfbc0809438e63c4e28614995, type: 3}
       propertyPath: scoreManger
       value: 
       objectReference: {fileID: 0}

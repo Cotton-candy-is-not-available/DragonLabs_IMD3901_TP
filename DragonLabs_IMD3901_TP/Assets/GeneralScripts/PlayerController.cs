@@ -67,6 +67,8 @@ public class PlayerController : NetworkBehaviour
         Debug.Log("Client  id: "+ NetworkManager.Singleton.LocalClientId);
         if (NetworkManager.Singleton.LocalClientId == 0)
         {
+            gameObject.tag = "Player1";//give them the player 1 tag
+
             //gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
 
             switch (currentScene)
@@ -90,8 +92,11 @@ public class PlayerController : NetworkBehaviour
         //if cliet is player 2
         else if (NetworkManager.Singleton.LocalClientId == 1)
         {
+            gameObject.tag = "Player2";//give them the player 2 tag
+
             switch (currentScene)
             {
+
                 //case "Lobby":
                 //    gameObject.transform.transform.position = lobbyP2SpawnPoint.position;
                 //    break;
