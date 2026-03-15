@@ -10,6 +10,31 @@ public class ChooseGame : MonoBehaviour
 {
     //public Animator transition;
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static ChooseGame instance;
+
+
+    void Start()
+    {
+        //check that there is only one object in the scene with this script
+        if (instance != null)
+        {
+            Destroy(gameObject);//if there is another object with this script destroy it
+            return;
+        }
+        // end of new code
+
+        instance = this;
+
+        DontDestroyOnLoad(gameObject);
+
+    }
+
+
+
+
+
+
     public void switchScenes(string sceneName)
     {
         //transition.SetTrigger("Start");

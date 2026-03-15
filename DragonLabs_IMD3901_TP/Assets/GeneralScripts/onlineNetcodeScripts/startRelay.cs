@@ -34,6 +34,9 @@ public class startRelay : MonoBehaviour
 
     [SerializeField] hasStarted hasStartedAccesss;
 
+    [SerializeField] startGame startGameAccesss;
+
+
     private void Awake()
     {
         hostButton.onClick.AddListener(() =>
@@ -49,7 +52,8 @@ public class startRelay : MonoBehaviour
 
     private async void Start()
     {
-        if (hasStartedAccesss.gameHasStarted) return;//don't run relay authentication is game has already started
+        //if (hasStarted.gameHasStarted && !startGameAccesss.multiPlayerMode) return;//don't run relay authentication if game has already started and multiplayer mode is off
+        if (hasStarted.gameHasStarted) return;//don't run relay authentication if game has already started and multiplayer mode is off
 
         await UnityServices.InitializeAsync();//initialises unity services so that API and relay can run
         AuthenticationService.Instance.SignedIn += () =>
@@ -58,7 +62,7 @@ public class startRelay : MonoBehaviour
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();//creates account for user anonymously
 
-        hasStartedAccesss.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
+        hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
 
     }
 
@@ -81,8 +85,6 @@ public class startRelay : MonoBehaviour
 
             NetworkManager.Singleton.StartHost();
             joinCanvas.SetActive(false);//hide the join panel
-            //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
-
 
         }
         catch (RelayServiceException err)

@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 public class DebugPlayerController : MonoBehaviour
 {
+    // is made static so that it continues accross scenes
+    public static DebugPlayerController Instance;
+
     public float speed = 5.0f;
     public float mouseSensitivity = 2.0f;
     public CharacterController charController;
@@ -17,6 +20,21 @@ public class DebugPlayerController : MonoBehaviour
 
     private void Start()
     {
+         
+        //check that there is only one object in the scene with this script
+        if (Instance != null)
+        {
+            Destroy(gameObject);//if there is another object with this script destroy it
+            return;
+        }
+        // end of new code
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
+
+
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
