@@ -15,13 +15,13 @@ public class AudioManager : NetworkBehaviour
     public AudioClip ticTacToe_background;
     public AudioClip parkour_background; */
 
-    public string chosenGame = null;
+    public string chosenGame;
 
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
         //check which minigame we are in, and play the corresponding background music
-        PlayBackgroundMusic(chosenGame);
+        PlayBackgroundMusicServerRpc(chosenGame);
     }
 
 
@@ -33,10 +33,11 @@ public class AudioManager : NetworkBehaviour
 
 
     //takes in a string of which game is selected (aka which minigame's scene the audio manager prfab is in)
-    //[ServerRpc(RequireOwnership = false)]
-    public void PlayBackgroundMusic(string chosenGame) 
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayBackgroundMusicServerRpc(string chosenGame) 
     {
-        //SFXSource.PlayOneShot(clip);
+        Debug.Log("chosen game is " + chosenGame);
+
         switch (chosenGame)
         {
             case "PinataPop":
