@@ -12,6 +12,8 @@ public class tragectoryLine : MonoBehaviour
 
     public Transform holdAreaPosition;
 
+    //call server RPC to sync positions
+    //make enable line in player controller be network bool
     public void drawTragectory(Vector3 startVelocity, bool enableLine)
     {
         if (enableLine)
@@ -20,7 +22,6 @@ public class tragectoryLine : MonoBehaviour
             lineRenderer.GetComponent<LineRenderer>().enabled = enableLine;
 
             lineRenderer.positionCount = lineSegments;
-            lineRenderer.transform.rotation = Quaternion.Euler(0, 0, 0);//stay rotated 90 degrees
 
             // line curve equation
             float timeOffset = timeOfFlight/lineSegments;

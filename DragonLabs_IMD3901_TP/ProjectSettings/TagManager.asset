@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 3
   tags:
   - Interactable
-  - cup
-  - cup2
   - Player2
   - beer
   - p1SpawnPoint
+  - floor
+  - table
+  - cup1
+  - cup2
   layers:
   - Default
   - TransparentFX
