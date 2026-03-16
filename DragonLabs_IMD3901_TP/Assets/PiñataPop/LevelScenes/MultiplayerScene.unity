@@ -3849,6 +3849,18 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 3345329036
       objectReference: {fileID: 0}
+    - target: {fileID: 2240205462612226893, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+      propertyPath: basketP1
+      value: 
+      objectReference: {fileID: 1416574347}
+    - target: {fileID: 2240205462612226893, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+      propertyPath: basketP2
+      value: 
+      objectReference: {fileID: 1542117483}
+    - target: {fileID: 2240205462612226893, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+      propertyPath: scoresManagerNet_access
+      value: 
+      objectReference: {fileID: 2046792804}
     - target: {fileID: 8436946068017795411, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
       propertyPath: m_LocalScale.x
       value: 12.318813
@@ -3903,13 +3915,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9105677099177610217, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
       propertyPath: m_Name
-      value: basketP1
+      value: BasketP1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+--- !u!1 &1416574347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9105677099177610217, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+  m_PrefabInstance: {fileID: 1416574346}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1475322855
 GameObject:
   m_ObjectHideFlags: 0
@@ -8932,6 +8949,18 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 3345329036
       objectReference: {fileID: 0}
+    - target: {fileID: 2240205462612226893, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+      propertyPath: basketP1
+      value: 
+      objectReference: {fileID: 1416574347}
+    - target: {fileID: 2240205462612226893, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+      propertyPath: basketP2
+      value: 
+      objectReference: {fileID: 1542117483}
+    - target: {fileID: 2240205462612226893, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+      propertyPath: scoresManagerNet_access
+      value: 
+      objectReference: {fileID: 2046792804}
     - target: {fileID: 8436946068017795411, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
       propertyPath: m_LocalScale.x
       value: 12.318813
@@ -8986,13 +9015,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9105677099177610217, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
       propertyPath: m_Name
-      value: basketP2
+      value: BasketP2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+--- !u!1 &1542117483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9105677099177610217, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+  m_PrefabInstance: {fileID: 1542117482}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1605333733
 GameObject:
   m_ObjectHideFlags: 0
