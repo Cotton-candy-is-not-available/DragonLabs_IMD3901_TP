@@ -32,16 +32,27 @@ public class startGame : MonoBehaviour
     public GameObject localPCPlayer;
     public GameObject localVRPlayer;
 
-
+    [Header("--- Network manager ----")]
     //networkmanager to activate
     public GameObject NetworkManagerObject;
 
+    [Header("--- Join strings ----")]
     public GameObject IPAdressText;
     public GameObject joinCodeText;
 
+    [Header("--- Start camera ----")]
+    public Camera mainCamera;
 
     private void Start()
     {
+        if (hasStarted.gameHasStarted)//if the game has already started turn off camera and tdon't run the function
+        {
+            mainCamera.enabled = false;//turn off the main camera
+
+            return;//don't run start panel if game has already started
+        }
+         
+        mainCamera.enabled = true;//turn on the main camera
         //turn on start game panel by default
         startPanel.SetActive(true);//show start panel 
 
@@ -134,20 +145,13 @@ public class startGame : MonoBehaviour
 
     //--------------LAN Network buttons--------------------
 
-
-    public void startServer()
-    {
-        IPAdressText.SetActive(true);//shows ip address to connect to
-        NetworkManager.Singleton.StartServer();//start server
-        gameSteupCanvas.SetActive(false);//hide net connect panel
-
-    }
-
     public void startHost()
     {
         IPAdressText.SetActive(true);//shows ip address to connect to
         NetworkManager.Singleton.StartHost();//start host
         gameSteupCanvas.SetActive(false );//hide net connect panel
+        hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
+
     }
 
     public void startClient()
@@ -155,6 +159,8 @@ public class startGame : MonoBehaviour
         IPAdressText.SetActive(false);//hides ip address if not already
         NetworkManager.Singleton.StartClient();//join game as client
         gameSteupCanvas.SetActive(false);//hide net connect panel
+        hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
+
 
     }
 
