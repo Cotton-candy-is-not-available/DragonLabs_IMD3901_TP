@@ -10,6 +10,9 @@ TagManager:
   - Player2
   - beer
   - p1SpawnPoint
+  - table
+  - cup1
+  - button
   layers:
   - Default
   - TransparentFX
