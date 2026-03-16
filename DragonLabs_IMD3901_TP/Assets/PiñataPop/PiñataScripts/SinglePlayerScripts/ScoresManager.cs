@@ -22,4 +22,8 @@ public class ScoresManager : MonoBehaviour
         P1HitPoints += 1;
     }
 
+    public void increaseP1Candy()
+    {
+        P1CandyPoints += 1;
+    }
 }
