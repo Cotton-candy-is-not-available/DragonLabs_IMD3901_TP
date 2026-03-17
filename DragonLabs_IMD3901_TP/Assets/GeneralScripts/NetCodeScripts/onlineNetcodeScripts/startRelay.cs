@@ -7,6 +7,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,6 +33,13 @@ public class startRelay : MonoBehaviour
 
     [SerializeField] int maxPlayerNum = 2;
 
+    [SerializeField] hasStarted hasStartedAccesss;
+
+    [SerializeField] startGame startGameAccesss;
+
+    [SerializeField] string textToCopy;
+
+
     private void Awake()
     {
         hostButton.onClick.AddListener(() =>
@@ -47,12 +55,17 @@ public class startRelay : MonoBehaviour
 
     private async void Start()
     {
+        //if (hasStarted.gameHasStarted && !startGameAccesss.multiPlayerMode) return;//don't run relay authentication if game has already started and multiplayer mode is off
+        if (hasStarted.gameHasStarted) return;//don't run relay authentication if game has already started and multiplayer mode is off
+
         await UnityServices.InitializeAsync();//initialises unity services so that API and relay can run
         AuthenticationService.Instance.SignedIn += () =>
         {
             Debug.Log("Signed in: " + AuthenticationService.Instance.PlayerId);//get player ID
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();//creates account for user anonymously
+
+        hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
 
     }
 
@@ -67,6 +80,8 @@ public class startRelay : MonoBehaviour
 
             Debug.Log(joinCode);
 
+            textToCopy = joinCode;//lets player copy join code to send to other players
+
             joinCodeDisplay.SetActive(true);
             joinCodeDisplay.GetComponent<TextMeshProUGUI>().text = joinCode; //display join code on the screen
             
@@ -74,8 +89,9 @@ public class startRelay : MonoBehaviour
             NetworkManager.Singleton.GetComponent<UnityTransport>().UseWebSockets = true;//set websocket checkmark to true
 
             NetworkManager.Singleton.StartHost();
+
             joinCanvas.SetActive(false);//hide the join panel
-            //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
+            Debug.Log("Host started Relay");
 
 
         }
@@ -99,6 +115,10 @@ public class startRelay : MonoBehaviour
             NetworkManager.Singleton.StartClient();
             joinCanvas.SetActive(false);//hide the join panel
             //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
+            startGameAccesss.clientStartServerRpc();//client has started
+            Debug.Log("Client started Relay");
+
+
 
         }
         catch (RelayServiceException err)
@@ -107,6 +127,19 @@ public class startRelay : MonoBehaviour
             throw;
         }
     }
+
+
+
+    public void copyJoinCode()
+    {
+        // Copy the text to the clipboard.
+
+        GUIUtility.systemCopyBuffer = textToCopy;
+        Debug.Log("copied code: " + textToCopy);
+
+    }
+
+
 
 
 }

@@ -1149,6 +1149,7 @@ GameObject:
   - component: {fileID: 5388149974725928143}
   - component: {fileID: 945033642978419501}
   - component: {fileID: 2329308211205747299}
+  - component: {fileID: 1122937394446995858}
   m_Layer: 0
   m_Name: VRPlayerLocal
   m_TagString: Player
@@ -1229,6 +1230,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1122937394446995858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8842678829648397640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db1bd7110f4ea34ca134a5689aa3a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3143224214463510244
 PrefabInstance:
   m_ObjectHideFlags: 0

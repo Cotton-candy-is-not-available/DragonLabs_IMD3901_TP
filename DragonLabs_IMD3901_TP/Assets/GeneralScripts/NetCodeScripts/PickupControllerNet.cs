@@ -24,7 +24,8 @@ public class PickupControllerNet : NetworkBehaviour
     public float throwForce = 10f;
     [SerializeField] tragectoryLine line;
     public float mass = 10;
-    bool enableLine = false;
+    //bool enableLine = false;
+    NetworkVariable<bool> enableLine = new NetworkVariable<bool>();
 
     //------------------------------------------
 
@@ -38,7 +39,7 @@ public class PickupControllerNet : NetworkBehaviour
 
     private void Update()
     {
-        enableLine = false;//turn off the line by default --Beer Pong
+        enableLine.Value = false;//turn off the line by default --Beer Pong
 
         //PICKING UP-----------------------------
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
@@ -68,7 +69,7 @@ public class PickupControllerNet : NetworkBehaviour
         {
             //move the object around
             moveObject();
-            enableLine = true;     
+            enableLine.Value = true;     
 
         }
 
@@ -77,11 +78,11 @@ public class PickupControllerNet : NetworkBehaviour
         {
             if (heldObj != null && heldObj.name == "ball(Clone)")//if the held object is not null and is the ball clone
             {
-                line.drawTragectory(transform.forward * throwForce, enableLine);//turn on the tragectory line
+                line.drawTragectory(transform.forward * throwForce, enableLine.Value);//turn on the tragectory line
             }
             else
             {
-                line.drawTragectory(transform.forward * throwForce, enableLine);//hide the tragectory line
+                line.drawTragectory(transform.forward * throwForce, enableLine.Value);//hide the tragectory line
             }
         }
 

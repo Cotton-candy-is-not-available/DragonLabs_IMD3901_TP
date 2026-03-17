@@ -1,4 +1,3 @@
-using TreeEditor;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : NetworkBehaviour
 {
+    public static PlayerController Instance;
+
     public float speed = 5.0f;
     public float mouseSensitivity = 2.0f;
     public CharacterController charController;
@@ -49,6 +50,9 @@ public class PlayerController : NetworkBehaviour
     public Transform tickTacToeP1SpawnPoint;
     public Transform tickTacToeP2SpawnPoint;
 
+
+    bool isLocked = true;
+
     public override void OnNetworkSpawn()
     {
         currentScene = SceneManager.GetActiveScene().name;
@@ -65,53 +69,96 @@ public class PlayerController : NetworkBehaviour
 
         //if client is player 1
         Debug.Log("Client  id: "+ NetworkManager.Singleton.LocalClientId);
-        if (NetworkManager.Singleton.LocalClientId == 0)
+
+
+        //check that there is only one object in the scene with this script
+        if (Instance != null)
         {
-            //gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
+            Instance = this;
+            gameObject.tag = "Player2";//give them the player 1 tag
 
-            switch (currentScene)
-            {
-                //case "Lobby":
-                //    gameObject.transform.transform.position = lobbyP1SpawnPoint.position;
-                //    break;
+            PcCamera.tag = "p2Camera";//set camera tags
+            Debug.Log("P2 Camera tag: " + PcCamera.tag);
 
-                case "beerPong":
-                    gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
-                    break;
+            //startGame startGameAccess = GetComponent<startGame>();
+            //startGameAccess.clientStartServerRpc();
 
-                    //case "scene name here":
-                    //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
-                    //    break;
-
-            }
-            Debug.Log("Player 1 spawned");
+           //if there is another object with this script set this as player 2
+            //return;
         }
-
-        //if cliet is player 2
-        else if (NetworkManager.Singleton.LocalClientId == 1)
+        else
         {
-            switch (currentScene)
-            {
-                //case "Lobby":
-                //    gameObject.transform.transform.position = lobbyP2SpawnPoint.position;
-                //    break;
+            Instance = this;
+            gameObject.tag = "Player1";//give them the player 1 tag
 
-                case "beerPong":
-                    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
-                    break;
+            PcCamera.tag = "p1Camera";//set camera tags
+            Debug.Log("P1 Camera tag: " + PcCamera.tag);
 
-                //case "scene name here":
-                //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
-                //    break;
-
-
-
-
-            }
-                Debug.Log("Player 2 spawned");
 
         }
 
+        Debug.Log("owner client ID" + (int)OwnerClientId);
+
+
+
+        //if (NetworkManager.Singleton.LocalClientId == 0)
+        //if(IsServer)
+        //{
+        //    gameObject.tag = "Player1";//give them the player 1 tag
+
+        //    PcCamera.tag = "p1Camera";//set camera tags
+
+        //    //gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
+
+        //    switch (currentScene)
+        //    {
+        //        //case "Lobby":
+        //        //    gameObject.transform.transform.position = lobbyP1SpawnPoint.position;
+        //        //    break;
+
+        //        case "beerPong":
+        //            gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
+        //            break;
+
+        //            //case "scene name here":
+        //            //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
+        //            //    break;
+
+        //    }
+        //    Debug.Log("Player 1 spawned");
+        //}
+
+        ////if cliet is player 2
+        ////else if (NetworkManager.Singleton.LocalClientId == 1)
+        //else 
+        //        {
+        //    gameObject.tag = "Player2";//give them the player 2 tag
+        //    PcCamera.tag = "p2Camera";//set camera tags
+
+        //    switch (currentScene)
+        //    {
+
+        //        //case "Lobby":
+        //        //    gameObject.transform.transform.position = lobbyP2SpawnPoint.position;
+        //        //    break;
+
+        //        case "beerPong":
+        //            gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
+        //            break;
+
+        //        //case "scene name here":
+        //        //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
+        //        //    break;
+
+
+
+
+        //    }
+        //        Debug.Log("Player 2 spawned");
+
+        //}
+
+        Debug.Log("isHost: " + IsHost + " IsClient: " + IsClient + " IsServer: " + IsServer);
 
 
 
@@ -119,15 +166,7 @@ public class PlayerController : NetworkBehaviour
 
 
 
-    //private NetworkObject SpawnPlayer(ulong clientId)
-    //{
-    //    var player = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
-    //    player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, false);
 
-    //    Debug.Log($"Player spawned with id {clientId}");
-
-    //    return player.GetComponent<NetworkObject>();
-    //}
 
 
     void Update()
@@ -160,5 +199,27 @@ public class PlayerController : NetworkBehaviour
         //euler inputs a number in degrees
         camTransform.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX); //apply it to the camera
+
+
+
+        //unlock and lock cursor when escape key is pressed
+        if (Keyboard.current.uKey.wasPressedThisFrame)//press u to unlock cursor; change to escape
+        {
+            if (isLocked)
+            {
+                isLocked = !isLocked;
+                Cursor.lockState = CursorLockMode.None; //locks the cursor to the screen, so it moves with the camera
+                Cursor.visible = true;//shows cursor 
+            }
+            else
+            {
+                isLocked = !isLocked;
+                Cursor.lockState = CursorLockMode.Locked; //unlocks the cursor to the screen
+                Cursor.visible = false;//hides cursor 
+            }
+        }
+
+
+
     }
 }
