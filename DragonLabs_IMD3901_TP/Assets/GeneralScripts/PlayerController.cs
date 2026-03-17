@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : NetworkBehaviour
 {
+    public static PlayerController Instance;
+
     public float speed = 5.0f;
     public float mouseSensitivity = 2.0f;
     public CharacterController charController;
@@ -67,62 +69,91 @@ public class PlayerController : NetworkBehaviour
 
         //if client is player 1
         Debug.Log("Client  id: "+ NetworkManager.Singleton.LocalClientId);
-        if (NetworkManager.Singleton.LocalClientId == 0)
+
+
+        //check that there is only one object in the scene with this script
+        if (Instance != null)
         {
+            Instance = this;
+            gameObject.tag = "Player2";//give them the player 1 tag
+
+            PcCamera.tag = "p2Camera";//set camera tags
+            Debug.Log("P1 Camera tag: " + PcCamera.tag);
+           //if there is another object with this script set this as player 2
+            //return;
+        }
+        else
+        {
+            Instance = this;
             gameObject.tag = "Player1";//give them the player 1 tag
 
             PcCamera.tag = "p1Camera";//set camera tags
+            Debug.Log("P2 Camera tag: " + PcCamera.tag);
 
-            //gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
-
-            switch (currentScene)
-            {
-                //case "Lobby":
-                //    gameObject.transform.transform.position = lobbyP1SpawnPoint.position;
-                //    break;
-
-                case "beerPong":
-                    gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
-                    break;
-
-                    //case "scene name here":
-                    //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
-                    //    break;
-
-            }
-            Debug.Log("Player 1 spawned");
-        }
-
-        //if cliet is player 2
-        else if (NetworkManager.Singleton.LocalClientId == 1)
-        {
-            gameObject.tag = "Player2";//give them the player 2 tag
-            PcCamera.tag = "p2Camera";//set camera tags
-
-            switch (currentScene)
-            {
-
-                //case "Lobby":
-                //    gameObject.transform.transform.position = lobbyP2SpawnPoint.position;
-                //    break;
-
-                case "beerPong":
-                    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
-                    break;
-
-                //case "scene name here":
-                //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
-                //    break;
-
-
-
-
-            }
-                Debug.Log("Player 2 spawned");
 
         }
 
-        Debug.Log("isHost: " + IsHost + "IsClient: " + IsClient);
+
+
+
+        //if (NetworkManager.Singleton.LocalClientId == 0)
+        //if(IsServer)
+        //{
+        //    gameObject.tag = "Player1";//give them the player 1 tag
+
+        //    PcCamera.tag = "p1Camera";//set camera tags
+
+        //    //gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
+
+        //    switch (currentScene)
+        //    {
+        //        //case "Lobby":
+        //        //    gameObject.transform.transform.position = lobbyP1SpawnPoint.position;
+        //        //    break;
+
+        //        case "beerPong":
+        //            gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
+        //            break;
+
+        //            //case "scene name here":
+        //            //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
+        //            //    break;
+
+        //    }
+        //    Debug.Log("Player 1 spawned");
+        //}
+
+        ////if cliet is player 2
+        ////else if (NetworkManager.Singleton.LocalClientId == 1)
+        //else 
+        //        {
+        //    gameObject.tag = "Player2";//give them the player 2 tag
+        //    PcCamera.tag = "p2Camera";//set camera tags
+
+        //    switch (currentScene)
+        //    {
+
+        //        //case "Lobby":
+        //        //    gameObject.transform.transform.position = lobbyP2SpawnPoint.position;
+        //        //    break;
+
+        //        case "beerPong":
+        //            gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
+        //            break;
+
+        //        //case "scene name here":
+        //        //    gameObject.transform.transform.position = beerPongP2SpawnPoint.position;
+        //        //    break;
+
+
+
+
+        //    }
+        //        Debug.Log("Player 2 spawned");
+
+        //}
+
+        Debug.Log("isHost: " + IsHost + " IsClient: " + IsClient + " IsServer: " + IsServer);
 
 
 
