@@ -2369,36 +2369,6 @@ Transform:
   - {fileID: 1515968718}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &400909804 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4909056947922957477, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-  m_PrefabInstance: {fileID: 7220492367687622989}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &400909810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400909804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3898062506
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -10812,6 +10782,83 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969004835}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1986156756
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.36798
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832631461437597896, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: sceneName
+      value: MultiplayerScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832631461437597896, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: chooseGame_access
+      value: 
+      objectReference: {fileID: 229652708}
+    - target: {fileID: 4909056947922957477, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_Name
+      value: pinataPopButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386495832299759890, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_Name
+      value: pinataPopButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394856413787178612, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3862418912
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394856413787178612, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
 --- !u!1 &2014754417
 GameObject:
   m_ObjectHideFlags: 0
@@ -11687,78 +11734,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118706391}
   m_CullTransparentMesh: 1
---- !u!1001 &7220492367687622989
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1453934788016092102, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: sceneName
-      value: SinglePlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453934788016092102, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: switchScenes
-      value: 
-      objectReference: {fileID: 229652708}
-    - target: {fileID: 1453934788016092102, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: startGameAccess
-      value: 
-      objectReference: {fileID: 805995575}
-    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.355
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6386495832299759890, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      propertyPath: m_Name
-      value: pinataPopButton
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4909056947922957477, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 400909810}
-  m_SourcePrefab: {fileID: 100100000, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -11789,5 +11764,5 @@ SceneRoots:
   - {fileID: 1085787230}
   - {fileID: 552152648}
   - {fileID: 171031063}
+  - {fileID: 1986156756}
   - {fileID: 2052186628}
-  - {fileID: 7220492367687622989}

@@ -78,7 +78,11 @@ public class PlayerController : NetworkBehaviour
             gameObject.tag = "Player2";//give them the player 1 tag
 
             PcCamera.tag = "p2Camera";//set camera tags
-            Debug.Log("P1 Camera tag: " + PcCamera.tag);
+            Debug.Log("P2 Camera tag: " + PcCamera.tag);
+
+            startGame startGameAccess = GetComponent<startGame>();
+            startGameAccess.clientStartServerRpc();
+
            //if there is another object with this script set this as player 2
             //return;
         }
@@ -88,11 +92,12 @@ public class PlayerController : NetworkBehaviour
             gameObject.tag = "Player1";//give them the player 1 tag
 
             PcCamera.tag = "p1Camera";//set camera tags
-            Debug.Log("P2 Camera tag: " + PcCamera.tag);
+            Debug.Log("P1 Camera tag: " + PcCamera.tag);
 
 
         }
 
+        Debug.Log("owner client ID" + (int)OwnerClientId);
 
 
 

@@ -57,6 +57,7 @@ public class pourDetector : NetworkBehaviour
 
         //send over to shader new value of fill level
         rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph
+        Debug.Log("fillLevel: " + fillLevel);
         Debug.Log("fill down");
 
     }

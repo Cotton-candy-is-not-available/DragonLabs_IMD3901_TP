@@ -174,6 +174,7 @@ public class startGame : NetworkBehaviour
 
     public void startClient()
     {
+
         IPAdressText.SetActive(false);//hides ip address if not already
         NetworkManager.Singleton.StartClient();//join game as client
         gameSteupCanvas.SetActive(false);//hide net connect panel

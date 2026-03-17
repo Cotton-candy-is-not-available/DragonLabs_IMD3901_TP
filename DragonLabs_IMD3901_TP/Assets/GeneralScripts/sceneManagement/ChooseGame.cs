@@ -30,11 +30,6 @@ public class ChooseGame : MonoBehaviour
 
     }
 
-
-
-
-
-
     public void switchScenes(string sceneName)
     {
         //transition.SetTrigger("Start");
