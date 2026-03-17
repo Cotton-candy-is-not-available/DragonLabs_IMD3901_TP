@@ -24,8 +24,8 @@ public class PickupControllerNet : NetworkBehaviour
     public float throwForce = 10f;
     [SerializeField] tragectoryLine line;
     public float mass = 10;
-    //bool enableLine = false;
-    NetworkVariable<bool> enableLine = new NetworkVariable<bool>();
+    bool enableLine = false;
+    //NetworkVariable<bool> enableLine = new NetworkVariable<bool>();
 
     //------------------------------------------
 
@@ -39,7 +39,7 @@ public class PickupControllerNet : NetworkBehaviour
 
     private void Update()
     {
-        enableLine.Value = false;//turn off the line by default --Beer Pong
+        //enableLine = false;//turn off the line by default --Beer Pong
 
         //PICKING UP-----------------------------
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
@@ -69,22 +69,22 @@ public class PickupControllerNet : NetworkBehaviour
         {
             //move the object around
             moveObject();
-            enableLine.Value = true;     
+            //enableLine = true;     
 
         }
 
-        //----Draw the tragectory line BeerPong scene only and only if holding ball
-        if (currentScene.name == "beerPong")//only enable in beerPong scene
-        {
-            if (heldObj != null && heldObj.name == "ball(Clone)")//if the held object is not null and is the ball clone
-            {
-                line.drawTragectory(transform.forward * throwForce, enableLine.Value);//turn on the tragectory line
-            }
-            else
-            {
-                line.drawTragectory(transform.forward * throwForce, enableLine.Value);//hide the tragectory line
-            }
-        }
+        ////----Draw the tragectory line BeerPong scene only and only if holding ball
+        //if (currentScene.name == "beerPong")//only enable in beerPong scene
+        //{
+        //    if (heldObj != null && heldObj.name == "ball(Clone)")//if the held object is not null and is the ball clone
+        //    {
+        //        line.drawTragectory(transform.forward * throwForce, enableLine);//turn on the tragectory line
+        //    }
+        //    else
+        //    {
+        //        line.drawTragectory(transform.forward * throwForce, enableLine);//hide the tragectory line
+        //    }
+        //}
 
         //-----------------------------------
 
@@ -158,12 +158,12 @@ public class PickupControllerNet : NetworkBehaviour
             rb.constraints = RigidbodyConstraints.None; //allow full movement
 
             //if the current scene is the beer pong minigame, add force so that the object can be thrown
-            if (currentScene.name == "beerPong")
-            {
-                //heldObjRB.AddForce(transform.forward * throwForce);
-                Debug.Log("beerpong scene");
-                rb.linearVelocity = transform.forward * throwForce;
-            }
+            //if (currentScene.name == "beerPong")
+            //{
+            //    //heldObjRB.AddForce(transform.forward * throwForce);
+            //    Debug.Log("beerpong scene");
+            //    rb.linearVelocity = transform.forward * throwForce;
+            //}
         }
         ClearHeldObjectClientRpc();
     }
