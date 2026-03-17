@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4609313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,7 +667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &558637351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5370,7 +5370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1807990222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5472,6 +5472,8 @@ MonoBehaviour:
   joinCanvas: {fileID: 1807990221}
   joinCodeDisplay: {fileID: 1613222237}
   maxPlayerNum: 2
+  startGameAccesss: {fileID: 0}
+  textToCopy: 
 --- !u!1 &1821135710
 GameObject:
   m_ObjectHideFlags: 0

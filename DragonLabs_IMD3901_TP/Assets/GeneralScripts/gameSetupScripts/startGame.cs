@@ -2,7 +2,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class startGame : MonoBehaviour
+public class startGame : NetworkBehaviour
 {
     [Header("---Bools----")]
 
@@ -43,8 +43,22 @@ public class startGame : MonoBehaviour
     [Header("--- Start camera ----")]
     public Camera mainCamera;
 
+   
+    public NetworkVariable<bool> clientStarted = new NetworkVariable<bool>();//make static
+
+
+
+    public override void OnNetworkSpawn()
+    {
+        clientStarted.Value = false;
+        //clientStarted.OnValueChanged += OnP1HitPointsChanged;
+
+    }
+
     private void Start()
     {
+        clientStarted.Value = false;//client has not started
+
         if (hasStarted.gameHasStarted)//if the game has already started turn off camera and tdon't run the function
         {
             mainCamera.enabled = false;//turn off the main camera
@@ -151,6 +165,10 @@ public class startGame : MonoBehaviour
         NetworkManager.Singleton.StartHost();//start host
         gameSteupCanvas.SetActive(false );//hide net connect panel
         hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
+        Debug.Log("Host started LAN");
+
+        //clientStarted.Value = true;//client has started
+        //clientStartServerRpc();
 
     }
 
@@ -160,11 +178,19 @@ public class startGame : MonoBehaviour
         NetworkManager.Singleton.StartClient();//join game as client
         gameSteupCanvas.SetActive(false);//hide net connect panel
         hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
+        clientStartServerRpc();//client has started
+        Debug.Log("Client started LAN");
 
 
     }
 
-
+    [ServerRpc(RequireOwnership = false)] //host and client are able to ask the server to update the teampoints
+    public void clientStartServerRpc()
+    {
+        //increasae the value of points on both host and client since its a network variable
+        clientStarted.Value = true;
+        Debug.Log("clientStarted RPC: LAN");
+    }
 
 
 }

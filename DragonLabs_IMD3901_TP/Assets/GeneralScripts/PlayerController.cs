@@ -1,4 +1,3 @@
-using TreeEditor;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -72,6 +71,8 @@ public class PlayerController : NetworkBehaviour
         {
             gameObject.tag = "Player1";//give them the player 1 tag
 
+            PcCamera.tag = "p1Camera";//set camera tags
+
             //gameObject.transform.transform.position = beerPongP1SpawnPoint.position;
 
             switch (currentScene)
@@ -96,6 +97,7 @@ public class PlayerController : NetworkBehaviour
         else if (NetworkManager.Singleton.LocalClientId == 1)
         {
             gameObject.tag = "Player2";//give them the player 2 tag
+            PcCamera.tag = "p2Camera";//set camera tags
 
             switch (currentScene)
             {
@@ -120,6 +122,7 @@ public class PlayerController : NetworkBehaviour
 
         }
 
+        Debug.Log("isHost: " + IsHost + "IsClient: " + IsClient);
 
 
 

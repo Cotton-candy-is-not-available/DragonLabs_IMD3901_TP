@@ -2369,6 +2369,36 @@ Transform:
   - {fileID: 1515968718}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &400909804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4909056947922957477, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+  m_PrefabInstance: {fileID: 7220492367687622989}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &400909810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400909804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3898062506
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4647,6 +4677,7 @@ GameObject:
   - component: {fileID: 805995573}
   - component: {fileID: 805995572}
   - component: {fileID: 805995571}
+  - component: {fileID: 805995577}
   - component: {fileID: 805995575}
   - component: {fileID: 805995576}
   m_Layer: 5
@@ -4755,6 +4786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30d56158c7bf7f4e96c7d3a5a14aabf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   VRMode: 0
   PCMode: 0
   multiPlayerMode: 0
@@ -4772,6 +4804,8 @@ MonoBehaviour:
   IPAdressText: {fileID: 1217244120}
   joinCodeText: {fileID: 796655735}
   mainCamera: {fileID: 1029227191}
+  clientStarted:
+    m_InternalValue: 0
 --- !u!114 &805995576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4792,6 +4826,31 @@ MonoBehaviour:
   maxPlayerNum: 2
   startGameAccesss: {fileID: 805995575}
   textToCopy: 
+--- !u!114 &805995577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805995570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 842337838
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &814641303
 GameObject:
   m_ObjectHideFlags: 0
@@ -11644,17 +11703,21 @@ PrefabInstance:
       propertyPath: switchScenes
       value: 
       objectReference: {fileID: 229652708}
+    - target: {fileID: 1453934788016092102, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: startGameAccess
+      value: 
+      objectReference: {fileID: 805995575}
     - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.61
+      value: -6.355
       objectReference: {fileID: 0}
     - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.86
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.36
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 1581841915756377581, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11686,12 +11749,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6386495832299759890, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
       propertyPath: m_Name
-      value: pinaatPopButton
+      value: pinataPopButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4909056947922957477, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 400909810}
   m_SourcePrefab: {fileID: 100100000, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

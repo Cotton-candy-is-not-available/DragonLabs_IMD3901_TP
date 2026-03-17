@@ -1,4 +1,3 @@
-using Mono.Cecil.Cil;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.Netcode;
@@ -90,7 +89,10 @@ public class startRelay : MonoBehaviour
             NetworkManager.Singleton.GetComponent<UnityTransport>().UseWebSockets = true;//set websocket checkmark to true
 
             NetworkManager.Singleton.StartHost();
+
             joinCanvas.SetActive(false);//hide the join panel
+            Debug.Log("Host started Relay");
+
 
         }
         catch (RelayServiceException err)
@@ -113,6 +115,10 @@ public class startRelay : MonoBehaviour
             NetworkManager.Singleton.StartClient();
             joinCanvas.SetActive(false);//hide the join panel
             //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
+            startGameAccesss.clientStartServerRpc();//client has started
+            Debug.Log("Client started Relay");
+
+
 
         }
         catch (RelayServiceException err)
@@ -128,10 +134,12 @@ public class startRelay : MonoBehaviour
     {
         // Copy the text to the clipboard.
 
-        EditorGUIUtility.systemCopyBuffer = textToCopy;
+        GUIUtility.systemCopyBuffer = textToCopy;
         Debug.Log("copied code: " + textToCopy);
 
     }
+
+
 
 
 }

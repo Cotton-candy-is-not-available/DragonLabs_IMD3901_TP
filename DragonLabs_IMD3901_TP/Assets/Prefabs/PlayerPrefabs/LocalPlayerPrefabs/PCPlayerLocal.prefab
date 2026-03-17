@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 6286499705926140036}
   m_Layer: 0
   m_Name: camera_PC
-  m_TagString: Untagged
+  m_TagString: localPlayerCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

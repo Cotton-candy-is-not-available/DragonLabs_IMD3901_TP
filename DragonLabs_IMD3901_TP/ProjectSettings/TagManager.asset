@@ -13,6 +13,10 @@ TagManager:
   - cup2
   - Player1
   - Player2
+  - button
+  - p1Camera
+  - p2Camera
+  - localPlayerCamera
   layers:
   - Default
   - TransparentFX
