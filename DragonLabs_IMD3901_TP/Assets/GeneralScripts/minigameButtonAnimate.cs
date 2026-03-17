@@ -50,7 +50,7 @@ public class minigameButtonAnimate : NetworkBehaviour
         isPressed = true; 
         isAnimating = true;
 
-        chooseGame_access.switchScenesNet(sceneName);
+        //chooseGame_access.switchScenesNet(sceneName);
     }
 
 
@@ -72,6 +72,24 @@ public class minigameButtonAnimate : NetworkBehaviour
         if (IsOwner)
         {
             animateButton();
+        }
+    }
+
+    //tell the server we want to change scenes now
+    [ServerRpc(RequireOwnership = false)] //allows for both the host or the client to call the function
+    public void switchSceneOnButtonServerRpc()
+    {
+        chooseGame_access.switchScenesNetServerRpc(sceneName);
+        Debug.Log("Switched the scene on button press!!!");
+        changeSceneForClientRpc();
+    }
+
+    [ClientRpc]
+    private void changeSceneForClientRpc() //run the swithc scenes function on the client's side
+    {
+        if (IsOwner)
+        {
+            chooseGame_access.switchScenesNetServerRpc(sceneName);
         }
     }
 

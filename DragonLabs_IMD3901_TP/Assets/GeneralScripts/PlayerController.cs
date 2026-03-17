@@ -80,8 +80,8 @@ public class PlayerController : NetworkBehaviour
             PcCamera.tag = "p2Camera";//set camera tags
             Debug.Log("P2 Camera tag: " + PcCamera.tag);
 
-            startGame startGameAccess = GetComponent<startGame>();
-            startGameAccess.clientStartServerRpc();
+            //startGame startGameAccess = GetComponent<startGame>();
+            //startGameAccess.clientStartServerRpc();
 
            //if there is another object with this script set this as player 2
             //return;

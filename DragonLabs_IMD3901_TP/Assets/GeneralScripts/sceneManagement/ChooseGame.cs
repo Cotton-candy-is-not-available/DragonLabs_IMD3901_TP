@@ -38,7 +38,8 @@ public class ChooseGame : MonoBehaviour
         Debug.Log("before calling coroutine");
     }
 
-    public void switchScenesNet(string sceneName)
+    [ServerRpc(RequireOwnership = false)]
+    public void switchScenesNetServerRpc(string sceneName)
     {
         //transition.SetTrigger("Start");
         NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);

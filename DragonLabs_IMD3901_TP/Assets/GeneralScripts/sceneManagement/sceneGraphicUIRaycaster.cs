@@ -94,7 +94,7 @@ public class sceneGraphicUIRaycaster : MonoBehaviour
 
                             case "pinataPopButton":
                                 Debug.Log("change scene!");
-                                chooseGameAccess.switchScenesNet("beerPong");
+                                chooseGameAccess.switchScenesNetServerRpc("beerPong");
                                 break;
                                 /*
 

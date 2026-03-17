@@ -55,11 +55,13 @@ public class PlayerInteractionNet : NetworkBehaviour
                         if ((int)OwnerClientId  == 0) //host
                         {
                             button.animateButton();
+                            button.switchSceneOnButtonServerRpc();
                         }
 
                         if ((int)OwnerClientId  == 1) //client
                         {
                             button.PressButtonServerRpc(button.NetworkObjectId);
+                            button.switchSceneOnButtonServerRpc();
                         }
                     }
 
