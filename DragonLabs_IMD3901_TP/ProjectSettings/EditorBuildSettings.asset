@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScenes/MolomeyTestScene.unity
     guid: 6bb5f3f976c83484da880bf280561f45
   - enabled: 1
-    path: "Assets/Pin\u0303ataPop/MainLobbyPi\xF1ata.unity"
+    path: "Assets/Pi\xF1ataPop/MainLobbyPi\xF1ata.unity"
     guid: 11b84883505b9f141b5f055b13f84a9d
   - enabled: 0
     path: Assets/Scenes/MainScene.unity
@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: "Assets/Pi\xF1ataPop/LevelScenes/EasyLevel.unity"
     guid: 576ec124a860ebd49b9b887a4cbc0aef
   - enabled: 1
-    path: "Assets/Pi\xF1ataPop/LevelScenes/MultiplayerScene.unity"
+    path: "Assets/Pi\xF1ataPop/LevelScenes/PinataMultiplayerScene.unity"
     guid: 4596d3997b8e8a546bfcbbd1998ad7b1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
