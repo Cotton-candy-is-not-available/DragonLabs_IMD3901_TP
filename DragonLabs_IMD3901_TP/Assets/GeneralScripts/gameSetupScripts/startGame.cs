@@ -41,7 +41,7 @@ public class startGame : NetworkBehaviour
     public GameObject joinCodeText;
 
     [Header("--- Start camera ----")]
-    public Camera mainCamera;
+    public GameObject mainCamera;
 
    
     public NetworkVariable<bool> clientStarted = new NetworkVariable<bool>();//make static
@@ -61,12 +61,14 @@ public class startGame : NetworkBehaviour
 
         if (hasStarted.gameHasStarted)//if the game has already started turn off camera and tdon't run the function
         {
-            mainCamera.enabled = false;//turn off the main camera
+            //mainCamera.enabled = false;//turn off the main camera
+            mainCamera.SetActive(false);//turn off the main camera
+
 
             return;//don't run start panel if game has already started
         }
-         
-        mainCamera.enabled = true;//turn on the main camera
+         mainCamera.SetActive(true);//turn on the main camera
+        //mainCamera.enabled = true;//turn on the main camera
         //turn on start game panel by default
         startPanel.SetActive(true);//show start panel 
 
@@ -143,13 +145,16 @@ public class startGame : NetworkBehaviour
         if (PCMode)//if pc button was clicked earlier
         {
             localPCPlayer.SetActive(true);//activate local PC 
-            mainCamera.enabled = false;//turn off the main camera
+            //mainCamera.enabled = false;//turn off the main camera
+            mainCamera.SetActive(false);//turn off the main camera
+
 
         }
         else if (VRMode)//if VR button was clicked earlier
         {
             localVRPlayer.SetActive(true);//activate local VR 
-            mainCamera.enabled = false;//turn off the main camera
+            //mainCamera.enabled = false;//turn off the main camera
+            mainCamera.SetActive(false);//turn off the main camera
 
 
         }
@@ -172,7 +177,9 @@ public class startGame : NetworkBehaviour
 
         //clientStarted.Value = true;//client has started
         //clientStartServerRpc();
-        mainCamera.enabled = false;//turn off the main camera
+        //mainCamera.enabled = false;//turn off the main camera
+        mainCamera.SetActive(false);//turn off the main camera
+
 
 
     }
@@ -186,7 +193,8 @@ public class startGame : NetworkBehaviour
         hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
         clientStartServerRpc();//client has started
         Debug.Log("Client started LAN");
-        mainCamera.enabled = false;//turn off the main camera
+        //mainCamera.enabled = false;//turn off the main camera
+        mainCamera.SetActive(false);//turn off the main camera
 
 
 

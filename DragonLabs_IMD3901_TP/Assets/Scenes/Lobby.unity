@@ -4707,7 +4707,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1021830422}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4773,7 +4773,7 @@ MonoBehaviour:
   NetworkManagerObject: {fileID: 1007918414}
   IPAdressText: {fileID: 1217244120}
   joinCodeText: {fileID: 796655735}
-  mainCamera: {fileID: 1213521944}
+  mainCamera: {fileID: 1213521941}
   clientStarted:
     m_InternalValue: 0
 --- !u!114 &805995576
@@ -4796,6 +4796,7 @@ MonoBehaviour:
   maxPlayerNum: 2
   startGameAccesss: {fileID: 805995575}
   textToCopy: 
+  mainCamera: {fileID: 1213521941}
 --- !u!114 &805995577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5412,6 +5413,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IPAdressText: {fileID: 56504050}
+--- !u!20 &1021830422 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 101520965842570519, guid: 33594771e3f40404eacc9876f2b17b8d, type: 3}
+  m_PrefabInstance: {fileID: 1774576631}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1028178228
 GameObject:
   m_ObjectHideFlags: 0
@@ -7063,7 +7069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1213521942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9394,7 +9400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8842678829648397640, guid: 33594771e3f40404eacc9876f2b17b8d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11738,6 +11744,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 805995574}
   - {fileID: 410087041}
   - {fileID: 1007918417}
   - {fileID: 229652707}
@@ -11745,7 +11752,6 @@ SceneRoots:
   - {fileID: 1182801086}
   - {fileID: 947639127}
   - {fileID: 600677110}
-  - {fileID: 805995574}
   - {fileID: 1217244124}
   - {fileID: 1760458370}
   - {fileID: 1610137850}

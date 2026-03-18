@@ -39,6 +39,7 @@ public class startRelay : MonoBehaviour
 
     [SerializeField] string textToCopy;
 
+    public GameObject mainCamera;
 
     private void Awake()
     {
@@ -72,6 +73,8 @@ public class startRelay : MonoBehaviour
     //Same as create host button
     public async void createRelay()//creates an instance of relay so that user can connect to online service
     {
+        mainCamera.SetActive(false);//turn off the main camera
+
         try
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayerNum);//number of people who can join
@@ -91,6 +94,7 @@ public class startRelay : MonoBehaviour
             NetworkManager.Singleton.StartHost();
 
             joinCanvas.SetActive(false);//hide the join panel
+
             Debug.Log("Host started Relay");
 
 
@@ -104,8 +108,11 @@ public class startRelay : MonoBehaviour
     //same as client button
     public async void JoinRelay(string joinCode)
     {
+        mainCamera.SetActive(false);//turn off the main camera
+
         try
         {
+
             Debug.Log("Joining relay with: " + joinCode);
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
