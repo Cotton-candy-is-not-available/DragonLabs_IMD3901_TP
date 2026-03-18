@@ -43,6 +43,8 @@ public class startGame : NetworkBehaviour
     [Header("--- Start camera ----")]
     public GameObject mainCamera;
 
+    public ChooseGame chooseGameAccess;
+
    
     public NetworkVariable<bool> clientStarted = new NetworkVariable<bool>();//make static
 
@@ -179,7 +181,7 @@ public class startGame : NetworkBehaviour
         //clientStartServerRpc();
         //mainCamera.enabled = false;//turn off the main camera
         mainCamera.SetActive(false);//turn off the main camera
-
+        chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
 
     }
@@ -195,6 +197,7 @@ public class startGame : NetworkBehaviour
         Debug.Log("Client started LAN");
         //mainCamera.enabled = false;//turn off the main camera
         mainCamera.SetActive(false);//turn off the main camera
+        chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
 
 
