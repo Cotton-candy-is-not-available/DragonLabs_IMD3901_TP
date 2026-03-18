@@ -5339,6 +5339,8 @@ MonoBehaviour:
   maxPlayerNum: 2
   startGameAccesss: {fileID: 0}
   textToCopy: 
+  mainCamera: {fileID: 0}
+  chooseGameAccess: {fileID: 0}
 --- !u!1 &1821135710
 GameObject:
   m_ObjectHideFlags: 0

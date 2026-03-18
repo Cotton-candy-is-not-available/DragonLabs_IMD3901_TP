@@ -40,6 +40,8 @@ public class startRelay : MonoBehaviour
     [SerializeField] string textToCopy;
 
     public GameObject mainCamera;
+    public ChooseGame chooseGameAccess;
+
 
     private void Awake()
     {
@@ -75,6 +77,8 @@ public class startRelay : MonoBehaviour
     {
         mainCamera.SetActive(false);//turn off the main camera
 
+        staticClass.RelayOn = true;//will tell lobby scene to how join codes
+
         try
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayerNum);//number of people who can join
@@ -83,7 +87,7 @@ public class startRelay : MonoBehaviour
 
             Debug.Log(joinCode);
 
-            textToCopy = joinCode;//lets player copy join code to send to other players
+            staticClass.staticJoinCodeVariable = joinCode;//set the join code to static variable so it can appear in the copy code text
 
             joinCodeDisplay.SetActive(true);
             joinCodeDisplay.GetComponent<TextMeshProUGUI>().text = joinCode; //display join code on the screen
@@ -96,6 +100,7 @@ public class startRelay : MonoBehaviour
             joinCanvas.SetActive(false);//hide the join panel
 
             Debug.Log("Host started Relay");
+            chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
 
         }
@@ -124,6 +129,8 @@ public class startRelay : MonoBehaviour
             //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
             //startGameAccesss.clientStartServerRpc();//client has started
             Debug.Log("Client started Relay");
+            chooseGameAccess.switchScenesNetServerRpc("Lobby");
+
 
 
 
@@ -136,15 +143,6 @@ public class startRelay : MonoBehaviour
     }
 
 
-
-    public void copyJoinCode()
-    {
-        // Copy the text to the clipboard.
-
-        GUIUtility.systemCopyBuffer = textToCopy;
-        Debug.Log("copied code: " + textToCopy);
-
-    }
 
 
 

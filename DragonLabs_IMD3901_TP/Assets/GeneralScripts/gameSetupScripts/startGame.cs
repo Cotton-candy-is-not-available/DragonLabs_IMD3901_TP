@@ -36,12 +36,12 @@ public class startGame : NetworkBehaviour
     //networkmanager to activate
     public GameObject NetworkManagerObject;
 
-    [Header("--- Join strings ----")]
-    public GameObject IPAdressText;
-    public GameObject joinCodeText;
+    //[Header("--- Join strings ----")]
+    //public GameObject IPAdressText;
+    //public GameObject joinCodeText;
 
     [Header("--- Start camera ----")]
-    public GameObject mainCamera;
+    //public GameObject mainCamera;
 
     public ChooseGame chooseGameAccess;
 
@@ -61,15 +61,15 @@ public class startGame : NetworkBehaviour
     {
         clientStarted.Value = false;//client has not started
 
-        if (hasStarted.gameHasStarted)//if the game has already started turn off camera and tdon't run the function
-        {
-            //mainCamera.enabled = false;//turn off the main camera
-            mainCamera.SetActive(false);//turn off the main camera
+        //if (hasStarted.gameHasStarted)//if the game has already started turn off camera and tdon't run the function
+        //{
+        //    //mainCamera.enabled = false;//turn off the main camera
+        //    //mainCamera.SetActive(false);//turn off the main camera
 
 
-            return;//don't run start panel if game has already started
-        }
-         mainCamera.SetActive(true);//turn on the main camera
+        //    return;//don't run start panel if game has already started
+        //}
+         //mainCamera.SetActive(true);//turn on the main camera
         //mainCamera.enabled = true;//turn on the main camera
         //turn on start game panel by default
         startPanel.SetActive(true);//show start panel 
@@ -143,12 +143,14 @@ public class startGame : NetworkBehaviour
 
         singlePlayerMode = true;//player chose to play by themselves without networking
 
+        staticClass.SingleON = singlePlayerMode;//tell lobby that its single player and to hide join codes
 
         if (PCMode)//if pc button was clicked earlier
         {
             localPCPlayer.SetActive(true);//activate local PC 
             //mainCamera.enabled = false;//turn off the main camera
-            mainCamera.SetActive(false);//turn off the main camera
+            //mainCamera.SetActive(false);//turn off the main camera
+            chooseGameAccess.switchScenes("Lobby");//Move player to lobby
 
 
         }
@@ -156,7 +158,9 @@ public class startGame : NetworkBehaviour
         {
             localVRPlayer.SetActive(true);//activate local VR 
             //mainCamera.enabled = false;//turn off the main camera
-            mainCamera.SetActive(false);//turn off the main camera
+            //mainCamera.SetActive(false);//turn off the main camera
+            chooseGameAccess.switchScenes("Lobby");//Move player to lobby
+
 
 
         }
@@ -171,7 +175,7 @@ public class startGame : NetworkBehaviour
 
     public void startHost()
     {
-        IPAdressText.SetActive(true);//shows ip address to connect to
+        //IPAdressText.SetActive(true);//shows ip address to connect to
         NetworkManager.Singleton.StartHost();//start host
         gameSteupCanvas.SetActive(false );//hide net connect panel
         hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
@@ -180,8 +184,10 @@ public class startGame : NetworkBehaviour
         //clientStarted.Value = true;//client has started
         //clientStartServerRpc();
         //mainCamera.enabled = false;//turn off the main camera
-        mainCamera.SetActive(false);//turn off the main camera
+        //mainCamera.SetActive(false);//turn off the main camera
         chooseGameAccess.switchScenesNetServerRpc("Lobby");
+
+        staticClass.LANOn = true;
 
 
     }
@@ -189,14 +195,14 @@ public class startGame : NetworkBehaviour
     public void startClient()
     {
 
-        IPAdressText.SetActive(false);//hides ip address if not already
+        //IPAdressText.SetActive(false);//hides ip address if not already
         NetworkManager.Singleton.StartClient();//join game as client
         gameSteupCanvas.SetActive(false);//hide net connect panel
         hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
         clientStartServerRpc();//client has started
         Debug.Log("Client started LAN");
         //mainCamera.enabled = false;//turn off the main camera
-        mainCamera.SetActive(false);//turn off the main camera
+        //mainCamera.SetActive(false);//turn off the main camera
         chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
 
