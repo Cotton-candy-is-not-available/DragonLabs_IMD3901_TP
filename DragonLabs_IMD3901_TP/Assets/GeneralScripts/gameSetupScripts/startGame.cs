@@ -143,14 +143,17 @@ public class startGame : NetworkBehaviour
         if (PCMode)//if pc button was clicked earlier
         {
             localPCPlayer.SetActive(true);//activate local PC 
+            mainCamera.enabled = false;//turn off the main camera
 
         }
         else if (VRMode)//if VR button was clicked earlier
         {
             localVRPlayer.SetActive(true);//activate local VR 
+            mainCamera.enabled = false;//turn off the main camera
+
 
         }
-       //disactivate ability to go to beer pong
+        //disactivate ability to go to beer pong
     }
 
 
@@ -169,6 +172,8 @@ public class startGame : NetworkBehaviour
 
         //clientStarted.Value = true;//client has started
         //clientStartServerRpc();
+        mainCamera.enabled = false;//turn off the main camera
+
 
     }
 
@@ -181,6 +186,8 @@ public class startGame : NetworkBehaviour
         hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
         clientStartServerRpc();//client has started
         Debug.Log("Client started LAN");
+        mainCamera.enabled = false;//turn off the main camera
+
 
 
     }

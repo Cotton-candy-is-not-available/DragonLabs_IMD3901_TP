@@ -115,7 +115,7 @@ public class startRelay : MonoBehaviour
             NetworkManager.Singleton.StartClient();
             joinCanvas.SetActive(false);//hide the join panel
             //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
-            startGameAccesss.clientStartServerRpc();//client has started
+            //startGameAccesss.clientStartServerRpc();//client has started
             Debug.Log("Client started Relay");
 
 

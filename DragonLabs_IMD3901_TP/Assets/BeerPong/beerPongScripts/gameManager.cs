@@ -95,7 +95,7 @@ public class gameManager : NetworkBehaviour
                 Debug.Log("Turn: "+ turn);
 
             }
-        addPointOnDespawnServerRpc();
+        //addPointOnDespawnServerRpc();
 
         //if (newBall != null)//if tha ball exists start checking if points are to be added
         //{
