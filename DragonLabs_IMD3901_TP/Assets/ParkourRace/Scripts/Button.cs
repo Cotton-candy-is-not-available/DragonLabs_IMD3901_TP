@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Netcode;
 
-public class Button : MonoBehaviour
+public class Button : NetworkBehaviour
 {
     public float interactRange = 2f;
     public Camera playerCam;
@@ -20,9 +21,33 @@ public class Button : MonoBehaviour
 
     public TMP_Text timerText;
 
+    public NetworkVariable<int> winnerPlayer = new NetworkVariable<int>(
+        0,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Server
+    );
+
+    public NetworkVariable<bool> pressSignal = new NetworkVariable<bool>(
+        false,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Server
+    );
+
     void Start()
     {
         startPos = transform.localPosition;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        pressSignal.OnValueChanged += OnPressSignalChanged;
+        winnerPlayer.OnValueChanged += OnWinnerChanged;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        pressSignal.OnValueChanged -= OnPressSignalChanged;
+        winnerPlayer.OnValueChanged -= OnWinnerChanged;
     }
 
     void Update()
@@ -67,5 +92,38 @@ public class Button : MonoBehaviour
         isAnimating = true;
         isTimerRunning = false;
         Debug.Log("Pressed");
+    }
+
+    private void OnPressSignalChanged(bool oldValue, bool newValue)
+    {
+        PlayPressAnimation();
+        if (timer != 0)
+            isTimerRunning = false;
+    }
+
+    private void PlayPressAnimation()
+    {
+        isPressed = true;
+        isAnimating = true;
+    }
+
+    private void OnWinnerChanged(int oldValue, int newValue)
+    {
+        if (newValue == 1)
+            Debug.Log("player 1 wins");
+        else if (newValue == 2)
+            Debug.Log("player 2 wins");
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void PressButtonServerRpc(ServerRpcParams rpcParams = default)
+    {
+        pressSignal.Value = !pressSignal.Value;
+
+        if (winnerPlayer.Value == 0)
+        {
+            ulong senderId = rpcParams.Receive.SenderClientId;
+            winnerPlayer.Value = senderId == 0 ? 1 : 2;
+        }
     }
 }
