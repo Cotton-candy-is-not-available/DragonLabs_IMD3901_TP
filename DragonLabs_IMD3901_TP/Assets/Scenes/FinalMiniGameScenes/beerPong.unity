@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &4609313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,6 +492,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 241319428}
   m_CullTransparentMesh: 1
+--- !u!114 &263286234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2532694062371754795, guid: b0b7eb11218989b439819b3963248d88, type: 3}
+  m_PrefabInstance: {fileID: 1347662700063054141}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &450042080
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &558637351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5224,7 +5235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1807990222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6857,6 +6868,14 @@ PrefabInstance:
       propertyPath: player2PointsCanvas
       value: 
       objectReference: {fileID: 564814629}
+    - target: {fileID: 328693812341857719, guid: 77045e3cfbc0809438e63c4e28614995, type: 3}
+      propertyPath: ballPrefab.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 328693812341857719, guid: 77045e3cfbc0809438e63c4e28614995, type: 3}
+      propertyPath: 'ballPrefab.Array.data[0]'
+      value: 
+      objectReference: {fileID: 263286234}
     - target: {fileID: 2811497283597882623, guid: 77045e3cfbc0809438e63c4e28614995, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3363412211

@@ -32,9 +32,9 @@ public class gameManager : NetworkBehaviour
     public Vector3 P2BallStartPos;
 
     [Header("------------ Prefabs -------------")]
-    public GameObject ballPrefab;
+    //public GameObject ballPrefab;
 
-    [SerializeField] NetworkObject newBall;
+    public NetworkObject[] ballPrefab;
 
     float remainingTime = 3.0f;
 
@@ -52,11 +52,11 @@ public class gameManager : NetworkBehaviour
     void Start()
     {
         ////find both player in the scene
-        //player1 = GameObject.FindWithTag("Player1");
+        player1 = GameObject.FindWithTag("Player1");
         //player2 = GameObject.FindWithTag("Player2");
 
         ////Set their start positions
-        //player1.transform.transform.position = p1StartPos.position;
+        player1.transform.transform.position = p1StartPos.position;
         //player2.transform.transform.position = p2StartPos.position;
 
 
@@ -81,100 +81,101 @@ public class gameManager : NetworkBehaviour
 
 
             //instatiate ball depending on who's turn it is
-            if (newBall == null && turn == 1)//if player 1 turn
+            if (turn == 1)//if player 1 turn
             {
-                spawnBallServerRPC(P1BallStartPos);//spawn the ball infornt of player 1
+                spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
                 turn = 2;//now player 2's turn
                 Debug.Log("Turn: "+ turn);
             }
-            else if (newBall == null && turn == 2)//if player 2 turn
+            else if (turn == 2)//if player 2 turn
             {
-                spawnBallServerRPC(P2BallStartPos);//spawn the ball infront of player 2
+                spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
 
                 turn = 1;//now player 1's turn
                 Debug.Log("Turn: "+ turn);
 
             }
+        addPointOnDespawnServerRpc();
 
-        if (newBall != null)//if tha ball exists start checking if points are to be added
-        {
-            ballHitCups ballHit = newBall.GetComponent<ballHitCups>();//get the ball collision check script
-
-
-            //scoreManger.addP1PointServerRpc();
+        //if (newBall != null)//if tha ball exists start checking if points are to be added
+        //{
+        //    ballHitCups ballHit = newBall.GetComponent<ballHitCups>();//get the ball collision check script
 
 
-
-            if (ballHit.P1Point)
-            {
-                player1Points+=1;//increase points for player 1
-
-
-                //P1
-                P1OppPointsText.text = ("Them: "+ player2Points);//update Player 1's text 
-                P1YouPointsText.text = ("You: "+ player1Points);//update Player 1's text 
-
-                //P2
-                P2OppPointsText.text = ("Them: "+ player1Points);//update player 2's  text 
-                P2YouPointsText.text = ("You: "+ player2Points);//update player 2's text 
-
-                Debug.Log("player1Points: "+ player1Points);
-                ballHit.P1Point = false;//reset to false
-                despawnBallServerRPC();//destroy the ball
-
-            }
-
-            if (ballHit.P2Point)
-            {
-                player2Points+=1;//increase points for player 2
-                //P1
-                player1Points+=1;//increase points for player 1
-                P1OppPointsText.text = ("Them: "+ player2Points);//update Player 1's text 
-                P1YouPointsText.text = ("You: "+ player1Points);//update Player 1's text 
-
-                //P2
-                P2OppPointsText.text = ("Them: "+ player1Points);//update player 2's  text 
-                P2YouPointsText.text = ("You: "+ player2Points);//update player 2's text 
-
-
-                Debug.Log("player2Points: "+ player2Points);
-                ballHit.P2Point = false;//reset to false
-                despawnBallServerRPC();//destroy the ball
-
-            }
-
-            if (ballHit.nonCup)//destroy ball if it hits anything else for long enough
-            {
-
-                despawnBallServerRPC();//destroy the ball
-                ballHit.nonCup = false;//turn it baxck off
-            }
-
-            //if (ballHit.table)
-            //{
-            //    //remainingTime = 3.0f;// start with 3 seconds
-            //    CheckTimeOnTable();//start count down timer
-            //    if (remainingTime <= 0)
-            //    {
-            //        despawnBallServerRPC();//destroy the ball
-            //        //ballHit.table = false;//turn it back off
-            //        remainingTime = 3.0f;//reset remaining time
-            //        Debug.Log("remainingTime in if statement: " + remainingTime);
-
-            //    }
-            //    Debug.Log("after check function: " + remainingTime);
+        //    //scoreManger.addP1PointServerRpc();
 
 
 
-            //}
-            //else if (!ballHit.table)
-            //{
-            //    remainingTime = 3.0f;//reset remaining time
-            //    Debug.Log("table is false");
-            //}
-        
-        }
-        
+        //    if (ballHit.P1Point)
+        //    {
+        //        player1Points+=1;//increase points for player 1
+
+
+        //        //P1
+        //        P1OppPointsText.text = ("Them: "+ player2Points);//update Player 1's text 
+        //        P1YouPointsText.text = ("You: "+ player1Points);//update Player 1's text 
+
+        //        //P2
+        //        P2OppPointsText.text = ("Them: "+ player1Points);//update player 2's  text 
+        //        P2YouPointsText.text = ("You: "+ player2Points);//update player 2's text 
+
+        //        Debug.Log("player1Points: "+ player1Points);
+        //        ballHit.P1Point = false;//reset to false
+        //        despawnBallServerRpc();//destroy the ball
+
+        //    }
+
+        //    if (ballHit.P2Point)
+        //    {
+        //        player2Points+=1;//increase points for player 2
+        //        //P1
+        //        player1Points+=1;//increase points for player 1
+        //        P1OppPointsText.text = ("Them: "+ player2Points);//update Player 1's text 
+        //        P1YouPointsText.text = ("You: "+ player1Points);//update Player 1's text 
+
+        //        //P2
+        //        P2OppPointsText.text = ("Them: "+ player1Points);//update player 2's  text 
+        //        P2YouPointsText.text = ("You: "+ player2Points);//update player 2's text 
+
+
+        //        Debug.Log("player2Points: "+ player2Points);
+        //        ballHit.P2Point = false;//reset to false
+        //        despawnBallServerRpc();//destroy the ball
+
+        //    }
+
+        //    if (ballHit.nonCup)//destroy ball if it hits anything else for long enough
+        //    {
+
+        //        despawnBallServerRpc();//destroy the ball
+        //        ballHit.nonCup = false;//turn it baxck off
+        //    }
+
+        //    //if (ballHit.table)
+        //    //{
+        //    //    //remainingTime = 3.0f;// start with 3 seconds
+        //    //    CheckTimeOnTable();//start count down timer
+        //    //    if (remainingTime <= 0)
+        //    //    {
+        //    //        despawnBallServerRPC();//destroy the ball
+        //    //        //ballHit.table = false;//turn it back off
+        //    //        remainingTime = 3.0f;//reset remaining time
+        //    //        Debug.Log("remainingTime in if statement: " + remainingTime);
+
+        //    //    }
+        //    //    Debug.Log("after check function: " + remainingTime);
+
+
+
+        //    //}
+        //    //else if (!ballHit.table)
+        //    //{
+        //    //    remainingTime = 3.0f;//reset remaining time
+        //    //    Debug.Log("table is false");
+        //    //}
+
+        //}
+
     }
 
 
@@ -185,18 +186,60 @@ public class gameManager : NetworkBehaviour
     //Ball spawning and despawning
 
     [ServerRpc(RequireOwnership = false)]
-    void spawnBallServerRPC(Vector3 startPos)
+    void spawnBallServerRpc(Vector3 startPos)
     {
-        newBall = Instantiate(ballPrefab,startPos, Quaternion.identity).GetComponent<NetworkObject>();//instatiate the object
-        newBall.Spawn();//spawn it over the network
-        Debug.Log("newBall: " + newBall);
+        foreach(NetworkObject ball in ballPrefab)
+        {
+            NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
+            newBall.GetComponent<NetworkObject>().Spawn();
+        }
     }
 
+
+    //void spawnBallServerRPC(Vector3 startPos)
+    //{
+    //    newBall = Instantiate(ballPrefab,startPos, Quaternion.identity).GetComponent<NetworkObject>();//instatiate the object
+    //    newBall.Spawn();//spawn it over the network
+    //    Debug.Log("newBall: " + newBall);
+    //}
+
     [ServerRpc(RequireOwnership = false)]
-    void despawnBallServerRPC()
+    public void despawnBallServerRpc()
     {
-        //WaitAndDespawn();
-        newBall.Despawn();//destroy the ball
+
+        foreach (NetworkObject ball in ballPrefab)
+        {
+            //WaitAndDespawn();
+            if (ball != null)
+            {
+                ball.Despawn();
+            }
+        }
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    public void addPointOnDespawnServerRpc()//add points to players
+    {
+        foreach (NetworkObject ball in ballPrefab)
+        {
+            if (ball.GetComponent<ballHitCups>().P1Point.Value)
+            {
+                Debug.Log("Player 1 add piont");
+            }
+            else
+            {
+                Debug.Log("No points");
+            }
+            //get ballHit component
+            //despawn the ball
+
+
+            //if (ball == null)//if the the ball landed in the cup and was despawned
+            //{
+                //if(ball)
+            //}
+        }
     }
 
     IEnumerator WaitAndDespawn()
