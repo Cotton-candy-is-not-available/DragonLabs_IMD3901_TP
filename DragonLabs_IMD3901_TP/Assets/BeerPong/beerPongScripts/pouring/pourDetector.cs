@@ -1,6 +1,8 @@
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.InputSystem;
 
 public class pourDetector : NetworkBehaviour
 {
@@ -36,14 +38,25 @@ public class pourDetector : NetworkBehaviour
     public NetworkObject cupNetObj;
 
 
+    public PickupControllerNet PickupControllerNet;
+
+    public GameObject held;
+
+    public Transform holdArea;
+
 
     private void Start()
     {
         rend = beerLiquid.GetComponent<Renderer>();//get the renderer from the gameobject
+        PCStartRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//default rotation
+
+        PCEndRotation = Quaternion.Euler(-90.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//rotates 90degrees towards player
+
+
     }
 
 
-   
+
 
     public void lowerFillLevel()
     {
@@ -61,6 +74,27 @@ public class pourDetector : NetworkBehaviour
         Debug.Log("fill down");
 
     }
+
+    public void rotateCup()
+    {
+        rotationProgress += Time.deltaTime * 5;//somewhat slowly rotate; Note: smaller number slower, bigger number faster
+        holdArea.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress);//rotates watering can smoothly
+        lowerFillLevel();//lower the liquid inside the cup
+
+        StartCoroutine(destroyCup(PickupControllerNet.heldObj.GetComponent<NetworkObject>()));//destoy the cup
+    }
+
+
+    IEnumerator destroyCup(NetworkObject heldObj)
+    {
+        //play poof soundFX
+        //show poof effect(particles?)
+        heldObj = heldObj.GetComponent<NetworkObject>();//instatiate the object
+        yield return new WaitForSeconds(3); //waits 3 seconds
+        heldObj.Despawn();
+        //Destroy(heldObj); //destroy the cup
+    }
+
 
     //For VR
     //If gameobject.rotation.x < 90//being  poured/rotated

@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class PlayerInteractionNet : NetworkBehaviour
@@ -10,9 +11,13 @@ public class PlayerInteractionNet : NetworkBehaviour
 
     public Crosshair crosshair_access;
     public PickupController pickupControllerNet_access;
+
+    Scene currentScene;
    
     void Update()
     {
+        currentScene = SceneManager.GetActiveScene();//get the current scene
+
         //check to see if its the HOST
         if (!IsOwner)
         {
@@ -28,9 +33,11 @@ public class PlayerInteractionNet : NetworkBehaviour
         {
             if (hit.collider.CompareTag("Interactable"))
             {
-                //checking if the ray hits something with a collider that is interactable
-                crosshair_access.setInteractServerRpc(true);
-
+                if (IsOwner)
+                {
+                    //checking if the ray hits something with a collider that is interactable
+                    crosshair_access.setInteractServerRpc(true);
+                }
                 if (Keyboard.current.iKey.wasPressedThisFrame)
                 {
                     if (IsHost)
@@ -68,6 +75,22 @@ public class PlayerInteractionNet : NetworkBehaviour
                     //Debug.Log("interact was set to true");
                     return;
                 }
+
+                if (currentScene.name == "beerPong"){//only enable in beerPong scene
+
+                    if (Keyboard.current.rKey.wasPressedThisFrame)
+                    {
+                        if (hit.collider.gameObject.GetComponent<pourDetector>() !=null)
+                        {
+
+                        }
+                        else//if it doesnt have the pour detector script do nothing and go back
+                        {
+                            return;
+                        }
+                    }
+                }
+
             }
         }
         if (IsOwner)
