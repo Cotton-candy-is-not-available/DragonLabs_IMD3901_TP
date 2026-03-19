@@ -70,7 +70,10 @@ public class PlayerInteractionNet : NetworkBehaviour
                 }
             }
         }
-        crosshair_access.setInteractServerRpc(false); //set it back to false if we look away from the object
+        if (IsOwner)
+        {
+            crosshair_access.setInteractServerRpc(false); //set it back to false if we look away from the object
+        }
     }
 
     //when server, debug appeared on HOST console

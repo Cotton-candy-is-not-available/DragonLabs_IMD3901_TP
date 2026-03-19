@@ -37,15 +37,14 @@ public class ballHitCups : NetworkBehaviour
         if (collision.gameObject.tag == "floor")
         {
             nonCup.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
+            //gameObject.GetComponent<NetworkObject>().Despawn();
+
         }
 
         else if (collision.gameObject.tag == "table")
         {
             table.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
-        }
-        else if (collision.gameObject.tag != "table")
-        {
-            table.Value = false;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
+            //gameObject.GetComponent<NetworkObject>().Despawn();
 
         }
 
@@ -58,7 +57,6 @@ public class ballHitCups : NetworkBehaviour
         if (trigger.gameObject.tag == "cup1")//if the ball hits player 1 Cup 
         {
             P2Point.Value = true;//tell game manager to give a point to player 2
-
         }
 
         else if (trigger.gameObject.tag == "cup2")//player 2 cup 
