@@ -56,19 +56,23 @@ public class PlayerInteractionNet : NetworkBehaviour
                     Debug.Log("object pressed was: " + hit.collider.gameObject.name);
 
                     minigameButtonAnimate button = hit.collider.GetComponent<minigameButtonAnimate>();
+                    NetworkObject buttonNetObj = hit.collider.gameObject.GetComponent<NetworkObject>();
 
                     if (button != null)
                     {
                         if ((int)OwnerClientId  == 0) //host
+                        //if(NetworkManager.Singleton.LocalClientId == 0)
                         {
-                            button.animateButton();
-                            button.switchSceneOnButtonServerRpc();
+                            //button.animateButton();
+                            button.animateButtonServerRpc(buttonNetObj);
+                            //button.switchSceneOnButtonServerRpc();
                         }
 
                         if ((int)OwnerClientId  == 1) //client
+                        //if (NetworkManager.Singleton.LocalClientId == 1)
                         {
-                            button.PressButtonServerRpc(button.NetworkObjectId);
-                            button.switchSceneOnButtonServerRpc();
+                            //button.PressButtonServerRpc(button.NetworkObjectId);
+                           // button.switchSceneOnButtonServerRpc();
                         }
                     }
 
