@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 9014404986476598420}
   - component: {fileID: 2754482600030390883}
   - component: {fileID: 3491456987381006033}
+  - component: {fileID: 3991891987398483167}
   m_Layer: 6
   m_Name: ball
   m_TagString: Interactable
@@ -153,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3152320169
+  GlobalObjectIdHash: 4287394239
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -179,10 +180,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  P1Point: 0
-  P2Point: 0
-  nonCup: 0
-  table: 0
+  P1Point:
+    m_InternalValue: 0
+  P2Point:
+    m_InternalValue: 0
+  nonCup:
+    m_InternalValue: 0
 --- !u!114 &9014404986476598420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,3 +371,16 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
+--- !u!114 &3991891987398483167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8107144830471759906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cbbde660cb806c469dd870a5124d85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
