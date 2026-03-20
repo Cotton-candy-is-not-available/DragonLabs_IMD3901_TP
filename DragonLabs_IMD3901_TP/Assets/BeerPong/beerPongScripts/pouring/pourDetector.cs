@@ -42,7 +42,7 @@ public class pourDetector : NetworkBehaviour
 
     public GameObject held;
 
-    public Transform holdArea;
+    //public Transform holdArea;
 
 
     private void Start()
@@ -78,11 +78,41 @@ public class pourDetector : NetworkBehaviour
     public void rotateCup()
     {
         rotationProgress += Time.deltaTime * 5;//somewhat slowly rotate; Note: smaller number slower, bigger number faster
-        holdArea.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress);//rotates watering can smoothly
-        lowerFillLevel();//lower the liquid inside the cup
+        gameObject.transform.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress);//rotates watering can smoothly
+        //lowerFillLevel();//lower the liquid inside the cup
 
-        StartCoroutine(destroyCup(PickupControllerNet.heldObj.GetComponent<NetworkObject>()));//destoy the cup
+        //StartCoroutine(destroyCup(PickupControllerNet.heldObj.GetComponent<NetworkObject>()));//destoy the cup
     }
+
+
+
+    [ServerRpc(RequireOwnership = false)]
+    public void rotateCupServerRpc(ulong objectId, ServerRpcParams rpcParams = default)
+    {
+        if (cupNetObj.TryGetComponent<NetworkObject>(out cupNetObj))
+        {
+            cupNetObj.ChangeOwnership(rpcParams.Receive.SenderClientId);
+
+            rotateCupClientRpc();
+        }
+    }
+
+
+    [ClientRpc]
+    private void rotateCupClientRpc()
+    {
+        if (IsOwner)
+        {
+            rotateCup();
+        }
+    }
+
+
+
+
+
+
+
 
 
     IEnumerator destroyCup(NetworkObject heldObj)

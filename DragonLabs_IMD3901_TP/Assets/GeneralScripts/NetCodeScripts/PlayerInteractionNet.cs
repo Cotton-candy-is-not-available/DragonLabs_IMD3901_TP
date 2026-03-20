@@ -82,7 +82,8 @@ public class PlayerInteractionNet : NetworkBehaviour
                     {
                         if (hit.collider.gameObject.GetComponent<pourDetector>() !=null)
                         {
-
+                            NetworkObject cupNetObj = hit.collider.gameObject.GetComponent<NetworkObject>();
+                            cupNetObj.GetComponent<pourDetector>().rotateCupServerRpc(cupNetObj.NetworkObjectId);
                         }
                         else//if it doesnt have the pour detector script do nothing and go back
                         {
