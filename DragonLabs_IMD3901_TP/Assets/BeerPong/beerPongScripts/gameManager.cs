@@ -55,26 +55,27 @@ public class gameManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         turn.Value = 1;
+        spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
+
     }
 
     void Start()
     {
-        ////find both player in the scene
-        player1 = GameObject.FindWithTag("Player1");
-        player2 = GameObject.FindWithTag("Player2");
+        //////find both player in the scene
+        //player1 = GameObject.FindWithTag("Player1");
+        //player2 = GameObject.FindWithTag("Player2");
 
-        //Set their start positions
-        player1.transform.transform.position = p1StartPos.position;
-        player2.transform.transform.position = p2StartPos.position;
+        ////Set their start positions
+        //player1.transform.transform.position = p1StartPos.position;
+        //player2.transform.transform.position = p2StartPos.position;
 
 
-        P1BallStartPos =  new Vector3(0f, 2.6f, -5f);
+        P1BallStartPos =  new Vector3(0f, 4f, -5.5f);
 
-        P2BallStartPos = new Vector3(0f, 2.6f, 5);
+        P2BallStartPos = new Vector3(0f, 4f, 5.5f);
         Debug.Log("Start turn: "+ turn.Value);
 
         //turn.Value = 1;
-        spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
     }
 
     // Update is called once per frame
@@ -87,9 +88,9 @@ public class gameManager : NetworkBehaviour
 
         //}
         //Set their start positions
-        player1.transform.transform.position = p1StartPos.position;
-        player2.transform.transform.position = p2StartPos.position;
-        Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
+        //player1.transform.transform.position = p1StartPos.position;
+        //player2.transform.transform.position = p2StartPos.position;
+        //Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
     
 
             //instatiate ball depending on who's turn it is

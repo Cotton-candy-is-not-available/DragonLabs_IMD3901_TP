@@ -43,7 +43,8 @@ public class ballHitCups : NetworkBehaviour
     {
       
 
-        if (collision.gameObject.tag == "floor" || collision.gameObject.tag == "table")//if ball touches the floor or table
+        //if (collision.gameObject.tag == "floor" || collision.gameObject.tag == "table")//if ball touches the floor or table
+        if (collision.gameObject.tag == "floor" )//if ball touches the floor or table
         {
             nonCup.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
             gameObject.GetComponent<NetworkObject>().Despawn();
