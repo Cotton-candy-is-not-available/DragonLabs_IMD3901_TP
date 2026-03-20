@@ -7,6 +7,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,6 +33,16 @@ public class startRelay : MonoBehaviour
 
     [SerializeField] int maxPlayerNum = 2;
 
+    [SerializeField] hasStarted hasStartedAccesss;
+
+    [SerializeField] startGame startGameAccesss;
+
+    [SerializeField] string textToCopy;
+
+    public GameObject mainCamera;
+    public ChooseGame chooseGameAccess;
+
+
     private void Awake()
     {
         hostButton.onClick.AddListener(() =>
@@ -47,6 +58,9 @@ public class startRelay : MonoBehaviour
 
     private async void Start()
     {
+        //if (hasStarted.gameHasStarted && !startGameAccesss.multiPlayerMode) return;//don't run relay authentication if game has already started and multiplayer mode is off
+        if (hasStarted.gameHasStarted) return;//don't run relay authentication if game has already started and multiplayer mode is off
+
         await UnityServices.InitializeAsync();//initialises unity services so that API and relay can run
         AuthenticationService.Instance.SignedIn += () =>
         {
@@ -54,11 +68,17 @@ public class startRelay : MonoBehaviour
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();//creates account for user anonymously
 
+        hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
+
     }
 
     //Same as create host button
     public async void createRelay()//creates an instance of relay so that user can connect to online service
     {
+        mainCamera.SetActive(false);//turn off the main camera
+
+        staticClass.RelayOn = true;//will tell lobby scene to how join codes
+
         try
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayerNum);//number of people who can join
@@ -67,6 +87,8 @@ public class startRelay : MonoBehaviour
 
             Debug.Log(joinCode);
 
+            staticClass.staticJoinCodeVariable = joinCode;//set the join code to static variable so it can appear in the copy code text
+
             joinCodeDisplay.SetActive(true);
             joinCodeDisplay.GetComponent<TextMeshProUGUI>().text = joinCode; //display join code on the screen
             
@@ -74,8 +96,11 @@ public class startRelay : MonoBehaviour
             NetworkManager.Singleton.GetComponent<UnityTransport>().UseWebSockets = true;//set websocket checkmark to true
 
             NetworkManager.Singleton.StartHost();
+
             joinCanvas.SetActive(false);//hide the join panel
-            //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
+
+            Debug.Log("Host started Relay");
+            chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
 
         }
@@ -88,8 +113,11 @@ public class startRelay : MonoBehaviour
     //same as client button
     public async void JoinRelay(string joinCode)
     {
+        mainCamera.SetActive(false);//turn off the main camera
+
         try
         {
+
             Debug.Log("Joining relay with: " + joinCode);
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
@@ -99,6 +127,12 @@ public class startRelay : MonoBehaviour
             NetworkManager.Singleton.StartClient();
             joinCanvas.SetActive(false);//hide the join panel
             //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
+            //startGameAccesss.clientStartServerRpc();//client has started
+            Debug.Log("Client started Relay");
+            chooseGameAccess.switchScenesNetServerRpc("Lobby");
+
+
+
 
         }
         catch (RelayServiceException err)
@@ -107,6 +141,10 @@ public class startRelay : MonoBehaviour
             throw;
         }
     }
+
+
+
+
 
 
 }

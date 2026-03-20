@@ -1,6 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class tragectoryLine : MonoBehaviour
+
+public class tragectoryLine : NetworkBehaviour
 {
     [SerializeField] LineRenderer lineRenderer;
 
@@ -12,15 +14,19 @@ public class tragectoryLine : MonoBehaviour
 
     public Transform holdAreaPosition;
 
-    public void drawTragectory(Vector3 startVelocity, bool enableLine)
+    
+
+
+    //call server RPC to sync positions
+    //make enable line in player controller be network bool
+    public void drawTragectory(Vector3 startVelocity, NetworkVariable<bool> enableLine)
     {
-        if (enableLine)
+        if (enableLine.Value == true)
         {
             Vector3 origin = holdAreaPosition.position;//current object pos which is the hold area
-            lineRenderer.GetComponent<LineRenderer>().enabled = enableLine;
+            lineRenderer.GetComponent<LineRenderer>().enabled = enableLine.Value;
 
             lineRenderer.positionCount = lineSegments;
-            lineRenderer.transform.rotation = Quaternion.Euler(0, 0, 0);//stay rotated 90 degrees
 
             // line curve equation
             float timeOffset = timeOfFlight/lineSegments;
@@ -34,14 +40,15 @@ public class tragectoryLine : MonoBehaviour
                 Vector3 point = new Vector3(x, y, z);
                 lineRenderer.SetPosition(i, origin + point);//move line to be in hold area at all times
                 time+= timeIntervalPoints;
+                Debug.Log("move and draw line");
 
             }
 
         }
-        else if (!enableLine)
+        else if (!enableLine.Value)
         {
-            //Debug.Log("STOP");
-            lineRenderer.GetComponent<LineRenderer>().enabled = enableLine;//hide the line
+            Debug.Log("STOP");
+            lineRenderer.GetComponent<LineRenderer>().enabled = enableLine.Value;//hide the line
         }
 
 

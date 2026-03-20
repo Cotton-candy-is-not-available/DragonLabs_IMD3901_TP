@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -24,10 +25,19 @@ public class PickupControllerNet : NetworkBehaviour
     public float throwForce = 10f;
     [SerializeField] tragectoryLine line;
     public float mass = 10;
-    bool enableLine = false;
+    //bool enableLine = false;
+    //NetworkVariable<bool> enableLine = new NetworkVariable<bool>();
 
-    //------------------------------------------
+    public NetworkVariable<bool> enableLine;
 
+    public override void OnNetworkSpawn()
+    {
+
+        enableLine.Value = false;
+
+
+    }
+    
 
     private void Start()
     {
@@ -38,7 +48,7 @@ public class PickupControllerNet : NetworkBehaviour
 
     private void Update()
     {
-        enableLine = false;//turn off the line by default --Beer Pong
+        //enableLine = false;//turn off the line by default --Beer Pong
 
         //PICKING UP-----------------------------
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
@@ -68,7 +78,7 @@ public class PickupControllerNet : NetworkBehaviour
         {
             //move the object around
             moveObject();
-            enableLine = true;     
+            //enableLine = true;     
 
         }
 
@@ -77,10 +87,15 @@ public class PickupControllerNet : NetworkBehaviour
         {
             if (heldObj != null && heldObj.name == "ball(Clone)")//if the held object is not null and is the ball clone
             {
+                Debug.Log("ball line true");
+                enableLine.Value= true;
                 line.drawTragectory(transform.forward * throwForce, enableLine);//turn on the tragectory line
             }
             else
             {
+                Debug.Log("ball line false");
+
+                enableLine.Value= false;
                 line.drawTragectory(transform.forward * throwForce, enableLine);//hide the tragectory line
             }
         }

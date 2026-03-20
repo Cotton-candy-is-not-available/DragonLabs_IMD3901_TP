@@ -108,9 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c06aa4f8ce0c340850c38b91f289b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
-  groundCheck: {fileID: 0}
-  groundCheckRadius: 0
+  jumpHeight: 1.2
+  gravity: -20
+  groundCheckDistance: 0.2
 --- !u!1 &525578296958858651
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 6286499705926140036}
   m_Layer: 0
   m_Name: camera_PC
-  m_TagString: Untagged
+  m_TagString: localPlayerCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -294,8 +294,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdArea: {fileID: 4518331873797864685}
+  heldObj: {fileID: 0}
   pickupRange: 5
   pickupForce: 150
+  throwForce: 10
+  line: {fileID: 0}
+  mass: 10
 --- !u!1 &7289181394934926569
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,6 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d595c35e33ee347859816ad08f7164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   crosshairIMG: {fileID: 1128380002992802821}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   interactColor: {r: 0, g: 0, b: 1, a: 1}

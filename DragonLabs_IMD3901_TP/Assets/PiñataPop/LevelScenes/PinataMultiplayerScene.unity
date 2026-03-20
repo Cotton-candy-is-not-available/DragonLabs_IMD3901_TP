@@ -973,7 +973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6355234256197235867, guid: 1c7f8a228673a074e9191537f4f253e1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7099724425186548248, guid: 1c7f8a228673a074e9191537f4f253e1, type: 3}
       propertyPath: NetworkConfig.PlayerPrefab
