@@ -66,6 +66,8 @@ public class minigameButtonAnimate : NetworkBehaviour
                 //specificButton.= Quaternion.Lerp(transform.localPosition, target, pressSpeed * Time.deltaTime);
                 networkObject.transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, pressSpeed * Time.deltaTime);
 
+                switchSceneOnButtonServerRpc();
+
                 if (Vector3.Distance(transform.localPosition, target) < 0.001f)
                 {
                     if (isPressed)
