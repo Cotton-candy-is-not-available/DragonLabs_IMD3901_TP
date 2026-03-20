@@ -30,10 +30,10 @@ EditorBuildSettings:
     path: "Assets/Pi\xF1ataPop/MainLobbyPi\xF1ata.unity"
     guid: 11b84883505b9f141b5f055b13f84a9d
   - enabled: 1
-    path: "Assets/Pi\xF1ataPop/LevelScenes/MultiplayerScene.unity"
+    path: "Assets/Pi\xF1ataPop/LevelScenes/PinataMultiplayerScene.unity"
     guid: 4596d3997b8e8a546bfcbbd1998ad7b1
   - enabled: 1
-    path: "Assets/Pi\xF1ataPop/LevelScenes/SinglePlayer.unity"
+    path: "Assets/Pi\xF1ataPop/LevelScenes/PinataSinglePlayer.unity"
     guid: 64b6b2cda0b6d54449de26b7aafb0c73
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
