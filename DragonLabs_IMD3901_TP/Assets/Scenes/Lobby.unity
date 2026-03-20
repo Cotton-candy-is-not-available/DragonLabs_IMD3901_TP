@@ -119,6 +119,79 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &5152875
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 573718130363566392, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: sceneName
+      value: beerPong
+      objectReference: {fileID: 0}
+    - target: {fileID: 573718130363566392, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: chooseGame_access
+      value: 
+      objectReference: {fileID: 229652708}
+    - target: {fileID: 1693005245854603300, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_Name
+      value: BeerPongButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.3415
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.64214
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7745168525397058158, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4225854364
+      objectReference: {fileID: 0}
+    - target: {fileID: 7745168525397058158, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
 --- !u!1 &22179860
 GameObject:
   m_ObjectHideFlags: 0
@@ -4284,6 +4357,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: beerPongButton
       objectReference: {fileID: 0}
+    - target: {fileID: 6386495832299759890, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6394856413787178612, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1877223623
@@ -5567,7 +5644,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1007918415}
-    PlayerPrefab: {fileID: 2865438684419936513, guid: 66fdf2e66f33ee64cad1a9eb3e10e5ff, type: 3}
+    PlayerPrefab: {fileID: 123514706950494819, guid: 3432999a8b86d1f40abb4a398ff16d03, type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 94f9cb9a418eeb440bc87b0f4cc5e79f, type: 2}
@@ -10889,7 +10966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3832631461437597896, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
       propertyPath: sceneName
-      value: MultiplayerScene
+      value: PinataMultiplayerScene
       objectReference: {fileID: 0}
     - target: {fileID: 3832631461437597896, guid: b3f275b8a9313fa41a9f29807dc3d571, type: 3}
       propertyPath: chooseGame_access
@@ -11931,6 +12008,131 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138802106}
   m_CullTransparentMesh: 1
+--- !u!1001 &6957176364663176515
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 573718130363566392, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: sceneName
+      value: PinataMultiplayerScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 573718130363566392, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: pressDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 573718130363566392, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: chooseGame_access
+      value: 
+      objectReference: {fileID: 229652708}
+    - target: {fileID: 856696999641721307, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: sceneName
+      value: PinataMultiPlayerScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 856696999641721307, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: chooseGame_access
+      value: 
+      objectReference: {fileID: 229652708}
+    - target: {fileID: 1682772546214645472, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2533402605
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682772546214645472, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1693005245854603300, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_Name
+      value: PinataPopButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.887
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.063
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.712
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043372970945869257, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2091074485343271277, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343032328323247983, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2729805905
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343032328323247983, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5371395434067104124, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2737585924
+      objectReference: {fileID: 0}
+    - target: {fileID: 5549965079531111962, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.010052271
+      objectReference: {fileID: 0}
+    - target: {fileID: 7087564901642380484, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: chooseGame_access
+      value: 
+      objectReference: {fileID: 229652708}
+    - target: {fileID: 7745168525397058158, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2238042508
+      objectReference: {fileID: 0}
+    - target: {fileID: 7745168525397058158, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664396808957977888, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2265901433
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664396808957977888, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 92336b36028c64444a54ac77509f3d26, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -11965,3 +12167,5 @@ SceneRoots:
   - {fileID: 765750928}
   - {fileID: 2052186628}
   - {fileID: 1213521945}
+  - {fileID: 6957176364663176515}
+  - {fileID: 5152875}
