@@ -70,9 +70,9 @@ public class gameManager : NetworkBehaviour
         //player2.transform.transform.position = p2StartPos.position;
 
 
-        P1BallStartPos =  new Vector3(0f, 4f, -5.5f);
+        P1BallStartPos =  new Vector3(0f, 4f, -5.756f);
 
-        P2BallStartPos = new Vector3(0f, 4f, 5.5f);
+        P2BallStartPos = new Vector3(0f, 4f, 5.756f);
         Debug.Log("Start turn: "+ turn.Value);
 
         //turn.Value = 1;
