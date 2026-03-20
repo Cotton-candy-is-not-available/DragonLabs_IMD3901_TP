@@ -39,18 +39,13 @@ public class PickupControllerNet : NetworkBehaviour
     }
     
 
-    private void Start()
-    {
-        // Get current scene name
-        currentScene = SceneManager.GetActiveScene();
-    }
-
 
     private void Update()
     {
-        //enableLine = false;//turn off the line by default --Beer Pong
-
+        // Get current scene name
+        currentScene = SceneManager.GetActiveScene();
         //PICKING UP-----------------------------
+        //NEED TO CHECK TAG OF OBJECT BEFORE PICKING UP
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
             Debug.Log("i was presssed to pickup object");
@@ -78,7 +73,6 @@ public class PickupControllerNet : NetworkBehaviour
         {
             //move the object around
             moveObject();
-            //enableLine = true;     
 
         }
 
