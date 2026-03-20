@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class startBlurEffect : MonoBehaviour
 {
+    public GameObject beer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
