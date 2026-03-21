@@ -9,13 +9,14 @@ public class getIpAdress : MonoBehaviour
     public TextMeshProUGUI IPAdressText;
     void Start()
     {
-        IPAdressText.text = GetLocalIPv4();//call on start and display on screen
+        //IPAdressText.text = "IP address: " + GetLocalIPv4();//call on start and display on screen
     }
 
     public string GetLocalIPv4()
     {
         //gets default or first entry on ip adress
         string IPAdress = Dns.GetHostEntry(Dns.GetHostName()).AddressList.FirstOrDefault(f => f.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
+        staticClass.staticIPAddressVariable = IPAdress;
 
         Debug.Log("IPAdress:"+IPAdress);
         //online ip adress is different from this one

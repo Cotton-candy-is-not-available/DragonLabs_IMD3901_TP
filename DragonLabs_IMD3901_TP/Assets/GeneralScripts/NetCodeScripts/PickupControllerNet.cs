@@ -1,13 +1,15 @@
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PickupControllerNet : NetworkBehaviour
 {
     [SerializeField] Transform holdArea; //will be parented to this
 
     //the object that is picked up
-    private GameObject heldObj;
+    public GameObject heldObj;
     public GameObject HeldObject => heldObj;
     private Rigidbody heldObjRB;
 
@@ -15,8 +17,39 @@ public class PickupControllerNet : NetworkBehaviour
     [SerializeField] private float pickupRange = 5.0f;
     [SerializeField] private float pickupForce = 150.0f;
 
+    // Get current scene name
+    Scene currentScene;
+
+    //----- For throwing trgectory: Beer Pong---
+    //For objects that need to be thrown
+    public float throwForce = 10f;
+    [SerializeField] tragectoryLine line;
+    public float mass = 10;
+    //bool enableLine = false;
+    //NetworkVariable<bool> enableLine = new NetworkVariable<bool>();
+
+    public NetworkVariable<bool> enableLine;
+
+    public override void OnNetworkSpawn()
+    {
+
+        enableLine.Value = false;
+
+
+    }
+    
+
+    private void Start()
+    {
+        // Get current scene name
+        currentScene = SceneManager.GetActiveScene();
+    }
+
+
     private void Update()
     {
+        //enableLine = false;//turn off the line by default --Beer Pong
+
         //PICKING UP-----------------------------
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
@@ -45,7 +78,33 @@ public class PickupControllerNet : NetworkBehaviour
         {
             //move the object around
             moveObject();
+            //enableLine = true;     
+
         }
+
+        //----Draw the tragectory line BeerPong scene only and only if holding ball
+        if (currentScene.name == "beerPong")//only enable in beerPong scene
+        {
+            if (heldObj != null && heldObj.name == "ball(Clone)")//if the held object is not null and is the ball clone
+            {
+                Debug.Log("ball line true");
+                enableLine.Value= true;
+                line.drawTragectory(transform.forward * throwForce, enableLine);//turn on the tragectory line
+            }
+            else
+            {
+                Debug.Log("ball line false");
+
+                enableLine.Value= false;
+                line.drawTragectory(transform.forward * throwForce, enableLine);//hide the tragectory line
+            }
+        }
+
+        //-----------------------------------
+
+
+
+
     }
 
     /*----------------FUNCTIONS---------------*/
@@ -111,6 +170,14 @@ public class PickupControllerNet : NetworkBehaviour
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero; 
             rb.constraints = RigidbodyConstraints.None; //allow full movement
+
+            //if the current scene is the beer pong minigame, add force so that the object can be thrown
+            if (currentScene.name == "beerPong")
+            {
+                //heldObjRB.AddForce(transform.forward * throwForce);
+                Debug.Log("beerpong scene");
+                rb.linearVelocity = transform.forward * throwForce;
+            }
         }
         ClearHeldObjectClientRpc();
     }
