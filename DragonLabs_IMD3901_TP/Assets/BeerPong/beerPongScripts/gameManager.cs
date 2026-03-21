@@ -55,27 +55,26 @@ public class gameManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         turn.Value = 1;
-        spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
-
     }
 
     void Start()
     {
-        //////find both player in the scene
-        //player1 = GameObject.FindWithTag("Player1");
+        ////find both player in the scene
+        player1 = GameObject.FindWithTag("Player1");
         //player2 = GameObject.FindWithTag("Player2");
 
-        ////Set their start positions
-        //player1.transform.transform.position = p1StartPos.position;
+        //Set their start positions
+        player1.transform.transform.position = p1StartPos.position;
         //player2.transform.transform.position = p2StartPos.position;
 
 
-        P1BallStartPos =  new Vector3(0f, 4f, -5.756f);
+        P1BallStartPos =  new Vector3(0f, 2.6f, -5f);
 
-        P2BallStartPos = new Vector3(0f, 4f, 5.756f);
+        P2BallStartPos = new Vector3(0f, 2.6f, 5);
         Debug.Log("Start turn: "+ turn.Value);
 
         //turn.Value = 1;
+        spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
     }
 
     // Update is called once per frame
@@ -88,28 +87,28 @@ public class gameManager : NetworkBehaviour
 
         //}
         //Set their start positions
-        //player1.transform.transform.position = p1StartPos.position;
+        player1.transform.transform.position = p1StartPos.position;
         //player2.transform.transform.position = p2StartPos.position;
-        //Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
-    
+        Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
 
-            //instatiate ball depending on who's turn it is
-            if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
-            {
-                spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
-                turn.Value = 2;//now player 2's turn
-                Debug.Log("Turn: "+ turn.Value);
-            }
-            else if (turn.Value == 2  && !newBall.IsSpawned)//if player 2 turn
-            {
-                spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
 
-                turn.Value = 1;//now player 1's turn
-                Debug.Log("Turn: "+ turn.Value);
+        //instatiate ball depending on who's turn it is
+        if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
+        {
+            spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
+            turn.Value = 2;//now player 2's turn
+            Debug.Log("Turn: "+ turn.Value);
+        }
+        else if (turn.Value == 2  && !newBall.IsSpawned)//if player 2 turn
+        {
+            spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
 
-            }
+            turn.Value = 1;//now player 1's turn
+            Debug.Log("Turn: "+ turn.Value);
 
-       
+        }
+
+
 
         //addPointOnDespawnServerRpc();
 
@@ -206,14 +205,14 @@ public class gameManager : NetworkBehaviour
     {
         //for (int i = 0; i < 1; i++)
         //{
-            foreach (NetworkObject ball in ballPrefab)
-            {
+        foreach (NetworkObject ball in ballPrefab)
+        {
 
-                if (!IsServer) return;
-                //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
-                newBall = Instantiate(ball, startPos, Quaternion.identity);
-                newBall.GetComponent<NetworkObject>().Spawn();
-            }
+            if (!IsServer) return;
+            //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
+            newBall = Instantiate(ball, startPos, Quaternion.identity);
+            newBall.GetComponent<NetworkObject>().Spawn();
+        }
         //}
     }
 
@@ -259,7 +258,7 @@ public class gameManager : NetworkBehaviour
 
             //if (ball == null)//if the the ball landed in the cup and was despawned
             //{
-                //if(ball)
+            //if(ball)
             //}
         }
     }

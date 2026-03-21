@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &21830214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2865438684419936513, guid: f911cca1bceef4940a635ae9e07c9025, type: 3}
+  m_PrefabInstance: {fileID: 1821385456}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &129331998
 GameObject:
   m_ObjectHideFlags: 0
@@ -4468,7 +4473,7 @@ MonoBehaviour:
   PCplayer: {fileID: 123514706950494819, guid: 3432999a8b86d1f40abb4a398ff16d03, type: 3}
   VRplayer: {fileID: 2865438684419936513, guid: 66fdf2e66f33ee64cad1a9eb3e10e5ff, type: 3}
   localPCPlayer: {fileID: 1686308092}
-  localVRPlayer: {fileID: 0}
+  localVRPlayer: {fileID: 21830214}
   NetworkManagerObject: {fileID: 1674299566}
   chooseGameAccess: {fileID: 974390632}
   clientStarted:

@@ -130,7 +130,9 @@ public class PickupControllerNet : NetworkBehaviour
         if (heldObj == null) return;
         //snap object instantly to hold area
         heldObj.transform.position = holdArea.position;
-        heldObj.transform.rotation = holdArea.rotation;
+        //heldObj.transform.rotation = holdArea.rotation;
+        heldObjRB.constraints = RigidbodyConstraints.FreezeRotationY;//prevents object from rotating
+        heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -185,10 +187,12 @@ public class PickupControllerNet : NetworkBehaviour
 
         //snap object instantly to hold area
         heldObj.transform.position = holdArea.position;
-        heldObj.transform.rotation = holdArea.rotation;
+        //heldObj.transform.rotation = holdArea.rotation;
 
         if (heldObjRB != null)
         {
+            heldObjRB.constraints = RigidbodyConstraints.FreezeRotationY;//prevents object from rotating
+            heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating
             heldObjRB.useGravity = false; //turn gravity off so it floats in the air
         }
     }

@@ -78,7 +78,7 @@ public class PlayerInteractionNet : NetworkBehaviour
 
                 if (currentScene.name == "beerPong"){//only enable in beerPong scene
 
-                    if (Keyboard.current.rKey.wasPressedThisFrame)
+                    if (Keyboard.current.rKey.isPressed)//if r key was held down
                     {
                         if (hit.collider.gameObject.GetComponent<pourDetector>() !=null)
                         {

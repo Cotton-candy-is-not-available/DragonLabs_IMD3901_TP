@@ -6,26 +6,18 @@ using UnityEngine.InputSystem;
 
 public class pourDetector : NetworkBehaviour
 {
-    public int pourThreshold = 45;
-
-    public Transform origin = null;
-
-    public bool isPouring = false;
 
     public float fillLevel;
 
     Renderer rend;
 
     public GameObject beerLiquid;//beer liquid
-    float time = 0.5f;
 
 
     // ------ PC variables --------------
     [SerializeField] float rotationProgress;
     [SerializeField] Quaternion PCStartRotation;
     [SerializeField] Quaternion PCEndRotation;
-
-    [SerializeField] Quaternion cupRotation;
 
     // ------ VR variables --------------
 
@@ -38,20 +30,20 @@ public class pourDetector : NetworkBehaviour
     public NetworkObject cupNetObj;
 
 
-    public PickupControllerNet PickupControllerNet;
-
-    public GameObject held;
-
-    //public Transform holdArea;
+    float fillElaspsedTime;
+    float lerpDuration = 3;
 
 
     private void Start()
     {
         rend = beerLiquid.GetComponent<Renderer>();//get the renderer from the gameobject
+        fillLevel = 0.7f;//set fill level
+        rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph so that it matches the fill level in this script
+
+
         PCStartRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//default rotation
 
-        PCEndRotation = Quaternion.Euler(-90.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//rotates 90degrees towards player
-
+        PCEndRotation = Quaternion.Euler(-180.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//rotates 90degrees towards player
 
     }
 
@@ -61,27 +53,31 @@ public class pourDetector : NetworkBehaviour
     public void lowerFillLevel()
     {
         //lower fill level
-        time += Time.deltaTime;
+          
+                // decrease fill level over time
+                fillLevel = Mathf.Lerp(fillLevel, 0.01f, fillElaspsedTime/lerpDuration);
 
-        //set fill level variable from script to be original fill level then chnage it
-        //otherwise it is always 0
-        // decrease fill level over time
-        //fillLevel = Mathf.Lerp(fillLevel, 0, Time.deltaTime);
+            //send over to shader new value of fill level
+            rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph
+            Debug.Log("fillLevel: " + fillLevel);
+            Debug.Log("fill down");
 
-        //send over to shader new value of fill level
-        rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph
-        Debug.Log("fillLevel: " + fillLevel);
-        Debug.Log("fill down");
+            fillElaspsedTime += Time.deltaTime;
 
+        
+      
     }
 
     public void rotateCup()
     {
-        rotationProgress += Time.deltaTime * 5;//somewhat slowly rotate; Note: smaller number slower, bigger number faster
-        gameObject.transform.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress);//rotates watering can smoothly
-        //lowerFillLevel();//lower the liquid inside the cup
 
-        //StartCoroutine(destroyCup(PickupControllerNet.heldObj.GetComponent<NetworkObject>()));//destoy the cup
+            transform.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress/lerpDuration);//rotates watering can smoothly
+            rotationProgress += Time.deltaTime * 7;//slowly rotate
+
+            lowerFillLevel();
+
+            StartCoroutine(destroyCup(cupNetObj));//destoy the cup
+
     }
 
 
@@ -115,13 +111,13 @@ public class pourDetector : NetworkBehaviour
 
 
 
-    IEnumerator destroyCup(NetworkObject heldObj)
+    IEnumerator destroyCup(NetworkObject cupNetObj)
     {
         //play poof soundFX
         //show poof effect(particles?)
-        heldObj = heldObj.GetComponent<NetworkObject>();//instatiate the object
+        cupNetObj = cupNetObj.GetComponent<NetworkObject>();
         yield return new WaitForSeconds(3); //waits 3 seconds
-        heldObj.Despawn();
+        cupNetObj.Despawn();
         //Destroy(heldObj); //destroy the cup
     }
 
