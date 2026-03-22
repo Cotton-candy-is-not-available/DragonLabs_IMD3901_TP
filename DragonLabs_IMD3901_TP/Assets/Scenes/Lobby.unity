@@ -5199,7 +5199,7 @@ MonoBehaviour:
   localPCPlayer: {fileID: 1167243904}
   localVRPlayer: {fileID: 1522814287}
   NetworkManagerObject: {fileID: 1007918414}
-  chooseGameAccess: {fileID: 0}
+  chooseGameAccess: {fileID: 229652708}
   clientStarted:
     m_InternalValue: 0
 --- !u!114 &805995576
@@ -5223,7 +5223,7 @@ MonoBehaviour:
   startGameAccesss: {fileID: 805995575}
   textToCopy: 
   mainCamera: {fileID: 1213521941}
-  chooseGameAccess: {fileID: 0}
+  chooseGameAccess: {fileID: 229652708}
 --- !u!114 &805995577
 MonoBehaviour:
   m_ObjectHideFlags: 0

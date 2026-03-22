@@ -848,19 +848,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  pourThreshold: 45
-  origin: {fileID: 0}
-  isPouring: 0
   fillLevel: 0
   beerLiquid: {fileID: 8648031579178837687}
   rotationProgress: 0
   PCStartRotation: {x: 0, y: 0, z: 0, w: 0}
   PCEndRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
-  cupRotation: {x: 0, y: 0, z: 0, w: 0}
   VRPourRotation: 30
   pressDistance: 0.3
   pressSpeed: 2
-  cupNetObj: {fileID: 4528916569671949240}
+  cupNetObj: {fileID: 2415338472961847623}
 --- !u!114 &3820491638673204851
 MonoBehaviour:
   m_ObjectHideFlags: 0

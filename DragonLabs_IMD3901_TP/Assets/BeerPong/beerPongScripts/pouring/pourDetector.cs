@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class pourDetector : NetworkBehaviour
 {
 
-    public float fillLevel;
+    public float fillLevel = 0.7f;
 
     Renderer rend;
 
@@ -27,7 +27,7 @@ public class pourDetector : NetworkBehaviour
     public float pressDistance = 0.3f;
     public float pressSpeed = 2f;
 
-    public NetworkObject cupNetObj;
+    public GameObject cupNetObj;
 
 
     float fillElaspsedTime;
@@ -43,7 +43,7 @@ public class pourDetector : NetworkBehaviour
 
         PCStartRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//default rotation
 
-        PCEndRotation = Quaternion.Euler(-180.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//rotates 90degrees towards player
+        PCEndRotation = Quaternion.Euler(-135.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//rotates 90degrees towards player
 
     }
 
@@ -55,7 +55,7 @@ public class pourDetector : NetworkBehaviour
         //lower fill level
           
                 // decrease fill level over time
-                fillLevel = Mathf.Lerp(fillLevel, 0.01f, fillElaspsedTime/lerpDuration);
+                fillLevel = Mathf.Lerp(fillLevel, -0.5f, fillElaspsedTime/lerpDuration);
 
             //send over to shader new value of fill level
             rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph
@@ -64,8 +64,9 @@ public class pourDetector : NetworkBehaviour
 
             fillElaspsedTime += Time.deltaTime;
 
-        
-      
+            rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph
+
+
     }
 
     public void rotateCup()
@@ -85,22 +86,22 @@ public class pourDetector : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void rotateCupServerRpc(ulong objectId, ServerRpcParams rpcParams = default)
     {
-        if (cupNetObj.TryGetComponent<NetworkObject>(out cupNetObj))
-        {
-            cupNetObj.ChangeOwnership(rpcParams.Receive.SenderClientId);
+        //if (cupNetObj.TryGetComponent<NetworkObject>(out cupNetObj))
+        //{
+            cupNetObj.GetComponent<NetworkObject>().ChangeOwnership(rpcParams.Receive.SenderClientId);
 
             rotateCupClientRpc();
-        }
+        //}
     }
 
 
     [ClientRpc]
     private void rotateCupClientRpc()
     {
-        if (IsOwner)
-        {
+        //if (IsOwner)
+        //{
             rotateCup();
-        }
+        //}
     }
 
 
@@ -111,14 +112,14 @@ public class pourDetector : NetworkBehaviour
 
 
 
-    IEnumerator destroyCup(NetworkObject cupNetObj)
+    IEnumerator destroyCup(GameObject cupNetObj)
     {
         //play poof soundFX
         //show poof effect(particles?)
-        cupNetObj = cupNetObj.GetComponent<NetworkObject>();
+        //cupNetObj = cupNetObj.GetComponent<NetworkObject>();
         yield return new WaitForSeconds(3); //waits 3 seconds
-        cupNetObj.Despawn();
-        //Destroy(heldObj); //destroy the cup
+        //cupNetObj.Despawn();
+        cupNetObj.SetActive(false);//hide the cup
     }
 
 

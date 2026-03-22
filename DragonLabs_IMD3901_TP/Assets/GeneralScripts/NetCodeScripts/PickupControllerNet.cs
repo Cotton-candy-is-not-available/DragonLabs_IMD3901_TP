@@ -25,9 +25,7 @@ public class PickupControllerNet : NetworkBehaviour
     public float throwForce = 10f;
     [SerializeField] tragectoryLine line;
     public float mass = 10;
-    //bool enableLine = false;
-    //NetworkVariable<bool> enableLine = new NetworkVariable<bool>();
-
+    
     public NetworkVariable<bool> enableLine;
 
     public override void OnNetworkSpawn()
@@ -130,9 +128,16 @@ public class PickupControllerNet : NetworkBehaviour
         if (heldObj == null) return;
         //snap object instantly to hold area
         heldObj.transform.position = holdArea.position;
+        if (currentScene.name != "beerPong")//only enable in beerPong scene
+        {
+            heldObj.transform.rotation = holdArea.rotation;//if this is enabled in beer pong player cannot rotate their cup; therefore any other scene can have this enabled
+        }
         //heldObj.transform.rotation = holdArea.rotation;
-        heldObjRB.constraints = RigidbodyConstraints.FreezeRotationY;//prevents object from rotating
-        heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating
+        if (currentScene.name == "beerPong")//only enable in beerPong scene
+        {
+            heldObjRB.constraints = RigidbodyConstraints.FreezeRotationY;//prevents object from rotating on Y
+            heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating on Z
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -187,12 +192,19 @@ public class PickupControllerNet : NetworkBehaviour
 
         //snap object instantly to hold area
         heldObj.transform.position = holdArea.position;
-        //heldObj.transform.rotation = holdArea.rotation;
+        heldObj.transform.rotation = holdArea.rotation;
 
+        if (currentScene.name != "beerPong")//only enable in beerPong scene
+        {
+            heldObj.transform.rotation = holdArea.rotation;//if this is enabled in beer pong player cannot rotate their cup; therefore any other scene can have this enabled
+        }
         if (heldObjRB != null)
         {
-            heldObjRB.constraints = RigidbodyConstraints.FreezeRotationY;//prevents object from rotating
-            heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating
+            if (currentScene.name == "beerPong")//only enable in beerPong scene
+            {
+                heldObjRB.constraints = RigidbodyConstraints.FreezeRotationY;//prevents object from rotating on Y
+                heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating on Z
+            }
             heldObjRB.useGravity = false; //turn gravity off so it floats in the air
         }
     }

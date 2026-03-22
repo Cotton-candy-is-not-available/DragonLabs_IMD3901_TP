@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,9 @@ public class PlayerInteractionNet : NetworkBehaviour
     public PickupController pickupControllerNet_access;
 
     Scene currentScene;
+
+    //temp for dubugging
+    public TextMeshProUGUI debugText;
    
     void Update()
     {
@@ -84,9 +88,12 @@ public class PlayerInteractionNet : NetworkBehaviour
                         {
                             NetworkObject cupNetObj = hit.collider.gameObject.GetComponent<NetworkObject>();
                             cupNetObj.GetComponent<pourDetector>().rotateCupServerRpc(cupNetObj.NetworkObjectId);
+                            debugText.text = "ROTATE";
+
                         }
                         else//if it doesnt have the pour detector script do nothing and go back
                         {
+                            debugText.text = "can't rotate";
                             return;
                         }
                     }

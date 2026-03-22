@@ -61,16 +61,16 @@ public class gameManager : NetworkBehaviour
     {
         ////find both player in the scene
         player1 = GameObject.FindWithTag("Player1");
-        //player2 = GameObject.FindWithTag("Player2");
+        player2 = GameObject.FindWithTag("Player2");
 
         //Set their start positions
         player1.transform.transform.position = p1StartPos.position;
-        //player2.transform.transform.position = p2StartPos.position;
+        player2.transform.transform.position = p2StartPos.position;
 
 
-        P1BallStartPos =  new Vector3(0f, 2.6f, -5f);
+        P1BallStartPos =  new Vector3(0f, 4.5f, -5f);
 
-        P2BallStartPos = new Vector3(0f, 2.6f, 5);
+        P2BallStartPos = new Vector3(0f, 4.5f, 5);
         Debug.Log("Start turn: "+ turn.Value);
 
         //turn.Value = 1;
@@ -88,7 +88,7 @@ public class gameManager : NetworkBehaviour
         //}
         //Set their start positions
         player1.transform.transform.position = p1StartPos.position;
-        //player2.transform.transform.position = p2StartPos.position;
+        player2.transform.transform.position = p2StartPos.position;
         Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
 
 
@@ -166,30 +166,6 @@ public class gameManager : NetworkBehaviour
         //        ballHit.nonCup = false;//turn it baxck off
         //    }
 
-        //    //if (ballHit.table)
-        //    //{
-        //    //    //remainingTime = 3.0f;// start with 3 seconds
-        //    //    CheckTimeOnTable();//start count down timer
-        //    //    if (remainingTime <= 0)
-        //    //    {
-        //    //        despawnBallServerRPC();//destroy the ball
-        //    //        //ballHit.table = false;//turn it back off
-        //    //        remainingTime = 3.0f;//reset remaining time
-        //    //        Debug.Log("remainingTime in if statement: " + remainingTime);
-
-        //    //    }
-        //    //    Debug.Log("after check function: " + remainingTime);
-
-
-
-        //    //}
-        //    //else if (!ballHit.table)
-        //    //{
-        //    //    remainingTime = 3.0f;//reset remaining time
-        //    //    Debug.Log("table is false");
-        //    //}
-
-        //}
 
     }
 
