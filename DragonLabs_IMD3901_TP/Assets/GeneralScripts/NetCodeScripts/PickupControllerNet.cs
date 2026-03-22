@@ -43,7 +43,6 @@ public class PickupControllerNet : NetworkBehaviour
         // Get current scene name
         currentScene = SceneManager.GetActiveScene();
         //PICKING UP-----------------------------
-        //NEED TO CHECK TAG OF OBJECT BEFORE PICKING UP
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
             Debug.Log("i was presssed to pickup object");
@@ -53,8 +52,10 @@ public class PickupControllerNet : NetworkBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
                 {
-                    //pick up the object
-                    pickupObject(hit.transform.gameObject);
+                   //if (hit.collider.CompareTag("Interactable")){
+                        //pick up the object
+                        pickupObject(hit.transform.gameObject);//pickup object
+                    //}
                 }
             }
         }

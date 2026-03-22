@@ -10,8 +10,9 @@ public class AudioManager : NetworkBehaviour
 
     [Header("---- Audio Clip ----")]
     public AudioClip pinata_background;
-    /* add other background music for the other minigames
     public AudioClip beerPong_background;
+
+    /* add other background music for the other minigames
     public AudioClip ticTacToe_background;
     public AudioClip parkour_background; */
 
@@ -45,12 +46,12 @@ public class AudioManager : NetworkBehaviour
                 musicSource.Play();
                 break;
 
-            /*
-            case "BeerPong":
+            
+            case "beerPong":
                 musicSource.clip = beerPong_background;
                 musicSource.Play();
                 break;
-
+            /*
             case "TicTacToe":
                 musicSource.clip = ticTacToe_background;
                 musicSource.Play();

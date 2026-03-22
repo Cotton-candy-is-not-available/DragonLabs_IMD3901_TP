@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2670280600
+  GlobalObjectIdHash: 2609882781
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -76,6 +76,8 @@ MonoBehaviour:
   musicSource: {fileID: 7002233977333018783}
   SFXSource: {fileID: 5907833953359265229}
   pinata_background: {fileID: 8300000, guid: f38ffa96a9df6ab4b883bf34ff59b1fb, type: 3}
+  beerPong_background: {fileID: 8300000, guid: 18186cd5e7442794188d39d45710d045, type: 3}
+  chosenGame: 
 --- !u!1 &5654541160901994537
 GameObject:
   m_ObjectHideFlags: 0

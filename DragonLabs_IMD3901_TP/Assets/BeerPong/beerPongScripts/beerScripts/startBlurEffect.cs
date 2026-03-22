@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using static Unity.Burst.Intrinsics.X86.Avx;
 
@@ -7,8 +9,10 @@ public class startBlurEffect : MonoBehaviour
     public GameObject cup;
     public GameObject drinkMeSign;
     public XRGrabInteractable cupVRgrabInteractable;
-    //might need to make network variable for drink me sign
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public gameManager gameManager;
+
+    public bool Player1Drink;
+    public bool Player2Drink;
     void Start()
     {
         //find the players 1 and 2 by tag
@@ -16,14 +20,12 @@ public class startBlurEffect : MonoBehaviour
 
         //cupVRgrabInteractable.enabled = false;//don't allow VR player to grab cup by default
 
+        //neither player 1 or 2 are drinking
+        Player1Drink = false;
+        Player2Drink = false;
+
         drinkMeSign.SetActive(false);//disactivate drink me sign by default
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
 
@@ -40,14 +42,16 @@ public class startBlurEffect : MonoBehaviour
             if (gameObject.tag == "cup1")
             {
                 //add point to player 2
-                //increase player 1's blur
+                gameManager.player2Points.Value += 1;//tell game manager to give a point to player 2
+
+
                 Debug.Log("player 1 cup ");
 
             }
             else if(gameObject.tag == "cup2")
             {
                 //add point to player 1
-                //increase player 2's blue
+                gameManager.player1Points.Value += 1;//tell game manager to give a point to player 1
 
                 Debug.Log("player 2 cup ");
 

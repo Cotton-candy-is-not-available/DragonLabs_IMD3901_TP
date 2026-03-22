@@ -173,6 +173,7 @@ MonoBehaviour:
   playerCamera: {fileID: 7268449350634651738}
   crosshair_access: {fileID: 469601055121027260}
   pickupControllerNet_access: {fileID: 0}
+  debugText: {fileID: 0}
 --- !u!120 &9195724684281840521
 LineRenderer:
   serializedVersion: 2
@@ -425,7 +426,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0

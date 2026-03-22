@@ -1,12 +1,14 @@
+using System.Collections;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
-using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class pourDetector : NetworkBehaviour
 {
-
+    //this script is attached to the cup itself
     public float fillLevel = 0.7f;
 
     Renderer rend;
@@ -32,6 +34,9 @@ public class pourDetector : NetworkBehaviour
 
     float fillElaspsedTime;
     float lerpDuration = 3;
+
+    public gameManager gameManager;
+    public DepthOfField blurEffect;
 
 
     private void Start()
@@ -98,10 +103,8 @@ public class pourDetector : NetworkBehaviour
     [ClientRpc]
     private void rotateCupClientRpc()
     {
-        //if (IsOwner)
-        //{
             rotateCup();
-        //}
+        
     }
 
 
@@ -119,6 +122,22 @@ public class pourDetector : NetworkBehaviour
         //cupNetObj = cupNetObj.GetComponent<NetworkObject>();
         yield return new WaitForSeconds(3); //waits 3 seconds
         //cupNetObj.Despawn();
+        if (beerLiquid.GetComponent<startBlurEffect>().Player1Drink == true)
+        {//if player 1 needs to drink
+            Volume playerVolume = gameManager.player1.GetComponent<Volume>();//get their volume
+                                                                            
+            playerVolume.profile.TryGet(out blurEffect);
+            blurEffect.focalLength.value += 100;//increase the focal length value
+
+
+            beerLiquid.GetComponent<startBlurEffect>().Player1Drink = false; // set back bool to false
+
+        }
+        else if (beerLiquid.GetComponent<startBlurEffect>().Player2Drink == true)
+        {
+            //gameManager.player2.GetComponent<Volume>().profile = ;//get their volume
+            beerLiquid.GetComponent<startBlurEffect>().Player2Drink = false; // set back to false
+        }
         cupNetObj.SetActive(false);//hide the cup
     }
 
