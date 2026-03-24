@@ -51,12 +51,14 @@ public class gameManager : NetworkBehaviour
     public VolumeProfile playerVolumeProfile;
 
     public NetworkVariable<bool> isGameOver;
+    public NetworkVariable<bool> goToLobby;
 
 
     public override void OnNetworkSpawn()
     {
         turn.Value = 1;
         isGameOver.Value = false;
+        goToLobby.Value = false;
 
     }
 

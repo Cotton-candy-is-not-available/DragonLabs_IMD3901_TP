@@ -49,7 +49,7 @@ public class SwitchSceneTimerControllerNet : NetworkBehaviour
             timerDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
             UpdateTimerClientRpc(); //update the client
         }
-        else //if the game is over (either failure or victory), reset the timer
+        else //if the game is over (either failure or victory), end the time
         {
             elapsedTime.Value = 0;
             timerDisplay.text = "00:00";
