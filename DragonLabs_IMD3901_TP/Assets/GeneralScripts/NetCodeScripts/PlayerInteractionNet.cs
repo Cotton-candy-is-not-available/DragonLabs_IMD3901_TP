@@ -46,6 +46,9 @@ public class PlayerInteractionNet : NetworkBehaviour
                 //Debug.Log("interact was set to true");
                 return;
             }
+
+           
+
         }
         crosshair_access.setInteractServerRpc(false); //set it back to false if we look away from the object
     }

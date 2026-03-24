@@ -90,7 +90,7 @@ public class MultiPlayerSpawner : NetworkBehaviour
         //Debug.Log("Start turn: " + turn.Value);
 
         //turn.Value = 1;
-        spawnX_PieceServerRpc();//spawn the ball infornt of player 1
+        //spawnX_PieceServerRpc();//spawn the ball infornt of player 1
     }
 
     // Update is called once per frame
@@ -201,7 +201,20 @@ public class MultiPlayerSpawner : NetworkBehaviour
         }
 
     }
+    [ServerRpc(RequireOwnership = false)]
+    void spawnO_PieceServerRpc()//allows client to also spawn/ see spawned ball
+    {
 
+        foreach (NetworkObject O in O_Piece)
+        {
+
+            if (!IsServer) return;
+            NetworkObject newX_piece = Instantiate(O, SpawnPosistion.position, Quaternion.identity);
+            //newBall = Instantiate(ball, startPos, Quaternion.identity);
+            newX_piece.GetComponent<NetworkObject>().Spawn();
+        }
+
+    }
 
     [ServerRpc(RequireOwnership = false)]
     public void despawnBallServerRpc()

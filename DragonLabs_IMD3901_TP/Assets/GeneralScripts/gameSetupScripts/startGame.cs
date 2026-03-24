@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class startGame : MonoBehaviour
 {
@@ -148,6 +149,7 @@ public class startGame : MonoBehaviour
         IPAdressText.SetActive(true);//shows ip address to connect to
         NetworkManager.Singleton.StartHost();//start host
         gameSteupCanvas.SetActive(false );//hide net connect panel
+ 
     }
 
     public void startClient()
