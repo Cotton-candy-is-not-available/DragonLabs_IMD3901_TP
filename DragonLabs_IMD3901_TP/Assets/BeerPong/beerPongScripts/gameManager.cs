@@ -33,9 +33,7 @@ public class gameManager : NetworkBehaviour
     public Vector3 P2BallStartPos;
 
     [Header("------------ Prefabs -------------")]
-    //public GameObject ballPrefab;
-
-    public NetworkObject[] ballPrefab;
+    public NetworkObject[] ballPrefab;//prefab with network object attached
 
     float remainingTime = 3.0f;
 
@@ -65,7 +63,7 @@ public class gameManager : NetworkBehaviour
         player1 = GameObject.FindWithTag("Player1");
         player2 = GameObject.FindWithTag("Player2");
 
-        //Set their start positions
+        //Set players start positions
         player1.transform.transform.position = p1StartPos.position;
         player2.transform.transform.position = p2StartPos.position;
 
@@ -99,7 +97,7 @@ public class gameManager : NetworkBehaviour
  
         //Set their start positions
         player1.transform.transform.position = p1StartPos.position;
-        //player2.transform.transform.position = p2StartPos.position;
+        player2.transform.transform.position = p2StartPos.position;
         Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
 
 
@@ -187,9 +185,8 @@ public class gameManager : NetworkBehaviour
 
 
     //Ball spawning and despawning
-
     [ServerRpc(RequireOwnership = false)]
-    void spawnBallServerRpc(Vector3 startPos)
+    void spawnBallServerRpc(Vector3 startPos)//allows client to also spawn/ see spawned ball
     {
         
         foreach (NetworkObject ball in ballPrefab)
