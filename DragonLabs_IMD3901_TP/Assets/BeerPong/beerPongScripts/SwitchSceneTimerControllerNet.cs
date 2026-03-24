@@ -8,12 +8,13 @@ public class SwitchSceneTimerControllerNet : NetworkBehaviour
     [SerializeField] TMPro.TextMeshProUGUI timerDisplay;
 
     public NetworkVariable<float> elapsedTime;
-    public gameManager gameManagerAccess;
+    public ChooseGame sceneManager;
+    public gameManager gameManagerAccess;//beer pong game manager
 
     public override void OnNetworkSpawn()
     {
         //set initial value
-        elapsedTime.Value = 90.0f;
+        elapsedTime.Value = 20.0f;
     }
 
     private void Update()
@@ -53,6 +54,7 @@ public class SwitchSceneTimerControllerNet : NetworkBehaviour
             elapsedTime.Value = 0;
             timerDisplay.text = "00:00";
             UpdateTimerClientRpc(); //update the client
+            sceneManager.switchScenesNetServerRpc("Lobby");
         }
     }
 
