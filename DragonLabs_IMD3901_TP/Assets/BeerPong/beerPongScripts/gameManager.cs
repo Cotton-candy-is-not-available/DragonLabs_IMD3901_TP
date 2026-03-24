@@ -35,8 +35,6 @@ public class gameManager : NetworkBehaviour
     [Header("------------ Prefabs -------------")]
     public NetworkObject[] ballPrefab;//prefab with network object attached
 
-    float remainingTime = 3.0f;
-
 
     //public beerPongScoreManger scoreManger;
 
@@ -52,9 +50,14 @@ public class gameManager : NetworkBehaviour
 
     public VolumeProfile playerVolumeProfile;
 
+    public NetworkVariable<bool> isGameOver;
+
+
     public override void OnNetworkSpawn()
     {
         turn.Value = 1;
+        isGameOver.Value = false;
+
     }
 
     void Start()
@@ -116,8 +119,10 @@ public class gameManager : NetworkBehaviour
 
         }
 
-
-
+        if (isGameOver.Value == true)
+        {
+            Debug.Log("Game is over");
+        }
         //addPointOnDespawnServerRpc();
 
         //if (newBall != null)//if tha ball exists start checking if points are to be added

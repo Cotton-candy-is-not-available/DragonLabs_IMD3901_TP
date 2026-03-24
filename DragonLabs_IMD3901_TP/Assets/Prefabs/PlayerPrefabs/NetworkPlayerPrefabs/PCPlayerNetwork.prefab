@@ -173,7 +173,6 @@ MonoBehaviour:
   playerCamera: {fileID: 7268449350634651738}
   crosshair_access: {fileID: 469601055121027260}
   pickupControllerNet_access: {fileID: 0}
-  debugText: {fileID: 0}
 --- !u!120 &9195724684281840521
 LineRenderer:
   serializedVersion: 2
@@ -182,7 +181,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123514706950494819}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
