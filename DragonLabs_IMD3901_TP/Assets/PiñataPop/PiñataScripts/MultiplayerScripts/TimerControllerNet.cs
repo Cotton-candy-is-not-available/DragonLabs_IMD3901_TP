@@ -31,16 +31,6 @@ public class TimerControllerNet : NetworkBehaviour
             return;
         }
         UpdateTimerServerRpc(); //update the client and host's display
-
-        /*if(isExtraTimeDone.Value == false)
-        {
-            //constantly update the candy timer for host and client
-
-
-
-        }*/
-
-
     }
 
 
