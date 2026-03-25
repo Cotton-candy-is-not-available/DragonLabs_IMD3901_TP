@@ -5,7 +5,6 @@ using UnityEngine;
 public class WinnerManagerNet : NetworkBehaviour
 {
     [SerializeField] TMPro.TextMeshProUGUI winnerDisplayTXT;
-    //public Canvas winnerBoard;
 
     public NetworkVariable<int> p1_results;
     public NetworkVariable<int> p2_results;
