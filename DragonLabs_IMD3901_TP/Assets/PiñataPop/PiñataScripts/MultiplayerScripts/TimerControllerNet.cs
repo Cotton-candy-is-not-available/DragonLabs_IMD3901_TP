@@ -52,6 +52,7 @@ public class TimerControllerNet : NetworkBehaviour
         {
             elapsedTime.Value = 0;
             timerDisplay.text = "00:00";
+            piñataControllerNet_access.isGameOver.Value = true;
             UpdateTimerClientRpc(); //update the client
         }
     }

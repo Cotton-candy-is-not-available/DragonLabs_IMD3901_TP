@@ -45,7 +45,8 @@ public class PiñataControllerNet : NetworkBehaviour
         {
             Debug.Log("GAME OVER!");
             isGameOver.Value = true;
-            confettiPopParticles.Play();
+            //confettiPopParticles.Play(); //ADD CLIENT RPC
+            playConfettiServerRpc();
             candySpawner_access.SpawnCandyServerRpc();
         }
     }
@@ -55,7 +56,12 @@ public class PiñataControllerNet : NetworkBehaviour
         if(collision.gameObject.name == "BatP1")
         {
             //Debug.Log("P1 hit the piñata");
-            scoresManagerNet_access.addP1HitPointServerRpc();
+
+            if (isGameOver.Value == false) //only increase points if game is not over
+            {
+                scoresManagerNet_access.addP1HitPointServerRpc();
+            }
+
             shouldApplyForce = true;
             if (piñataHealth.Value > 0 && isGameOver.Value == false)
             {
@@ -65,7 +71,11 @@ public class PiñataControllerNet : NetworkBehaviour
         else if(collision.gameObject.name == "BatP2")
         {
             //Debug.Log("P2 hit the piñata");
-            scoresManagerNet_access.addP2HitPointServerRpc();
+            if (isGameOver.Value == false)
+            {
+                scoresManagerNet_access.addP2HitPointServerRpc();
+            }
+
             shouldApplyForce = true;
             if (piñataHealth.Value > 0 && isGameOver.Value == false)
             {
@@ -103,6 +113,19 @@ public class PiñataControllerNet : NetworkBehaviour
     {
         piñataHealth.Value -= 1;
         Debug.Log("subtracted a pinata health point");
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void playConfettiServerRpc()
+    {
+        //play confetti particles for both the host and client
+        confettiPopParticles.Play();
+        playConfettiClientRpc();
+    }
+    [ClientRpc]
+    public void playConfettiClientRpc()
+    {
+        confettiPopParticles.Play();
     }
 
 }
