@@ -608,7 +608,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   scoresManagerObj: {fileID: 2046792805}
-  winBoardObj: {fileID: 0}
 --- !u!4 &199102845
 Transform:
   m_ObjectHideFlags: 0

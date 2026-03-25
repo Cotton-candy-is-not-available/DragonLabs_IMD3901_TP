@@ -6,7 +6,7 @@ public class AssignScriptsPinata : NetworkBehaviour
     public static AssignScriptsPinata assigner;
 
     public NetworkObject scoresManagerObj;
-    public NetworkObject winBoardObj;
+    //private NetworkObject winBoardObj;
 
     private void Awake()
     {
@@ -20,14 +20,20 @@ public class AssignScriptsPinata : NetworkBehaviour
     {
         //get the network object of the scoresManager
         scoresManagerObj.GetComponent<NetworkObject>();
-        winBoardObj.GetComponent<NetworkObject>();
+        //winBoardObj.GetComponent<NetworkObject>();
     }
 
 
     private void Update()
     {
-        if (winBoardObj.IsSpawned)
+        if(GameObject.Find("WinnerBoard(Clone)"))
         {
+            Debug.Log("winner board has been spawned and successfully found");
+        }
+
+        /*if (winBoardObj.IsSpawned)
+        {
+            
             Debug.Log("winboard is spawned");
             winBoardObj.GetComponent<NetworkObject>();
 
@@ -37,7 +43,7 @@ public class AssignScriptsPinata : NetworkBehaviour
                 winBoardObj.GetComponent<WinnerManagerNet>().scoresManagerNet_access = scoresManagerObj.GetComponent<ScoresManagerNet>();
                 Debug.Log("winboard field has been FILLED");
             }
-        }
+        }*/
 
         
     }
