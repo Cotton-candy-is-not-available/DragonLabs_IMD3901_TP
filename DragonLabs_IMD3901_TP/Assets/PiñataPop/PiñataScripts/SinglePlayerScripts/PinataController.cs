@@ -3,11 +3,11 @@ using Unity.Netcode;
 using UnityEngine;
 
 
-public class PiñataController : MonoBehaviour
+public class PinataController : MonoBehaviour
 {
 
-    int piñataHealth = 10;
-    Rigidbody piñata_RB;
+    int pinataHealth = 10;
+    Rigidbody pinata_RB;
 
     public ScoresManager scoresManager_access;
     public ParticleSystem confettiPopParticles;
@@ -20,15 +20,15 @@ public class PiñataController : MonoBehaviour
     private void Start()
     {
         //fetch the pinata's rigid body
-        piñata_RB = GetComponent<Rigidbody>();
+        pinata_RB = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        Debug.Log("pinata health: " + piñataHealth);
+        Debug.Log("pinata health: " + pinataHealth);
 
         //only play confetti particle if the game is over and the pinata health is 0
-        if (piñataHealth <= 0 && isGameOver == false) 
+        if (pinataHealth <= 0 && isGameOver == false) 
         {
             Debug.Log("GAME OVER!");
             isGameOver = true;
@@ -48,9 +48,9 @@ public class PiñataController : MonoBehaviour
                 scoresManager_access.increaseP1Hits();
             }
             shouldApplyForce = true;
-            if (piñataHealth > 0 && isGameOver == false)
+            if (pinataHealth > 0 && isGameOver == false)
             {
-                piñataHealth -= 1;
+                pinataHealth -= 1;
             }
         }
     }
@@ -64,7 +64,7 @@ public class PiñataController : MonoBehaviour
             Debug.Log("APPLIED FORCE OF: " + hitChargeForce + " TO PINATA");
             hitChargeForce = Mathf.Clamp(hitChargeForce, 0f, 30f); //min 0 and max 30
             //apply force in the Y direction to mimic someone pulling the pinata up
-            piñata_RB.AddForce(transform.up * hitChargeForce, ForceMode.Impulse);
+            pinata_RB.AddForce(transform.up * hitChargeForce, ForceMode.Impulse);
             shouldApplyForce = false; //reset
         }
     }

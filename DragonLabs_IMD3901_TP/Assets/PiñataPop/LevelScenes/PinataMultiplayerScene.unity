@@ -1562,7 +1562,7 @@ MonoBehaviour:
     m_InternalValue: 0
   elapsedCandyTime:
     m_InternalValue: 0
-  "pi\xF1ataControllerNet_access": {fileID: 1516217504}
+  pinataControllerNet_access: {fileID: 1516217504}
   isExtraTimeDone:
     m_InternalValue: 0
   timerBGimage: {fileID: 118237393}
@@ -3332,7 +3332,7 @@ MonoBehaviour:
   hitForce: 0
   maxHitForce: 30
   hitChargeCircle: {fileID: 1339205888}
-  "pi\xF1ataControllerNet_access": {fileID: 1516217504}
+  pinataControllerNet_access: {fileID: 1516217504}
 --- !u!114 &1093826912
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class TimerController : MonoBehaviour
     float elapsedTime = 90.0f;
     float elapsedCandyTime = 25.0f;
 
-    public PiñataController piñataController_access;
+    public PinataController pinataController_access;
     public bool isExtraTimeDone; //for collecting candy
 
     public Image timerBGimage;
@@ -25,14 +25,14 @@ public class TimerController : MonoBehaviour
 
     void Update()
     {
-        if (piñataController_access.isGameOver == false) //if the game is not over the timer should be counting
+        if (pinataController_access.isGameOver == false) //if the game is not over the timer should be counting
         {
             elapsedTime -= Time.deltaTime; //calculates all of the time passed since game started
 
             if (elapsedTime <= 0)
             {
                 elapsedTime = 0;
-                piñataController_access.isGameOver = true;
+                pinataController_access.isGameOver = true;
             }
 
             int minutes = Mathf.FloorToInt(elapsedTime / 60);
@@ -45,7 +45,7 @@ public class TimerController : MonoBehaviour
         {
             elapsedTime = 0;
             timerDisplay.text = "00:00";
-            piñataController_access.isGameOver = true;
+            pinataController_access.isGameOver = true;
             startExtraCandyTime(); //25 seconds for collecting candy points
         }
     }
@@ -63,7 +63,7 @@ public class TimerController : MonoBehaviour
         {
             elapsedCandyTime = 0;
             isExtraTimeDone = true;
-            piñataController_access.isGameOver = true;
+            pinataController_access.isGameOver = true;
         }
 
         int minutes = Mathf.FloorToInt(elapsedCandyTime / 60);

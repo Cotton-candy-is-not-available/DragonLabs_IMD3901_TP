@@ -12,7 +12,7 @@ public class TimerControllerNet : NetworkBehaviour
     public NetworkVariable<float> elapsedTime;
     public NetworkVariable<float> elapsedCandyTime;
 
-    public PiñataControllerNet piñataControllerNet_access;
+    public PinataControllerNet pinataControllerNet_access;
     public NetworkVariable<bool> isExtraTimeDone; //for collecting candy
 
     public Image timerBGimage;
@@ -39,14 +39,14 @@ public class TimerControllerNet : NetworkBehaviour
     {
         //Debug.Log("UpdateTimerServerRpc run");
 
-        if (piñataControllerNet_access.isGameOver.Value == false) //if the game is not over the timer should be counting
+        if (pinataControllerNet_access.isGameOver.Value == false) //if the game is not over the timer should be counting
         {
             elapsedTime.Value -= Time.deltaTime; //calculates all of the time passed since game started
 
             if (elapsedTime.Value <= 0)
             {
                 elapsedTime.Value = 0;
-                piñataControllerNet_access.isGameOver.Value = true;
+                pinataControllerNet_access.isGameOver.Value = true;
             }
 
             int minutes = Mathf.FloorToInt(elapsedTime.Value / 60);
@@ -60,7 +60,7 @@ public class TimerControllerNet : NetworkBehaviour
         {
             elapsedTime.Value = 0;
             timerDisplay.text = "00:00";
-            piñataControllerNet_access.isGameOver.Value = true;
+            pinataControllerNet_access.isGameOver.Value = true;
             UpdateTimerClientRpc(); //update the client
             startExtraCandyTimeServerRpc(); //start extra candy timer for host and client
         }
