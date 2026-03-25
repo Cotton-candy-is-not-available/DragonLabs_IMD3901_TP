@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class TicTacToeGameManager : MonoBehaviour
 {
@@ -107,6 +108,12 @@ public class TicTacToeGameManager : MonoBehaviour
         return holdPoint.GetComponentInChildren<Piece>();
     }
 
+    IEnumerator SpawnNextPieceNextFrame()
+    {
+        yield return null;
+        SpawnTurnPiece();
+    }
+
     void SpawnTurnPiece()
     {
         if (gameOver || !gameStarted) return;
@@ -115,7 +122,7 @@ public class TicTacToeGameManager : MonoBehaviour
 
         if (prefab == null)
         {
-            Debug.LogWarning("Spawn failed: prefab is missing.");
+            Debug.LogWarning("Spawn failed: prefab is missing for turn " + currentTurn);
             return;
         }
 
@@ -125,7 +132,11 @@ public class TicTacToeGameManager : MonoBehaviour
             return;
         }
 
-        GameObject newPiece = Instantiate(prefab, pieceSpawnPoint.position, pieceSpawnPoint.rotation);
+        Vector3 spawnPos = pieceSpawnPoint.position;
+        Quaternion spawnRot = pieceSpawnPoint.rotation;
+
+        GameObject newPiece = Instantiate(prefab, spawnPos, spawnRot);
+        newPiece.name = currentTurn + "_Piece_Spawned";
 
         Piece piece = newPiece.GetComponent<Piece>();
         if (piece != null)
@@ -143,7 +154,10 @@ public class TicTacToeGameManager : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
-        if (debugLogs) Debug.Log("Spawned new piece: " + currentTurn);
+        if (debugLogs)
+        {
+            Debug.Log("Spawned new piece: " + currentTurn + " at " + spawnPos);
+        }
     }
 
     void TryPlaceLookingAtTile()
@@ -158,12 +172,6 @@ public class TicTacToeGameManager : MonoBehaviour
         if (held == null)
         {
             if (debugLogs) Debug.Log("Place fail: not holding a piece");
-            return;
-        }
-
-        if (held.Type != currentTurn)
-        {
-            if (debugLogs) Debug.Log("Place fail: wrong turn");
             return;
         }
 
@@ -191,10 +199,51 @@ public class TicTacToeGameManager : MonoBehaviour
             return;
         }
 
+        TryPlacePieceFromCollision(held, tile);
+    }
+
+    public bool TryPlacePieceFromCollision(Piece held, TicTacToeTileSlot tile)
+    {
+        if (!gameStarted)
+        {
+            if (debugLogs) Debug.Log("Place fail: game not started");
+            return false;
+        }
+
+        if (gameOver)
+        {
+            if (debugLogs) Debug.Log("Place fail: game already over");
+            return false;
+        }
+
+        if (held == null)
+        {
+            if (debugLogs) Debug.Log("Place fail: no piece");
+            return false;
+        }
+
+        if (tile == null)
+        {
+            if (debugLogs) Debug.Log("Place fail: no tile");
+            return false;
+        }
+
+        if (held.IsPlaced)
+        {
+            if (debugLogs) Debug.Log("Place fail: piece already placed");
+            return false;
+        }
+
+        if (held.Type != currentTurn)
+        {
+            if (debugLogs) Debug.Log("Place fail: wrong turn");
+            return false;
+        }
+
         if (!tile.CanPlace())
         {
             if (debugLogs) Debug.Log("Place fail: tile already filled");
-            return;
+            return false;
         }
 
         if (pickupController != null)
@@ -207,7 +256,7 @@ public class TicTacToeGameManager : MonoBehaviour
             gameOver = true;
             ShowResult(currentTurn + " Wins!");
             if (debugLogs) Debug.Log(currentTurn + " wins!");
-            return;
+            return true;
         }
 
         if (IsBoardFull())
@@ -215,14 +264,15 @@ public class TicTacToeGameManager : MonoBehaviour
             gameOver = true;
             ShowResult("Draw!");
             if (debugLogs) Debug.Log("Draw!");
-            return;
+            return true;
         }
 
         currentTurn = currentTurn == TicTacToePieceType.X ? TicTacToePieceType.O : TicTacToePieceType.X;
 
         if (debugLogs) Debug.Log("Placed successfully. Next turn: " + currentTurn);
 
-        SpawnTurnPiece();
+        StartCoroutine(SpawnNextPieceNextFrame());
+        return true;
     }
 
     void ShowResult(string message)
@@ -240,7 +290,7 @@ public class TicTacToeGameManager : MonoBehaviour
             restartButton.SetActive(true);
     }
 
-    bool CheckWinner(TicTacToePieceType pieceType)
+    public bool CheckWinner(TicTacToePieceType pieceType)
     {
         int[,] winPatterns = new int[,]
         {

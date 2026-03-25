@@ -27,37 +27,50 @@ public class TicTacToeTileSlot : MonoBehaviour
     public void PlacePiece(Piece piece)
     {
         if (piece == null) return;
-        if (!CanPlace()) return;
+        if (placedPiece != null) return;
 
-        Transform targetSpawnPoint = GetSpawnPointForPiece(piece);
-
-        if (targetSpawnPoint == null)
+        Transform targetPoint = GetTargetPoint(piece.Type);
+        if (targetPoint == null)
         {
-            Debug.LogWarning($"No spawn point assigned for piece type {piece.Type} on tile {gameObject.name}");
+            Debug.LogWarning("Missing correct spawn point on tile: " + gameObject.name);
             return;
         }
 
         placedPiece = piece;
         occupyingType = piece.Type;
 
-        piece.transform.SetParent(targetSpawnPoint, false);
-        piece.transform.localPosition = Vector3.zero;
-        piece.transform.localRotation = Quaternion.identity;
-
-        piece.SetPhysicsHeld(true);
-        piece.gameObject.tag = "Untagged";
-        piece.SetHeld(false);
+        piece.SnapToTile(targetPoint);
         piece.MarkPlaced(true);
+        piece.SetHeld(false);
     }
 
-    private Transform GetSpawnPointForPiece(Piece piece)
+    public bool TryAutoPlacePiece(Piece piece)
     {
-        if (piece.Type == TicTacToePieceType.X)
+        if (piece == null) return false;
+        if (placedPiece != null) return false;
+        if (piece.IsPlaced) return false;
+
+        TicTacToeGameManager gameManager = FindFirstObjectByType<TicTacToeGameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogWarning("No TicTacToeGameManager found in scene.");
+            return false;
+        }
+
+        return gameManager.TryPlacePieceFromCollision(piece, this);
+    }
+
+    private Transform GetTargetPoint(TicTacToePieceType pieceType)
+    {
+        if (pieceType == TicTacToePieceType.X)
             return xSpawnPoint;
 
-        if (piece.Type == TicTacToePieceType.O)
-            return oSpawnPoint;
+        return oSpawnPoint;
+    }
 
-        return null;
+    public void ClearTile()
+    {
+        placedPiece = null;
+        occupyingType = null;
     }
 }

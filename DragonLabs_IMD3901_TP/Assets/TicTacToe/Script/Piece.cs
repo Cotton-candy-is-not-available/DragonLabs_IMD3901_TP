@@ -13,8 +13,37 @@ public class Piece : MonoBehaviour
     public bool IsPlaced => isPlaced;
     public bool IsHeld => isHeld;
 
-    public void MarkPlaced(bool value) => isPlaced = value;
-    public void SetHeld(bool value) => isHeld = value;
+    private Rigidbody rb;
+    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isPlaced) return;
+
+        TicTacToeTileSlot tile = other.GetComponent<TicTacToeTileSlot>();
+        if (tile == null)
+            tile = other.GetComponentInParent<TicTacToeTileSlot>();
+
+        if (tile == null) return;
+
+        tile.TryAutoPlacePiece(this);
+    }
+
+    public void MarkPlaced(bool value)
+    {
+        isPlaced = value;
+    }
+
+    public void SetHeld(bool value)
+    {
+        isHeld = value;
+    }
 
     public void ApplyHoldPose()
     {
@@ -24,7 +53,6 @@ public class Piece : MonoBehaviour
 
     public void SetPhysicsHeld(bool held)
     {
-        Rigidbody rb = GetComponent<Rigidbody>();
         if (rb == null) return;
 
         if (held)
@@ -38,6 +66,37 @@ public class Piece : MonoBehaviour
             rb.useGravity = true;
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+        }
+    }
+
+    public void SnapToTile(Transform targetPoint)
+    {
+        if (targetPoint == null) return;
+
+        isPlaced = true;
+        isHeld = false;
+
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.useGravity = false;
+        }
+
+        transform.SetParent(null);
+        transform.position = targetPoint.position;
+        transform.rotation = targetPoint.rotation;
+        transform.SetParent(targetPoint);
+
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+        }
+
+        if (grabInteractable != null)
+        {
+            grabInteractable.enabled = false;
         }
     }
 }
