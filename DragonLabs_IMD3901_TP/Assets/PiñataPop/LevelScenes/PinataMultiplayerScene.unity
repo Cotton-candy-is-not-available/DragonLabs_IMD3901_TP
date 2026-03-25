@@ -1487,7 +1487,12 @@ MonoBehaviour:
   timerDisplay: {fileID: 958613238}
   elapsedTime:
     m_InternalValue: 0
+  elapsedCandyTime:
+    m_InternalValue: 0
   "pi\xF1ataControllerNet_access": {fileID: 1516217504}
+  isExtraTimeDone:
+    m_InternalValue: 0
+  timerBGimage: {fileID: 118237393}
 --- !u!114 &573367834
 MonoBehaviour:
   m_ObjectHideFlags: 0
