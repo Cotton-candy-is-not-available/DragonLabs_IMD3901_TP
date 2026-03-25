@@ -5,14 +5,13 @@ using UnityEngine;
 public class WinnerManagerNet : NetworkBehaviour
 {
     [SerializeField] TMPro.TextMeshProUGUI winnerDisplayTXT;
-    public Canvas winnerBoard;
+    //public Canvas winnerBoard;
 
     public NetworkVariable<int> p1_results;
     public NetworkVariable<int> p2_results;
     public NetworkVariable<int> winner; //1 = player 1, 2= player 2
 
     //access to scripts for game booleans and player points
-    public PiñataControllerNet pinataControllerNet_access;
     public ScoresManagerNet scoresManagerNet_access;
 
     public override void OnNetworkSpawn()
@@ -25,12 +24,10 @@ public class WinnerManagerNet : NetworkBehaviour
 
     private void Update()
     {
-        //if the game is officially over
-        if(pinataControllerNet_access.isGameOver.Value == true)
-        {
-            calculateWinnerServerRpc();
-            updateWinnerBoardServerRpc();
-        }
+        if(!IsServer) return;
+        //constantly update the timers for both the host and the client
+        calculateWinnerServerRpc();
+        updateWinnerBoardServerRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -50,10 +47,8 @@ public class WinnerManagerNet : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void updateWinnerBoardServerRpc()
+    public void updateWinnerBoardServerRpc()
     {
-        //set the board active
-        winnerBoard.gameObject.SetActive(true);
 
         if (winner.Value == 1)
         {
@@ -69,9 +64,6 @@ public class WinnerManagerNet : NetworkBehaviour
     [ClientRpc]
     private void updateWinnerBoardClientRpc()
     {
-        //set the board active
-        winnerBoard.gameObject.SetActive(true);
-
         if (winner.Value == 1)
         {
             winnerDisplayTXT.text = "PLAYER 1";

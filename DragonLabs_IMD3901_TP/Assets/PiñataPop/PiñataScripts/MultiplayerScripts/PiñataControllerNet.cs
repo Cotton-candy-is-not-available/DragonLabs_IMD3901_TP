@@ -12,6 +12,8 @@ public class PiñataControllerNet : NetworkBehaviour
     public ParticleSystem confettiPopParticles;
     public CandySpawn candySpawner_access;
 
+    public WinBoardSpawn winBoardSpawn_access;
+
     public NetworkVariable<bool> isGameOver;
     bool shouldApplyForce = false;
 
@@ -45,7 +47,13 @@ public class PiñataControllerNet : NetworkBehaviour
         {
             Debug.Log("GAME OVER!");
             isGameOver.Value = true;
-            //confettiPopParticles.Play(); //ADD CLIENT RPC
+            //display the winner board
+            if (IsServer)
+            {
+                winBoardSpawn_access.SpawnWinBoardServerRpc();
+            }
+
+            //play confetti particles
             playConfettiServerRpc();
             candySpawner_access.SpawnCandyServerRpc();
         }
