@@ -551,6 +551,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2807453213566417838, guid: eb53ce8c8d2c44bb9b09ea4c58395c34, type: 3}
   m_PrefabInstance: {fileID: 160621420}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &199102842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 199102845}
+  - component: {fileID: 199102843}
+  - component: {fileID: 199102844}
+  m_Layer: 0
+  m_Name: AssignScriptsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &199102843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199102842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2522103532
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &199102844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199102842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e497af8087be7c4eb0282badef421fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  scoresManagerObj: {fileID: 2046792805}
+  winBoardObj: {fileID: 0}
+--- !u!4 &199102845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199102842}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.50897, y: 0, z: 17.35301}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &220616021
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8135023674665499069, guid: 58d0a4ac86f2348deb02f3880c71378e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8518324294302271954, guid: 58d0a4ac86f2348deb02f3880c71378e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -978,7 +1051,7 @@ PrefabInstance:
     - target: {fileID: 7099724425186548248, guid: 1c7f8a228673a074e9191537f4f253e1, type: 3}
       propertyPath: NetworkConfig.PlayerPrefab
       value: 
-      objectReference: {fileID: 2865438684419936513, guid: 66fdf2e66f33ee64cad1a9eb3e10e5ff, type: 3}
+      objectReference: {fileID: 123514706950494819, guid: 3432999a8b86d1f40abb4a398ff16d03, type: 3}
     m_RemovedComponents:
     - {fileID: 350747289349751276, guid: 1c7f8a228673a074e9191537f4f253e1, type: 3}
     m_RemovedGameObjects: []
@@ -1487,7 +1560,12 @@ MonoBehaviour:
   timerDisplay: {fileID: 958613238}
   elapsedTime:
     m_InternalValue: 0
-  "pi\xF1ataControllerNet_access": {fileID: 1516217504}
+  elapsedCandyTime:
+    m_InternalValue: 0
+  pinataControllerNet_access: {fileID: 1516217504}
+  isExtraTimeDone:
+    m_InternalValue: 0
+  timerBGimage: {fileID: 118237393}
 --- !u!114 &573367834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2154,6 +2232,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8199683729778631254, guid: b2f9aa09b74d44026af48464913dce2f, type: 3}
   m_PrefabInstance: {fileID: 759210779}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &767322124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 767322127}
+  - component: {fileID: 767322125}
+  - component: {fileID: 767322128}
+  m_Layer: 0
+  m_Name: WinnerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &767322125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767322124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 486469580
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!4 &767322127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767322124}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1005750376}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &767322128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767322124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da7b46adf4bdbbc49b6ce65325532fd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  timerControllerNet_acces: {fileID: 573367833}
+  board_prefab:
+  - {fileID: 6923200668318221186, guid: cf9ab2a3a9aaa9e4f9e213759ee66159, type: 3}
+  spawnPt: {fileID: 1005750376}
 --- !u!1 &809150042
 GameObject:
   m_ObjectHideFlags: 0
@@ -2709,6 +2863,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2046792804}
     - target: {fileID: 1882264383293158691, guid: 05ce2e23a8089ba4e99e9779a2a6aa1c, type: 3}
+      propertyPath: winBoardSpawn_access
+      value: 
+      objectReference: {fileID: 767322128}
+    - target: {fileID: 1882264383293158691, guid: 05ce2e23a8089ba4e99e9779a2a6aa1c, type: 3}
       propertyPath: 'candyList.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
@@ -2825,6 +2983,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8482451646567284928, guid: 05ce2e23a8089ba4e99e9779a2a6aa1c, type: 3}
   m_PrefabInstance: {fileID: 966553118}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1005750375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1005750376}
+  m_Layer: 0
+  m_Name: boardSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1005750376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005750375}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.04, y: 4.03, z: 2.57}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 767322127}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1058198246
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3143,7 +3332,7 @@ MonoBehaviour:
   hitForce: 0
   maxHitForce: 30
   hitChargeCircle: {fileID: 1339205888}
-  "pi\xF1ataControllerNet_access": {fileID: 1516217504}
+  pinataControllerNet_access: {fileID: 1516217504}
 --- !u!114 &1093826912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3861,6 +4050,10 @@ PrefabInstance:
       propertyPath: scoresManagerNet_access
       value: 
       objectReference: {fileID: 2046792804}
+    - target: {fileID: 2240205462612226893, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+      propertyPath: timerControllerNet_access
+      value: 
+      objectReference: {fileID: 573367833}
     - target: {fileID: 8436946068017795411, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
       propertyPath: m_LocalScale.x
       value: 12.318813
@@ -8961,6 +9154,10 @@ PrefabInstance:
       propertyPath: scoresManagerNet_access
       value: 
       objectReference: {fileID: 2046792804}
+    - target: {fileID: 2240205462612226893, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
+      propertyPath: timerControllerNet_access
+      value: 
+      objectReference: {fileID: 573367833}
     - target: {fileID: 8436946068017795411, guid: 676c760a159a87f4095ffc433f32cc8b, type: 3}
       propertyPath: m_LocalScale.x
       value: 12.318813
@@ -11030,15 +11227,17 @@ SceneRoots:
   m_Roots:
   - {fileID: 1732429905}
   - {fileID: 2036933481}
+  - {fileID: 199102845}
   - {fileID: 1180307338}
+  - {fileID: 767322127}
   - {fileID: 351974104}
   - {fileID: 269769764}
   - {fileID: 2046792803}
+  - {fileID: 573367832}
   - {fileID: 678282073}
   - {fileID: 809150043}
   - {fileID: 220616022}
   - {fileID: 966553118}
-  - {fileID: 573367832}
   - {fileID: 1093826910}
   - {fileID: 614339719}
   - {fileID: 80645562}
