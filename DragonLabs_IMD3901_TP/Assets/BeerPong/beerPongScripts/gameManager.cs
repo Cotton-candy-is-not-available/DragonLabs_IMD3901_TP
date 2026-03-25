@@ -41,7 +41,8 @@ public class gameManager : NetworkBehaviour
 
     //public beerPongScoreManger scoreManger;
 
-    int turn;
+    //int turn;
+    public NetworkVariable<int> turn;
 
     public GameObject player1;
     public GameObject player2;
@@ -49,23 +50,32 @@ public class gameManager : NetworkBehaviour
     public Transform p1StartPos;
     public Transform p2StartPos;
 
+    public NetworkObject newBall;
+
+    public override void OnNetworkSpawn()
+    {
+        turn.Value = 1;
+        spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
+
+    }
+
     void Start()
     {
-        ////find both player in the scene
-        player1 = GameObject.FindWithTag("Player1");
+        //////find both player in the scene
+        //player1 = GameObject.FindWithTag("Player1");
         //player2 = GameObject.FindWithTag("Player2");
 
         ////Set their start positions
-        player1.transform.transform.position = p1StartPos.position;
+        //player1.transform.transform.position = p1StartPos.position;
         //player2.transform.transform.position = p2StartPos.position;
 
 
-        //turn = 0;//prevents game from starting
-        turn = 1;
-        P1BallStartPos =  new Vector3(0f, 3f, -5f);
+        P1BallStartPos =  new Vector3(0f, 4f, -5.756f);
 
-        P2BallStartPos = new Vector3(0f, 3f, 5);
-        Debug.Log("Start turn: "+ turn);
+        P2BallStartPos = new Vector3(0f, 4f, 5.756f);
+        Debug.Log("Start turn: "+ turn.Value);
+
+        //turn.Value = 1;
     }
 
     // Update is called once per frame
@@ -77,24 +87,30 @@ public class gameManager : NetworkBehaviour
         //    //turn = 1;
 
         //}
-
-
+        //Set their start positions
+        //player1.transform.transform.position = p1StartPos.position;
+        //player2.transform.transform.position = p2StartPos.position;
+        //Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
+    
 
             //instatiate ball depending on who's turn it is
-            if (turn == 1)//if player 1 turn
+            if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
             {
                 spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
-                turn = 2;//now player 2's turn
-                Debug.Log("Turn: "+ turn);
+                turn.Value = 2;//now player 2's turn
+                Debug.Log("Turn: "+ turn.Value);
             }
-            else if (turn == 2)//if player 2 turn
+            else if (turn.Value == 2  && !newBall.IsSpawned)//if player 2 turn
             {
                 spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
 
-                turn = 1;//now player 1's turn
-                Debug.Log("Turn: "+ turn);
+                turn.Value = 1;//now player 1's turn
+                Debug.Log("Turn: "+ turn.Value);
 
             }
+
+       
+
         //addPointOnDespawnServerRpc();
 
         //if (newBall != null)//if tha ball exists start checking if points are to be added
@@ -188,11 +204,17 @@ public class gameManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     void spawnBallServerRpc(Vector3 startPos)
     {
-        foreach(NetworkObject ball in ballPrefab)
-        {
-            NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
-            newBall.GetComponent<NetworkObject>().Spawn();
-        }
+        //for (int i = 0; i < 1; i++)
+        //{
+            foreach (NetworkObject ball in ballPrefab)
+            {
+
+                if (!IsServer) return;
+                //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
+                newBall = Instantiate(ball, startPos, Quaternion.identity);
+                newBall.GetComponent<NetworkObject>().Spawn();
+            }
+        //}
     }
 
 
