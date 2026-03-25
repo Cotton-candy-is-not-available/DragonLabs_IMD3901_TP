@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
+using Unity.Netcode;
 
-public class StartTimer : MonoBehaviour
+public class StartTimer : NetworkBehaviour
 {
     private float startTimer = 10.0f;
     public GameObject startWall;
@@ -31,6 +32,7 @@ public class StartTimer : MonoBehaviour
                 startWall.SetActive(false);
                 timerText.enabled = false;
                 Debug.Log("Timer finished");
+                //gameTimer.isTimerRunning.Value = true;
                 gameTimer.isTimerRunning = true;
             }
         }
@@ -38,7 +40,10 @@ public class StartTimer : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision");
+        if (collision != null)
+            Debug.Log("Collision");
+        else
+            Debug.Log("Sad");
         if (!countdownStarted)
              countdownStarted = true;
     }

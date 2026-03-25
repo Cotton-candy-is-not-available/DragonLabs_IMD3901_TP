@@ -90,7 +90,7 @@ public class stopTimerButton : MonoBehaviour
         NetworkVariableWritePermission.Server
     );
 
-    private NetworkVariable<bool> isTimerRunning = new NetworkVariable<bool>(
+    public NetworkVariable<bool> isTimerRunning = new NetworkVariable<bool>(
         false,
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server

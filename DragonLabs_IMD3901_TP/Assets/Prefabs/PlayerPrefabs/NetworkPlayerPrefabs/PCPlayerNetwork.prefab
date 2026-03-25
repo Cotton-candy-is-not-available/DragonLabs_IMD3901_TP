@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -7972551417613653123}
   - component: {fileID: 9195724684281840521}
   - component: {fileID: 6622832131594872302}
+  - component: {fileID: 6501114711168195484}
   m_Layer: 0
   m_Name: PCPlayerNetwork
   m_TagString: Player
@@ -79,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1942698208
+  GlobalObjectIdHash: 3640934605
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -349,11 +350,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe7b65ca9b37944da56747d9fdf0a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   lineRenderer: {fileID: 9195724684281840521}
   lineSegments: 175
   timeOfFlight: 5
   timeIntervalPoints: 0.01
   holdAreaPosition: {fileID: 6868048652202225694}
+--- !u!114 &6501114711168195484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123514706950494819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c06aa4f8ce0c340850c38b91f289b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  jumpHeight: 1.2
+  gravity: -20
+  groundCheckDistance: 0.2
+  jumpCooldown: 1
 --- !u!1 &1567635332458221024
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +552,8 @@ MonoBehaviour:
   throwForce: 10
   line: {fileID: 6622832131594872302}
   mass: 10
+  enableLine:
+    m_InternalValue: 0
 --- !u!1 &5077842472569108115
 GameObject:
   m_ObjectHideFlags: 0
