@@ -17,7 +17,6 @@ public class PlayerController : NetworkBehaviour
 
     public GameObject PCplayer;
     public GameObject VRplayer;
-
     bool isLocked = true;
 
     public override void OnNetworkSpawn()
