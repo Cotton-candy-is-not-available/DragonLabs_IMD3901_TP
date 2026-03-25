@@ -36,7 +36,7 @@ public class PlayerController : NetworkBehaviour
 
         //check that there is only one object in the scene with this script
 
-           //if there is another object with this script set this as player 2
+        //if there is another object with this script set this as player 2
         if (Instance != null)
         {
             Instance = this;
@@ -57,6 +57,7 @@ public class PlayerController : NetworkBehaviour
 
 
         }
+
 
         Debug.Log("owner client ID" + (int)OwnerClientId);
 
