@@ -1,10 +1,11 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using static Unity.Burst.Intrinsics.X86.Avx;
 
-public class startBlurEffect : MonoBehaviour
+public class startBlurEffect : NetworkBehaviour
 {
     public GameObject cup;
     public GameObject drinkMeSign;
@@ -13,6 +14,13 @@ public class startBlurEffect : MonoBehaviour
 
     public bool Player1Drink;
     public bool Player2Drink;
+
+    public NetworkVariable<bool> activate;
+
+    public override void OnNetworkDespawn()
+    {
+        activate.Value = false;
+    }
     void Start()
     {
         //find the players 1 and 2 by tag
@@ -24,11 +32,15 @@ public class startBlurEffect : MonoBehaviour
         Player1Drink = false;
         Player2Drink = false;
 
-        drinkMeSign.SetActive(false);//disactivate drink me sign by default
+        drinkMeSign.SetActive(activate.Value);//disactivate drink me sign by default
 
     }
 
+    public void Update()
+    {
+        drinkMeSign.SetActive(activate.Value);//activate drink me sign so player knows which cup to drink from
 
+    }
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.name == "ball(Clone)")//if the ball touches the beer 
@@ -37,7 +49,8 @@ public class startBlurEffect : MonoBehaviour
             //cup.tag = "Interactable";//change cup to interactable to player can drink
             //cupVRgrabInteractable.enabled = true;//allow VR player to grab cup 
 
-            drinkMeSign.SetActive(true);//activate drink me sign so player knows which cup to drink from
+            activate.Value = true;
+            //drinkMeSign.SetActive(true);//activate drink me sign so player knows which cup to drink from
 
             if (gameObject.tag == "cup1")
             {

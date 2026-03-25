@@ -26,12 +26,12 @@ public class PickupControllerNet : NetworkBehaviour
     [SerializeField] tragectoryLine line;
     public float mass = 10;
     
-    //public NetworkVariable<bool> enableLine;
+    public NetworkVariable<bool> enableLine;
 
     public override void OnNetworkSpawn()
     {
 
-        //enableLine.Value = false;
+        enableLine.Value = false;
 
 
     }
@@ -75,23 +75,23 @@ public class PickupControllerNet : NetworkBehaviour
 
         }
 
-        ////----Draw the tragectory line BeerPong scene only and only if holding ball
-        //if (currentScene.name == "beerPong")//only enable in beerPong scene
-        //{
-        //    if (heldObj != null && heldObj.name == "ball(Clone)")//if the held object is not null and is the ball clone
-        //    {
-        //        Debug.Log("ball line true");
-        //        enableLine.Value= true;
-        //        line.drawTragectory(transform.forward * throwForce, enableLine);//turn on the tragectory line
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("ball line false");
+        //----Draw the tragectory line BeerPong scene only and only if holding ball
+        if (currentScene.name == "beerPong")//only enable in beerPong scene
+        {
+            if (heldObj != null && heldObj.name == "ball(Clone)")//if the held object is not null and is the ball clone
+            {
+                Debug.Log("ball line true");
+                enableLine.Value = true;
+                line.drawTragectory(transform.forward * throwForce, enableLine);//turn on the tragectory line
+            }
+            else
+            {
+                Debug.Log("ball line false");
 
-        //        enableLine.Value= false;
-        //        line.drawTragectory(transform.forward * throwForce, enableLine);//hide the tragectory line
-        //    }
-        //}
+                enableLine.Value = false;
+                line.drawTragectory(transform.forward * throwForce, enableLine);//hide the tragectory line
+            }
+        }
 
         //-----------------------------------
 

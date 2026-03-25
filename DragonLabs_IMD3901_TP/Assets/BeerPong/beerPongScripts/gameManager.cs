@@ -53,12 +53,16 @@ public class gameManager : NetworkBehaviour
     public NetworkVariable<bool> isGameOver;
     //public NetworkVariable<bool> goToLobby;
 
+    public GameObject p1;
+    //public GameObject p2;
 
     public override void OnNetworkSpawn()
     {
         turn.Value = 1;
         isGameOver.Value = false;
         //goToLobby.Value = false;
+
+
 
     }
 
@@ -82,7 +86,7 @@ public class gameManager : NetworkBehaviour
         //player1.GetComponent<Volume>().profile = playerVolumeProfile;
         //player2.GetComponent<Volume>().profile = playerVolumeProfile;
 
-       
+
 
         //---------------------------------------------------------//
 
@@ -99,7 +103,7 @@ public class gameManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
- 
+
         //Set their start positions
         player1.transform.transform.position = p1StartPos.position;
         player2.transform.transform.position = p2StartPos.position;
