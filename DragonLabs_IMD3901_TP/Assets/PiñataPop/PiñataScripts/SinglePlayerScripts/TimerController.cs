@@ -1,12 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimerController : MonoBehaviour
 {
     [SerializeField] TMPro.TextMeshProUGUI timerDisplay;
+
     float elapsedTime = 90.0f;
+    float elapsedCandyTime = 25.0f;
+
     public PiñataController piñataController_access;
+    public bool isExtraTimeDone; //for collecting candy
+
+    public Image timerBGimage;
+
+    private void Start()
+    {
+        //set initial values
+        elapsedTime = 90.0f;
+        elapsedCandyTime = 25.0f;
+        isExtraTimeDone = false;
+    }
 
     void Update()
     {
@@ -31,6 +46,31 @@ public class TimerController : MonoBehaviour
             elapsedTime = 0;
             timerDisplay.text = "00:00";
             piñataController_access.isGameOver = true;
+            startExtraCandyTime(); //25 seconds for collecting candy points
         }
     }
+
+    public void startExtraCandyTime()
+    {
+        //Debug.Log("started extra candy time!");
+
+        //change the colour of the timer background to orange to indicate change
+        timerBGimage.GetComponent<Image>().color = new Color32(255, 162, 0, 255);
+
+        elapsedCandyTime -= Time.deltaTime; //calculates all of the time passed since extra time started
+
+        if (elapsedCandyTime <= 0)
+        {
+            elapsedCandyTime = 0;
+            isExtraTimeDone = true;
+            piñataController_access.isGameOver = true;
+        }
+
+        int minutes = Mathf.FloorToInt(elapsedCandyTime / 60);
+        int seconds = Mathf.FloorToInt(elapsedCandyTime % 60);
+
+        //formats the minutes and seconds to display as 00:00
+        timerDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
 }

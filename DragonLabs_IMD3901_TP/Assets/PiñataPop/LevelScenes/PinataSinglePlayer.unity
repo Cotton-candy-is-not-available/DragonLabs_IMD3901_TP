@@ -965,6 +965,10 @@ PrefabInstance:
       propertyPath: scoresManager_access
       value: 
       objectReference: {fileID: 2046792804}
+    - target: {fileID: 1917773703285105195, guid: 52ffcd0107145a94898c11580ac5f6a8, type: 3}
+      propertyPath: timerController_access
+      value: 
+      objectReference: {fileID: 573367833}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6893,6 +6897,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerDisplay: {fileID: 958613238}
   "pi\xF1ataController_access": {fileID: 1918423208}
+  isExtraTimeDone: 0
+  timerBGimage: {fileID: 118237393}
 --- !u!1 &585291546
 GameObject:
   m_ObjectHideFlags: 0
