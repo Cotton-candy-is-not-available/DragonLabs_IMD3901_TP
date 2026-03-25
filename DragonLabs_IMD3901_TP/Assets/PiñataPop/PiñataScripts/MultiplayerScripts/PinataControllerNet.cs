@@ -11,8 +11,8 @@ public class PinataControllerNet : NetworkBehaviour
     public ScoresManagerNet scoresManagerNet_access;
     public ParticleSystem confettiPopParticles;
     public CandySpawn candySpawner_access;
-
     public WinBoardSpawn winBoardSpawn_access;
+    public TimerControllerNet timerControllerNet_access;
 
     public NetworkVariable<bool> isGameOver;
     bool shouldApplyForce = false;
