@@ -11,7 +11,7 @@ public class PlayerInteractionNet : NetworkBehaviour
     public Camera playerCamera;
 
     public Crosshair crosshair_access;
-    public PickupController pickupControllerNet_access;
+    //public PickupController pickupControllerNet_access;
 
     Scene currentScene;
    

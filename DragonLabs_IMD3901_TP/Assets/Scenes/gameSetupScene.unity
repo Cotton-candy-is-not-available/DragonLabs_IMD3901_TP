@@ -4119,7 +4119,7 @@ MonoBehaviour:
   inputText: 
   VRBool: {fileID: 1181784891}
   PCBool: {fileID: 1181784891}
-  NetManagerHud: {fileID: 0}
+  NetManagerHud: {fileID: 1674299567}
 --- !u!114 &1097413838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4476,8 +4476,8 @@ MonoBehaviour:
   localVRPlayer: {fileID: 21830214}
   NetworkManagerObject: {fileID: 1674299566}
   chooseGameAccess: {fileID: 974390632}
-  clientStarted:
-    m_InternalValue: 0
+  LANHostButton: {fileID: 1108857918}
+  LANClientButton: {fileID: 1358228335}
 --- !u!114 &1181784892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5056,7 +5056,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1181784891}
         m_TargetAssemblyTypeName: startGame, Assembly-CSharp
-        m_MethodName: startClient
+        m_MethodName: clientStartServerRpc
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

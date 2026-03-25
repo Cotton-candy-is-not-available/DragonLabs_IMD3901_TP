@@ -51,14 +51,14 @@ public class gameManager : NetworkBehaviour
     public VolumeProfile playerVolumeProfile;
 
     public NetworkVariable<bool> isGameOver;
-    public NetworkVariable<bool> goToLobby;
+    //public NetworkVariable<bool> goToLobby;
 
 
     public override void OnNetworkSpawn()
     {
         turn.Value = 1;
         isGameOver.Value = false;
-        goToLobby.Value = false;
+        //goToLobby.Value = false;
 
     }
 
@@ -103,7 +103,7 @@ public class gameManager : NetworkBehaviour
         //Set their start positions
         player1.transform.transform.position = p1StartPos.position;
         player2.transform.transform.position = p2StartPos.position;
-        Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
+        //Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
 
 
         //instatiate ball depending on who's turn it is
