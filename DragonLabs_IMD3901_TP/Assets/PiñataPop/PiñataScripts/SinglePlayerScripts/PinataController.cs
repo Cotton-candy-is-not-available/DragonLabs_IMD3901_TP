@@ -42,7 +42,7 @@ public class PinataController : MonoBehaviour
     {
         if(collision.gameObject.name == "BatP1")
         {
-            //Debug.Log("P1 hit the piñata");
+            //Debug.Log("P1 hit the pinata");
             if(isGameOver == false) //only add point if the game is not over
             {
                 scoresManager_access.increaseP1Hits();
