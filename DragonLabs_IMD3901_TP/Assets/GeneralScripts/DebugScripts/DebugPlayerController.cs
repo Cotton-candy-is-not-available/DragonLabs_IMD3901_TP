@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 public class DebugPlayerController : MonoBehaviour
 {
+    // is made static so that it continues accross scenes
+    public static DebugPlayerController Instance;
+
     public float speed = 5.0f;
     public float mouseSensitivity = 2.0f;
     public CharacterController charController;
@@ -12,10 +15,29 @@ public class DebugPlayerController : MonoBehaviour
 
     public Camera PcCamera;
 
+    bool isLocked = true;
+
+
     private void Start()
     {
+         
+        //check that there is only one object in the scene with this script
+        if (Instance != null)
+        {
+            Destroy(gameObject);//if there is another object with this script destroy it
+            return;
+        }
+        // end of new code
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
+
+
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
     }
 
     void Update()
@@ -38,5 +60,25 @@ public class DebugPlayerController : MonoBehaviour
 
         camTransform.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+
+
+        //unlock and lock cursor when escape key is pressed
+        if (Keyboard.current.uKey.wasPressedThisFrame)//press u to unlock cursor; change to escape
+        {
+            if (isLocked)
+            {
+                isLocked = !isLocked;
+                Cursor.lockState = CursorLockMode.None; //locks the cursor to the screen, so it moves with the camera
+                Cursor.visible = true;//shows cursor 
+            }
+            else
+            {
+                isLocked = !isLocked;
+                Cursor.lockState = CursorLockMode.Locked; //unlocks the cursor to the screen
+                Cursor.visible = false;//hides cursor 
+            }
+        }
+
+
     }
 }

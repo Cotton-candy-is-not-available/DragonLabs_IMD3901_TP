@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class PlayerInteractionNet : NetworkBehaviour
 {
@@ -43,8 +44,30 @@ public class PlayerInteractionNet : NetworkBehaviour
                     }
                 }
 
-                //Debug.Log("interact was set to true");
-                return;
+                if (Keyboard.current.pKey.wasPressedThisFrame)
+                {
+                    Debug.Log("object pressed was: " + hit.collider.gameObject.name);
+
+                    minigameButtonAnimate button = hit.collider.GetComponent<minigameButtonAnimate>();
+
+                    if (button != null)
+                    {
+                        if ((int)OwnerClientId  == 0) //host
+                        {
+                            button.animateButton();
+                            button.switchSceneOnButtonServerRpc();
+                        }
+
+                        if ((int)OwnerClientId  == 1) //client
+                        {
+                            button.PressButtonServerRpc(button.NetworkObjectId);
+                            button.switchSceneOnButtonServerRpc();
+                        }
+                    }
+
+                    //Debug.Log("interact was set to true");
+                    return;
+                }
             }
 
            

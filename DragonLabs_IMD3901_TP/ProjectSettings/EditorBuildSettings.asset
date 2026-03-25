@@ -6,14 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/gameSetupScene.unity
+    guid: 6653b4adbf82c874bb1807ccede09992
+  - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 1d553a812fbbeaa40974bcae0a08aecc
   - enabled: 1
     path: Assets/Scenes/TestScenes/MolomeyTestScene.unity
     guid: 6bb5f3f976c83484da880bf280561f45
-  - enabled: 1
-    path: "Assets/Pin\u0303ataPop/MainLobbyPi\xF1ata.unity"
-    guid: 11b84883505b9f141b5f055b13f84a9d
   - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
@@ -23,9 +23,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FinalMiniGameScenes/beerPong.unity
     guid: ac56b4eeb7b0ef948b6cebf488a61be6
+  - enabled: 0
+    path: "Assets/Pi\xF1ataPop/LevelScenes/EasyLevel.unity"
+    guid: 576ec124a860ebd49b9b887a4cbc0aef
   - enabled: 1
-    path: Assets/Scenes/TestScenes/TicTacToeMultiPlayer.unity
-    guid: 9d8b9ebf11ce0412b9f89fb59b1e6370
+    path: "Assets/Pi\xF1ataPop/MainLobbyPi\xF1ata.unity"
+    guid: 11b84883505b9f141b5f055b13f84a9d
+  - enabled: 1
+    path: "Assets/Pi\xF1ataPop/LevelScenes/PinataMultiplayerScene.unity"
+    guid: 4596d3997b8e8a546bfcbbd1998ad7b1
+  - enabled: 1
+    path: "Assets/Pi\xF1ataPop/LevelScenes/PinataSinglePlayer.unity"
+    guid: 64b6b2cda0b6d54449de26b7aafb0c73
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 38f8db4526e8186408a761921c8a1eb9, type: 2}
