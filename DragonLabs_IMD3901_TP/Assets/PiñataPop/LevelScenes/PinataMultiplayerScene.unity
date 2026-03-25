@@ -2881,6 +2881,10 @@ PrefabInstance:
       propertyPath: scoresManagerNet_access
       value: 
       objectReference: {fileID: 2046792804}
+    - target: {fileID: 1882264383293158691, guid: 05ce2e23a8089ba4e99e9779a2a6aa1c, type: 3}
+      propertyPath: timerControllerNet_access
+      value: 
+      objectReference: {fileID: 573367833}
     - target: {fileID: 3305329707932218041, guid: 05ce2e23a8089ba4e99e9779a2a6aa1c, type: 3}
       propertyPath: m_Convex
       value: 1

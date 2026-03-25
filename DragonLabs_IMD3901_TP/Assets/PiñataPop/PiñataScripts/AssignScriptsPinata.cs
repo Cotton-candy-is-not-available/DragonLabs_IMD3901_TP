@@ -19,7 +19,6 @@ public class AssignScriptsPinata : NetworkBehaviour
     {
         //get the network object of the scoresManager
         scoresManagerObj.GetComponent<NetworkObject>();
-        //winBoardObj.GetComponent<NetworkObject>();
     }
 
     private void Update()
