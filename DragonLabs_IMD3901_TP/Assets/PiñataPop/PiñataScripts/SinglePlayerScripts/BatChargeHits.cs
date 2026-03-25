@@ -12,7 +12,7 @@ public class BatChargeHits : MonoBehaviour
 
     public float hitForce = 0.0f;
     public float maxHitForce = 30.0f;
-    public PiñataController piñataController_access;
+    public PinataController pinataController_access;
 
 
     private void Update()
@@ -55,7 +55,7 @@ public class BatChargeHits : MonoBehaviour
         //apply the hit force when LMB is released
         if (Input.GetKeyUp(selectKey)) 
         {
-            piñataController_access.applyHitChargeForce(hitForce);
+            pinataController_access.applyHitChargeForce(hitForce);
         }
     }
 }

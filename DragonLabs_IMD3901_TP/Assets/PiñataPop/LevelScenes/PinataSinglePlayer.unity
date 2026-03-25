@@ -965,6 +965,10 @@ PrefabInstance:
       propertyPath: scoresManager_access
       value: 
       objectReference: {fileID: 2046792804}
+    - target: {fileID: 1917773703285105195, guid: 52ffcd0107145a94898c11580ac5f6a8, type: 3}
+      propertyPath: timerController_access
+      value: 
+      objectReference: {fileID: 573367833}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1130,7 +1134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8135023674665499069, guid: 58d0a4ac86f2348deb02f3880c71378e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8518324294302271954, guid: 58d0a4ac86f2348deb02f3880c71378e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6892,7 +6896,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerDisplay: {fileID: 958613238}
-  "pi\xF1ataController_access": {fileID: 1918423208}
+  pinataController_access: {fileID: 1918423209}
+  isExtraTimeDone: 0
+  timerBGimage: {fileID: 118237393}
 --- !u!1 &585291546
 GameObject:
   m_ObjectHideFlags: 0
@@ -8823,6 +8829,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VRPlayerLocal
       objectReference: {fileID: 0}
+    - target: {fileID: 2865438684419936513, guid: f911cca1bceef4940a635ae9e07c9025, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2865438684419936514, guid: f911cca1bceef4940a635ae9e07c9025, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.72413
@@ -9122,7 +9132,7 @@ MonoBehaviour:
   hitChargeCircle: {fileID: 1339205888}
   hitForce: 0
   maxHitForce: 30
-  "pi\xF1ataController_access": {fileID: 1918423208}
+  pinataController_access: {fileID: 1918423209}
 --- !u!1001 &1117887259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10437,7 +10447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 123514706950494819, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6795048928699815896, guid: b9d36d36c2b48124aacfecefb40f3608, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12187,7 +12197,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Pi\xF1ata"
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2420823690486740807, guid: 13dc3a978c639d3499aabb01faa72c37, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8482451646567284928, guid: 13dc3a978c639d3499aabb01faa72c37, type: 3}
@@ -12196,24 +12207,37 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8482451646567284928, guid: 13dc3a978c639d3499aabb01faa72c37, type: 3}
       insertIndex: -1
       addedObject: {fileID: 964784948}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9150303408465533562, guid: 13dc3a978c639d3499aabb01faa72c37, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1918423209}
   m_SourcePrefab: {fileID: 100100000, guid: 13dc3a978c639d3499aabb01faa72c37, type: 3}
 --- !u!4 &1918423207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8482451646567284928, guid: 13dc3a978c639d3499aabb01faa72c37, type: 3}
   m_PrefabInstance: {fileID: 1918423206}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1918423208 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2420823690486740807, guid: 13dc3a978c639d3499aabb01faa72c37, type: 3}
+--- !u!1 &1918423208 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9150303408465533562, guid: 13dc3a978c639d3499aabb01faa72c37, type: 3}
   m_PrefabInstance: {fileID: 1918423206}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &1918423209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918423208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01c5157ba432f2c4bb8fdb52a18b2f39, type: 3}
+  m_Script: {fileID: 11500000, guid: dfd59f1ed9e40b847a67b13ecc32339d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoresManager_access: {fileID: 2046792804}
+  confettiPopParticles: {fileID: 461672092}
+  candy: {fileID: 1646401661}
+  isGameOver: 0
 --- !u!1 &1926488072 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1249902558096720366, guid: a65aba5f5254241c58e7772a43ec6b8e, type: 3}
