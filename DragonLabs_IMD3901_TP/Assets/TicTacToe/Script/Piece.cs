@@ -87,7 +87,6 @@ public class Piece : MonoBehaviour
         transform.SetParent(null);
         transform.position = targetPoint.position;
         transform.rotation = targetPoint.rotation;
-        transform.SetParent(targetPoint);
 
         if (rb != null)
         {
