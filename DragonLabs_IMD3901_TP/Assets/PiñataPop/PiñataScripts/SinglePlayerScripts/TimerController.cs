@@ -30,6 +30,7 @@ public class TimerController : MonoBehaviour
         {
             elapsedTime = 0;
             timerDisplay.text = "00:00";
+            piñataController_access.isGameOver = true;
         }
     }
 }

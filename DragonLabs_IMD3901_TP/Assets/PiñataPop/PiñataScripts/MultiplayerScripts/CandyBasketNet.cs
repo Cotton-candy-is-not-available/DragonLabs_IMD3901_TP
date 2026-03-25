@@ -7,6 +7,7 @@ public class CandyBasketNet : NetworkBehaviour
     public GameObject basketP2;
 
     public ScoresManagerNet scoresManagerNet_access;
+    //PiñataController pinataController_acces;
 
     public void OnCollisionEnter(Collision collision)
     {

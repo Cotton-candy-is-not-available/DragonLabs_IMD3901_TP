@@ -37,12 +37,16 @@ public class PiñataController : MonoBehaviour
         }
 
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "BatP1")
         {
             //Debug.Log("P1 hit the piñata");
-            scoresManager_access.increaseP1Hits();
+            if(isGameOver == false) //only add point if the game is not over
+            {
+                scoresManager_access.increaseP1Hits();
+            }
             shouldApplyForce = true;
             if (piñataHealth > 0 && isGameOver == false)
             {
@@ -50,6 +54,7 @@ public class PiñataController : MonoBehaviour
             }
         }
     }
+
     public void applyHitChargeForce(float hitChargeForce)
     {
         /*ensure that the bat is colliding with the pinata at the same time as
