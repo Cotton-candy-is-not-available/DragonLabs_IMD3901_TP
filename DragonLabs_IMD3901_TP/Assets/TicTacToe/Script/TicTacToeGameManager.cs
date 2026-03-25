@@ -149,7 +149,7 @@ public class TicTacToeGameManager : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
-            rb.useGravity = true;
+            rb.useGravity = false;
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
