@@ -34,10 +34,10 @@ public class PlayerController : NetworkBehaviour
     public Transform beerPongP2SpawnPoint;
 
 
-    [Header("----- PiñataPop spawn points -----")]
+    [Header("----- PinataPop spawn points -----")]
 
-    public Transform piñataPopP1SpawnPoint;
-    public Transform piñataPopSpawnPoint;
+    public Transform pinataPopP1SpawnPoint;
+    public Transform pinataPopSpawnPoint;
 
     [Header("----- Parkour race spawn points -----")]
 
