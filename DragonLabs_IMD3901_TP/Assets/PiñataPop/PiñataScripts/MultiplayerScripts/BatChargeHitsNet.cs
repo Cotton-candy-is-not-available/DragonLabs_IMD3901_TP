@@ -14,7 +14,7 @@ public class BatChargeHitsNet : NetworkBehaviour
     KeyCode selectKey = KeyCode.Mouse0; //left mouse click for PC
     private bool shouldUpdate = false;
 
-    public PiñataControllerNet piñataControllerNet_access;
+    public PinataControllerNet pinataControllerNet_access;
 
 
     private void Update()
@@ -57,7 +57,7 @@ public class BatChargeHitsNet : NetworkBehaviour
         //apply the hit force when LMB is released
         if (Input.GetKeyUp(selectKey)) 
         {
-            piñataControllerNet_access.applyHitChargeForceServerRpc(hitForce);
+            pinataControllerNet_access.applyHitChargeForceServerRpc(hitForce);
         }
     }
 

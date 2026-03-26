@@ -3,14 +3,16 @@ using Unity.Netcode;
 using UnityEngine;
 
 
-public class PiñataControllerNet : NetworkBehaviour
+public class PinataControllerNet : NetworkBehaviour
 {
-    public NetworkVariable<int> piñataHealth;
-    Rigidbody piñata_RB;
+    public NetworkVariable<int> pinataHealth;
+    Rigidbody pinata_RB;
 
     public ScoresManagerNet scoresManagerNet_access;
     public ParticleSystem confettiPopParticles;
     public CandySpawn candySpawner_access;
+
+    public WinBoardSpawn winBoardSpawn_access;
 
     public NetworkVariable<bool> isGameOver;
     bool shouldApplyForce = false;
@@ -18,34 +20,41 @@ public class PiñataControllerNet : NetworkBehaviour
     private void Start()
     {
         //fetch the pinata's rigid body
-        piñata_RB = GetComponent<Rigidbody>();
+        pinata_RB = GetComponent<Rigidbody>();
     }
 
     public override void OnNetworkSpawn()
     {
         //set initial value
-        piñataHealth.Value = 10;
+        pinataHealth.Value = 10;
         isGameOver.Value = false;
 
         //upate the values when they are changed
-        piñataHealth.OnValueChanged += OnHealthPointsChanged;
+        pinataHealth.OnValueChanged += OnHealthPointsChanged;
 
         //set initial value of all the texts when the object spawns
-        UpdateHealthPoints(piñataHealth.Value);
+        UpdateHealthPoints(pinataHealth.Value);
     }
 
     private void Update()
     {
         if (!IsServer) return;
 
-        Debug.Log("pinata health: " + piñataHealth.Value);
+        Debug.Log("pinata health: " + pinataHealth.Value);
 
         //only play confetti particle if the game is over and the pinata health is 0
-        if (piñataHealth.Value <= 0 && isGameOver.Value == false) 
+        if (pinataHealth.Value <= 0 && isGameOver.Value == false) 
         {
             Debug.Log("GAME OVER!");
             isGameOver.Value = true;
-            confettiPopParticles.Play();
+            //display the winner board
+            if (IsServer)
+            {
+                winBoardSpawn_access.SpawnWinBoardServerRpc();
+            }
+
+            //play confetti particles
+            playConfettiServerRpc();
             candySpawner_access.SpawnCandyServerRpc();
         }
     }
@@ -54,22 +63,31 @@ public class PiñataControllerNet : NetworkBehaviour
     {
         if(collision.gameObject.name == "BatP1")
         {
-            //Debug.Log("P1 hit the piñata");
-            scoresManagerNet_access.addP1HitPointServerRpc();
-            shouldApplyForce = true;
-            if (piñataHealth.Value > 0 && isGameOver.Value == false)
+            //Debug.Log("P1 hit the pinata");
+
+            if (isGameOver.Value == false) //only increase points if game is not over
             {
-                piñataHealth.Value -= 1;
+                scoresManagerNet_access.addP1HitPointServerRpc();
+            }
+
+            shouldApplyForce = true;
+            if (pinataHealth.Value > 0 && isGameOver.Value == false)
+            {
+                pinataHealth.Value -= 1;
             }
         }
         else if(collision.gameObject.name == "BatP2")
         {
-            //Debug.Log("P2 hit the piñata");
-            scoresManagerNet_access.addP2HitPointServerRpc();
-            shouldApplyForce = true;
-            if (piñataHealth.Value > 0 && isGameOver.Value == false)
+            //Debug.Log("P2 hit the pinata");
+            if (isGameOver.Value == false)
             {
-                piñataHealth.Value -= 1;
+                scoresManagerNet_access.addP2HitPointServerRpc();
+            }
+
+            shouldApplyForce = true;
+            if (pinataHealth.Value > 0 && isGameOver.Value == false)
+            {
+                pinataHealth.Value -= 1;
             }
         }
     }
@@ -84,7 +102,7 @@ public class PiñataControllerNet : NetworkBehaviour
             Debug.Log("APPLIED FORCE OF: " + hitChargeForce + " TO PINATA");
             hitChargeForce = Mathf.Clamp(hitChargeForce, 0f, 30f); //min 0 and max 30
             //apply force in the Y direction to mimic someone pulling the pinata up
-            piñata_RB.AddForce(transform.up * hitChargeForce, ForceMode.Impulse);
+            pinata_RB.AddForce(transform.up * hitChargeForce, ForceMode.Impulse);
             shouldApplyForce = false; //reset
         }
     }
@@ -96,13 +114,26 @@ public class PiñataControllerNet : NetworkBehaviour
     }
     private void UpdateHealthPoints(int value)
     {
-        piñataHealth.Value = value;
+        pinataHealth.Value = value;
     }
     [ServerRpc(RequireOwnership = false)]
     public void subtractHealthPointServerRpc()
     {
-        piñataHealth.Value -= 1;
+        pinataHealth.Value -= 1;
         Debug.Log("subtracted a pinata health point");
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void playConfettiServerRpc()
+    {
+        //play confetti particles for both the host and client
+        confettiPopParticles.Play();
+        playConfettiClientRpc();
+    }
+    [ClientRpc]
+    public void playConfettiClientRpc()
+    {
+        confettiPopParticles.Play();
     }
 
 }

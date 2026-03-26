@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
-    
+using Unity.Netcode.Components;
+
 public class minigameButtonAnimate : NetworkBehaviour
 {
     public float pressDistance = 2;
@@ -26,7 +27,7 @@ public class minigameButtonAnimate : NetworkBehaviour
 
     private void Update()
     {
-        if (isAnimating)
+        /*if (isAnimating)
         {
             Vector3 target = isPressed ? startPos - Vector3.up * pressDistance : startPos;
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, pressSpeed * Time.deltaTime);
@@ -42,15 +43,88 @@ public class minigameButtonAnimate : NetworkBehaviour
                     isAnimating = false;
                 }
             }
-        }
+        }*/
     }
 
-    public void animateButton()
+    [ServerRpc(RequireOwnership = false)]
+
+    public void animateButtonServerRpc(NetworkObjectReference specificButton)
     {
-        isPressed = true; 
+        if (specificButton.TryGet(out NetworkObject networkObject))
+        {
+            Debug.Log("ACCESSED!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            //set animaiong and pressing bools to true
+            isPressed = true;
+            isAnimating = true;
+
+            if (isAnimating)
+            {
+                Debug.Log("TILE IS ANIMATING");
+
+                Vector3 target = isPressed ? startPos - Vector3.up * pressDistance : startPos;
+                //specificButton.= Quaternion.Lerp(transform.localPosition, target, pressSpeed * Time.deltaTime);
+                networkObject.transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, pressSpeed * Time.deltaTime);
+
+                switchSceneOnButtonServerRpc();
+
+                if (Vector3.Distance(transform.localPosition, target) < 0.001f)
+                {
+                    if (isPressed)
+                    {
+                        isPressed = false;
+                    }
+                    else
+                    {
+                        isAnimating = false;
+                    }
+                }
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+
+        isPressed = true;
         isAnimating = true;
 
-        //chooseGame_access.switchScenesNet(sceneName);
+        if (isAnimating)
+        {
+            Vector3 target = isPressed ? startPos - Vector3.up * pressDistance : startPos;
+            //specificButton.TryGet<NetworkTransform>(). = Vector3.MoveTowards(transform.localPosition, target, pressSpeed * Time.deltaTime);
+
+
+            if (Vector3.Distance(transform.localPosition, target) < 0.001f)
+            {
+                if (isPressed)
+                {
+                    isPressed = false;
+                }
+                else
+                {
+                    isAnimating = false;
+                }
+            }
+        }
+        */
+
     }
 
 
@@ -61,11 +135,11 @@ public class minigameButtonAnimate : NetworkBehaviour
         {
             netObj_button.ChangeOwnership(rpcParams.Receive.SenderClientId);
 
-            AnimateButtonClientRpc();
+            //AnimateButtonClientRpc();
         }
     }
 
-
+    /*
     [ClientRpc]
     private void AnimateButtonClientRpc()
     {
@@ -74,6 +148,7 @@ public class minigameButtonAnimate : NetworkBehaviour
             animateButton();
         }
     }
+    */
 
     //tell the server we want to change scenes now
     [ServerRpc(RequireOwnership = false)] //allows for both the host or the client to call the function
