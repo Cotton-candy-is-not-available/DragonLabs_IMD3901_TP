@@ -61,20 +61,22 @@ public class PlayerInteractionNet : NetworkBehaviour
 
                     if (button != null)
                     {
-                        if ((int)OwnerClientId  == 0) //host
-                        //if(NetworkManager.Singleton.LocalClientId == 0)
-                        {
-                            //button.animateButton();
-                            button.animateButtonServerRpc(buttonNetObj);
-                            //button.switchSceneOnButtonServerRpc();
-                        }
+                        button.animateButtonServerRpc(buttonNetObj);
 
-                        if ((int)OwnerClientId  == 1) //client
-                        //if (NetworkManager.Singleton.LocalClientId == 1)
-                        {
-                            //button.PressButtonServerRpc(button.NetworkObjectId);
-                           // button.switchSceneOnButtonServerRpc();
-                        }
+                        //if ((int)OwnerClientId  == 0) //host
+                        ////if(NetworkManager.Singleton.LocalClientId == 0)
+                        //{
+                        //    //button.animateButton();
+                        //    button.animateButtonServerRpc(buttonNetObj);
+                        //    //button.switchSceneOnButtonServerRpc();
+                        //}
+
+                        //if ((int)OwnerClientId  == 1) //client
+                        ////if (NetworkManager.Singleton.LocalClientId == 1)
+                        //{
+                        //    //button.PressButtonServerRpc(button.NetworkObjectId);
+                        //   // button.switchSceneOnButtonServerRpc();
+                        //}
                     }
 
                     //Debug.Log("interact was set to true");
