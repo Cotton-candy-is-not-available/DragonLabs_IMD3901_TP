@@ -9,7 +9,7 @@ using UnityEngine.Rendering.Universal;
 public class pourDetector : NetworkBehaviour
 {
     //this script is attached to the cup itself
-    public float fillLevel = 0.7f;
+    public Vector3 fillLevel = new Vector3(0f, -0.23f, 0f);
 
     Renderer rend;
 
@@ -42,8 +42,8 @@ public class pourDetector : NetworkBehaviour
     private void Start()
     {
         rend = beerLiquid.GetComponent<Renderer>();//get the renderer from the gameobject
-        fillLevel = 0.7f;//set fill level
-        rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph so that it matches the fill level in this script
+        fillLevel.y = 0.10f;//set fill level
+        rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph so that it matches the fill level in this script
 
 
         PCStartRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//default rotation
@@ -60,16 +60,16 @@ public class pourDetector : NetworkBehaviour
         //lower fill level
           
                 // decrease fill level over time
-                fillLevel = Mathf.Lerp(fillLevel, -0.5f, fillElaspsedTime/lerpDuration);
+                fillLevel.y = Mathf.Lerp(fillLevel.y, -0.5f, fillElaspsedTime/lerpDuration);
 
             //send over to shader new value of fill level
-            rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph
-            Debug.Log("fillLevel: " + fillLevel);
+            rend.material.SetFloat("_fillLevel", fillLevel.y);//reference names in shader graph
+            Debug.Log("fillLevel: " + fillLevel.y);
             Debug.Log("fill down");
 
             fillElaspsedTime += Time.deltaTime;
 
-            rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph
+            rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph
 
 
     }

@@ -111,13 +111,13 @@ public class gameManager : NetworkBehaviour
 
 
         //instatiate ball depending on who's turn it is
-        if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
+        if (turn.Value == 1 && newBall == null)//if player 1 turn
         {
             spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
             turn.Value = 2;//now player 2's turn
             Debug.Log("Turn: "+ turn.Value);
         }
-        else if (turn.Value == 2  && !newBall.IsSpawned)//if player 2 turn
+        else if (turn.Value == 2  && newBall == null)//if player 2 turn
         {
             spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
             turn.Value = 1;//now player 1's turn
