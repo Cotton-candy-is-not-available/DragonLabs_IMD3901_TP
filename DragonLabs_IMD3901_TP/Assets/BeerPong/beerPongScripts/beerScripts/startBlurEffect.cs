@@ -55,8 +55,8 @@ public class startBlurEffect : NetworkBehaviour
             if (gameObject.tag == "cup1")
             {
                 //add point to player 2
-                gameManager.player2Points.Value += 1;//tell game manager to give a point to player 2
-
+                //gameManager.player2Points.Value += 1;//tell game manager to give a point to player 2
+                addP2PointRpc(1);
 
                 Debug.Log("player 1 cup ");
 
@@ -64,7 +64,8 @@ public class startBlurEffect : NetworkBehaviour
             else if(gameObject.tag == "cup2")
             {
                 //add point to player 1
-                gameManager.player1Points.Value += 1;//tell game manager to give a point to player 1
+                //gameManager.player1Points.Value += 1;//tell game manager to give a point to player 1
+                addP1PointRpc(1);
 
                 Debug.Log("player 2 cup ");
 
@@ -73,5 +74,23 @@ public class startBlurEffect : NetworkBehaviour
 
     }
 
+
+
+
+
+
+    //change turn value
+    [Rpc(SendTo.Owner)]
+    void addP1PointRpc(int num)
+    {
+        gameManager.player1Points.Value += num;
+    }
+
+    //change turn value
+    [Rpc(SendTo.Owner)]
+    void addP2PointRpc(int num)
+    {
+        gameManager.player2Points.Value += num;
+    }
 
 }

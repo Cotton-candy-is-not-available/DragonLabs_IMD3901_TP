@@ -31,17 +31,10 @@ public class PickupControllerNet : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-
-        //enableLine.Value = false;
-
-        enableLine.OnValueChanged += OnSomeValueChanged;
+        enableLine.OnValueChanged += OnEnableLineChanged;
     }
 
 
-    private void OnSomeValueChanged(bool previous, bool current)
-    {
-        Debug.Log($"Detected NetworkVariable Change: Previous: {previous} | Current: {current}");
-    }
     private void Update()
     {
         // Get current scene name
@@ -225,8 +218,7 @@ public class PickupControllerNet : NetworkBehaviour
 
 
 
-    //Enable line
-
+    //change the Enable line value
     [Rpc(SendTo.Owner)]
     void setEnableLineRpc(bool value)
     {
@@ -234,17 +226,11 @@ public class PickupControllerNet : NetworkBehaviour
     }
 
 
+    private void OnEnableLineChanged(bool previous, bool current)
+    {
+        Debug.Log($"Detected NetworkVariable Change: Previous: {previous} | Current: {current}");
+    }
 
-    //[ServerRpc(RequireOwnership = false)]
-    //public void changeEableLineServerRPC()
-    //{
-    //    changeEnablelineClientRpc();
-    //}
+   
 
-
-    //[ClientRpc]
-    //void changeEnablelineClientRpc()
-    //{
-    //    enableLine.Value = !enableLine.Value;
-    //}
 }

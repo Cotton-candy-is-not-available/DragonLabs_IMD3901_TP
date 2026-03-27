@@ -115,7 +115,7 @@ public class pourDetector : NetworkBehaviour
 
 
 
-    IEnumerator destroyCup(GameObject cupNetObj)
+    IEnumerator destroyCup(GameObject cupObj)
     {
         //play poof soundFX
         //show poof effect(particles?)
@@ -138,7 +138,10 @@ public class pourDetector : NetworkBehaviour
             //gameManager.player2.GetComponent<Volume>().profile = ;//get their volume
             beerLiquid.GetComponent<startBlurEffect>().Player2Drink = false; // set back to false
         }
-        cupNetObj.SetActive(false);//hide the cup
+        //cupNetObj.SetActive(false);//hide the cup
+        NetworkObject cupNetObj = cupObj.GetComponent<NetworkObject>();
+        cupNetObj.DestroyWithScene = true;
+
     }
 
 

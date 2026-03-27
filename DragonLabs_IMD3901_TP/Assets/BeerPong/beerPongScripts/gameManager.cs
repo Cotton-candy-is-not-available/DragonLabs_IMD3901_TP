@@ -7,9 +7,6 @@ using UnityEngine.UIElements;
 
 public class gameManager : NetworkBehaviour
 {
-    GameObject P1;
-    GameObject P2;
-
     public Canvas player1PointsCanvas;
     public Canvas player2PointsCanvas;
 
@@ -23,8 +20,8 @@ public class gameManager : NetworkBehaviour
     public TMP_Text P2OppPointsText;
 
     //[Header("------------ Points -------------")]
-    public NetworkVariable<int> player1Points;
-    public NetworkVariable<int> player2Points;
+    public NetworkVariable<int> player1Points = new NetworkVariable<int>(0);
+    public NetworkVariable<int> player2Points = new NetworkVariable<int>(0);
     //public int player1Points = 0;
     //public int player2Points = 0;
 
@@ -38,7 +35,7 @@ public class gameManager : NetworkBehaviour
 
     //public beerPongScoreManger scoreManger;
 
-    public NetworkVariable<int> turn;
+    public NetworkVariable<int> turn = new NetworkVariable<int>(1);
 
     public GameObject player1;
     public GameObject player2;
@@ -50,16 +47,23 @@ public class gameManager : NetworkBehaviour
 
     public VolumeProfile playerVolumeProfile;
 
-    public NetworkVariable<bool> isGameOver;
+    public NetworkVariable<bool> isGameOver = new NetworkVariable<bool>(false);
+    public NetworkVariable<bool> activateWinnerPanel = new NetworkVariable<bool>(false);
     //public NetworkVariable<bool> goToLobby;
 
-    public GameObject p1;
-    //public GameObject p2;
+    public GameObject P1WinnerPanel;
+    public GameObject P2WinnerPanel;
 
     public override void OnNetworkSpawn()
     {
-        turn.Value = 1;
-        isGameOver.Value = false;
+        turn.OnValueChanged += OnChangedTurn;
+        isGameOver.OnValueChanged += OnGameOver;
+
+        activateWinnerPanel.OnValueChanged += OnWinner;
+
+        player1Points.OnValueChanged += OnAddPointP1;
+        player2Points.OnValueChanged += OnAddPointP2;
+        //isGameOver.Value = false;
         //goToLobby.Value = false;
 
 
@@ -97,7 +101,7 @@ public class gameManager : NetworkBehaviour
         Debug.Log("Start turn: "+ turn.Value);
 
         //turn.Value = 1;
-        spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
+        //spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
     }
 
     // Update is called once per frame
@@ -107,85 +111,48 @@ public class gameManager : NetworkBehaviour
         //Set their start positions
         player1.transform.transform.position = p1StartPos.position;
         player2.transform.transform.position = p2StartPos.position;
-        //Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
+        Debug.Log("newBallIsPawned: " + newBall);
 
 
         //instatiate ball depending on who's turn it is
-        if (turn.Value == 1 && newBall == null)//if player 1 turn
+        if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
         {
             spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
-            turn.Value = 2;//now player 2's turn
+            //turn.Value = 2;//now player 2's turn
+            //changeTurnRpc(2);//now player 2's turn
             Debug.Log("Turn: "+ turn.Value);
         }
-        else if (turn.Value == 2  && newBall == null)//if player 2 turn
+        else if (turn.Value == 2 && !newBall.IsSpawned)//if player 2 turn
         {
             spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
-            turn.Value = 1;//now player 1's turn
+            //turn.Value = 1;//now player 1's turn
+            //changeTurnRpc(1);//now player 1's turn
+
             Debug.Log("Turn: "+ turn.Value);
 
         }
 
-        if (isGameOver.Value == true)
+        Debug.Log("player1Points.Value: " + player1Points.Value);
+        Debug.Log("player2Points.Value: " + player2Points.Value);
+
+
+        if (player1Points.Value == 3)
         {
             Debug.Log("Game is over");
+            //isGameOver.Value == true;
+            displayWinnerRpc();//set to true
+            P1WinnerPanel.SetActive(activateWinnerPanel.Value);
         }
-        //addPointOnDespawnServerRpc();
-
-        //if (newBall != null)//if tha ball exists start checking if points are to be added
-        //{
-        //    ballHitCups ballHit = newBall.GetComponent<ballHitCups>();//get the ball collision check script
-
-
-        //    //scoreManger.addP1PointServerRpc();
+        else if (player2Points.Value == 3)
+        {
+            Debug.Log("Game is over");
+            //isGameOver.Value == true;
+            displayWinnerRpc();//set to true
+            P2WinnerPanel.SetActive(activateWinnerPanel.Value);
 
 
-
-        //    if (ballHit.P1Point)
-        //    {
-        //        player1Points+=1;//increase points for player 1
-
-
-        //        //P1
-        //P1OppPointsText.text = ("Them: "+ player2Points.Value);//update Player 1's text 
-        //P1YouPointsText.text = ("You: "+ player1Points.Value);//update Player 1's text 
-        //Debug.Log("Player 1 points" +  player1Points.Value);
-        //Debug.Log("Player 2 points" +  player2Points.Value);
-
-        ////        //P2
-        //P2OppPointsText.text = ("Them: "+ player1Points.Value);//update player 2's  text 
-        //P2YouPointsText.text = ("You: "+ player2Points.Value);//update player 2's text 
-
-        //        Debug.Log("player1Points: "+ player1Points);
-        //        ballHit.P1Point = false;//reset to false
-        //        despawnBallServerRpc();//destroy the ball
-
-        //    }
-
-        //    if (ballHit.P2Point)
-        //    {
-        //        player2Points+=1;//increase points for player 2
-        //        //P1
-        //        player1Points+=1;//increase points for player 1
-        //        P1OppPointsText.text = ("Them: "+ player2Points);//update Player 1's text 
-        //        P1YouPointsText.text = ("You: "+ player1Points);//update Player 1's text 
-
-        //        //P2
-        //        P2OppPointsText.text = ("Them: "+ player1Points);//update player 2's  text 
-        //        P2YouPointsText.text = ("You: "+ player2Points);//update player 2's text 
-
-
-        //        Debug.Log("player2Points: "+ player2Points);
-        //        ballHit.P2Point = false;//reset to false
-        //        despawnBallServerRpc();//destroy the ball
-
-        //    }
-
-        //    if (ballHit.nonCup)//destroy ball if it hits anything else for long enough
-        //    {
-
-        //        despawnBallServerRpc();//destroy the ball
-        //        ballHit.nonCup = false;//turn it baxck off
-        //    }
+        }
+       
 
 
     }
@@ -212,25 +179,62 @@ public class gameManager : NetworkBehaviour
     }
 
 
-    [ServerRpc(RequireOwnership = false)]
-    public void despawnBallServerRpc()
-    {
+    //[ServerRpc(RequireOwnership = false)]
+    //public void despawnBallServerRpc()
+    //{
 
-        foreach (NetworkObject ball in ballPrefab)
-        {
-            if (ball != null)
-            {
-                ball.Despawn();
-            }
-        }
+    //    foreach (NetworkObject ball in ballPrefab)
+    //    {
+    //        if (ball != null)
+    //        {
+    //            ball.Despawn();
+    //        }
+    //    }
+    //}
+
+
+    //change turn value
+    [Rpc(SendTo.Owner)]
+    public void changeTurnRpc(int turnNum)
+    {
+        turn.Value = turnNum;
+        Debug.Log("chnage rpc turn: " + turn.Value);
+
     }
 
 
+    //change activateWinnerPanel value
+    [Rpc(SendTo.Owner)]
+    void displayWinnerRpc()
+    {
+        activateWinnerPanel.Value = true;
+    }
 
-    
+
+    //on changed for netvariables
+    private void OnChangedTurn(int previous, int current)
+    {
+        Debug.Log($"Detected NetworkVariable Change Turn : Previous: {previous} | Current: {current}");
+    }
+
+    private void OnGameOver(bool previous, bool current)
+    {
+        Debug.Log($"Detected NetworkVariable Change Game Over: Previous: {previous} | Current: {current}");
+    }
+
+    private void OnWinner(bool previous, bool current)
+    {
+        Debug.Log($"Detected NetworkVariable Change Winner: Previous: {previous} | Current: {current}");
+    }
 
 
+    private void OnAddPointP1(int previous, int current)
+    {
+        Debug.Log($"Detected NetworkVariable Change add point P1: Previous: {previous} | Current: {current}");
+    }
 
-
-
+    private void OnAddPointP2(int previous, int current)
+    {
+        Debug.Log($"Detected NetworkVariable Change add point P2: Previous: {previous} | Current: {current}");
+    }
 }
