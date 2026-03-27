@@ -74,8 +74,36 @@ public static class PickupControllerExtensionsNet
         Rigidbody rb = held.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.isKinematic = false;
-            rb.useGravity = true;
+            if (!held.IsPlaced)
+            {
+                rb.isKinematic = false;
+                rb.useGravity = true;
+            }
+            else
+            {
+                rb.useGravity = false;
+                rb.isKinematic = true;
+            }
+        }
+    }
+
+    public static void ForceClearHeldPieceNet(this PickupController pc)
+    {
+        if (pc == null) return;
+
+        Transform hold = GetHoldTransform(pc);
+        if (hold == null) return;
+
+        PieceNet held = GetHeldPiece(hold);
+        if (held == null) return;
+
+        held.transform.SetParent(null, true);
+
+        Rigidbody rb = held.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.useGravity = false;
+            rb.isKinematic = true;
         }
     }
 

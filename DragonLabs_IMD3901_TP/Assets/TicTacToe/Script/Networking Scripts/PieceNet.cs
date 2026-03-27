@@ -10,13 +10,11 @@ public class PieceNet : NetworkBehaviour
     public bool IsPlaced => isPlaced.Value;
 
     private Rigidbody rb;
-    private Collider[] allColliders;
     private bool placeRequestSent = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        allColliders = GetComponentsInChildren<Collider>(true);
     }
 
     public override void OnNetworkSpawn()
@@ -33,7 +31,7 @@ public class PieceNet : NetworkBehaviour
     {
         if (newValue)
         {
-            ReleaseFromPickupAndFreeze();
+            ForceReleaseFromPickup();
         }
     }
 
@@ -60,19 +58,18 @@ public class PieceNet : NetworkBehaviour
         if (tile == null) return;
         if (!tile.CanPlace()) return;
 
-        // important: fully let go before asking server to place
-        ReleaseFromPickupAndFreeze();
+        ForceReleaseFromPickup();
 
         placeRequestSent = true;
         tile.TryAutoPlacePiece(this);
     }
 
-    private void ReleaseFromPickupAndFreeze()
+    private void ForceReleaseFromPickup()
     {
-        PickupController pickup = FindFirstObjectByType<PickupController>();
+        PickupControllerNet pickup = FindFirstObjectByType<PickupControllerNet>();
         if (pickup != null)
         {
-            pickup.DropNet();
+            pickup.ForceClearHeldObject();
         }
 
         transform.SetParent(null, true);
@@ -94,27 +91,14 @@ public class PieceNet : NetworkBehaviour
     {
         if (targetPoint == null) return;
 
-        // detach from anything still holding it
-        transform.SetParent(targetPoint, false);
-
-        // force exact local alignment to the spawn point
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        transform.SetParent(null, true);
+        transform.position = targetPoint.position;
+        transform.rotation = targetPoint.rotation;
 
         if (rb != null)
         {
             rb.useGravity = false;
             rb.isKinematic = true;
-        }
-
-        // optional: stop more trigger spam after placement
-        if (allColliders != null)
-        {
-            foreach (Collider c in allColliders)
-            {
-                if (c != null)
-                    c.enabled = false;
-            }
         }
 
         MarkPlaced(true);
