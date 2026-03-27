@@ -36,7 +36,6 @@ public class AudioManagerSinglePlayer : MonoBehaviour
     {
         Debug.Log("started");
         PlayBackgroundMusic(chosenGame);
-
     }
 
     public void PlaySFX(AudioClip clip)

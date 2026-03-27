@@ -962,6 +962,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1374459694}
     - target: {fileID: 1917773703285105195, guid: 52ffcd0107145a94898c11580ac5f6a8, type: 3}
+      propertyPath: audioManSinglePlayer
+      value: 
+      objectReference: {fileID: 2131608858}
+    - target: {fileID: 1917773703285105195, guid: 52ffcd0107145a94898c11580ac5f6a8, type: 3}
       propertyPath: scoresManager_access
       value: 
       objectReference: {fileID: 2046792804}
@@ -12237,6 +12241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoresManager_access: {fileID: 2046792804}
   confettiPopParticles: {fileID: 461672092}
+  audioManSinglePlayer: {fileID: 2131608858}
   candy: {fileID: 1646401661}
   isGameOver: 0
 --- !u!1 &1926488072 stripped
@@ -12902,7 +12907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4334926778548526016, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
       propertyPath: m_Volume
-      value: 1
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13036,6 +13041,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8919072518003199017, guid: 624fd5ef1fb814feea05c1eb7121f1e2, type: 3}
+--- !u!114 &2131608858 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+  m_PrefabInstance: {fileID: 2111142668}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21e7a9a39bc79dc48ae893ce121c3edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
