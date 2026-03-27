@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
-using Unity.Netcode;
 
 public class stopTimerButton : MonoBehaviour
 {
