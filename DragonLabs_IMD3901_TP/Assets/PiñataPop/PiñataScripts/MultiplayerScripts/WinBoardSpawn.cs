@@ -36,12 +36,10 @@ public class WinBoardSpawn : NetworkBehaviour
             NetworkObject newBoard = Instantiate(board, spawnPt.position, Quaternion.identity);
             newBoard.GetComponent<NetworkObject>().Spawn();
             Debug.Log("SPAWNED THE WINBOARD");
-
-            
         }
 
         //wait for 20 seconds and then switch scenes back to lobby
-        //StartCoroutine(waitToSwitch());
+        StartCoroutine(waitToSwitch());
     }
 
     IEnumerator waitToSwitch()
@@ -53,11 +51,5 @@ public class WinBoardSpawn : NetworkBehaviour
         //change scenes back to the lobby for the host and client 
         chooseGame_access.switchScenesNetServerRpc("Lobby");
     }
-
-
-
-
-
-
 
 }
