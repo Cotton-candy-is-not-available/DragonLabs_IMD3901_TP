@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class PlayerInteractionNet : NetworkBehaviour
@@ -10,9 +11,13 @@ public class PlayerInteractionNet : NetworkBehaviour
 
     public Crosshair crosshair_access;
     public PickupController pickupControllerNet_access;
+
+    Scene currentScene;
    
     void Update()
     {
+        currentScene = SceneManager.GetActiveScene();//get the current scene
+
         //check to see if its the HOST
         if (!IsOwner)
         {
@@ -28,9 +33,11 @@ public class PlayerInteractionNet : NetworkBehaviour
         {
             if (hit.collider.CompareTag("Interactable"))
             {
-                //checking if the ray hits something with a collider that is interactable
-                crosshair_access.setInteractServerRpc(true);
-
+                if (IsOwner)
+                {
+                    //checking if the ray hits something with a collider that is interactable
+                    crosshair_access.setInteractServerRpc(true);
+                }
                 if (Keyboard.current.iKey.wasPressedThisFrame)
                 {
                     if (IsHost)
@@ -49,31 +56,54 @@ public class PlayerInteractionNet : NetworkBehaviour
                     Debug.Log("object pressed was: " + hit.collider.gameObject.name);
 
                     minigameButtonAnimate button = hit.collider.GetComponent<minigameButtonAnimate>();
+                    NetworkObject buttonNetObj = hit.collider.gameObject.GetComponent<NetworkObject>();
 
                     if (button != null)
                     {
                         if ((int)OwnerClientId  == 0) //host
+                        //if(NetworkManager.Singleton.LocalClientId == 0)
                         {
-                            button.animateButton();
-                            button.switchSceneOnButtonServerRpc();
+                            //button.animateButton();
+                            button.animateButtonServerRpc(buttonNetObj);
+                            //button.switchSceneOnButtonServerRpc();
                         }
 
                         if ((int)OwnerClientId  == 1) //client
+                        //if (NetworkManager.Singleton.LocalClientId == 1)
                         {
-                            button.PressButtonServerRpc(button.NetworkObjectId);
-                            button.switchSceneOnButtonServerRpc();
+                            //button.PressButtonServerRpc(button.NetworkObjectId);
+                           // button.switchSceneOnButtonServerRpc();
                         }
                     }
 
                     //Debug.Log("interact was set to true");
                     return;
                 }
+
+                if (currentScene.name == "beerPong"){//only enable in beerPong scene
+
+                    if (Keyboard.current.rKey.wasPressedThisFrame)
+                    {
+                        if (hit.collider.gameObject.GetComponent<pourDetector>() !=null)
+                        {
+
+                        }
+                        else//if it doesnt have the pour detector script do nothing and go back
+                        {
+                            return;
+                        }
+                    }
+                }
+
             }
 
            
 
         }
-        crosshair_access.setInteractServerRpc(false); //set it back to false if we look away from the object
+        if (IsOwner)
+        {
+            crosshair_access.setInteractServerRpc(false); //set it back to false if we look away from the object
+        }
     }
 
     //when server, debug appeared on HOST console

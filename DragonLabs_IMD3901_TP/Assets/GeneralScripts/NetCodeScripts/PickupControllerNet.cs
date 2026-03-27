@@ -28,28 +28,14 @@ public class PickupControllerNet : NetworkBehaviour
         enableLine.Value = false;
     }
 
-    private void Start()
-    {
-        currentScene = SceneManager.GetActiveScene();
-    }
 
     private void Update()
     {
-        if (!IsOwner) return;
-
-        // If a tic tac toe piece got placed, stop controlling it immediately
-        if (heldObj != null)
-        {
-            PieceNet piece = heldObj.GetComponent<PieceNet>();
-            if (piece != null && piece.IsPlaced)
-            {
-                ForceClearHeldObject();
-                return;
-            }
-        }
-
-        // PICK UP
-        if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
+        // Get current scene name
+        currentScene = SceneManager.GetActiveScene();
+        //PICKING UP-----------------------------
+        //NEED TO CHECK TAG OF OBJECT BEFORE PICKING UP
+        if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
             Debug.Log("i was presssed to pickup object");
 
@@ -77,11 +63,9 @@ public class PickupControllerNet : NetworkBehaviour
         // MOVE HELD OBJECT
         if (heldObj != null)
         {
-            PieceNet piece = heldObj.GetComponent<PieceNet>();
-            if (piece == null || !piece.IsPlaced)
-            {
-                moveObject();
-            }
+            //move the object around
+            moveObject();
+
         }
 
         // Beer pong line
