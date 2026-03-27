@@ -44,13 +44,47 @@ public class PickupControllerNet : NetworkBehaviour
     {
         // Get current scene name
         currentScene = SceneManager.GetActiveScene();
+        
         //PICKING UP-----------------------------
         //NEED TO CHECK TAG OF OBJECT BEFORE PICKING UP
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
             Debug.Log("i was presssed to pickup object");
+            
+            if (IsHost)
+            {
+                Debug.Log("HOST pressed I");
+                
+                //request the server to pick up the object
+                if (heldObj == null) //if an object is NOT already being held
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
+                    {
+                        //pick up the object
+                        pickupObject(hit.transform.gameObject);
+                        Debug.Log("host requested to pickup");
+                    }
+                }
+            }
+            else if (IsClient)
+            {
+                Debug.Log("CLIENT pressed I");
 
-            if (heldObj == null) //if an object is NOT already being held
+                //request the server to pick up the object
+                if (heldObj == null) //if an object is NOT already being held
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
+                    {
+                        //pick up the object
+                        pickupObject(hit.transform.gameObject);
+                        Debug.Log("client requested to pickup");
+                    }
+                }
+            }
+
+            /*if (heldObj == null) //if an object is NOT already being held
             {
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
@@ -58,7 +92,7 @@ public class PickupControllerNet : NetworkBehaviour
                     //pick up the object
                     pickupObject(hit.transform.gameObject);
                 }
-            }
+            }*/
         }
 
         //DROPPING-----------------------------
@@ -73,7 +107,6 @@ public class PickupControllerNet : NetworkBehaviour
         {
             //move the object around
             moveObject();
-
         }
 
         //----Draw the tragectory line BeerPong scene only and only if holding ball
@@ -128,10 +161,11 @@ public class PickupControllerNet : NetworkBehaviour
     void moveObject()
     {
         if (heldObj == null) return;
-        //snap object instantly to hold area
+        
         heldObj.transform.position = holdArea.position;
         heldObj.transform.rotation = holdArea.rotation;
     }
+
 
     [ServerRpc(RequireOwnership = false)]
     void PickupObjectServerRpc(ulong objectId, ulong playerClientId)

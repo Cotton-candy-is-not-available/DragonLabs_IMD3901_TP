@@ -42,12 +42,12 @@ public class PlayerInteractionNet : NetworkBehaviour
                 {
                     if (IsHost)
                     {
-                        Debug.Log("HOST pressed I");
+                        //Debug.Log("HOST pressed I");
                     }
                     else if (IsClient)
                     {
-                        Debug.Log("CLIENT pressed I");
-                        sendHoldRequestToServerRpc();
+                        //Debug.Log("CLIENT pressed I");
+                        //sendHoldRequestToServerRpc();
                     }
                 }
 
