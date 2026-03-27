@@ -6,6 +6,7 @@ public class AssignScriptsPinata : NetworkBehaviour
     public static AssignScriptsPinata assigner;
 
     public NetworkObject scoresManagerObj;
+    public NetworkObject winnerManagerObj;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class AssignScriptsPinata : NetworkBehaviour
     {
         //get the network object of the scoresManager
         scoresManagerObj.GetComponent<NetworkObject>();
+        winnerManagerObj.GetComponent<NetworkObject>();
     }
 
     private void Update()
@@ -32,6 +34,10 @@ public class AssignScriptsPinata : NetworkBehaviour
 
             //give the scoresManager field on the winBoard access to the scoresManager script when it spawns
             winBoardObj.GetComponent<WinnerManagerNet>().scoresManagerNet_access = scoresManagerObj.GetComponent<ScoresManagerNet>();
+            
+            //give the winnerManagerAccess field on the winBoardSpaw access to the script
+            winnerManagerObj.GetComponent<WinBoardSpawn>().winnerManagerNet_acces = winBoardObj.GetComponent<WinnerManagerNet>();
+            
             Debug.Log("winboard field has been FILLED");
         }
     }
