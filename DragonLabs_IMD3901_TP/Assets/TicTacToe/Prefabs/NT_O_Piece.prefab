@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 9193801507106001566}
   - component: {fileID: 8621603213445321145}
   - component: {fileID: 1118488211145253960}
+  - component: {fileID: 2222230881027509261}
   m_Layer: 0
   m_Name: NT_O_Piece
   m_TagString: Interactable
@@ -413,6 +414,23 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
+--- !u!114 &2222230881027509261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3065916075508684951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 0
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!1 &9026721731868702471
 GameObject:
   m_ObjectHideFlags: 0

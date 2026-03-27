@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5433857536334856552}
   - component: {fileID: 1405161824889474254}
   - component: {fileID: 3005463624241160809}
+  - component: {fileID: 6294726445926664279}
   - component: {fileID: 749537235149274389}
   - component: {fileID: 1770299751576182079}
   - component: {fileID: 263911174542311592}
@@ -79,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1942698208
+  GlobalObjectIdHash: 3640934605
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -138,6 +139,22 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &6294726445926664279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123514706950494819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b60a577f7dac462b8b789e34a8d564a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  placeRange: 5
+  playerCamera: {fileID: 7268449350634651738}
+  pickupController: {fileID: 1664022502828155037}
 --- !u!114 &749537235149274389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,8 +180,8 @@ MonoBehaviour:
   lobbyP2SpawnPoint: {fileID: 0}
   beerPongP1SpawnPoint: {fileID: 4469876989175805423, guid: e2eae4e53b388384f862309365ec501d, type: 3}
   beerPongP2SpawnPoint: {fileID: 4469876989175805423, guid: 41cf69bdeda3b534d969a93527dc47bc, type: 3}
-  "pi\xF1ataPopP1SpawnPoint": {fileID: 0}
-  "pi\xF1ataPopSpawnPoint": {fileID: 0}
+  pinataPopP1SpawnPoint: {fileID: 0}
+  pinataPopSpawnPoint: {fileID: 0}
   parkourRaceP1SpawnPoint: {fileID: 0}
   parkourRaceP2SpawnPoint: {fileID: 0}
   tickTacToeP1SpawnPoint: {fileID: 0}
@@ -349,6 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe7b65ca9b37944da56747d9fdf0a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   lineRenderer: {fileID: 9195724684281840521}
   lineSegments: 175
   timeOfFlight: 5
@@ -533,6 +551,8 @@ MonoBehaviour:
   throwForce: 10
   line: {fileID: 6622832131594872302}
   mass: 10
+  enableLine:
+    m_InternalValue: 0
 --- !u!1 &5077842472569108115
 GameObject:
   m_ObjectHideFlags: 0

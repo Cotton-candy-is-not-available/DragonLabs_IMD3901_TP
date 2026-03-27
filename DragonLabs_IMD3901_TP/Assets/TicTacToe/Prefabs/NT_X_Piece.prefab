@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: -3824565262099322006}
   - component: {fileID: 1350520389028898154}
   - component: {fileID: 6920435260411838889}
+  - component: {fileID: 285335501707507440}
   m_Layer: 0
   m_Name: NT_X_Piece
   m_TagString: Interactable
@@ -240,6 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049ebce7d836742f4ae9f87a5db6e969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  type: 0
 --- !u!114 &1350520389028898154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,6 +411,23 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
+--- !u!114 &285335501707507440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3827619851916269659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 0
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!1 &4242992974468606378
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TicTacToeGameManagerNet : NetworkBehaviour
 {
@@ -16,8 +15,6 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
     public Transform pieceSpawnPoint;
 
     [Header("UI")]
-    public GameObject startPanel;
-    public GameObject restartButton;
     public TMP_Text resultText;
 
     [Header("Debug")]
@@ -25,46 +22,32 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
 
     private readonly NetworkVariable<int> currentTurn = new NetworkVariable<int>((int)TicTacToePieceType.X);
     private readonly NetworkVariable<bool> gameOver = new NetworkVariable<bool>(false);
-    private readonly NetworkVariable<bool> gameStarted = new NetworkVariable<bool>(false);
 
     private ulong xPlayerId;
     private ulong oPlayerId;
     private bool playerIdsReady = false;
 
-    private void Start()
-    {
-        SetupLocalUI();
-    }
-
     public override void OnNetworkSpawn()
     {
-        SetupLocalUI();
+        SetupUI();
 
         if (IsServer)
         {
             CachePlayerIds();
-            currentTurn.Value = (int)TicTacToePieceType.X;
             gameOver.Value = false;
-            gameStarted.Value = false;
+            currentTurn.Value = (int)TicTacToePieceType.X;
+
+            SpawnTurnPiece();
         }
     }
 
-    void SetupLocalUI()
+    void SetupUI()
     {
-        if (startPanel != null)
-            startPanel.SetActive(true);
-
-        if (restartButton != null)
-            restartButton.SetActive(false);
-
         if (resultText != null)
         {
             resultText.text = "";
             resultText.gameObject.SetActive(false);
         }
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     void CachePlayerIds()
@@ -83,73 +66,6 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         playerIdsReady = ids.Count >= 1;
     }
 
-    public void StartGame()
-    {
-        if (IsServer)
-            StartGameServer();
-        else
-            StartGameServerRpc();
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    void StartGameServerRpc()
-    {
-        StartGameServer();
-    }
-
-    void StartGameServer()
-    {
-        CachePlayerIds();
-
-        gameStarted.Value = true;
-        gameOver.Value = false;
-        currentTurn.Value = (int)TicTacToePieceType.X;
-
-        StartGameClientRpc();
-        SpawnTurnPiece();
-    }
-
-    [ClientRpc]
-    void StartGameClientRpc()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        if (startPanel != null)
-            startPanel.SetActive(false);
-
-        if (restartButton != null)
-            restartButton.SetActive(false);
-
-        if (resultText != null)
-        {
-            resultText.text = "";
-            resultText.gameObject.SetActive(false);
-        }
-
-        if (debugLogs)
-            Debug.Log("Game Started");
-    }
-
-    public void RestartGame()
-    {
-        if (IsServer)
-            RestartGameServer();
-        else
-            RestartGameServerRpc();
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    void RestartGameServerRpc()
-    {
-        RestartGameServer();
-    }
-
-    void RestartGameServer()
-    {
-        NetworkManager.SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
-    }
-
     IEnumerator SpawnNextPieceNextFrame()
     {
         yield return null;
@@ -159,7 +75,7 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
     void SpawnTurnPiece()
     {
         if (!IsServer) return;
-        if (gameOver.Value || !gameStarted.Value) return;
+        if (gameOver.Value) return;
 
         if (!playerIdsReady)
             CachePlayerIds();
@@ -228,12 +144,6 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         NetworkObjectReference tileRef,
         ServerRpcParams rpcParams = default)
     {
-        if (!gameStarted.Value)
-        {
-            if (debugLogs) Debug.Log("Place fail: game not started");
-            return;
-        }
-
         if (gameOver.Value)
         {
             if (debugLogs) Debug.Log("Place fail: game already over");
@@ -328,17 +238,11 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
     [ClientRpc]
     void ShowResultClientRpc(string message)
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
         if (resultText != null)
         {
             resultText.text = message;
             resultText.gameObject.SetActive(true);
         }
-
-        if (restartButton != null)
-            restartButton.SetActive(true);
     }
 
     public bool CheckWinner(TicTacToePieceType pieceType)
@@ -348,11 +252,9 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
             { 0, 1, 2 },
             { 3, 4, 5 },
             { 6, 7, 8 },
-
             { 0, 3, 6 },
             { 1, 4, 7 },
             { 2, 5, 8 },
-
             { 0, 4, 8 },
             { 2, 4, 6 }
         };

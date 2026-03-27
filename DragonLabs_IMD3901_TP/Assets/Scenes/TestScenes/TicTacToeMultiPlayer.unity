@@ -928,7 +928,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -947,8 +947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  xSpawnPoint: {fileID: 0}
-  oSpawnPoint: {fileID: 0}
+  xSpawnPoint: {fileID: 477746052}
+  oSpawnPoint: {fileID: 465068839}
 --- !u!1 &411733040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,7 +1080,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -1099,8 +1099,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  xSpawnPoint: {fileID: 0}
-  oSpawnPoint: {fileID: 0}
+  xSpawnPoint: {fileID: 718695838}
+  oSpawnPoint: {fileID: 1498010603}
 --- !u!1001 &450505003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1331,6 +1331,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1917657543434808570, guid: a65aba5f5254241c58e7772a43ec6b8e, type: 3}
   m_PrefabInstance: {fileID: 1024460898}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &544231946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 544231947}
+  m_Layer: 0
+  m_Name: Player2_SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &544231947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544231946}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.47, y: 0.06, z: 6.47786}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &545697184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,9 +1745,9 @@ GameObject:
   m_Component:
   - component: {fileID: 756000503}
   - component: {fileID: 756000508}
+  - component: {fileID: 756000504}
   - component: {fileID: 756000509}
   - component: {fileID: 756000506}
-  - component: {fileID: 756000504}
   - component: {fileID: 756000505}
   m_Layer: 0
   m_Name: Tile_0
@@ -1761,7 +1792,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -1854,8 +1885,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  xSpawnPoint: {fileID: 0}
-  oSpawnPoint: {fileID: 0}
+  xSpawnPoint: {fileID: 613771527}
+  oSpawnPoint: {fileID: 982732937}
 --- !u!4 &786380172 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1917657543434808570, guid: a65aba5f5254241c58e7772a43ec6b8e, type: 3}
@@ -2892,7 +2923,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -2911,8 +2942,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  xSpawnPoint: {fileID: 0}
-  oSpawnPoint: {fileID: 0}
+  xSpawnPoint: {fileID: 663893064}
+  oSpawnPoint: {fileID: 819164981}
 --- !u!1001 &1068193840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3624,6 +3655,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 540761239}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1308397171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1308397172}
+  m_Layer: 0
+  m_Name: Player1_SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1308397172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308397171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.73, y: 0.06, z: 6.47786}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1309896891 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1917657543434808570, guid: a65aba5f5254241c58e7772a43ec6b8e, type: 3}
@@ -4163,7 +4225,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -4182,8 +4244,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  xSpawnPoint: {fileID: 0}
-  oSpawnPoint: {fileID: 0}
+  xSpawnPoint: {fileID: 1076873893}
+  oSpawnPoint: {fileID: 1606336848}
 --- !u!1001 &1418796456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4700,7 +4762,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -4713,19 +4775,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494921533}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2614fac14f3ea4da39b9927856de28fe, type: 3}
+  m_Script: {fileID: 11500000, guid: c7128c1f3d20b472096ea8418af2b8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  X_Piece:
-  - {fileID: 6285440448673128186, guid: 691df0273fc11427da4bd9c8320f4cb4, type: 3}
-  O_Piece:
-  - {fileID: 1139711644385491142, guid: 2e403de134c0841d88e0dd6975149f21, type: 3}
-  turn:
-    m_InternalValue: 0
-  SpawnPosistion: {fileID: 1711257375}
+  tiles: []
+  xPrefab: {fileID: 3827619851916269659, guid: 691df0273fc11427da4bd9c8320f4cb4, type: 3}
+  oPrefab: {fileID: 3065916075508684951, guid: 2e403de134c0841d88e0dd6975149f21, type: 3}
+  pieceSpawnPoint: {fileID: 1711257375}
+  startPanel: {fileID: 1266155943}
+  restartButton: {fileID: 1428345845}
+  resultText: {fileID: 1434442282}
+  debugLogs: 1
 --- !u!1 &1496047031
 GameObject:
   m_ObjectHideFlags: 0
@@ -5592,7 +5655,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -5611,8 +5674,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  xSpawnPoint: {fileID: 0}
-  oSpawnPoint: {fileID: 0}
+  xSpawnPoint: {fileID: 1501389438}
+  oSpawnPoint: {fileID: 1893757336}
 --- !u!1 &1765026802
 GameObject:
   m_ObjectHideFlags: 0
@@ -5897,7 +5960,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -5916,8 +5979,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  xSpawnPoint: {fileID: 0}
-  oSpawnPoint: {fileID: 0}
+  xSpawnPoint: {fileID: 961939643}
+  oSpawnPoint: {fileID: 1638921979}
 --- !u!4 &1812749153 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1917657543434808570, guid: a65aba5f5254241c58e7772a43ec6b8e, type: 3}
@@ -6233,7 +6296,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -6252,8 +6315,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  xSpawnPoint: {fileID: 0}
-  oSpawnPoint: {fileID: 0}
+  xSpawnPoint: {fileID: 1498897639}
+  oSpawnPoint: {fileID: 1914109768}
 --- !u!1 &1893757335
 GameObject:
   m_ObjectHideFlags: 0
@@ -6909,7 +6972,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -6928,8 +6991,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  xSpawnPoint: {fileID: 0}
-  oSpawnPoint: {fileID: 0}
+  xSpawnPoint: {fileID: 478346515}
+  oSpawnPoint: {fileID: 1496047032}
 --- !u!4 &2138001399 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1917657543434808570, guid: a65aba5f5254241c58e7772a43ec6b8e, type: 3}
@@ -6944,6 +7007,7 @@ SceneRoots:
   - {fileID: 1015793032}
   - {fileID: 1711257375}
   - {fileID: 1494921535}
+  - {fileID: 86295878}
   - {fileID: 595785373}
   - {fileID: 381724070}
   - {fileID: 753460824}
@@ -6952,4 +7016,5 @@ SceneRoots:
   - {fileID: 1202253481}
   - {fileID: 2092993338}
   - {fileID: 1429307720}
-  - {fileID: 86295878}
+  - {fileID: 544231947}
+  - {fileID: 1308397172}
