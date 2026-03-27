@@ -6,18 +6,13 @@ using UnityEngine;
 
 public class TicTacToeGameManagerNet : NetworkBehaviour
 {
-    [Header("Tiles")]
     public TicTacToeTileSlotNet[] tiles;
 
-    [Header("Spawn")]
     public GameObject xPrefab;
     public GameObject oPrefab;
     public Transform pieceSpawnPoint;
 
-    [Header("UI")]
     public TMP_Text resultText;
-
-    [Header("Debug")]
     public bool debugLogs = true;
 
     private readonly NetworkVariable<int> currentTurn = new NetworkVariable<int>((int)TicTacToePieceType.X);
@@ -25,29 +20,30 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
 
     private ulong xPlayerId;
     private ulong oPlayerId;
-    private bool playerIdsReady = false;
 
     public override void OnNetworkSpawn()
-    {
-        SetupUI();
-
-        if (IsServer)
-        {
-            CachePlayerIds();
-            gameOver.Value = false;
-            currentTurn.Value = (int)TicTacToePieceType.X;
-
-            SpawnTurnPiece();
-        }
-    }
-
-    void SetupUI()
     {
         if (resultText != null)
         {
             resultText.text = "";
             resultText.gameObject.SetActive(false);
         }
+
+        if (IsServer)
+            StartCoroutine(WaitForPlayersThenSpawn());
+    }
+
+    IEnumerator WaitForPlayersThenSpawn()
+    {
+        while (NetworkManager.Singleton == null || NetworkManager.Singleton.ConnectedClientsIds.Count < 2)
+            yield return null;
+
+        CachePlayerIds();
+
+        gameOver.Value = false;
+        currentTurn.Value = (int)TicTacToePieceType.X;
+
+        SpawnTurnPiece();
     }
 
     void CachePlayerIds()
@@ -55,21 +51,8 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         List<ulong> ids = new List<ulong>(NetworkManager.Singleton.ConnectedClientsIds);
         ids.Sort();
 
-        if (ids.Count >= 1)
-            xPlayerId = ids[0];
-
-        if (ids.Count >= 2)
-            oPlayerId = ids[1];
-        else
-            oPlayerId = ids[0];
-
-        playerIdsReady = ids.Count >= 1;
-    }
-
-    IEnumerator SpawnNextPieceNextFrame()
-    {
-        yield return null;
-        SpawnTurnPiece();
+        xPlayerId = ids[0];
+        oPlayerId = ids[1];
     }
 
     void SpawnTurnPiece()
@@ -77,52 +60,29 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         if (!IsServer) return;
         if (gameOver.Value) return;
 
-        if (!playerIdsReady)
-            CachePlayerIds();
+        GameObject prefab = currentTurn.Value == (int)TicTacToePieceType.X ? xPrefab : oPrefab;
 
-        TicTacToePieceType turnType = (TicTacToePieceType)currentTurn.Value;
-        GameObject prefab = turnType == TicTacToePieceType.X ? xPrefab : oPrefab;
-
-        if (prefab == null)
+        if (prefab == null || pieceSpawnPoint == null)
         {
-            Debug.LogWarning("Spawn failed: prefab missing for " + turnType);
+            Debug.LogWarning("Spawn failed. Missing prefab or pieceSpawnPoint.");
             return;
         }
 
-        if (pieceSpawnPoint == null)
-        {
-            Debug.LogWarning("Spawn failed: pieceSpawnPoint missing.");
-            return;
-        }
-
-        GameObject newPieceObj = Instantiate(prefab, pieceSpawnPoint.position, pieceSpawnPoint.rotation);
-        NetworkObject netObj = newPieceObj.GetComponent<NetworkObject>();
+        GameObject obj = Instantiate(prefab, pieceSpawnPoint.position, pieceSpawnPoint.rotation);
+        NetworkObject netObj = obj.GetComponent<NetworkObject>();
 
         if (netObj == null)
         {
-            Debug.LogWarning("Spawn failed: prefab has no NetworkObject.");
-            Destroy(newPieceObj);
+            Debug.LogWarning("Piece prefab missing NetworkObject.");
+            Destroy(obj);
             return;
         }
 
-        ulong ownerId = turnType == TicTacToePieceType.X ? xPlayerId : oPlayerId;
+        ulong ownerId = currentTurn.Value == (int)TicTacToePieceType.X ? xPlayerId : oPlayerId;
         netObj.SpawnWithOwnership(ownerId, true);
 
-        PieceNet piece = newPieceObj.GetComponent<PieceNet>();
-        if (piece != null)
-            piece.MarkPlaced(false);
-
-        Rigidbody rb = newPieceObj.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-            rb.useGravity = false;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-
         if (debugLogs)
-            Debug.Log("Spawned new piece: " + turnType + " for client " + ownerId);
+            Debug.Log("Spawned " + ((TicTacToePieceType)currentTurn.Value) + " for client " + ownerId);
     }
 
     public bool TryPlacePieceFromCollision(PieceNet held, TicTacToeTileSlotNet tile)
@@ -144,66 +104,25 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         NetworkObjectReference tileRef,
         ServerRpcParams rpcParams = default)
     {
-        if (gameOver.Value)
-        {
-            if (debugLogs) Debug.Log("Place fail: game already over");
-            return;
-        }
+        if (gameOver.Value) return;
 
-        if (!pieceRef.TryGet(out NetworkObject pieceObj) || pieceObj == null)
-        {
-            if (debugLogs) Debug.Log("Place fail: invalid piece ref");
-            return;
-        }
-
-        if (!tileRef.TryGet(out NetworkObject tileObj) || tileObj == null)
-        {
-            if (debugLogs) Debug.Log("Place fail: invalid tile ref");
-            return;
-        }
+        if (!pieceRef.TryGet(out NetworkObject pieceObj)) return;
+        if (!tileRef.TryGet(out NetworkObject tileObj)) return;
 
         PieceNet held = pieceObj.GetComponent<PieceNet>();
         TicTacToeTileSlotNet tile = tileObj.GetComponent<TicTacToeTileSlotNet>();
 
-        if (held == null || tile == null)
-        {
-            if (debugLogs) Debug.Log("Place fail: piece or tile missing component");
-            return;
-        }
+        if (held == null || tile == null) return;
 
         ulong senderId = rpcParams.Receive.SenderClientId;
         TicTacToePieceType turnType = (TicTacToePieceType)currentTurn.Value;
         ulong expectedOwner = turnType == TicTacToePieceType.X ? xPlayerId : oPlayerId;
 
-        if (senderId != expectedOwner)
-        {
-            if (debugLogs) Debug.Log("Place fail: wrong player turn");
-            return;
-        }
-
-        if (held.OwnerClientId != senderId)
-        {
-            if (debugLogs) Debug.Log("Place fail: sender does not own piece");
-            return;
-        }
-
-        if (held.IsPlaced)
-        {
-            if (debugLogs) Debug.Log("Place fail: piece already placed");
-            return;
-        }
-
-        if (held.Type != turnType)
-        {
-            if (debugLogs) Debug.Log("Place fail: wrong piece type for turn");
-            return;
-        }
-
-        if (!tile.CanPlace())
-        {
-            if (debugLogs) Debug.Log("Place fail: tile already filled");
-            return;
-        }
+        if (senderId != expectedOwner) return;
+        if (held.OwnerClientId != senderId) return;
+        if (held.IsPlaced) return;
+        if (held.Type != turnType) return;
+        if (!tile.CanPlace()) return;
 
         tile.PlacePiece(held);
 
@@ -211,8 +130,6 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         {
             gameOver.Value = true;
             ShowResultClientRpc(turnType + " Wins!");
-
-            if (debugLogs) Debug.Log(turnType + " wins!");
             return;
         }
 
@@ -220,8 +137,6 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         {
             gameOver.Value = true;
             ShowResultClientRpc("Draw!");
-
-            if (debugLogs) Debug.Log("Draw!");
             return;
         }
 
@@ -229,10 +144,13 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
             ? (int)TicTacToePieceType.O
             : (int)TicTacToePieceType.X;
 
-        if (debugLogs)
-            Debug.Log("Placed successfully. Next turn: " + (TicTacToePieceType)currentTurn.Value);
-
         StartCoroutine(SpawnNextPieceNextFrame());
+    }
+
+    IEnumerator SpawnNextPieceNextFrame()
+    {
+        yield return null;
+        SpawnTurnPiece();
     }
 
     [ClientRpc]
@@ -245,18 +163,18 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         }
     }
 
-    public bool CheckWinner(TicTacToePieceType pieceType)
+    bool CheckWinner(TicTacToePieceType pieceType)
     {
         int[,] winPatterns = new int[,]
         {
-            { 0, 1, 2 },
-            { 3, 4, 5 },
-            { 6, 7, 8 },
-            { 0, 3, 6 },
-            { 1, 4, 7 },
-            { 2, 5, 8 },
-            { 0, 4, 8 },
-            { 2, 4, 6 }
+            {0,1,2},
+            {3,4,5},
+            {6,7,8},
+            {0,3,6},
+            {1,4,7},
+            {2,5,8},
+            {0,4,8},
+            {2,4,6}
         };
 
         for (int i = 0; i < winPatterns.GetLength(0); i++)
@@ -287,8 +205,6 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
 
     bool IsBoardFull()
     {
-        if (tiles == null || tiles.Length == 0) return false;
-
         foreach (TicTacToeTileSlotNet tile in tiles)
         {
             if (tile == null || !tile.IsOccupied())

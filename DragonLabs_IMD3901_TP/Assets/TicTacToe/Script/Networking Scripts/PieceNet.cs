@@ -24,6 +24,16 @@ public class PieceNet : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        TryAutoPlace(other);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        TryAutoPlace(other);
+    }
+
+    void TryAutoPlace(Collider other)
+    {
         if (!IsOwner) return;
         if (IsPlaced) return;
 
@@ -84,20 +94,17 @@ public class PieceNet : NetworkBehaviour
             isHeld.Value = false;
         }
 
-        if (rb != null)
-        {
-            rb.useGravity = false;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.isKinematic = false;
-        }
-
         transform.SetParent(null);
         transform.position = targetPoint.position;
         transform.rotation = targetPoint.rotation;
 
         if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.useGravity = false;
             rb.isKinematic = true;
+        }
 
         if (grabInteractable != null)
             grabInteractable.enabled = false;

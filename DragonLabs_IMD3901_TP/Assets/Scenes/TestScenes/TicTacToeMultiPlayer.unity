@@ -4781,12 +4781,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  tiles: []
+  tiles:
+  - {fileID: 756000509}
+  - {fileID: 1809916383}
+  - {fileID: 387499898}
+  - {fileID: 2136023567}
+  - {fileID: 1875999630}
+  - {fileID: 1051791284}
+  - {fileID: 411733047}
+  - {fileID: 1740237091}
+  - {fileID: 1405988992}
   xPrefab: {fileID: 3827619851916269659, guid: 691df0273fc11427da4bd9c8320f4cb4, type: 3}
   oPrefab: {fileID: 3065916075508684951, guid: 2e403de134c0841d88e0dd6975149f21, type: 3}
   pieceSpawnPoint: {fileID: 1711257375}
-  startPanel: {fileID: 1266155943}
-  restartButton: {fileID: 1428345845}
   resultText: {fileID: 1434442282}
   debugLogs: 1
 --- !u!1 &1496047031
