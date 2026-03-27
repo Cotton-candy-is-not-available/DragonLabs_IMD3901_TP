@@ -44,7 +44,6 @@ public class TicTacToeTileSlotNet : NetworkBehaviour
         occupyingType.Value = (int)piece.Type;
 
         piece.SnapToTile(targetPoint);
-        piece.MarkPlaced(true);
 
         Debug.Log("Placed " + piece.Type + " on " + gameObject.name);
     }
@@ -65,7 +64,7 @@ public class TicTacToeTileSlotNet : NetworkBehaviour
         return gameManager.TryPlacePieceFromCollision(piece, this);
     }
 
-    Transform GetTargetPoint(TicTacToePieceType pieceType)
+    private Transform GetTargetPoint(TicTacToePieceType pieceType)
     {
         return pieceType == TicTacToePieceType.X ? xSpawnPoint : oSpawnPoint;
     }

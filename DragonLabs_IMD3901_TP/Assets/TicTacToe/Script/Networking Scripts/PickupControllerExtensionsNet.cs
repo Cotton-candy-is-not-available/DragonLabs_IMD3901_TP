@@ -48,8 +48,15 @@ public static class PickupControllerExtensionsNet
             pc.DropNet();
 
         piece.transform.SetParent(hold, false);
-        piece.ApplyHoldPose();
-        piece.SetPhysicsHeld(true);
+        piece.transform.localPosition = Vector3.zero;
+        piece.transform.localRotation = Quaternion.identity;
+
+        Rigidbody rb = piece.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
     }
 
     public static void DropNet(this PickupController pc)
@@ -63,7 +70,13 @@ public static class PickupControllerExtensionsNet
         if (held == null) return;
 
         held.transform.SetParent(null, true);
-        held.SetPhysicsHeld(false);
+
+        Rigidbody rb = held.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+        }
     }
 
     public static PieceNet GetHeldPieceNet(this PickupController pc)

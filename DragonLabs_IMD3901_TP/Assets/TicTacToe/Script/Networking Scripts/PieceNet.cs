@@ -1,6 +1,5 @@
 using UnityEngine;
 using Unity.Netcode;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class PieceNet : NetworkBehaviour
 {
@@ -8,18 +7,34 @@ public class PieceNet : NetworkBehaviour
     public TicTacToePieceType Type => type;
 
     private readonly NetworkVariable<bool> isPlaced = new NetworkVariable<bool>(false);
-    private readonly NetworkVariable<bool> isHeld = new NetworkVariable<bool>(false);
-
     public bool IsPlaced => isPlaced.Value;
-    public bool IsHeld => isHeld.Value;
 
     private Rigidbody rb;
-    private XRGrabInteractable grabInteractable;
+    private Collider[] allColliders;
+    private bool placeRequestSent = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        grabInteractable = GetComponent<XRGrabInteractable>();
+        allColliders = GetComponentsInChildren<Collider>(true);
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        isPlaced.OnValueChanged += OnPlacedChanged;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        isPlaced.OnValueChanged -= OnPlacedChanged;
+    }
+
+    private void OnPlacedChanged(bool oldValue, bool newValue)
+    {
+        if (newValue)
+        {
+            ReleaseFromPickupAndFreeze();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,18 +47,41 @@ public class PieceNet : NetworkBehaviour
         TryAutoPlace(other);
     }
 
-    void TryAutoPlace(Collider other)
+    private void TryAutoPlace(Collider other)
     {
         if (!IsOwner) return;
         if (IsPlaced) return;
+        if (placeRequestSent) return;
 
         TicTacToeTileSlotNet tile = other.GetComponent<TicTacToeTileSlotNet>();
         if (tile == null)
             tile = other.GetComponentInParent<TicTacToeTileSlotNet>();
 
         if (tile == null) return;
+        if (!tile.CanPlace()) return;
 
+        // important: fully let go before asking server to place
+        ReleaseFromPickupAndFreeze();
+
+        placeRequestSent = true;
         tile.TryAutoPlacePiece(this);
+    }
+
+    private void ReleaseFromPickupAndFreeze()
+    {
+        PickupController pickup = FindFirstObjectByType<PickupController>();
+        if (pickup != null)
+        {
+            pickup.DropNet();
+        }
+
+        transform.SetParent(null, true);
+
+        if (rb != null)
+        {
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
     }
 
     public void MarkPlaced(bool value)
@@ -52,61 +90,33 @@ public class PieceNet : NetworkBehaviour
             isPlaced.Value = value;
     }
 
-    public void SetHeld(bool value)
-    {
-        if (IsServer)
-            isHeld.Value = value;
-    }
-
-    public void ApplyHoldPose()
-    {
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-    }
-
-    public void SetPhysicsHeld(bool held)
-    {
-        if (rb == null) return;
-
-        if (held)
-        {
-            rb.useGravity = false;
-            rb.isKinematic = true;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-        else
-        {
-            rb.isKinematic = false;
-            rb.useGravity = true;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-    }
-
     public void SnapToTile(Transform targetPoint)
     {
         if (targetPoint == null) return;
 
-        if (IsServer)
-        {
-            isPlaced.Value = true;
-            isHeld.Value = false;
-        }
+        // detach from anything still holding it
+        transform.SetParent(targetPoint, false);
 
-        transform.SetParent(null);
-        transform.position = targetPoint.position;
-        transform.rotation = targetPoint.rotation;
+        // force exact local alignment to the spawn point
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
 
         if (rb != null)
         {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
             rb.useGravity = false;
             rb.isKinematic = true;
         }
 
-        if (grabInteractable != null)
-            grabInteractable.enabled = false;
+        // optional: stop more trigger spam after placement
+        if (allColliders != null)
+        {
+            foreach (Collider c in allColliders)
+            {
+                if (c != null)
+                    c.enabled = false;
+            }
+        }
+
+        MarkPlaced(true);
     }
 }

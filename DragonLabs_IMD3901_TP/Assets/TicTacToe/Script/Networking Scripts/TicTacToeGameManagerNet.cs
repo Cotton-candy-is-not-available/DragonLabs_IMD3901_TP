@@ -30,13 +30,14 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         }
 
         if (IsServer)
-            StartCoroutine(WaitForPlayersThenSpawn());
+        {
+            StartCoroutine(SetupGame());
+        }
     }
 
-    IEnumerator WaitForPlayersThenSpawn()
+    private IEnumerator SetupGame()
     {
-        while (NetworkManager.Singleton == null || NetworkManager.Singleton.ConnectedClientsIds.Count < 2)
-            yield return null;
+        yield return null;
 
         CachePlayerIds();
 
@@ -46,16 +47,35 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         SpawnTurnPiece();
     }
 
-    void CachePlayerIds()
+    private void CachePlayerIds()
     {
         List<ulong> ids = new List<ulong>(NetworkManager.Singleton.ConnectedClientsIds);
         ids.Sort();
 
-        xPlayerId = ids[0];
-        oPlayerId = ids[1];
+        if (ids.Count == 0)
+        {
+            xPlayerId = 0;
+            oPlayerId = 0;
+        }
+        else if (ids.Count == 1)
+        {
+            xPlayerId = ids[0];
+            oPlayerId = ids[0];
+        }
+        else
+        {
+            xPlayerId = ids[0];
+            oPlayerId = ids[1];
+        }
+
+        if (debugLogs)
+        {
+            Debug.Log("X Player ID: " + xPlayerId);
+            Debug.Log("O Player ID: " + oPlayerId);
+        }
     }
 
-    void SpawnTurnPiece()
+    private void SpawnTurnPiece()
     {
         if (!IsServer) return;
         if (gameOver.Value) return;
@@ -99,7 +119,7 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    void RequestPlacePieceServerRpc(
+    private void RequestPlacePieceServerRpc(
         NetworkObjectReference pieceRef,
         NetworkObjectReference tileRef,
         ServerRpcParams rpcParams = default)
@@ -147,23 +167,25 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         StartCoroutine(SpawnNextPieceNextFrame());
     }
 
-    IEnumerator SpawnNextPieceNextFrame()
+    private IEnumerator SpawnNextPieceNextFrame()
     {
         yield return null;
         SpawnTurnPiece();
     }
 
     [ClientRpc]
-    void ShowResultClientRpc(string message)
+    private void ShowResultClientRpc(string message)
     {
         if (resultText != null)
         {
             resultText.text = message;
             resultText.gameObject.SetActive(true);
         }
+
+        Debug.Log(message);
     }
 
-    bool CheckWinner(TicTacToePieceType pieceType)
+    private bool CheckWinner(TicTacToePieceType pieceType)
     {
         int[,] winPatterns = new int[,]
         {
@@ -194,7 +216,7 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         return false;
     }
 
-    bool TileMatches(int index, TicTacToePieceType pieceType)
+    private bool TileMatches(int index, TicTacToePieceType pieceType)
     {
         if (tiles == null || index < 0 || index >= tiles.Length || tiles[index] == null)
             return false;
@@ -203,7 +225,7 @@ public class TicTacToeGameManagerNet : NetworkBehaviour
         return tileType.HasValue && tileType.Value == pieceType;
     }
 
-    bool IsBoardFull()
+    private bool IsBoardFull()
     {
         foreach (TicTacToeTileSlotNet tile in tiles)
         {
