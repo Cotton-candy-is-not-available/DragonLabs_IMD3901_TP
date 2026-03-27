@@ -21,24 +21,26 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: beerMat
-  m_Shader: {fileID: -6465566751694194690, guid: a02ae34da5e6f4841817f71c4b3be020, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 86feb870b70a7cf4f94cb62f79fd4875, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _ALPHATEST_ON
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Main_Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _gradientTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -58,26 +60,37 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 1
-    - _AlphaToMask: 1
+    - _AlphaToMask: 0
+    - _Amplitude: 0
     - _Blend: 0
     - _CastShadows: 1
     - _Cull: 0
-    - _DstBlend: 0
+    - _DstBlend: 10
+    - _FoamWidth: 0.177
+    - _Foam_Smoothness: 0
+    - _Frequency: 0
     - _QueueControl: 1
     - _QueueOffset: 0
-    - _SrcBlend: 1
-    - _Surface: 0
+    - _Rim_Power: 1.48
+    - _SrcBlend: 5
+    - _Surface: 1
     - _WobbleX: 0
     - _WobbleZ: 0
     - _ZTest: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     - _ZWriteControl: 0
-    - _fillLevel: 0.658
+    - _fillAmount: 0
+    - _fillLevel: 0.623
     - _wobbleX: -1.68
     - _wobbleZ: 0.16
     m_Colors:
-    - _BottomColor: {r: 1, g: 0.31988266, b: 0.26729542, a: 1}
-    - _sideColour: {r: 0.7607843, g: 0.43929726, b: 0.04705883, a: 0.24705882}
-    - _topColour: {r: 0.7607843, g: 0.04705883, b: 0.06791532, a: 0.32156864}
+    - _BottomColor: {r: 0.7379107, g: 0.27889434, b: 0.020288562, a: 0.40392157}
+    - _FillAmount: {r: 0, g: 0, b: 0, a: 0}
+    - _FoamColor: {r: 1, g: 0.79129815, b: 0.22322798, a: 0.24705882}
+    - _Rim_Color: {r: 1, g: 0.7686275, b: 0.14117648, a: 1}
+    - _TopColor: {r: 1, g: 0.79129815, b: 0.22322798, a: 1}
+    - _fillLevel: {r: 0, g: -0.23, b: 0, a: 0}
+    - _sideColour: {r: 0.7607843, g: 0.43929726, b: 0.04705883, a: 0.3254902}
+    - _topColour: {r: 0.7607843, g: 0.04705883, b: 0.06791532, a: 0.27450982}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

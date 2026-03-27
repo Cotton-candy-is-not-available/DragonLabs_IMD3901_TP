@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_LiquidEffect
-  m_Shader: {fileID: -6465566751694194690, guid: aee43e4dcab8b6f4cad47e894e5d4591, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 86feb870b70a7cf4f94cb62f79fd4875, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -57,6 +57,7 @@ Material:
     - _FoamColor: {r: 0.2850213, g: 0.990566, b: 0.7492778, a: 1}
     - _Rim_Color: {r: 0.693879, g: 1, b: 0.32547167, a: 1}
     - _TopColor: {r: 0.28627452, g: 0.99215686, b: 0.7490196, a: 1}
+    - _fillLevel: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2019189582100695424

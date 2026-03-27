@@ -1813,6 +1813,29 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "082a92e1c22d47fd8a6ba91adb038a50",
+    "m_Id": 2,
+    "m_DisplayName": "World Bounds Min",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "World Bounds Min",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.NormalMaterialSlot",
     "m_ObjectId": "08df75773333445c9b38bbbb5727f589",
     "m_Id": 0,
@@ -2202,29 +2225,6 @@
             "m_Id": "a700693fed8a4c25a5dae159f71aeacd"
         }
     ]
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
-    "m_ObjectId": "16880013e02344a7a7e02112049fc9ad",
-    "m_Id": 4,
-    "m_DisplayName": "Bounds Size",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Bounds Size",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_Labels": []
 }
 
 {
@@ -2938,8 +2938,8 @@
     "m_ObjectId": "3110df64b1c34747b7aa5f29195aba4e",
     "m_Title": "Foam/Edge Frontface",
     "m_Position": {
-        "x": 540.0,
-        "y": 718.6668701171875
+        "x": 540.0000610351563,
+        "y": 718.6666870117188
     }
 }
 
@@ -3301,29 +3301,6 @@
         "e32": 0.0,
         "e33": 1.0
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
-    "m_ObjectId": "37f8f2d180ac47398a72cc7b303f2af5",
-    "m_Id": 3,
-    "m_DisplayName": "World Bounds Max",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "World Bounds Max",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_Labels": []
 }
 
 {
@@ -4214,8 +4191,8 @@
     "m_ObjectId": "4a943008ec3544f3b366094ece5d9648",
     "m_Title": "Mesh Center World Position - Transform Position",
     "m_Position": {
-        "x": 722.666748046875,
-        "y": -1580.0
+        "x": 722.6666259765625,
+        "y": -1579.9998779296875
     }
 }
 
@@ -4446,8 +4423,8 @@
     "m_ObjectId": "54a9f9b74ff64c0eb1eac55f6d14fc3d",
     "m_Title": "Alpha",
     "m_Position": {
-        "x": 588.666748046875,
-        "y": 1331.9998779296875
+        "x": 470.6666259765625,
+        "y": 1477.333251953125
     }
 }
 
@@ -5067,7 +5044,7 @@
     "m_Title": "Rotate X and Z Wobble",
     "m_Position": {
         "x": 1628.6666259765625,
-        "y": -2152.666748046875
+        "y": -2152.66650390625
     }
 }
 
@@ -5369,10 +5346,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 2058.0,
-            "y": -1944.6666259765625,
-            "width": 209.33349609375,
-            "height": 304.0
+            "x": 2019.9998779296875,
+            "y": -1757.0001220703125,
+            "width": 129.5003662109375,
+            "height": 118.0001220703125
         }
     },
     "m_Slots": [
@@ -5392,7 +5369,7 @@
         "x"
     ],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -5852,7 +5829,7 @@
     "m_Title": "Sine Wave Based on Movement",
     "m_Position": {
         "x": -1455.3333740234375,
-        "y": 990.6666259765625
+        "y": 990.6664428710938
     }
 }
 
@@ -6202,29 +6179,6 @@
         "e32": 0.0,
         "e33": 1.0
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
-    "m_ObjectId": "853e015095774f7287c42e318bf63e32",
-    "m_Id": 2,
-    "m_DisplayName": "World Bounds Min",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "World Bounds Min",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_Labels": []
 }
 
 {
@@ -6817,10 +6771,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 614.0,
-            "y": 1390.6666259765625,
-            "width": 209.3333740234375,
-            "height": 304.0001220703125
+            "x": 496.0000305175781,
+            "y": 1536.0001220703125,
+            "width": 208.00003051757813,
+            "height": 301.9998779296875
         }
     },
     "m_Slots": [
@@ -7221,7 +7175,7 @@
         "x"
     ],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -7496,6 +7450,29 @@
     "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "afd8973c81164a7ba1735466d4191501",
+    "m_Id": 3,
+    "m_DisplayName": "World Bounds Max",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "World Bounds Max",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
     "m_Labels": []
 }
 
@@ -7803,7 +7780,7 @@
     "m_Title": "Rim",
     "m_Position": {
         "x": 1634.6666259765625,
-        "y": -833.333251953125
+        "y": -833.3331909179688
     }
 }
 
@@ -8187,8 +8164,8 @@
     "m_ObjectId": "c4e1fb3ecb644dcb9269f541da5aaaca",
     "m_Title": "FrontFaceTexture",
     "m_Position": {
-        "x": 1008.6668701171875,
-        "y": -294.6666259765625
+        "x": 1008.6666870117188,
+        "y": -294.6665344238281
     }
 }
 
@@ -8427,8 +8404,8 @@
     "m_DefaultRefNameVersion": 1,
     "m_RefNameGeneratedByDisplayName": "FillAmount",
     "m_DefaultReferenceName": "_FillAmount",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": false,
+    "m_OverrideReferenceName": "_fillLevel",
+    "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -8588,13 +8565,13 @@
             "m_Id": "44a671020a8042e899e2b263465a1346"
         },
         {
-            "m_Id": "853e015095774f7287c42e318bf63e32"
+            "m_Id": "082a92e1c22d47fd8a6ba91adb038a50"
         },
         {
-            "m_Id": "37f8f2d180ac47398a72cc7b303f2af5"
+            "m_Id": "afd8973c81164a7ba1735466d4191501"
         },
         {
-            "m_Id": "16880013e02344a7a7e02112049fc9ad"
+            "m_Id": "f943dc38814445b7b852e9ba40e9d598"
         }
     ],
     "synonyms": [
@@ -9872,6 +9849,29 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "f943dc38814445b7b852e9ba40e9d598",
+    "m_Id": 4,
+    "m_DisplayName": "Bounds Size",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Bounds Size",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
     "m_ObjectId": "fb765fb17a78481e991a1239fc99e3ee",
     "m_Id": 3,
     "m_DisplayName": "Out",
@@ -9902,8 +9902,8 @@
     "m_ObjectId": "fbd62648a3b540f28647962928511235",
     "m_Title": "Movement",
     "m_Position": {
-        "x": -1998.0001220703125,
-        "y": 1008.6666259765625
+        "x": -1998.0,
+        "y": 1008.6665649414063
     }
 }
 
