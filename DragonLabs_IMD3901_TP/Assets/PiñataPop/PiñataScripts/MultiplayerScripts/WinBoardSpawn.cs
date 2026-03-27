@@ -35,6 +35,7 @@ public class WinBoardSpawn : NetworkBehaviour
         {
             NetworkObject newBoard = Instantiate(board, spawnPt.position, Quaternion.identity);
             newBoard.GetComponent<NetworkObject>().Spawn();
+            newBoard.DestroyWithScene = true;
             Debug.Log("SPAWNED THE WINBOARD");
         }
 
