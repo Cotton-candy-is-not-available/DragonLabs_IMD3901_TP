@@ -15,7 +15,7 @@ public class AudioManagerSinglePlayer : MonoBehaviour
     [SerializeField] AudioSource SFXSource;
 
     [Header("---- Audio Clip ----")]
-    
+
     //pinata pop sound effects
     public AudioClip pinata_background;
     public AudioClip pinataPopSound;
@@ -24,7 +24,10 @@ public class AudioManagerSinglePlayer : MonoBehaviour
     public AudioClip batHitSound;
 
     //other game sound effects (type below) >>>
-
+    /*add other background music for the other minigames
+      public AudioClip beerPong_background;
+      public AudioClip ticTacToe_background;
+      public AudioClip parkour_background; */
 
 
 
