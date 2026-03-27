@@ -11,6 +11,7 @@ public class TimerController : MonoBehaviour
     float elapsedCandyTime = 25.0f;
 
     public PinataController pinataController_access;
+    public ChooseGame chooseGame_access;
     public bool isExtraTimeDone; //for collecting candy
 
     public Image timerBGimage;
@@ -64,6 +65,7 @@ public class TimerController : MonoBehaviour
             elapsedCandyTime = 0;
             isExtraTimeDone = true;
             pinataController_access.isGameOver = true;
+            StartCoroutine(waitToSwitch());
         }
 
         int minutes = Mathf.FloorToInt(elapsedCandyTime / 60);
@@ -71,6 +73,16 @@ public class TimerController : MonoBehaviour
 
         //formats the minutes and seconds to display as 00:00
         timerDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    IEnumerator waitToSwitch()
+    {
+        Debug.Log("called waitToSwitch");
+        //yield on a new YieldInstruction that waits for 15 seconds.
+        yield return new WaitForSeconds(15);
+
+        //change scenes back to the lobby
+        chooseGame_access.switchScenes("Lobby");
     }
 
 }

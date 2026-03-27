@@ -6897,6 +6897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerDisplay: {fileID: 958613238}
   pinataController_access: {fileID: 1918423209}
+  chooseGame_access: {fileID: 1977826209}
   isExtraTimeDone: 0
   timerBGimage: {fileID: 118237393}
 --- !u!1 &585291546
@@ -12248,6 +12249,50 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4984404553456696526, guid: 64da7df2e7b4f47d0a9dc441ebe67ef9, type: 3}
   m_PrefabInstance: {fileID: 2039830009}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1977826208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1977826210}
+  - component: {fileID: 1977826209}
+  m_Layer: 0
+  m_Name: SwitchScenesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1977826209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977826208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c79476573679d46a46ab1ee9ff2d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1977826210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977826208}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.58476, y: 0.22408, z: -2.19266}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1998084767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12991,6 +13036,7 @@ SceneRoots:
   - {fileID: 2036933481}
   - {fileID: 2640428510549335119}
   - {fileID: 269769764}
+  - {fileID: 1977826210}
   - {fileID: 2046792803}
   - {fileID: 573367832}
   - {fileID: 678282073}
