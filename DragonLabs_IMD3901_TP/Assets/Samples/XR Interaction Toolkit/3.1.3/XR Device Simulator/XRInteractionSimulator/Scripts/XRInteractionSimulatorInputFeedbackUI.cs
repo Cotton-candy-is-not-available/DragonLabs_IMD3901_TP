@@ -207,7 +207,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.DeviceSimulator
         ActiveDeviceMode m_ActiveDeviceMode = ActiveDeviceMode.None;
         SimulatedDeviceLifecycleManager.DeviceMode m_PreviousDeviceMode = SimulatedDeviceLifecycleManager.DeviceMode.None;
         ControllerInputMode m_PreviousControllerInputMode;
-        SimulatedHandExpression m_PreviousHandExpression;
+        SimulatedHandExpression  m_PreviousHandExpression;
 
         Dictionary<ControllerInputMode, GameObject> m_ControllerInputPanels;
         Dictionary<ControllerInputMode, Image> m_ControllerInputBgs;

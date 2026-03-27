@@ -153,6 +153,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dfb291907b5fa6547a0fd43aac680009, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7801511612153732489}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dfb291907b5fa6547a0fd43aac680009, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3820491638673204851}
     - targetCorrespondingSourceObject: {fileID: 6145041553835698849, guid: dfb291907b5fa6547a0fd43aac680009, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4135486547298646768}
@@ -162,6 +165,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6145041553835698849, guid: dfb291907b5fa6547a0fd43aac680009, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6175466275480903139}
+    - targetCorrespondingSourceObject: {fileID: 6145041553835698849, guid: dfb291907b5fa6547a0fd43aac680009, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1001588999117851335}
   m_SourcePrefab: {fileID: 100100000, guid: dfb291907b5fa6547a0fd43aac680009, type: 3}
 --- !u!1 &2415338472961847623 stripped
 GameObject:
@@ -536,6 +542,22 @@ MonoBehaviour:
   pressDistance: 0.3
   pressSpeed: 2
   cupNetObj: {fileID: 4528916569671949240}
+  PickupControllerNet: {fileID: 0}
+  held: {fileID: 0}
+  holdArea: {fileID: 0}
+--- !u!114 &3820491638673204851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2415338472961847623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cbbde660cb806c469dd870a5124d85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &8648031579178837687 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6145041553835698849, guid: dfb291907b5fa6547a0fd43aac680009, type: 3}
@@ -601,3 +623,15 @@ CapsuleCollider:
   m_Height: 0.97246546
   m_Direction: 1
   m_Center: {x: 0, y: -0.05301345, z: 0}
+--- !u!114 &1001588999117851335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648031579178837687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f91900cc79dc402478ca11a163bc9690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
