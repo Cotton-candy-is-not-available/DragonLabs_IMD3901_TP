@@ -7,17 +7,11 @@ using UnityEngine.UIElements;
 
 public class gameManager : NetworkBehaviour
 {
+    public NetworkObject newBall;
+
     public Canvas player1PointsCanvas;
     public Canvas player2PointsCanvas;
 
-    [Header("------------ Points text -------------")]
-    [Header("Player 1 view")]
-    public TMP_Text P1YouPointsText;
-    public TMP_Text P1OppPointsText;
-
-    [Header("Player 2 view")]
-    public TMP_Text P2YouPointsText;
-    public TMP_Text P2OppPointsText;
 
     //[Header("------------ Points -------------")]
     public NetworkVariable<int> player1Points = new NetworkVariable<int>(0);
@@ -35,7 +29,7 @@ public class gameManager : NetworkBehaviour
 
     //public beerPongScoreManger scoreManger;
 
-    public NetworkVariable<int> turn = new NetworkVariable<int>(1);
+    public NetworkVariable<int> turn = new NetworkVariable<int>(2);
 
     public GameObject player1;
     public GameObject player2;
@@ -43,7 +37,7 @@ public class gameManager : NetworkBehaviour
     public Transform p1StartPos;
     public Transform p2StartPos;
 
-    public NetworkObject newBall;
+    //public NetworkObject newBall;
 
     public VolumeProfile playerVolumeProfile;
 
@@ -51,8 +45,12 @@ public class gameManager : NetworkBehaviour
     public NetworkVariable<bool> activateWinnerPanel = new NetworkVariable<bool>(false);
     //public NetworkVariable<bool> goToLobby;
 
+    [Header("------------ Winner panels -------------")]
     public GameObject P1WinnerPanel;
     public GameObject P2WinnerPanel;
+
+
+    public ChooseGame sceneManager;
 
     public override void OnNetworkSpawn()
     {
@@ -63,8 +61,7 @@ public class gameManager : NetworkBehaviour
 
         player1Points.OnValueChanged += OnAddPointP1;
         player2Points.OnValueChanged += OnAddPointP2;
-        //isGameOver.Value = false;
-        //goToLobby.Value = false;
+       
 
 
 
@@ -74,11 +71,11 @@ public class gameManager : NetworkBehaviour
     {
         //find both player in the scene
         player1 = GameObject.FindWithTag("Player1");
-        player2 = GameObject.FindWithTag("Player2");
+        //player2 = GameObject.FindWithTag("Player2");
 
         //Set players start positions
         player1.transform.transform.position = p1StartPos.position;
-        player2.transform.transform.position = p2StartPos.position;
+        //player2.transform.transform.position = p2StartPos.position;
 
         //---------------- Post processign ------------------------//
         //add volume component to them so the blur/drunk effect can be called; this will be deleted when they leave the scenes
@@ -101,7 +98,7 @@ public class gameManager : NetworkBehaviour
         Debug.Log("Start turn: "+ turn.Value);
 
         //turn.Value = 1;
-        //spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
+        spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
     }
 
     // Update is called once per frame
@@ -110,7 +107,7 @@ public class gameManager : NetworkBehaviour
 
         //Set their start positions
         player1.transform.transform.position = p1StartPos.position;
-        player2.transform.transform.position = p2StartPos.position;
+        //player2.transform.transform.position = p2StartPos.position;
         Debug.Log("newBallIsPawned: " + newBall);
 
 
@@ -119,16 +116,16 @@ public class gameManager : NetworkBehaviour
         {
             spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
             //turn.Value = 2;//now player 2's turn
-            //changeTurnRpc(2);//now player 2's turn
-            Debug.Log("Turn: "+ turn.Value);
+            changeTurnRpc(2);//now player 2's turn
+            Debug.Log("NOW player 1: "+ turn.Value);
         }
         else if (turn.Value == 2 && !newBall.IsSpawned)//if player 2 turn
         {
             spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
             //turn.Value = 1;//now player 1's turn
-            //changeTurnRpc(1);//now player 1's turn
+            changeTurnRpc(1);//now player 1's turn
 
-            Debug.Log("Turn: "+ turn.Value);
+            Debug.Log("NOW player 2: "+ turn.Value);
 
         }
 
@@ -142,6 +139,9 @@ public class gameManager : NetworkBehaviour
             //isGameOver.Value == true;
             displayWinnerRpc();//set to true
             P1WinnerPanel.SetActive(activateWinnerPanel.Value);
+            StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
+            sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
+
         }
         else if (player2Points.Value == 3)
         {
@@ -149,7 +149,9 @@ public class gameManager : NetworkBehaviour
             //isGameOver.Value == true;
             displayWinnerRpc();//set to true
             P2WinnerPanel.SetActive(activateWinnerPanel.Value);
+            StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
 
+            sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
 
         }
        
@@ -174,23 +176,11 @@ public class gameManager : NetworkBehaviour
             //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
             newBall = Instantiate(ball, startPos, Quaternion.identity);
             newBall.GetComponent<NetworkObject>().Spawn();
+            //Debug.Log("newBall: ", newBall);
+            //Debug.Log("newBall is spawned: "+ newBall.IsSpawned);
         }
         
     }
-
-
-    //[ServerRpc(RequireOwnership = false)]
-    //public void despawnBallServerRpc()
-    //{
-
-    //    foreach (NetworkObject ball in ballPrefab)
-    //    {
-    //        if (ball != null)
-    //        {
-    //            ball.Despawn();
-    //        }
-    //    }
-    //}
 
 
     //change turn value
@@ -209,7 +199,12 @@ public class gameManager : NetworkBehaviour
     {
         activateWinnerPanel.Value = true;
     }
+    IEnumerator WaitToGoBack()
+    {
 
+        yield return new WaitForSeconds(5); //waits 5 seconds
+
+    }
 
     //on changed for netvariables
     private void OnChangedTurn(int previous, int current)

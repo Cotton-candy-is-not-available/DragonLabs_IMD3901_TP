@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using Unity.Netcode;
 using Unity.VisualScripting;
@@ -36,17 +37,17 @@ public class ballHitCups : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-      
+
 
         //if (collision.gameObject.tag == "floor" || collision.gameObject.tag == "table")//if ball touches the floor or table
-        if (collision.gameObject.tag == "floor" )//if ball touches the floor or table
+        if (collision.gameObject.tag == "floor")//if ball touches the floor or table
         {
             //nonCup.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
             gameObject.GetComponent<NetworkObject>().Despawn();
 
         }
 
-  
+
 
 
     }
@@ -55,7 +56,7 @@ public class ballHitCups : NetworkBehaviour
     {
         if (trigger.gameObject.tag == "cup1")//if the ball hits player 1 Cup 
         {
-            manager.changeTurnRpc(2);//now player 2's turn
+            //manager.changeTurnRpc(2);//now player 2's turn
 
             despawnBallServerRpc();
 
@@ -63,7 +64,7 @@ public class ballHitCups : NetworkBehaviour
 
         else if (trigger.gameObject.tag == "cup2")//player 2 cup 
         {
-            manager.changeTurnRpc(1);//now player 2's turn
+            //manager.changeTurnRpc(1);//now player 2's turn
 
             //gameObject.GetComponent<NetworkObject>().Despawn();//destroy the ball
             despawnBallServerRpc();
@@ -74,7 +75,7 @@ public class ballHitCups : NetworkBehaviour
 
     private void Update()
     {
-        if(gameObject.transform.position.y < 0)
+        if (gameObject.transform.position.y < 0)
         {
             despawnBallServerRpc();
         }
@@ -89,8 +90,17 @@ public class ballHitCups : NetworkBehaviour
     [ClientRpc]
     public void despawnBallClientRpc()
     {
+        StartCoroutine(WaitToDestroy());//destoy the ball
+
         gameObject.GetComponent<NetworkObject>().Despawn();//destroy ball when it goes anywhere below floor level
 
     }
 
+
+    IEnumerator WaitToDestroy()
+    {
+       
+        yield return new WaitForSeconds(5); //waits 3 seconds
+
+    }
 }
