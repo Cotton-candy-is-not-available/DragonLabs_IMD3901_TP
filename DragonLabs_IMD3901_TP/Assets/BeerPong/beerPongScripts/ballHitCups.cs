@@ -18,18 +18,18 @@ public class ballHitCups : NetworkBehaviour
         //P1Point.Value = false;
         //P2Point.Value = false;
 
-        //nonCup.Value = false;
+        ////nonCup.Value = false;
 
-        if (Instance != null)
-        {
-            gameObject.GetComponent<NetworkObject>().Despawn();
+        //if (Instance != null)
+        //{
+        //    gameObject.GetComponent<NetworkObject>().Despawn();
 
-        }
-        else
-        {
-            Instance = this;
+        //}
+        //else
+        //{
+        //    Instance = this;
 
-        }
+        //}
         manager = GameObject.Find("BeerPongGameManager").GetComponent<gameManager>(); ;
     }
 
@@ -43,9 +43,11 @@ public class ballHitCups : NetworkBehaviour
             Debug.Log("Floor");
             //nonCup.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
             //despawnBallServerRpc();
-            manager.newBall = null;
+            //manager.newBall = null;
             //despawnBallRpc();
-            gameObject.SetActive(turnOffBall.Value);
+            //gameObject.SetActive(turnOffBall.Value);
+            manager.despawnBallServerRpc();
+
 
         }
 
@@ -62,9 +64,10 @@ public class ballHitCups : NetworkBehaviour
             Debug.Log("cup1");
 
             //despawnBallServerRpc();
-            manager.newBall = null;
+            //manager.newBall = null;
             //despawnBallRpc();
-            gameObject.SetActive(turnOffBall.Value);
+            manager.despawnBallServerRpc();
+            //gameObject.SetActive(turnOffBall.Value);
 
 
         }
@@ -77,8 +80,10 @@ public class ballHitCups : NetworkBehaviour
             //gameObject.GetComponent<NetworkObject>().Despawn();//destroy the ball
             //despawnBallServerRpc();
             //despawnBallRpc();
-            manager.newBall = null;
-            gameObject.SetActive(turnOffBall.Value);
+            //manager.newBall = null;
+            //gameObject.SetActive(turnOffBall.Value);
+
+            manager.despawnBallServerRpc();
 
 
         }
@@ -89,17 +94,20 @@ public class ballHitCups : NetworkBehaviour
     {
         if (gameObject.transform.position.y < 0)
         {
-            manager.newBall = null;
-            gameObject.SetActive(turnOffBall.Value);
+            manager.despawnBallServerRpc();
+
+            //manager.newBall = null;
+            //gameObject.SetActive(turnOffBall.Value);
             //despawnBallServerRpc();
             //despawnBallRpc();
         }
     }
 
 
-    [Rpc(SendTo.Server)]
-    public void despawnBallRpc()
+    [ServerRpc(RequireOwnership =false)]
+    public void despawnBallServerRpc()
     {
+        if (!IsServer) return;
         Debug.Log("DESPAWN");
         StartCoroutine(WaitToDestroy());//destoy the ball
 

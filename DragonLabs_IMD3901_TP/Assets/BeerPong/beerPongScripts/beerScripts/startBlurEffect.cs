@@ -15,11 +15,11 @@ public class startBlurEffect : NetworkBehaviour
     public bool Player1Drink;
     public bool Player2Drink;
 
-    public NetworkVariable<bool> activate;
+    public NetworkVariable<bool> activate = new NetworkVariable<bool>(false);
 
-    public override void OnNetworkDespawn()
+    public override void OnNetworkSpawn()
     {
-        activate.Value = false;
+        activate.OnValueChanged += OnActivateDrinkMe;
     }
     void Start()
     {
@@ -49,7 +49,8 @@ public class startBlurEffect : NetworkBehaviour
             //cup.tag = "Interactable";//change cup to interactable to player can drink
             //cupVRgrabInteractable.enabled = true;//allow VR player to grab cup 
 
-            activate.Value = true;
+            //activate.Value = true;
+            activateDrinkMeCanvasRpc();
             //drinkMeSign.SetActive(true);//activate drink me sign so player knows which cup to drink from
 
             if (gameObject.tag == "cup1")
@@ -75,7 +76,12 @@ public class startBlurEffect : NetworkBehaviour
     }
 
 
-
+    //change turn value
+    [Rpc(SendTo.Owner)]
+    void activateDrinkMeCanvasRpc()
+    {
+        activate.Value = true;
+    }
 
 
 
@@ -93,4 +99,10 @@ public class startBlurEffect : NetworkBehaviour
         gameManager.player2Points.Value += num;
     }
 
+
+
+    private void OnActivateDrinkMe(bool previous, bool current)
+    {
+        Debug.Log($"Detected activate drink me canvas Change : Previous: {previous} | Current: {current}");
+    }
 }
