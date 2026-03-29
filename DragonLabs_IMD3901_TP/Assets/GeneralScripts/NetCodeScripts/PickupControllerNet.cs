@@ -207,7 +207,7 @@ public class PickupControllerNet : NetworkBehaviour
                 rb.linearVelocity = transform.forward * throwForce;
             }
         }
-        ClearHeldObjectClientRpc();
+        ClearHeldObjectClientRpc(netObj.NetworkObjectId);
     }
 
     [ClientRpc]
@@ -228,8 +228,23 @@ public class PickupControllerNet : NetworkBehaviour
     }
 
     [ClientRpc]
-    void ClearHeldObjectClientRpc()
+    void ClearHeldObjectClientRpc(ulong objectId)
     {
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[objectId];
+
+        //unparent the object
+        netObj.transform.SetParent(null);
+
+        Rigidbody rb = netObj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            //clear the rigidbody's attributes
+            rb.useGravity = true; //enable gravity again
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints.None; //allow full movement
+        }
+
         //reset the held object from the client
         heldObj = null;
         heldObjRB = null;

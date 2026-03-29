@@ -68,23 +68,13 @@ public class ObjectGrabIneractableNet : NetworkBehaviour
         if (IsOwner)
         {
             Debug.Log("host requested to drop");
-
         }
 
         if (IsClient)
         {
             Debug.Log("client requested to drop");
-
         }
-
-
     }
-
-
-
-
-
-
 
 
     [ServerRpc(RequireOwnership = false)]                       //rpc parameters is same as fetching the playerId uLong
