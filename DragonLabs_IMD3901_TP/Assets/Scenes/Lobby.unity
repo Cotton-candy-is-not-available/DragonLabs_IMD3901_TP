@@ -2549,6 +2549,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338347229}
   m_CullTransparentMesh: 1
+--- !u!1 &341015521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 341015522}
+  m_Layer: 0
+  m_Name: SinglePlayerPlates
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &341015522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341015521}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &367259072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 367259073}
+  m_Layer: 0
+  m_Name: NetCodePlates
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &367259073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367259072}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1065894116}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &382813254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2823,6 +2886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 434287832}
   - component: {fileID: 434287833}
+  - component: {fileID: 434287834}
   m_Layer: 0
   m_Name: lobbyManager
   m_TagString: Untagged
@@ -2862,9 +2926,21 @@ MonoBehaviour:
   joinCodeWorldCanvas: {fileID: 792879445}
   joinCodeDisplayTextOverlay: {fileID: 796655736}
   joinCodeDisplayTextWorld: {fileID: 2138802108}
-  IPAddressOverlayCanvas: {fileID: 1217244120}
-  IPAddressDisplayTextOverlay: {fileID: 56504050}
   IPAddressDisplayTextWorld: {fileID: 2138802108}
+--- !u!114 &434287834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434287831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10bb62cc26eeb554aab35fb40d0d2971, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  singlePlayerPlates: {fileID: 341015521}
+  multiPlayerPlates: {fileID: 367259072}
 --- !u!1 &473384145
 GameObject:
   m_ObjectHideFlags: 0
@@ -5133,6 +5209,37 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!1 &808905159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 808905160}
+  m_Layer: 0
+  m_Name: '--------Managers--------- '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &808905160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808905159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &814641303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5602,7 +5709,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1007918415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5968,6 +6075,126 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036698769}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1065894112
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 367259073}
+    m_Modifications:
+    - target: {fileID: 1199255160145884, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_Name
+      value: beerPongPressurePlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6.1206
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6.1206
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 6.1206
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -965.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -539.976
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1199255160145884, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1065894114}
+    - targetCorrespondingSourceObject: {fileID: 1199255160145884, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1065894115}
+  m_SourcePrefab: {fileID: 100100000, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+--- !u!1 &1065894113 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1199255160145884, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+  m_PrefabInstance: {fileID: 1065894112}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1065894114
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065894113}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.30475974, y: 0.5000761, z: 0.23878469}
+  m_Center: {x: 0, y: 0.25001025, z: -0.0000017431674}
+--- !u!114 &1065894115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065894113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478debe3ab1b6f9458fb130c9d50410a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneManager: {fileID: 229652708}
+  sceneName: beerPong
+--- !u!4 &1065894116 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
+  m_PrefabInstance: {fileID: 1065894112}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1084386795
 GameObject:
   m_ObjectHideFlags: 0
@@ -10348,7 +10575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1895934835}
   m_Layer: 0
-  m_Name: '--------Game Button Canvas--------- '
+  m_Name: '--------Pressure plates--------- '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12147,10 +12374,13 @@ SceneRoots:
   m_Roots:
   - {fileID: 805995574}
   - {fileID: 410087041}
+  - {fileID: 808905160}
   - {fileID: 1007918417}
   - {fileID: 434287832}
   - {fileID: 229652707}
   - {fileID: 1895934835}
+  - {fileID: 367259073}
+  - {fileID: 341015522}
   - {fileID: 947639127}
   - {fileID: 792879449}
   - {fileID: 1760458370}

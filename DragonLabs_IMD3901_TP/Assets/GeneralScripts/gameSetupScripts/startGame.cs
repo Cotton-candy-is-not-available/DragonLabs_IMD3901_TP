@@ -179,6 +179,7 @@ public class startGame : NetworkBehaviour
         NetworkManager.Singleton.StartHost();//start host
         gameSteupCanvas.SetActive(false );//hide net connect panel
         Debug.Log("Host started LAN");
+        staticClass.LANOn = true;
 
         //clientStarted.Value = true;//client has started
         //clientStartServerRpc();
@@ -197,23 +198,17 @@ public class startGame : NetworkBehaviour
         //IPAdressText.SetActive(false);//hides ip address if not already
         NetworkManager.Singleton.StartClient();//join game as client
         gameSteupCanvas.SetActive(false);//hide net connect panel
-        clientStartServerRpc();//client has started
+        //clientStartServerRpc();//client has started
         Debug.Log("Client started LAN");
+
         //mainCamera.enabled = false;//turn off the main camera
         //mainCamera.SetActive(false);//turn off the main camera
-        chooseGameAccess.switchScenesNetServerRpc("Lobby");
+        //chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
 
 
     }
 
-    [ServerRpc(RequireOwnership = false)] //host and client are able to ask the server to update the teampoints
-    public void clientStartServerRpc()
-    {
-        //increasae the value of points on both host and client since its a network variable
-        clientStarted.Value = true;
-        Debug.Log("clientStarted RPC: LAN");
-    }
 
 
 }
