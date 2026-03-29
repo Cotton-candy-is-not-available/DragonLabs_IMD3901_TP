@@ -59,30 +59,30 @@ public class startGame : NetworkBehaviour
 
         private void Awake()
     {
-        LANHostButton.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartHost();
-            Debug.Log("started host");
-            gameSteupCanvas.SetActive(false);//hide net connect panel
-            Debug.Log("Host started LAN");
+        //LANHostButton.onClick.AddListener(() =>
+        //{
+        //    NetworkManager.Singleton.StartHost();
+        //    Debug.Log("started host");
+        //    gameSteupCanvas.SetActive(false);//hide net connect panel
+        //    Debug.Log("Host started LAN");
 
 
-            chooseGameAccess.switchScenesNetServerRpc("Lobby");
+        //    chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
-            staticClass.LANOn = true;
-        });
+        //    staticClass.LANOn = true;
+        //});
 
-        LANClientButton.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartClient();
-            Debug.Log("started client");
-            //NetworkManager.Singleton.StartClient();//join game as client
-            gameSteupCanvas.SetActive(false);//hide net connect panel
-                                             //clientStartServerRpc();//client has started
-            Debug.Log("Client started LAN");
+        //LANClientButton.onClick.AddListener(() =>
+        //{
+        //    NetworkManager.Singleton.StartClient();
+        //    Debug.Log("started client");
+        //    //NetworkManager.Singleton.StartClient();//join game as client
+        //    gameSteupCanvas.SetActive(false);//hide net connect panel
+        //                                     //clientStartServerRpc();//client has started
+        //    Debug.Log("Client started LAN");
           
 
-        });
+        //});
     }
 
     private void Start()

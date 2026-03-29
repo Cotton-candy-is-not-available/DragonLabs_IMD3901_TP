@@ -4952,8 +4952,8 @@ MonoBehaviour:
   localVRPlayer: {fileID: 1577935404}
   NetworkManagerObject: {fileID: 1674299566}
   chooseGameAccess: {fileID: 974390632}
-  clientStarted:
-    m_InternalValue: 0
+  LANHostButton: {fileID: 0}
+  LANClientButton: {fileID: 0}
 --- !u!114 &1181784892
 MonoBehaviour:
   m_ObjectHideFlags: 0

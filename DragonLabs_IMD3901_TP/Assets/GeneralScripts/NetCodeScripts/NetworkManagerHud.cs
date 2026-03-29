@@ -31,9 +31,19 @@ public class NetworkManagerHud : MonoBehaviour
     void Awake()
     {
         // Only cache networking manager but not transport here because transport could change anytime.
-        m_NetworkManager = GetComponent<NetworkManager>();
+        m_NetworkManager = gameObject.GetComponent<NetworkManager>();
         m_LabelTextStyle = new GUIStyle(GUIStyle.none);
+        Debug.Log("Net manager avaiblable: " + m_NetworkManager);
+
+
     }
+
+    private void Start()
+    {
+        m_NetworkManager.SceneManager.ActiveSceneSynchronizationEnabled = true;
+
+    }
+
 
     void OnGUI()
     {

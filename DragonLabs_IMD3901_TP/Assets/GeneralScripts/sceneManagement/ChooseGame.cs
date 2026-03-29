@@ -30,6 +30,8 @@ public class ChooseGame : MonoBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void switchScenesNetServerRpc(string sceneName)
     {
+        NetworkManager.Singleton.SceneManager.ActiveSceneSynchronizationEnabled = true;
+
         //transition.SetTrigger("Start");
         NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         Debug.Log("netowkr switch scenes");
