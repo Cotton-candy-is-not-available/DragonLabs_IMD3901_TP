@@ -43,10 +43,19 @@ public class ChooseGame : MonoBehaviour
     {
         //transition.SetTrigger("Start");
         NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-        Debug.Log("netowkr switch scenes");
+        Debug.Log("network switch scenes for host");
+        switchSceneNetClientRpc(sceneName);
         //StartCoroutine(delaySec(sceneName));
         //Debug.Log("before calling coroutine");
     }
+
+    [ClientRpc]
+    private void switchSceneNetClientRpc(string sceneName)
+    {
+        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        Debug.Log("network switch scenes for client");
+    }
+
 
     IEnumerator delaySec(string sceneName)
     {
