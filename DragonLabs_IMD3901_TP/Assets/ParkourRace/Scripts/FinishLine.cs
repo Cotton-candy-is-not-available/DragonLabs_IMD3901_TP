@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class FinishLine : MonoBehaviour
     public bool isTimerRunning = false;
 
     public TMP_Text timerText;
+
+    public ChooseGame sceneManager;
 
     void Update()
     {
@@ -25,6 +28,13 @@ public class FinishLine : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             isTimerRunning = false;
+            StartCoroutine(WaitToGoBack());
         }
+    }
+    IEnumerator WaitToGoBack()
+    {
+
+        yield return new WaitForSeconds(5);
+        sceneManager.switchScenes("Lobby");
     }
 }
