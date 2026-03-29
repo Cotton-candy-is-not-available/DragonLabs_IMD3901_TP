@@ -101,6 +101,9 @@ public class PlayerInteractionNet : NetworkBehaviour
                 }
 
             }
+
+           
+
         }
         if (IsOwner)
         {

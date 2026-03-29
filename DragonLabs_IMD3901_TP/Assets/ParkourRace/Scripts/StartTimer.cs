@@ -7,9 +7,8 @@ public class StartTimer : MonoBehaviour
     public GameObject startWall;
 
     public TMP_Text timerText;
-    private bool countdownStarted = false;
 
-    public stopTimerButton gameTimer;
+    public FinishLine gameTimer;
 
     void Start()
     {
@@ -18,28 +17,18 @@ public class StartTimer : MonoBehaviour
 
     void Update()
     {
-        if (countdownStarted)
+        startTimer -= Time.deltaTime;
+        int seconds = Mathf.FloorToInt(startTimer % 60f);
+        int milliseconds = Mathf.FloorToInt((startTimer * 1000f) % 1000f);
+        timerText.text = string.Format("{0:00}:{1:00}", seconds, milliseconds);
+
+        if (startTimer <= 0)
         {
-            startTimer -= Time.deltaTime;
-            int seconds = Mathf.FloorToInt(startTimer % 60f);
-            int milliseconds = Mathf.FloorToInt((startTimer * 1000f) % 1000f);
-            timerText.text = string.Format("{0:00}:{1:00}", seconds, milliseconds);
-
-            if (startTimer <= 0)
-            {
-                startTimer = 0;
-                startWall.SetActive(false);
-                timerText.enabled = false;
-                Debug.Log("Timer finished");
-                gameTimer.isTimerRunning = true;
-            }
+            startTimer = 0;
+            startWall.SetActive(false);
+            timerText.enabled = false;
+            Debug.Log("Timer finished");
+            gameTimer.isTimerRunning = true;
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Collision");
-        if (!countdownStarted)
-             countdownStarted = true;
     }
 }
