@@ -94,7 +94,7 @@ public class startGame : NetworkBehaviour
         plateformOptionPanel.SetActive(false);//hides choose plateform panel on click
         gameModeOptionPanel.SetActive(true);//shows choose game mode panel on click
         VRMode = true;//player chose to use VR headset to play
-
+        staticClass.VROn =VRMode;
     }
 
     //If user chooses to use PC
@@ -103,6 +103,8 @@ public class startGame : NetworkBehaviour
         plateformOptionPanel.SetActive(false);//hides choose plateform panel on click
         gameModeOptionPanel.SetActive(true);//shows choose game mode panel on click
         PCMode = true;//player chose to use computer to play
+        staticClass.PCOn =PCMode;
+
     }
 
 
