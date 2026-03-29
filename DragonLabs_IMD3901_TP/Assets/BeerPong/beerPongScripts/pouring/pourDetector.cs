@@ -63,7 +63,6 @@ public class pourDetector : NetworkBehaviour
                 fillLevel.y = Mathf.Lerp(fillLevel.y, -0.5f, fillElaspsedTime/lerpDuration);
 
             //send over to shader new value of fill level
-            rend.material.SetFloat("_fillLevel", fillLevel.y);//reference names in shader graph
             Debug.Log("fillLevel: " + fillLevel.y);
             Debug.Log("fill down");
 

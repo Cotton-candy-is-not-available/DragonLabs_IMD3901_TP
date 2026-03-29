@@ -43,7 +43,7 @@ public class ballHitCups : NetworkBehaviour
         if (collision.gameObject.tag == "floor")//if ball touches the floor or table
         {
             //nonCup.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
-            gameObject.GetComponent<NetworkObject>().Despawn();
+            despawnBallServerRpc();
 
         }
 
@@ -90,10 +90,17 @@ public class ballHitCups : NetworkBehaviour
     [ClientRpc]
     public void despawnBallClientRpc()
     {
-        StartCoroutine(WaitToDestroy());//destoy the ball
+        if (IsServer)
+        {
+            Debug.Log("is server: despawn");
+            StartCoroutine(WaitToDestroy());//destoy the ball
 
-        gameObject.GetComponent<NetworkObject>().Despawn();//destroy ball when it goes anywhere below floor level
-
+            gameObject.GetComponent<NetworkObject>().Despawn();//destroy ball when it goes anywhere below floor level
+        }
+        else if (!IsServer)
+        {
+            return;
+        }
     }
 
 
