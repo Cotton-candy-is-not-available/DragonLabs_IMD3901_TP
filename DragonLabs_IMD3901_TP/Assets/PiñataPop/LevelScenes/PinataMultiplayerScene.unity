@@ -727,9 +727,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   candy_prefab_list:
-  - {fileID: 5941443866788580655, guid: fc23562066aae0a4c9be0ae0a9678600, type: 3}
-  - {fileID: 7587244230581886860, guid: ec748c8605bfa9941b2b35b1b017dbfa, type: 3}
-  - {fileID: 768970057953742631, guid: ff1e053a607445b45ac2e0c3f4cb7d6c, type: 3}
+  - {fileID: 6885689032081235582, guid: 175a9b7a0677bce4c8998ab133d9610c, type: 3}
+  - {fileID: 6885689032081235582, guid: bba10d08a7c7aab4093bee06e602da09, type: 3}
+  - {fileID: 6885689032081235582, guid: 435ae577f3e3da943a751eca42f450df, type: 3}
 --- !u!1 &252187631
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,7 +914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8135023674665499069, guid: 58d0a4ac86f2348deb02f3880c71378e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8518324294302271954, guid: 58d0a4ac86f2348deb02f3880c71378e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1197,7 +1197,7 @@ PrefabInstance:
     - target: {fileID: 7099724425186548248, guid: 1c7f8a228673a074e9191537f4f253e1, type: 3}
       propertyPath: NetworkConfig.PlayerPrefab
       value: 
-      objectReference: {fileID: 123514706950494819, guid: 3432999a8b86d1f40abb4a398ff16d03, type: 3}
+      objectReference: {fileID: 2865438684419936513, guid: 66fdf2e66f33ee64cad1a9eb3e10e5ff, type: 3}
     m_RemovedComponents:
     - {fileID: 350747289349751276, guid: 1c7f8a228673a074e9191537f4f253e1, type: 3}
     m_RemovedGameObjects: []
@@ -1599,7 +1599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2824795176778561841, guid: b6f38a1a48163e146b40c1b2764ac550, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6885689032081235582, guid: b6f38a1a48163e146b40c1b2764ac550, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -3377,7 +3377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2824795176778561841, guid: b6f38a1a48163e146b40c1b2764ac550, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6885689032081235582, guid: b6f38a1a48163e146b40c1b2764ac550, type: 3}
       propertyPath: GlobalObjectIdHash
