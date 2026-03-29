@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.Netcode.Components;
 [RequireComponent(typeof(XRGrabInteractable))]
 [RequireComponent(typeof(NetworkObject))]
 
@@ -25,6 +26,7 @@ public class ObjectGrabIneractableNet : NetworkBehaviour
     {
         //when an object is dropped stop running the OnSelectGrabbable function
         grabInteractable.selectEntered.RemoveListener(OnSelectGrabbable);
+        netObj.GetComponent<Rigidbody>().useGravity = true;
     }
 
     public void OnSelectGrabbable(SelectEnterEventArgs eventArgs)
