@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5433857536334856552}
   - component: {fileID: 1405161824889474254}
   - component: {fileID: 3005463624241160809}
-  - component: {fileID: 6294726445926664279}
   - component: {fileID: 749537235149274389}
   - component: {fileID: 263911174542311592}
   - component: {fileID: 9195724684281840521}
@@ -138,22 +137,6 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &6294726445926664279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123514706950494819}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b60a577f7dac462b8b789e34a8d564a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  placeRange: 5
-  playerCamera: {fileID: 7268449350634651738}
-  pickupController: {fileID: 1664022502828155037}
 --- !u!114 &749537235149274389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,12 +315,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123514706950494819}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24c06aa4f8ce0c340850c38b91f289b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   jumpHeight: 1.2
   gravity: -20
   groundCheckDistance: 0.2
