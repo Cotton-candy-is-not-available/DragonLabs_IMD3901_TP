@@ -33,7 +33,6 @@ public class FinishLine : MonoBehaviour
     }
     IEnumerator WaitToGoBack()
     {
-
         yield return new WaitForSeconds(5);
         sceneManager.switchScenes("Lobby");
     }
