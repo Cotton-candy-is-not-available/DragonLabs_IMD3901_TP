@@ -13,6 +13,7 @@ public class PinataControllerNet : NetworkBehaviour
     public CandySpawn candySpawner_access;
     public WinBoardSpawn winBoardSpawn_access;
     public TimerControllerNet timerControllerNet_access;
+    public AudioManager audioManMultiPlayer;
 
     public NetworkVariable<bool> isGameOver;
     public NetworkVariable<bool> once;
@@ -63,6 +64,7 @@ public class PinataControllerNet : NetworkBehaviour
 
             //play confetti particles
             playConfettiServerRpc();
+            audioManMultiPlayer.PlaySFX(audioManMultiPlayer.partyBlower);
             candySpawner_access.SpawnCandyServerRpc();
         }
         

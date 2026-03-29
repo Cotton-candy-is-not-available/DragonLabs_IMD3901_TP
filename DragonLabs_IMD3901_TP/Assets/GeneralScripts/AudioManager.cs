@@ -32,11 +32,10 @@ public class AudioManager : NetworkBehaviour
         PlayBackgroundMusicServerRpc(chosenGame);
     }
 
-
-    //[ServerRpc(RequireOwnership = false)]
     public void PlaySFX(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);
+        Debug.Log("played SFX for host");
     }
 
 
