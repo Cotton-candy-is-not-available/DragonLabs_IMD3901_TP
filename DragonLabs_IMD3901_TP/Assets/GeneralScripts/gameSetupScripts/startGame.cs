@@ -81,7 +81,6 @@ public class startGame : NetworkBehaviour
                                              //clientStartServerRpc();//client has started
             Debug.Log("Client started LAN");
           
-            chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
         });
     }
@@ -89,17 +88,6 @@ public class startGame : NetworkBehaviour
     private void Start()
     {
 
-        //if (hasStarted.gameHasStarted)//if the game has already started turn off camera and tdon't run the function
-        //{
-        //    //mainCamera.enabled = false;//turn off the main camera
-        //    //mainCamera.SetActive(false);//turn off the main camera
-
-
-        //    return;//don't run start panel if game has already started
-        //}
-         //mainCamera.SetActive(true);//turn on the main camera
-        //mainCamera.enabled = true;//turn on the main camera
-        //turn on start game panel by default
         startPanel.SetActive(true);//show start panel 
 
         localPCPlayer.SetActive(false);//turn local PC off by default
@@ -203,15 +191,11 @@ public class startGame : NetworkBehaviour
 
     public void startHost()
     {
-        //IPAdressText.SetActive(true);//shows ip address to connect to
         NetworkManager.Singleton.StartHost();//start host
         gameSteupCanvas.SetActive(false );//hide net connect panel
         Debug.Log("Host started LAN");
 
-        //clientStarted.Value = true;//client has started
-        //clientStartServerRpc();
-        //mainCamera.enabled = false;//turn off the main camera
-        //mainCamera.SetActive(false);//turn off the main camera
+        
         chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
         staticClass.LANOn = true;
@@ -225,22 +209,12 @@ public class startGame : NetworkBehaviour
         //IPAdressText.SetActive(false);//hides ip address if not already
         NetworkManager.Singleton.StartClient();//join game as client
         gameSteupCanvas.SetActive(false);//hide net connect panel
-        //clientStartServerRpc();//client has started
         Debug.Log("Client started LAN");
-        //mainCamera.enabled = false;//turn off the main camera
-        //mainCamera.SetActive(false);//turn off the main camera
-        chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
 
 
     }
 
-    [ServerRpc(RequireOwnership = false)] //host and client are able to ask the server to update the teampoints
-    public void clientStartServerRpc()
-    {
-        //startClient();
-        Debug.Log("clientStarted RPC: LAN");
-    }
-
+   
 
 }
