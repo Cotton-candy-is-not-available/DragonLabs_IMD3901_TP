@@ -16,17 +16,24 @@ public class ObjectGrabIneractableNet : NetworkBehaviour
         grabInteractable = GetComponent<XRGrabInteractable>();
         netObj = GetComponent<NetworkObject>();
     }
+    private void Update()
+    {
+        gameObject.GetComponent<Rigidbody>().isKinematic = false;
+    }
+
     private void OnEnable()
     {
         //when an object is picked up start running the OnSelectGrabbable function
         grabInteractable.selectEntered.AddListener(OnSelectGrabbable);
+        grabInteractable.selectEntered.AddListener(OnSelectExited);
+
     }
 
     private void OnDisable()
     {
         //when an object is dropped stop running the OnSelectGrabbable function
         grabInteractable.selectEntered.RemoveListener(OnSelectGrabbable);
-        netObj.GetComponent<Rigidbody>().useGravity = true;
+        grabInteractable.selectEntered.RemoveListener(OnSelectExited);
     }
 
     public void OnSelectGrabbable(SelectEnterEventArgs eventArgs)
@@ -52,6 +59,33 @@ public class ObjectGrabIneractableNet : NetworkBehaviour
         }
     }
 
+
+    public void OnSelectExited(SelectEnterEventArgs eventArgs)
+    {
+        Debug.Log("a DROP was detected by a raycast");
+
+        if (IsOwner)
+        {
+            Debug.Log("host requested to drop");
+
+        }
+
+        if (IsClient)
+        {
+            Debug.Log("client requested to drop");
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
     [ServerRpc(RequireOwnership = false)]                       //rpc parameters is same as fetching the playerId uLong
     public void RequestGrabbableOwnershipServerRpc(ulong objectId, ServerRpcParams rpcParams = default)
     {
@@ -63,7 +97,6 @@ public class ObjectGrabIneractableNet : NetworkBehaviour
             netObj.ChangeOwnership(rpcParams.Receive.SenderClientId); //give client ownership access
             Debug.Log("ownership given to client");
         }
-        
     }
 
 }
