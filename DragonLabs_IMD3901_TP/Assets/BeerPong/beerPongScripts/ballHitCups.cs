@@ -9,9 +9,7 @@ public class ballHitCups : NetworkBehaviour
     public static ballHitCups Instance;
 
 
-    //public NetworkVariable<bool> P1Point;
-    //public NetworkVariable<bool> P2Point;
-    //public NetworkVariable<bool> nonCup;
+    public NetworkVariable<bool> turnOffBall = new NetworkVariable<bool>(false);
 
     public gameManager manager;
     public override void OnNetworkSpawn()
@@ -42,8 +40,12 @@ public class ballHitCups : NetworkBehaviour
         //if (collision.gameObject.tag == "floor" || collision.gameObject.tag == "table")//if ball touches the floor or table
         if (collision.gameObject.tag == "floor")//if ball touches the floor or table
         {
+            Debug.Log("Floor");
             //nonCup.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
-            despawnBallServerRpc();
+            //despawnBallServerRpc();
+            manager.newBall = null;
+            //despawnBallRpc();
+            gameObject.SetActive(turnOffBall.Value);
 
         }
 
@@ -57,17 +59,27 @@ public class ballHitCups : NetworkBehaviour
         if (trigger.gameObject.tag == "cup1")//if the ball hits player 1 Cup 
         {
             //manager.changeTurnRpc(2);//now player 2's turn
+            Debug.Log("cup1");
 
-            despawnBallServerRpc();
+            //despawnBallServerRpc();
+            manager.newBall = null;
+            //despawnBallRpc();
+            gameObject.SetActive(turnOffBall.Value);
+
 
         }
 
         else if (trigger.gameObject.tag == "cup2")//player 2 cup 
         {
             //manager.changeTurnRpc(1);//now player 2's turn
+            Debug.Log("cup2");
 
             //gameObject.GetComponent<NetworkObject>().Despawn();//destroy the ball
-            despawnBallServerRpc();
+            //despawnBallServerRpc();
+            //despawnBallRpc();
+            manager.newBall = null;
+            gameObject.SetActive(turnOffBall.Value);
+
 
         }
     }
@@ -77,31 +89,47 @@ public class ballHitCups : NetworkBehaviour
     {
         if (gameObject.transform.position.y < 0)
         {
-            despawnBallServerRpc();
+            manager.newBall = null;
+            gameObject.SetActive(turnOffBall.Value);
+            //despawnBallServerRpc();
+            //despawnBallRpc();
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void despawnBallServerRpc()
+
+    [Rpc(SendTo.Server)]
+    public void despawnBallRpc()
     {
-        despawnBallClientRpc();
+        Debug.Log("DESPAWN");
+        StartCoroutine(WaitToDestroy());//destoy the ball
+
+        NetworkObject netBall = gameObject.GetComponent<NetworkObject>();//destroy ball when it goes anywhere below floor level
+
+        netBall.Despawn();
     }
 
-    [ClientRpc]
-    public void despawnBallClientRpc()
-    {
-        if (IsServer)
-        {
-            Debug.Log("is server: despawn");
-            StartCoroutine(WaitToDestroy());//destoy the ball
 
-            gameObject.GetComponent<NetworkObject>().Despawn();//destroy ball when it goes anywhere below floor level
-        }
-        else if (!IsServer)
-        {
-            return;
-        }
-    }
+    //[ServerRpc(RequireOwnership = false)]
+    //public void despawnBallServerRpc()
+    //{
+    //    //despawnBallClientRpc();
+    //}
+
+    //[ClientRpc]
+    //public void despawnBallClientRpc()
+    //{
+    //    if (IsServer)
+    //    {
+    //        Debug.Log("is server: despawn");
+    //        StartCoroutine(WaitToDestroy());//destoy the ball
+
+    //        gameObject.GetComponent<NetworkObject>().Despawn();//destroy ball when it goes anywhere below floor level
+    //    }
+    //    else if (!IsServer)
+    //    {
+    //        return;
+    //    }
+    //}
 
 
     IEnumerator WaitToDestroy()
