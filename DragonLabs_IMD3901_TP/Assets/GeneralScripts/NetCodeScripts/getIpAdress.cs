@@ -9,7 +9,7 @@ public class getIpAdress : MonoBehaviour
     public TextMeshProUGUI IPAdressText;
     void Start()
     {
-        //IPAdressText.text = "IP address: " + GetLocalIPv4();//call on start and display on screen
+        staticClass.staticIPAddressVariable = GetLocalIPv4();//get the ip address of the host to display on the screen
     }
 
     public string GetLocalIPv4()

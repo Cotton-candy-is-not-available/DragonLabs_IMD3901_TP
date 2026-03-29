@@ -25,7 +25,7 @@ public class setJoinCodes : MonoBehaviour
             joinCodeWorldCanvas.SetActive(true);//if relay static variable is true
             joinCodeDisplayTextOverlay.text = staticClass.staticJoinCodeVariable;
             joinCodeDisplayTextWorld.text = staticClass.staticJoinCodeVariable;
-            textToCopy = staticClass.staticJoinCodeVariable;//set the text to copy to the join code that we got from the host stating the scene
+            textToCopy = joinCodeDisplayTextOverlay.text;//set the text to copy to the join code that we got from the host stating the scene
         }
         //LAN
 
@@ -35,8 +35,11 @@ public class setJoinCodes : MonoBehaviour
             joinCodeDisplayTextWorld.text = staticClass.staticIPAddressVariable;
 
             IPAddressOverlayCanvas.SetActive(true);
-            IPAddressDisplayTextOverlay.text = staticClass.staticIPAddressVariable;
+            joinCodeDisplayTextOverlay.text = staticClass.staticIPAddressVariable;
             IPAddressDisplayTextWorld.text = staticClass.staticIPAddressVariable;
+
+            textToCopy = joinCodeDisplayTextOverlay.text;//set the text to copy to the join code that we got from the host stating the scene
+
         }
 
         else

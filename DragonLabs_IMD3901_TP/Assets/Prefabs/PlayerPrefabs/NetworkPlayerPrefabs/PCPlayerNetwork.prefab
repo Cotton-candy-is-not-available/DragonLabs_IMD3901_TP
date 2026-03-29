@@ -14,9 +14,7 @@ GameObject:
   - component: {fileID: 3005463624241160809}
   - component: {fileID: 6294726445926664279}
   - component: {fileID: 749537235149274389}
-  - component: {fileID: 1770299751576182079}
   - component: {fileID: 263911174542311592}
-  - component: {fileID: -7972551417613653123}
   - component: {fileID: 9195724684281840521}
   - component: {fileID: 6622832131594872302}
   m_Layer: 0
@@ -175,33 +173,6 @@ MonoBehaviour:
   PcCamera: {fileID: 7268449350634651738}
   PCplayer: {fileID: 0}
   VRplayer: {fileID: 0}
-  currentScene: 
-  lobbyP1SpawnPoint: {fileID: 0}
-  lobbyP2SpawnPoint: {fileID: 0}
-  beerPongP1SpawnPoint: {fileID: 4469876989175805423, guid: e2eae4e53b388384f862309365ec501d, type: 3}
-  beerPongP2SpawnPoint: {fileID: 4469876989175805423, guid: 41cf69bdeda3b534d969a93527dc47bc, type: 3}
-  pinataPopP1SpawnPoint: {fileID: 0}
-  pinataPopSpawnPoint: {fileID: 0}
-  parkourRaceP1SpawnPoint: {fileID: 0}
-  parkourRaceP2SpawnPoint: {fileID: 0}
-  tickTacToeP1SpawnPoint: {fileID: 0}
-  tickTacToeP2SpawnPoint: {fileID: 0}
---- !u!114 &1770299751576182079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123514706950494819}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2a02a314fa6ef943868c4e32d9217e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactRange: 5
-  playerCamera: {fileID: 7268449350634651738}
-  crosshair_access: {fileID: 469601055121027260}
-  pickupController_access: {fileID: 1664022502828155037}
 --- !u!114 &263911174542311592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,26 +189,7 @@ MonoBehaviour:
   interactRange: 5
   playerCamera: {fileID: 7268449350634651738}
   crosshair_access: {fileID: 469601055121027260}
-  pickupControllerNet_access: {fileID: 1664022502828155037}
---- !u!114 &-7972551417613653123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123514706950494819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d99eea376b945f4e929be5d39dc5fe7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  PickupControllerNet: {fileID: 999235149978464683}
-  held: {fileID: 0}
-  holdArea: {fileID: 6868048652202225694}
-  rotationProgress: 0
-  PCStartRotation: {x: 0, y: 0, z: 0, w: 0}
-  PCEndRotation: {x: 0, y: 0, z: 0, w: 0}
+  pickupControllerNet_access: {fileID: 0}
 --- !u!120 &9195724684281840521
 LineRenderer:
   serializedVersion: 2
@@ -384,7 +336,6 @@ GameObject:
   - component: {fileID: 7268449350634651738}
   - component: {fileID: 3590296052468467279}
   - component: {fileID: 574466159439174381}
-  - component: {fileID: 1664022502828155037}
   - component: {fileID: 999235149978464683}
   m_Layer: 0
   m_Name: cameraPC
@@ -512,25 +463,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &1664022502828155037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1567635332458221024}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 912fd566f98522c4097c9ea991cbf85f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdArea: {fileID: 6868048652202225694}
-  heldObj: {fileID: 0}
-  pickupRange: 5
-  pickupForce: 150
-  throwForce: 10
-  line: {fileID: 6622832131594872302}
-  mass: 10
 --- !u!114 &999235149978464683
 MonoBehaviour:
   m_ObjectHideFlags: 0

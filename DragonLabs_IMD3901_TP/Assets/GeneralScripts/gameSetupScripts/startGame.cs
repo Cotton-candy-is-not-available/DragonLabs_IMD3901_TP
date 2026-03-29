@@ -178,7 +178,6 @@ public class startGame : NetworkBehaviour
         //IPAdressText.SetActive(true);//shows ip address to connect to
         NetworkManager.Singleton.StartHost();//start host
         gameSteupCanvas.SetActive(false );//hide net connect panel
-        hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
         Debug.Log("Host started LAN");
 
         //clientStarted.Value = true;//client has started
@@ -198,7 +197,6 @@ public class startGame : NetworkBehaviour
         //IPAdressText.SetActive(false);//hides ip address if not already
         NetworkManager.Singleton.StartClient();//join game as client
         gameSteupCanvas.SetActive(false);//hide net connect panel
-        hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
         clientStartServerRpc();//client has started
         Debug.Log("Client started LAN");
         //mainCamera.enabled = false;//turn off the main camera

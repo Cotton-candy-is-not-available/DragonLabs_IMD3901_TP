@@ -33,8 +33,6 @@ public class startRelay : MonoBehaviour
 
     [SerializeField] int maxPlayerNum = 2;
 
-    [SerializeField] hasStarted hasStartedAccesss;
-
     [SerializeField] startGame startGameAccesss;
 
     [SerializeField] string textToCopy;
@@ -59,7 +57,6 @@ public class startRelay : MonoBehaviour
     private async void Start()
     {
         //if (hasStarted.gameHasStarted && !startGameAccesss.multiPlayerMode) return;//don't run relay authentication if game has already started and multiplayer mode is off
-        if (hasStarted.gameHasStarted) return;//don't run relay authentication if game has already started and multiplayer mode is off
 
         await UnityServices.InitializeAsync();//initialises unity services so that API and relay can run
         AuthenticationService.Instance.SignedIn += () =>
@@ -68,7 +65,6 @@ public class startRelay : MonoBehaviour
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();//creates account for user anonymously
 
-        hasStarted.gameHasStarted = true;//set to true so that wehn the player comes bakc in the scene this fruntion does not run again
 
     }
 

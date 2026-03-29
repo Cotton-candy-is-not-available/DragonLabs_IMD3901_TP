@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ballHitCups : NetworkBehaviour
 {
+    public static ballHitCups Instance;
+
+
     public NetworkVariable<bool> P1Point;
     public NetworkVariable<bool> P2Point ;
-    public NetworkVariable<bool> table ;
     public NetworkVariable<bool> nonCup;
 
     //public bool P1Point = false;
@@ -23,32 +25,33 @@ public class ballHitCups : NetworkBehaviour
         P1Point.Value = false;
         P2Point.Value = false;
 
-        table.Value = false;
         nonCup.Value = false;
 
+        if (Instance != null)
+        {
+            gameObject.GetComponent<NetworkObject>().Despawn();
 
+        }
+        else
+        {
+            Instance = this;
 
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
       
 
-        if (collision.gameObject.tag == "floor")
+        //if (collision.gameObject.tag == "floor" || collision.gameObject.tag == "table")//if ball touches the floor or table
+        if (collision.gameObject.tag == "floor" )//if ball touches the floor or table
         {
             nonCup.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
-        }
-
-        else if (collision.gameObject.tag == "table")
-        {
-            table.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
-        }
-        else if (collision.gameObject.tag != "table")
-        {
-            table.Value = false;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
+            gameObject.GetComponent<NetworkObject>().Despawn();
 
         }
 
+  
 
 
     }
@@ -58,7 +61,6 @@ public class ballHitCups : NetworkBehaviour
         if (trigger.gameObject.tag == "cup1")//if the ball hits player 1 Cup 
         {
             P2Point.Value = true;//tell game manager to give a point to player 2
-
         }
 
         else if (trigger.gameObject.tag == "cup2")//player 2 cup 
