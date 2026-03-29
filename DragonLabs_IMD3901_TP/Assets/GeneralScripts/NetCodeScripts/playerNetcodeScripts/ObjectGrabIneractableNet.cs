@@ -16,6 +16,7 @@ public class ObjectGrabIneractableNet : NetworkBehaviour
         grabInteractable = GetComponent<XRGrabInteractable>();
         netObj = GetComponent<NetworkObject>();
     }
+
     private void Update()
     {
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
