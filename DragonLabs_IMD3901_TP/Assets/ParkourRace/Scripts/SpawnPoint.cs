@@ -3,7 +3,6 @@ using UnityEngine;
 public class SpawnPoint : MonoBehaviour
 {
     public Transform spawnPoint;
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

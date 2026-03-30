@@ -125,7 +125,7 @@ public class startRelay : MonoBehaviour
             //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
             //startGameAccesss.clientStartServerRpc();//client has started
             Debug.Log("Client started Relay");
-            chooseGameAccess.switchScenesNetServerRpc("Lobby");
+            //chooseGameAccess.switchScenesNetServerRpc("Lobby");
 
 
 

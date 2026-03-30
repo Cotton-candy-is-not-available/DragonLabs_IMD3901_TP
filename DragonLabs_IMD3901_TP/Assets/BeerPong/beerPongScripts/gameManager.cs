@@ -2,47 +2,31 @@ using System.Collections;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public class gameManager : NetworkBehaviour
 {
-    GameObject P1;
-    GameObject P2;
+    public NetworkObject newBall;
 
-    public Canvas player1PointsCanvas;
-    public Canvas player2PointsCanvas;
 
-    [Header("------------ Points text -------------")]
-    [Header("Player 1 view")]
-    public TMP_Text P1YouPointsText;
-    public TMP_Text P1OppPointsText;
-
-    [Header("Player 2 view")]
-    public TMP_Text P2YouPointsText;
-    public TMP_Text P2OppPointsText;
-
-    //[Header("------------ Points -------------")]
-    //public NetworkVariable<int> player1Points = new NetworkVariable<int>();
-    //public NetworkVariable<int> player2Points = new NetworkVariable<int>();
-    public int player1Points = 0;
-    public int player2Points = 0;
+    [Header("------------ Points -------------")]
+    public NetworkVariable<int> player1Points = new NetworkVariable<int>(0);
+    public NetworkVariable<int> player2Points = new NetworkVariable<int>(0);
+    //public int player1Points = 0;
+    //public int player2Points = 0;
 
     [Header("------------ Ball start pos -------------")]
     public Vector3 P1BallStartPos;
     public Vector3 P2BallStartPos;
 
     [Header("------------ Prefabs -------------")]
-    //public GameObject ballPrefab;
-
-    public NetworkObject[] ballPrefab;
-
-    float remainingTime = 3.0f;
+    public NetworkObject[] ballPrefab;//prefab with network object attached
 
 
     //public beerPongScoreManger scoreManger;
 
-    //int turn;
-    public NetworkVariable<int> turn;
+    public NetworkVariable<int> turn = new NetworkVariable<int>(2);
 
     public GameObject player1;
     public GameObject player2;
@@ -50,180 +34,140 @@ public class gameManager : NetworkBehaviour
     public Transform p1StartPos;
     public Transform p2StartPos;
 
-    public NetworkObject newBall;
+    //public NetworkObject newBall;
+
+    public VolumeProfile playerVolumeProfile;
+
+    public NetworkVariable<bool> isGameOver = new NetworkVariable<bool>(false);
+    public NetworkVariable<bool> activateWinnerPanel = new NetworkVariable<bool>(false);
+
+    public NetworkVariable<bool> spawnFirstBall = new NetworkVariable<bool>(true);
+    //public NetworkVariable<bool> goToLobby;
+
+    [Header("------------ Winner panels -------------")]
+    public GameObject P1WinnerPanel;
+    public GameObject P2WinnerPanel;
+
+
+    public ChooseGame sceneManager;
+
+
 
     public override void OnNetworkSpawn()
     {
-        turn.Value = 1;
-        spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
+        turn.OnValueChanged += OnChangedTurn;
+        isGameOver.OnValueChanged += OnGameOver;
+
+        activateWinnerPanel.OnValueChanged += OnWinner;
+
+        player1Points.OnValueChanged += OnAddPointP1;
+        player2Points.OnValueChanged += OnAddPointP2;
+
+        spawnFirstBall.OnValueChanged += OnSpawnFirstBall;
 
     }
 
     void Start()
     {
-        //////find both player in the scene
-        //player1 = GameObject.FindWithTag("Player1");
+        //find both player in the scene
+        player1 = GameObject.FindWithTag("Player1");
         //player2 = GameObject.FindWithTag("Player2");
 
-        ////Set their start positions
-        //player1.transform.transform.position = p1StartPos.position;
+        //Set players start positions
+        player1.transform.transform.position = p1StartPos.position;
         //player2.transform.transform.position = p2StartPos.position;
 
+        //---------------- Post processign ------------------------//
+        //add volume component to them so the blur/drunk effect can be called; this will be deleted when they leave the scenes
+        //maybe check if VR player or PC
+        //player1.AddComponent<Volume>();
+        //player2.AddComponent<Volume>();
 
-        P1BallStartPos =  new Vector3(0f, 4f, -5.756f);
+        ////set their volume profiles
+        //player1.GetComponent<Volume>().profile = playerVolumeProfile;
+        //player2.GetComponent<Volume>().profile = playerVolumeProfile;
 
-        P2BallStartPos = new Vector3(0f, 4f, 5.756f);
+
+
+        //---------------------------------------------------------//
+
+
+        //Set ball start positions
+        P1BallStartPos =  new Vector3(0f, 4.5f, -5f);
+        P2BallStartPos = new Vector3(0f, 4.5f, 5);
         Debug.Log("Start turn: "+ turn.Value);
 
         //turn.Value = 1;
+        //spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (turn == 0 &&  newBall == null)
-        //{
-        //    spawnBallServerRPC(P1BallStartPos);//spawn the ball infornt of player 1
-        //    //turn = 1;
+        if (spawnFirstBall.Value == true)
+        {
+            spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
+            changeSpanwFirstBallBoolRpc();//set to false
+        }
 
-        //}
-        //Set their start positions
-        //player1.transform.transform.position = p1StartPos.position;
-        //player2.transform.transform.position = p2StartPos.position;
-        //Debug.Log("newBallIsPawned: " + newBall.IsSpawned);
-    
+        else if (spawnFirstBall.Value == false)
+        {
+            //Set their start positions
+            player1.transform.transform.position = p1StartPos.position;
+            //player2.transform.transform.position = p2StartPos.position;
+            Debug.Log("newBall Update: " + newBall);
+            //Debug.Log("newBall.IsSpawned " + newBall.IsSpawned);
+
 
             //instatiate ball depending on who's turn it is
             if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
             {
                 spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
-                turn.Value = 2;//now player 2's turn
-                Debug.Log("Turn: "+ turn.Value);
+                                                   //turn.Value = 2;//now player 2's turn
+                changeTurnRpc(2);//now player 2's turn
+                Debug.Log("NOW player 2: "+ turn.Value);
             }
-            else if (turn.Value == 2  && !newBall.IsSpawned)//if player 2 turn
+            else if (turn.Value == 2 && !newBall.IsSpawned)//if player 2 turn
             {
                 spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
+                                                   //turn.Value = 1;//now player 1's turn
+                changeTurnRpc(1);//now player 1's turn
 
-                turn.Value = 1;//now player 1's turn
-                Debug.Log("Turn: "+ turn.Value);
+                Debug.Log("NOW player 1: "+ turn.Value);
 
             }
 
-       
-
-        //addPointOnDespawnServerRpc();
-
-        //if (newBall != null)//if tha ball exists start checking if points are to be added
-        //{
-        //    ballHitCups ballHit = newBall.GetComponent<ballHitCups>();//get the ball collision check script
+            Debug.Log("player1Points.Value: " + player1Points.Value);
+            Debug.Log("player2Points.Value: " + player2Points.Value);
 
 
-        //    //scoreManger.addP1PointServerRpc();
-
-
-
-        //    if (ballHit.P1Point)
-        //    {
-        //        player1Points+=1;//increase points for player 1
-
-
-        //        //P1
-        //        P1OppPointsText.text = ("Them: "+ player2Points);//update Player 1's text 
-        //        P1YouPointsText.text = ("You: "+ player1Points);//update Player 1's text 
-
-        //        //P2
-        //        P2OppPointsText.text = ("Them: "+ player1Points);//update player 2's  text 
-        //        P2YouPointsText.text = ("You: "+ player2Points);//update player 2's text 
-
-        //        Debug.Log("player1Points: "+ player1Points);
-        //        ballHit.P1Point = false;//reset to false
-        //        despawnBallServerRpc();//destroy the ball
-
-        //    }
-
-        //    if (ballHit.P2Point)
-        //    {
-        //        player2Points+=1;//increase points for player 2
-        //        //P1
-        //        player1Points+=1;//increase points for player 1
-        //        P1OppPointsText.text = ("Them: "+ player2Points);//update Player 1's text 
-        //        P1YouPointsText.text = ("You: "+ player1Points);//update Player 1's text 
-
-        //        //P2
-        //        P2OppPointsText.text = ("Them: "+ player1Points);//update player 2's  text 
-        //        P2YouPointsText.text = ("You: "+ player2Points);//update player 2's text 
-
-
-        //        Debug.Log("player2Points: "+ player2Points);
-        //        ballHit.P2Point = false;//reset to false
-        //        despawnBallServerRpc();//destroy the ball
-
-        //    }
-
-        //    if (ballHit.nonCup)//destroy ball if it hits anything else for long enough
-        //    {
-
-        //        despawnBallServerRpc();//destroy the ball
-        //        ballHit.nonCup = false;//turn it baxck off
-        //    }
-
-        //    //if (ballHit.table)
-        //    //{
-        //    //    //remainingTime = 3.0f;// start with 3 seconds
-        //    //    CheckTimeOnTable();//start count down timer
-        //    //    if (remainingTime <= 0)
-        //    //    {
-        //    //        despawnBallServerRPC();//destroy the ball
-        //    //        //ballHit.table = false;//turn it back off
-        //    //        remainingTime = 3.0f;//reset remaining time
-        //    //        Debug.Log("remainingTime in if statement: " + remainingTime);
-
-        //    //    }
-        //    //    Debug.Log("after check function: " + remainingTime);
-
-
-
-        //    //}
-        //    //else if (!ballHit.table)
-        //    //{
-        //    //    remainingTime = 3.0f;//reset remaining time
-        //    //    Debug.Log("table is false");
-        //    //}
-
-        //}
-
-    }
-
-
-
-
-
-
-    //Ball spawning and despawning
-
-    [ServerRpc(RequireOwnership = false)]
-    void spawnBallServerRpc(Vector3 startPos)
-    {
-        //for (int i = 0; i < 1; i++)
-        //{
-            foreach (NetworkObject ball in ballPrefab)
+            if (player1Points.Value == 3)
             {
+                Debug.Log("Game is over");
+                //isGameOver.Value == true;
+                displayWinnerRpc();//set to true
+                P1WinnerPanel.SetActive(activateWinnerPanel.Value);
+                //changeGameOverRpc();
+                StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
+                sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
 
-                if (!IsServer) return;
-                //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
-                newBall = Instantiate(ball, startPos, Quaternion.identity);
-                newBall.GetComponent<NetworkObject>().Spawn();
             }
-        //}
+            else if (player2Points.Value == 3)
+            {
+                Debug.Log("Game is over");
+                //isGameOver.Value == true;
+                displayWinnerRpc();//set to true
+                P2WinnerPanel.SetActive(activateWinnerPanel.Value);
+                //changeGameOverRpc();
+                StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
+
+                sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
+
+            }
+
+        }
+
     }
-
-
-    //void spawnBallServerRPC(Vector3 startPos)
-    //{
-    //    newBall = Instantiate(ballPrefab,startPos, Quaternion.identity).GetComponent<NetworkObject>();//instatiate the object
-    //    newBall.Spawn();//spawn it over the network
-    //    Debug.Log("newBall: " + newBall);
-    //}
 
     [ServerRpc(RequireOwnership = false)]
     public void despawnBallServerRpc()
@@ -231,63 +175,119 @@ public class gameManager : NetworkBehaviour
 
         foreach (NetworkObject ball in ballPrefab)
         {
-            //WaitAndDespawn();
+            if (!IsServer) return;
+
             if (ball != null)
             {
-                ball.Despawn();
+                Debug.Log("ball is not null");
+                if (newBall.IsSpawned)
+                {
+                    Debug.Log("newBal despawn:"+ newBall);
+                    newBall.Despawn();
+                    Debug.Log("Its GONE");
+
+                }
             }
         }
     }
 
 
+
+
+
+    //Ball spawning and despawning
     [ServerRpc(RequireOwnership = false)]
-    public void addPointOnDespawnServerRpc()//add points to players
+    void spawnBallServerRpc(Vector3 startPos)//allows client to also spawn/ see spawned ball
     {
+        
         foreach (NetworkObject ball in ballPrefab)
         {
-            if (ball.GetComponent<ballHitCups>().P1Point.Value)
-            {
-                Debug.Log("Player 1 add piont");
-            }
-            else
-            {
-                Debug.Log("No points");
-            }
-            //get ballHit component
-            //despawn the ball
 
+            if (!IsServer) return;
+            //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
+            newBall = Instantiate(ball, startPos, Quaternion.identity);
+            newBall.GetComponent<NetworkObject>().Spawn();
+            Debug.Log("newBal SPAWN:"+ newBall);
 
-            //if (ball == null)//if the the ball landed in the cup and was despawned
-            //{
-                //if(ball)
-            //}
+            //Debug.Log("newBall: ", newBall);
+            //Debug.Log("newBall is spawned: "+ newBall.IsSpawned);
         }
+
     }
 
-    IEnumerator WaitAndDespawn()
+
+    //change turn value
+    [Rpc(SendTo.Owner)]
+    public void changeTurnRpc(int turnNum)
     {
-        // suspend execution for 5 seconds
-        yield return new WaitForSeconds(5);
-        //print("WaitAndPrint " + Time.time);
+        turn.Value = turnNum;
+        Debug.Log("chnage rpc turn: " + turn.Value);
+
     }
 
-    void CheckTimeOnTable()
+
+    //change activateWinnerPanel value
+    [Rpc(SendTo.Owner)]
+    void displayWinnerRpc()
     {
-        remainingTime-= Time.deltaTime;//count down
+        StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
 
-        int minutes = Mathf.FloorToInt(remainingTime/60);
-        int seconds = Mathf.FloorToInt(remainingTime%60);
+        activateWinnerPanel.Value = true;
+    }
 
-        Debug.Log(" time cpunter " + string.Format("{0:00}:{1:00}", minutes, seconds));
-        Debug.Log("remaining time" +remainingTime);
+    [Rpc(SendTo.Owner)]
+    void changeSpanwFirstBallBoolRpc()
+    {
+        spawnFirstBall.Value = false;
+    }
 
+
+    //change turn value
+    [Rpc(SendTo.Owner)]
+    public void changeGameOverRpc()
+    {
+        isGameOver.Value = true;
+        Debug.Log("chnage rpc turn: " + isGameOver.Value);
 
     }
 
 
+    IEnumerator WaitToGoBack()
+    {
+
+        yield return new WaitForSeconds(15); //waits 5 seconds
+
+    }
+
+    //on changed for netvariables
+    private void OnChangedTurn(int previous, int current)
+    {
+        Debug.Log($"Detected NetworkVariable Change Turn : Previous: {previous} | Current: {current}");
+    }
+
+    private void OnGameOver(bool previous, bool current)
+    {
+        Debug.Log($"Detected NetworkVariable Change Game Over: Previous: {previous} | Current: {current}");
+    }
+
+    private void OnWinner(bool previous, bool current)
+    {
+        Debug.Log($"Detected NetworkVariable Change Winner: Previous: {previous} | Current: {current}");
+    }
 
 
+    private void OnAddPointP1(int previous, int current)
+    {
+        Debug.Log($"Detected NetworkVariable Change add point P1: Previous: {previous} | Current: {current}");
+    }
 
+    private void OnAddPointP2(int previous, int current)
+    {
+        Debug.Log($"Detected NetworkVariable Change add point P2: Previous: {previous} | Current: {current}");
+    }
 
-
+    private void OnSpawnFirstBall(bool previous, bool current)
+    {
+        Debug.Log($"Detected Spawn first ball Change : Previous: {previous} | Current: {current}");
+    }
 }

@@ -25,19 +25,14 @@ public class PickupControllerNet : NetworkBehaviour
     public float throwForce = 10f;
     [SerializeField] tragectoryLine line;
     public float mass = 10;
-    //bool enableLine = false;
-    //NetworkVariable<bool> enableLine = new NetworkVariable<bool>();
 
-    public NetworkVariable<bool> enableLine;
+    public NetworkVariable<bool> enableLine = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    //public NetworkVariable<bool> enableLine;
 
     public override void OnNetworkSpawn()
     {
-
-        enableLine.Value = false;
-
-
+        enableLine.OnValueChanged += OnEnableLineChanged;
     }
-    
 
 
     private void Update()
@@ -46,7 +41,6 @@ public class PickupControllerNet : NetworkBehaviour
         currentScene = SceneManager.GetActiveScene();
         
         //PICKING UP-----------------------------
-        //NEED TO CHECK TAG OF OBJECT BEFORE PICKING UP
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
             Debug.Log("i was presssed to pickup object");
@@ -89,8 +83,10 @@ public class PickupControllerNet : NetworkBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
                 {
+                    //if (hit.collider.CompareTag("Interactable")){
                     //pick up the object
-                    pickupObject(hit.transform.gameObject);
+                    pickupObject(hit.transform.gameObject);//pickup object
+                    //}
                 }
             }*/
         }
@@ -115,14 +111,15 @@ public class PickupControllerNet : NetworkBehaviour
             if (heldObj != null && heldObj.name == "ball(Clone)")//if the held object is not null and is the ball clone
             {
                 Debug.Log("ball line true");
-                enableLine.Value= true;
+                //enableLine.Value = true;
+                setEnableLineRpc(true);
                 line.drawTragectory(transform.forward * throwForce, enableLine);//turn on the tragectory line
             }
             else
             {
                 Debug.Log("ball line false");
-
-                enableLine.Value= false;
+                setEnableLineRpc(false);
+                //enableLine.Value = false;
                 line.drawTragectory(transform.forward * throwForce, enableLine);//hide the tragectory line
             }
         }
@@ -163,7 +160,16 @@ public class PickupControllerNet : NetworkBehaviour
         if (heldObj == null) return;
         
         heldObj.transform.position = holdArea.position;
-        heldObj.transform.rotation = holdArea.rotation;
+        if (currentScene.name != "beerPong")//only enable in beerPong scene
+        {
+            heldObj.transform.rotation = holdArea.rotation;//if this is enabled in beer pong player cannot rotate their cup; therefore any other scene can have this enabled
+        }
+        //heldObj.transform.rotation = holdArea.rotation;
+        if (currentScene.name == "beerPong")//only enable in beerPong scene
+        {
+            heldObjRB.constraints = RigidbodyConstraints.FreezeRotationY;//prevents object from rotating on Y
+            heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating on Z
+        }
     }
 
 
@@ -196,7 +202,7 @@ public class PickupControllerNet : NetworkBehaviour
             //clear the rigidbody's attributes
             rb.useGravity = true; //enable gravity again
             rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero; 
+            rb.angularVelocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints.None; //allow full movement
 
             //if the current scene is the beer pong minigame, add force so that the object can be thrown
@@ -221,8 +227,17 @@ public class PickupControllerNet : NetworkBehaviour
         heldObj.transform.position = holdArea.position;
         heldObj.transform.rotation = holdArea.rotation;
 
+        if (currentScene.name != "beerPong")//only enable in beerPong scene
+        {
+            heldObj.transform.rotation = holdArea.rotation;//if this is enabled in beer pong player cannot rotate their cup; therefore any other scene can have this enabled
+        }
         if (heldObjRB != null)
         {
+            if (currentScene.name == "beerPong")//only enable in beerPong scene
+            {
+                heldObjRB.constraints = RigidbodyConstraints.FreezeRotationY;//prevents object from rotating on Y
+                heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating on Z
+            }
             heldObjRB.useGravity = false; //turn gravity off so it floats in the air
         }
     }
@@ -249,5 +264,22 @@ public class PickupControllerNet : NetworkBehaviour
         heldObj = null;
         heldObjRB = null;
     }
+
+
+
+    //change the Enable line value
+    [Rpc(SendTo.Owner)]
+    void setEnableLineRpc(bool value)
+    {
+        enableLine.Value = value;
+    }
+
+
+    private void OnEnableLineChanged(bool previous, bool current)
+    {
+        Debug.Log($"Detected NetworkVariable Change: Previous: {previous} | Current: {current}");
+    }
+
+   
 
 }
