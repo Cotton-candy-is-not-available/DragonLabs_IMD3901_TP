@@ -51,6 +51,19 @@ public class ballHitCups : NetworkBehaviour
 
         }
 
+        if (collision.gameObject.tag == "table")//if ball touches the floor or table
+        {
+            Debug.Log("table");
+            //nonCup.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
+            //despawnBallServerRpc();
+            //manager.newBall = null;
+            //despawnBallRpc();
+            //gameObject.SetActive(turnOffBall.Value);
+            manager.despawnBallServerRpc();
+
+
+        }
+
 
 
 

@@ -147,9 +147,10 @@ public class gameManager : NetworkBehaviour
                 //isGameOver.Value == true;
                 displayWinnerRpc();//set to true
                 P1WinnerPanel.SetActive(activateWinnerPanel.Value);
+                changeGameOverServerRpc();
                 //changeGameOverRpc();
-                StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
-                sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
+                //StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
+                //sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
 
             }
             else if (player2Points.Value == 3)
@@ -158,10 +159,11 @@ public class gameManager : NetworkBehaviour
                 //isGameOver.Value == true;
                 displayWinnerRpc();//set to true
                 P2WinnerPanel.SetActive(activateWinnerPanel.Value);
+                changeGameOverServerRpc();
                 //changeGameOverRpc();
-                StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
+                //StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
 
-                sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
+                //sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
 
             }
 
@@ -230,7 +232,6 @@ public class gameManager : NetworkBehaviour
     [Rpc(SendTo.Owner)]
     void displayWinnerRpc()
     {
-        StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
 
         activateWinnerPanel.Value = true;
     }
@@ -243,11 +244,15 @@ public class gameManager : NetworkBehaviour
 
 
     //change turn value
-    [Rpc(SendTo.Owner)]
-    public void changeGameOverRpc()
+    //[Rpc(SendTo.Owner)]
+    [ServerRpc(RequireOwnership = false)]
+
+    public void changeGameOverServerRpc()
     {
-        isGameOver.Value = true;
-        Debug.Log("chnage rpc turn: " + isGameOver.Value);
+        //isGameOver.Value = true;
+        //Debug.Log("chnage rpc turn: " + isGameOver.Value);
+        StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
+
 
     }
 
@@ -256,6 +261,7 @@ public class gameManager : NetworkBehaviour
     {
 
         yield return new WaitForSeconds(15); //waits 5 seconds
+        sceneManager.switchScenesNetServerRpc("Lobby");
 
     }
 
