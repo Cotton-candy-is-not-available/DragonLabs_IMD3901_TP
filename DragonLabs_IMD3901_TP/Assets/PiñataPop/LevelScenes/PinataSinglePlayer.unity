@@ -962,6 +962,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1374459694}
     - target: {fileID: 1917773703285105195, guid: 52ffcd0107145a94898c11580ac5f6a8, type: 3}
+      propertyPath: audioManSinglePlayer
+      value: 
+      objectReference: {fileID: 2131608858}
+    - target: {fileID: 1917773703285105195, guid: 52ffcd0107145a94898c11580ac5f6a8, type: 3}
       propertyPath: scoresManager_access
       value: 
       objectReference: {fileID: 2046792804}
@@ -6897,6 +6901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerDisplay: {fileID: 958613238}
   pinataController_access: {fileID: 1918423209}
+  chooseGame_access: {fileID: 1977826209}
   isExtraTimeDone: 0
   timerBGimage: {fileID: 118237393}
 --- !u!1 &585291546
@@ -12236,6 +12241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoresManager_access: {fileID: 2046792804}
   confettiPopParticles: {fileID: 461672092}
+  audioManSinglePlayer: {fileID: 2131608858}
   candy: {fileID: 1646401661}
   isGameOver: 0
 --- !u!1 &1926488072 stripped
@@ -12248,6 +12254,50 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4984404553456696526, guid: 64da7df2e7b4f47d0a9dc441ebe67ef9, type: 3}
   m_PrefabInstance: {fileID: 2039830009}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1977826208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1977826210}
+  - component: {fileID: 1977826209}
+  m_Layer: 0
+  m_Name: SwitchScenesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1977826209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977826208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c79476573679d46a46ab1ee9ff2d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1977826210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977826208}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.58476, y: 0.22408, z: -2.19266}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1998084767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12819,6 +12869,91 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3981832336445519590, guid: 624fd5ef1fb814feea05c1eb7121f1e2, type: 3}
+--- !u!1001 &2111142668
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: chosenGame
+      value: PinataPop
+      objectReference: {fileID: 0}
+    - target: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: batHitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f083885be99e3ce4894ab64f4e0e3e98, type: 3}
+    - target: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: partyBlower
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a0daafcf89707141bced92a88c873e1, type: 3}
+    - target: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: pickupORdrop
+      value: 
+      objectReference: {fileID: 8300000, guid: 54876a2c252c7ca438ee3f2a2a7439ff, type: 3}
+    - target: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: pinataPopSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1827806b04826ec41b862aa8d7e45fce, type: 3}
+    - target: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: pinata_background
+      value: 
+      objectReference: {fileID: 8300000, guid: f38ffa96a9df6ab4b883bf34ff59b1fb, type: 3}
+    - target: {fileID: 1215309364188712390, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_Name
+      value: AudioManagerSinglePlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334926778548526016, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_Volume
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
 --- !u!1001 &2111975951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12906,91 +13041,26 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8919072518003199017, guid: 624fd5ef1fb814feea05c1eb7121f1e2, type: 3}
---- !u!1001 &2640428510549335119
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 559606034786271153, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_Name
-      value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 559606034786271153, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2005822486448065552, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 3619954461
-      objectReference: {fileID: 0}
-    - target: {fileID: 2005822486448065552, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: SceneMigrationSynchronization
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2005822486448065552, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 2609882781
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954287213371255819, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954287213371255819, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954287213371255819, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954287213371255819, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954287213371255819, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954287213371255819, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954287213371255819, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954287213371255819, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954287213371255819, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954287213371255819, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6807535425853498902, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
-      propertyPath: chosenGame
-      value: PinataPop
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 49f86a7a16faf9d41b308c341c200e2e, type: 3}
+--- !u!114 &2131608858 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+  m_PrefabInstance: {fileID: 2111142668}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21e7a9a39bc79dc48ae893ce121c3edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1732429905}
   - {fileID: 2036933481}
-  - {fileID: 2640428510549335119}
   - {fileID: 269769764}
+  - {fileID: 2111142668}
+  - {fileID: 1977826210}
   - {fileID: 2046792803}
   - {fileID: 573367832}
   - {fileID: 678282073}

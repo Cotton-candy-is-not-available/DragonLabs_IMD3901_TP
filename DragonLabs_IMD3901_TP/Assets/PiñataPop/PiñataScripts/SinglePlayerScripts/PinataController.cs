@@ -11,6 +11,7 @@ public class PinataController : MonoBehaviour
 
     public ScoresManager scoresManager_access;
     public ParticleSystem confettiPopParticles;
+    public AudioManagerSinglePlayer audioManSinglePlayer;
 
     public GameObject candy;
 
@@ -33,6 +34,8 @@ public class PinataController : MonoBehaviour
             Debug.Log("GAME OVER!");
             isGameOver = true;
             confettiPopParticles.Play();
+            audioManSinglePlayer.PlaySFX(audioManSinglePlayer.pinataPopSound);
+            audioManSinglePlayer.PlaySFX(audioManSinglePlayer.partyBlower);
             candy.SetActive(true);
         }
 
@@ -42,6 +45,7 @@ public class PinataController : MonoBehaviour
     {
         if(collision.gameObject.name == "BatP1")
         {
+            audioManSinglePlayer.PlaySFX(audioManSinglePlayer.batHitSound);
             //Debug.Log("P1 hit the pinata");
             if(isGameOver == false) //only add point if the game is not over
             {

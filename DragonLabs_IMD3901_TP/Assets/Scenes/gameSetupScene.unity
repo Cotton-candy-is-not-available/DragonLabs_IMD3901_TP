@@ -4947,13 +4947,13 @@ MonoBehaviour:
   gameModeOptionPanel: {fileID: 129331998}
   startNetPanel: {fileID: 271683837}
   PCplayer: {fileID: 123514706950494819, guid: 3432999a8b86d1f40abb4a398ff16d03, type: 3}
-  VRplayer: {fileID: 8842678829648397640, guid: b3883406c87b82648af8f753fe5abcd4, type: 3}
+  VRplayer: {fileID: 2865438684419936513, guid: 66fdf2e66f33ee64cad1a9eb3e10e5ff, type: 3}
   localPCPlayer: {fileID: 1686308092}
   localVRPlayer: {fileID: 1577935404}
   NetworkManagerObject: {fileID: 1674299566}
   chooseGameAccess: {fileID: 974390632}
-  clientStarted:
-    m_InternalValue: 0
+  LANHostButton: {fileID: 0}
+  LANClientButton: {fileID: 0}
 --- !u!114 &1181784892
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,6 +14,14 @@ public class AudioManager : NetworkBehaviour
     public AudioClip beerPong_background;
     public AudioClip lobby_background;
 
+    //pinata pop sound effects
+    public AudioClip pinataPopSound;
+    public AudioClip pickupORdrop;
+    public AudioClip partyBlower;
+    public AudioClip batHitSound;
+
+
+
     public string chosenGame;
 
 
@@ -23,11 +31,10 @@ public class AudioManager : NetworkBehaviour
         PlayBackgroundMusicServerRpc(chosenGame);
     }
 
-
-    //[ServerRpc(RequireOwnership = false)]
     public void PlaySFX(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);
+        Debug.Log("played SFX for host");
     }
 
 
@@ -44,11 +51,10 @@ public class AudioManager : NetworkBehaviour
                 musicSource.Play();
                 break;
 
-
-            //case "beerPong":
-            //    musicSource.clip = beerPong_background;
-            //    musicSource.Play();
-            //    break;
+            case "beerPong":
+                musicSource.clip = beerPong_background;
+                musicSource.Play();
+                break;
 
             case "lobby":
                 musicSource.clip = lobby_background;

@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 6646350504937524714}
   - component: {fileID: 2640489837521123353}
   - component: {fileID: 1929406941650414546}
+  - component: {fileID: 9053184299751769770}
   m_Layer: 0
   m_Name: X_Piece
   m_TagString: Interactable
@@ -147,7 +148,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7371417, y: 0.7371417, z: 0.7371417}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 501241798831508853}
@@ -336,6 +337,28 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
+--- !u!64 &9053184299751769770
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3827619851916269659}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &4242992974468606378
 GameObject:
   m_ObjectHideFlags: 0
