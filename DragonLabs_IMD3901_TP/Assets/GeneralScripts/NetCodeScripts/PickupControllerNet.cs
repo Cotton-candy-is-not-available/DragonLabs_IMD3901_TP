@@ -39,12 +39,46 @@ public class PickupControllerNet : NetworkBehaviour
     {
         // Get current scene name
         currentScene = SceneManager.GetActiveScene();
+        
         //PICKING UP-----------------------------
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
             Debug.Log("i was presssed to pickup object");
+            
+            if (IsHost)
+            {
+                Debug.Log("HOST pressed I");
+                
+                //request the server to pick up the object
+                if (heldObj == null) //if an object is NOT already being held
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
+                    {
+                        //pick up the object
+                        pickupObject(hit.transform.gameObject);
+                        Debug.Log("host requested to pickup");
+                    }
+                }
+            }
+            else if (IsClient)
+            {
+                Debug.Log("CLIENT pressed I");
 
-            if (heldObj == null) //if an object is NOT already being held
+                //request the server to pick up the object
+                if (heldObj == null) //if an object is NOT already being held
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
+                    {
+                        //pick up the object
+                        pickupObject(hit.transform.gameObject);
+                        Debug.Log("client requested to pickup");
+                    }
+                }
+            }
+
+            /*if (heldObj == null) //if an object is NOT already being held
             {
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
@@ -54,7 +88,7 @@ public class PickupControllerNet : NetworkBehaviour
                     pickupObject(hit.transform.gameObject);//pickup object
                     //}
                 }
-            }
+            }*/
         }
 
         //DROPPING-----------------------------
@@ -69,7 +103,6 @@ public class PickupControllerNet : NetworkBehaviour
         {
             //move the object around
             moveObject();
-
         }
 
         //----Draw the tragectory line BeerPong scene only and only if holding ball
@@ -125,7 +158,7 @@ public class PickupControllerNet : NetworkBehaviour
     void moveObject()
     {
         if (heldObj == null) return;
-        //snap object instantly to hold area
+        
         heldObj.transform.position = holdArea.position;
         if (currentScene.name != "beerPong")//only enable in beerPong scene
         {
@@ -138,6 +171,7 @@ public class PickupControllerNet : NetworkBehaviour
             heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating on Z
         }
     }
+
 
     [ServerRpc(RequireOwnership = false)]
     void PickupObjectServerRpc(ulong objectId, ulong playerClientId)
@@ -179,7 +213,7 @@ public class PickupControllerNet : NetworkBehaviour
                 rb.linearVelocity = transform.forward * throwForce;
             }
         }
-        ClearHeldObjectClientRpc();
+        ClearHeldObjectClientRpc(netObj.NetworkObjectId);
     }
 
     [ClientRpc]
@@ -209,8 +243,23 @@ public class PickupControllerNet : NetworkBehaviour
     }
 
     [ClientRpc]
-    void ClearHeldObjectClientRpc()
+    void ClearHeldObjectClientRpc(ulong objectId)
     {
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[objectId];
+
+        //unparent the object
+        netObj.transform.SetParent(null);
+
+        Rigidbody rb = netObj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            //clear the rigidbody's attributes
+            rb.useGravity = true; //enable gravity again
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints.None; //allow full movement
+        }
+
         //reset the held object from the client
         heldObj = null;
         heldObjRB = null;

@@ -13,6 +13,7 @@ public class TimerControllerNet : NetworkBehaviour
     public NetworkVariable<float> elapsedCandyTime;
 
     public PinataControllerNet pinataControllerNet_access;
+
     public NetworkVariable<bool> isExtraTimeDone; //for collecting candy
 
     public Image timerBGimage;

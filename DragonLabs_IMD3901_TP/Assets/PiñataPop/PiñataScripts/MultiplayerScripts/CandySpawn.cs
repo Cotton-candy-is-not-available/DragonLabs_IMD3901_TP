@@ -18,6 +18,7 @@ public class CandySpawn : NetworkBehaviour
             {
                 NetworkObject newCandy = Instantiate(candy, transform.position, Quaternion.identity);
                 newCandy.GetComponent<NetworkObject>().Spawn();
+                newCandy.DestroyWithScene = true;
             }
             //Debug.Log("candies all spawned HOST and CLIENT");
         }
