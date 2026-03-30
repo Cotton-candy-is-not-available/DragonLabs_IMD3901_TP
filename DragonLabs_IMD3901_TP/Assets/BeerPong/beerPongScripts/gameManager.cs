@@ -34,8 +34,6 @@ public class gameManager : NetworkBehaviour
     public Transform p1StartPos;
     public Transform p2StartPos;
 
-    //public NetworkObject newBall;
-
     public VolumeProfile playerVolumeProfile;
 
     public NetworkVariable<bool> isGameOver = new NetworkVariable<bool>(false);
@@ -71,11 +69,11 @@ public class gameManager : NetworkBehaviour
     {
         //find both player in the scene
         player1 = GameObject.FindWithTag("Player1");
-        //player2 = GameObject.FindWithTag("Player2");
+        player2 = GameObject.FindWithTag("Player2");
 
         //Set players start positions
         player1.transform.transform.position = p1StartPos.position;
-        //player2.transform.transform.position = p2StartPos.position;
+        player2.transform.transform.position = p2StartPos.position;
 
         //---------------- Post processign ------------------------//
         //add volume component to them so the blur/drunk effect can be called; this will be deleted when they leave the scenes
@@ -114,7 +112,7 @@ public class gameManager : NetworkBehaviour
         {
             //Set their start positions
             player1.transform.transform.position = p1StartPos.position;
-            //player2.transform.transform.position = p2StartPos.position;
+            player2.transform.transform.position = p2StartPos.position;
             Debug.Log("newBall Update: " + newBall);
             //Debug.Log("newBall.IsSpawned " + newBall.IsSpawned);
 
@@ -147,9 +145,10 @@ public class gameManager : NetworkBehaviour
                 //isGameOver.Value == true;
                 displayWinnerRpc();//set to true
                 P1WinnerPanel.SetActive(activateWinnerPanel.Value);
+                goToLobbyServerRpc();
                 //changeGameOverRpc();
-                StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
-                sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
+                //StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
+                //sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
 
             }
             else if (player2Points.Value == 3)
@@ -158,10 +157,11 @@ public class gameManager : NetworkBehaviour
                 //isGameOver.Value == true;
                 displayWinnerRpc();//set to true
                 P2WinnerPanel.SetActive(activateWinnerPanel.Value);
+                goToLobbyServerRpc();
                 //changeGameOverRpc();
-                StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
+                //StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
 
-                sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
+                //sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
 
             }
 
@@ -230,7 +230,6 @@ public class gameManager : NetworkBehaviour
     [Rpc(SendTo.Owner)]
     void displayWinnerRpc()
     {
-        StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
 
         activateWinnerPanel.Value = true;
     }
@@ -243,11 +242,15 @@ public class gameManager : NetworkBehaviour
 
 
     //change turn value
-    [Rpc(SendTo.Owner)]
-    public void changeGameOverRpc()
+    //[Rpc(SendTo.Owner)]
+    [ServerRpc(RequireOwnership = false)]
+
+    public void goToLobbyServerRpc()
     {
-        isGameOver.Value = true;
-        Debug.Log("chnage rpc turn: " + isGameOver.Value);
+        //isGameOver.Value = true;
+        //Debug.Log("chnage rpc turn: " + isGameOver.Value);
+        StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
+
 
     }
 
@@ -255,7 +258,8 @@ public class gameManager : NetworkBehaviour
     IEnumerator WaitToGoBack()
     {
 
-        yield return new WaitForSeconds(15); //waits 5 seconds
+        yield return new WaitForSeconds(10); //waits 5 seconds
+        sceneManager.switchScenesNetServerRpc("Lobby");//switches players back to lobby scene
 
     }
 
