@@ -44,11 +44,10 @@ public class AudioManager : NetworkBehaviour
                 musicSource.Play();
                 break;
 
-
-            //case "beerPong":
-            //    musicSource.clip = beerPong_background;
-            //    musicSource.Play();
-            //    break;
+            case "beerPong":
+                musicSource.clip = beerPong_background;
+                musicSource.Play();
+                break;
 
             case "lobby":
                 musicSource.clip = lobby_background;

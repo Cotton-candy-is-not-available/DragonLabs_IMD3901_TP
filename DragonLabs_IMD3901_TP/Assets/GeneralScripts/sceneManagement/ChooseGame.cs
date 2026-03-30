@@ -11,8 +11,13 @@ public class ChooseGame : MonoBehaviour
     //public Animator transition;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public static ChooseGame instance;
 
+
+    void Start()
+    {
+        
+
+    }
 
     public void switchScenes(string sceneName)
     {
@@ -25,6 +30,8 @@ public class ChooseGame : MonoBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void switchScenesNetServerRpc(string sceneName)
     {
+        NetworkManager.Singleton.SceneManager.ActiveSceneSynchronizationEnabled = true;
+
         //transition.SetTrigger("Start");
         NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         Debug.Log("netowkr switch scenes");

@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +11,7 @@ public class PlayerInteractionNet : NetworkBehaviour
     public Camera playerCamera;
 
     public Crosshair crosshair_access;
-    public PickupController pickupControllerNet_access;
+    //public PickupController pickupControllerNet_access;
 
     Scene currentScene;
    
@@ -60,20 +61,22 @@ public class PlayerInteractionNet : NetworkBehaviour
 
                     if (button != null)
                     {
-                        if ((int)OwnerClientId  == 0) //host
-                        //if(NetworkManager.Singleton.LocalClientId == 0)
-                        {
-                            //button.animateButton();
-                            button.animateButtonServerRpc(buttonNetObj);
-                            //button.switchSceneOnButtonServerRpc();
-                        }
+                        button.animateButtonServerRpc(buttonNetObj);
 
-                        if ((int)OwnerClientId  == 1) //client
-                        //if (NetworkManager.Singleton.LocalClientId == 1)
-                        {
-                            //button.PressButtonServerRpc(button.NetworkObjectId);
-                           // button.switchSceneOnButtonServerRpc();
-                        }
+                        //if ((int)OwnerClientId  == 0) //host
+                        ////if(NetworkManager.Singleton.LocalClientId == 0)
+                        //{
+                        //    //button.animateButton();
+                        //    button.animateButtonServerRpc(buttonNetObj);
+                        //    //button.switchSceneOnButtonServerRpc();
+                        //}
+
+                        //if ((int)OwnerClientId  == 1) //client
+                        ////if (NetworkManager.Singleton.LocalClientId == 1)
+                        //{
+                        //    //button.PressButtonServerRpc(button.NetworkObjectId);
+                        //   // button.switchSceneOnButtonServerRpc();
+                        //}
                     }
 
                     //Debug.Log("interact was set to true");
@@ -82,10 +85,12 @@ public class PlayerInteractionNet : NetworkBehaviour
 
                 if (currentScene.name == "beerPong"){//only enable in beerPong scene
 
-                    if (Keyboard.current.rKey.wasPressedThisFrame)
+                    if (Keyboard.current.rKey.isPressed)//if r key was held down
                     {
                         if (hit.collider.gameObject.GetComponent<pourDetector>() !=null)
                         {
+                            NetworkObject cupNetObj = hit.collider.gameObject.GetComponent<NetworkObject>();
+                            cupNetObj.GetComponent<pourDetector>().rotateCupServerRpc(cupNetObj.NetworkObjectId);
 
                         }
                         else//if it doesnt have the pour detector script do nothing and go back

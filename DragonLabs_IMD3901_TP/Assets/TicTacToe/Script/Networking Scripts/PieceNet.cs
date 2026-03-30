@@ -69,7 +69,7 @@ public class PieceNet : NetworkBehaviour
         PickupControllerNet pickup = FindFirstObjectByType<PickupControllerNet>();
         if (pickup != null)
         {
-            pickup.ForceClearHeldObject();
+            //pickup.ForceClearHeldObject();
         }
 
         transform.SetParent(null, true);
