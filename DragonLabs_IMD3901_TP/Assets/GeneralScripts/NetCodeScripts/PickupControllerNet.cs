@@ -258,6 +258,14 @@ public class PickupControllerNet : NetworkBehaviour
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints.None; //allow full movement
+
+            //if the current scene is the beer pong minigame, add force so that the object can be thrown
+            if (currentScene.name == "beerPong")
+            {
+                //heldObjRB.AddForce(transform.forward * throwForce);
+                Debug.Log("beerpong scene");
+                rb.linearVelocity = transform.forward * throwForce;
+            }
         }
 
         //reset the held object from the client
