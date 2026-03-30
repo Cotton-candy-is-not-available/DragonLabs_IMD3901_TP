@@ -40,7 +40,7 @@ public class NetworkManagerHud : MonoBehaviour
 
     private void Start()
     {
-        m_NetworkManager.SceneManager.ActiveSceneSynchronizationEnabled = true;
+        //m_NetworkManager.SceneManager.ActiveSceneSynchronizationEnabled = true;
 
     }
 

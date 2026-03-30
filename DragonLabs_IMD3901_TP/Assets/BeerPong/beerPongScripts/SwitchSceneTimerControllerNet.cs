@@ -32,15 +32,15 @@ public class SwitchSceneTimerControllerNet : NetworkBehaviour
     {
         //Debug.Log("UpdateTimerServerRpc run");
 
-        if (gameManagerAccess.isGameOver.Value == false) //if the game is not over the timer should be counting
+        if (gameManagerAccess.isGameOver.Value == true) //if the game is not over the timer should be counting
         {
             elapsedTime.Value -= Time.deltaTime; //calculates all of the time passed since game started
 
-            if (elapsedTime.Value <= 0)
-            {
-                elapsedTime.Value = 0;
-                gameManagerAccess.isGameOver.Value = true;
-            }
+            //if (elapsedTime.Value <= 0)
+            //{
+            //    elapsedTime.Value = 0;
+            //    //gameManagerAccess.isGameOver.Value = true;
+            //}
 
             int minutes = Mathf.FloorToInt(elapsedTime.Value / 60);
             int seconds = Mathf.FloorToInt(elapsedTime.Value % 60);
@@ -49,7 +49,7 @@ public class SwitchSceneTimerControllerNet : NetworkBehaviour
             timerDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
             UpdateTimerClientRpc(); //update the client
         }
-        else //if the game is over (either failure or victory), end the time
+        else if (elapsedTime.Value <= 0) //if the game is over (either failure or victory), end the time
         {
             elapsedTime.Value = 0;
             timerDisplay.text = "00:00";

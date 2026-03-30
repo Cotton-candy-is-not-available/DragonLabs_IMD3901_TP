@@ -46,7 +46,7 @@ public class startBlurEffect : NetworkBehaviour
         if (other.gameObject.name == "ball(Clone)")//if the ball touches the beer 
         {
             Debug.Log("touched beer");
-            //cup.tag = "Interactable";//change cup to interactable to player can drink
+            cup.tag = "Interactable";//change cup to interactable to player can drink
             //cupVRgrabInteractable.enabled = true;//allow VR player to grab cup 
 
             //activate.Value = true;
