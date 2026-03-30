@@ -10,10 +10,17 @@ public class AudioManager : NetworkBehaviour
 
     [Header("---- Audio Clip ----")]
     public AudioClip pinata_background;
-    /* add other background music for the other minigames
+     //add other background music for the other minigames
     public AudioClip beerPong_background;
-    public AudioClip ticTacToe_background;
-    public AudioClip parkour_background; */
+    public AudioClip lobby_background;
+
+    //pinata pop sound effects
+    public AudioClip pinataPopSound;
+    public AudioClip pickupORdrop;
+    public AudioClip partyBlower;
+    public AudioClip batHitSound;
+
+
 
     public string chosenGame;
 
@@ -24,11 +31,10 @@ public class AudioManager : NetworkBehaviour
         PlayBackgroundMusicServerRpc(chosenGame);
     }
 
-
-    //[ServerRpc(RequireOwnership = false)]
     public void PlaySFX(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);
+        Debug.Log("played SFX for host");
     }
 
 
@@ -45,22 +51,17 @@ public class AudioManager : NetworkBehaviour
                 musicSource.Play();
                 break;
 
-            /*
-            case "BeerPong":
+            case "beerPong":
                 musicSource.clip = beerPong_background;
                 musicSource.Play();
                 break;
 
-            case "TicTacToe":
-                musicSource.clip = ticTacToe_background;
+            case "lobby":
+                musicSource.clip = lobby_background;
                 musicSource.Play();
                 break;
 
-            case "ParkourRace":
-                musicSource.clip = parkour_background;
-                musicSource.Play();
-                break;
-            */
+
         }
     }
 

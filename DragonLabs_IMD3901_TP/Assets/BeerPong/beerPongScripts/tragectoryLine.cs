@@ -47,7 +47,7 @@ public class tragectoryLine : NetworkBehaviour
         }
         else if (!enableLine.Value)
         {
-            Debug.Log("STOP");
+            //Debug.Log("STOP");
             lineRenderer.GetComponent<LineRenderer>().enabled = enableLine.Value;//hide the line
         }
 

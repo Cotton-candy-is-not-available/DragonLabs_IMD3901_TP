@@ -11,10 +11,13 @@ public class PinataControllerNet : NetworkBehaviour
     public ScoresManagerNet scoresManagerNet_access;
     public ParticleSystem confettiPopParticles;
     public CandySpawn candySpawner_access;
-
     public WinBoardSpawn winBoardSpawn_access;
+    public TimerControllerNet timerControllerNet_access;
+    public AudioManager audioManMultiPlayer;
 
     public NetworkVariable<bool> isGameOver;
+    public NetworkVariable<bool> once;
+
     bool shouldApplyForce = false;
 
     private void Start()
@@ -28,6 +31,7 @@ public class PinataControllerNet : NetworkBehaviour
         //set initial value
         pinataHealth.Value = 10;
         isGameOver.Value = false;
+        once.Value = false;
 
         //upate the values when they are changed
         pinataHealth.OnValueChanged += OnHealthPointsChanged;
@@ -41,22 +45,29 @@ public class PinataControllerNet : NetworkBehaviour
         if (!IsServer) return;
 
         Debug.Log("pinata health: " + pinataHealth.Value);
+        Debug.Log("isExtraTimeDone is: " + timerControllerNet_access.isExtraTimeDone.Value);
+        if (timerControllerNet_access.isExtraTimeDone.Value == true)
+        {
+            if(once.Value == false)
+            {
+                Debug.Log("ready to spawn the winner board");
+                winBoardSpawn_access.SpawnWinBoardServerRpc();
+                once.Value = true;
+            }
+        }
 
         //only play confetti particle if the game is over and the pinata health is 0
         if (pinataHealth.Value <= 0 && isGameOver.Value == false) 
         {
             Debug.Log("GAME OVER!");
             isGameOver.Value = true;
-            //display the winner board
-            if (IsServer)
-            {
-                winBoardSpawn_access.SpawnWinBoardServerRpc();
-            }
 
             //play confetti particles
             playConfettiServerRpc();
+            audioManMultiPlayer.PlaySFX(audioManMultiPlayer.partyBlower);
             candySpawner_access.SpawnCandyServerRpc();
         }
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -64,6 +75,7 @@ public class PinataControllerNet : NetworkBehaviour
         if(collision.gameObject.name == "BatP1")
         {
             //Debug.Log("P1 hit the pinata");
+            audioManMultiPlayer.PlaySFX(audioManMultiPlayer.batHitSound);
 
             if (isGameOver.Value == false) //only increase points if game is not over
             {
@@ -79,6 +91,8 @@ public class PinataControllerNet : NetworkBehaviour
         else if(collision.gameObject.name == "BatP2")
         {
             //Debug.Log("P2 hit the pinata");
+            audioManMultiPlayer.PlaySFX(audioManMultiPlayer.batHitSound);
+
             if (isGameOver.Value == false)
             {
                 scoresManagerNet_access.addP2HitPointServerRpc();
@@ -134,6 +148,7 @@ public class PinataControllerNet : NetworkBehaviour
     public void playConfettiClientRpc()
     {
         confettiPopParticles.Play();
+        audioManMultiPlayer.PlaySFX(audioManMultiPlayer.partyBlower);
     }
 
 }

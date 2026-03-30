@@ -5,7 +5,6 @@ using UnityEngine;
 public class WinnerManagerNet : NetworkBehaviour
 {
     [SerializeField] TMPro.TextMeshProUGUI winnerDisplayTXT;
-    //public Canvas winnerBoard;
 
     public NetworkVariable<int> p1_results;
     public NetworkVariable<int> p2_results;
@@ -25,13 +24,13 @@ public class WinnerManagerNet : NetworkBehaviour
     private void Update()
     {
         if(!IsServer) return;
+        //calculateWinnerServerRpc();
         //constantly update the timers for both the host and the client
-        calculateWinnerServerRpc();
         updateWinnerBoardServerRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void calculateWinnerServerRpc()
+    public void calculateWinnerServerRpc()
     {
         p1_results.Value = scoresManagerNet_access.P1HitPoints.Value + scoresManagerNet_access.P1CandyPoints.Value;
         p2_results.Value = scoresManagerNet_access.P2HitPoints.Value + scoresManagerNet_access.P2CandyPoints.Value;

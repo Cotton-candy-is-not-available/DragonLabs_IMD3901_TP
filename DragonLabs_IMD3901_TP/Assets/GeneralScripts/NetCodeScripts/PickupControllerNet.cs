@@ -1,31 +1,37 @@
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PickupControllerNet : NetworkBehaviour
 {
-    [SerializeField] private Transform holdArea;
+    [SerializeField] Transform holdArea; //will be parented to this
 
+    //the object that is picked up
     public GameObject heldObj;
     public GameObject HeldObject => heldObj;
-
     private Rigidbody heldObjRB;
 
+    //physics
     [SerializeField] private float pickupRange = 5.0f;
     [SerializeField] private float pickupForce = 150.0f;
 
-    private Scene currentScene;
+    // Get current scene name
+    Scene currentScene;
 
+    //----- For throwing trgectory: Beer Pong---
+    //For objects that need to be thrown
     public float throwForce = 10f;
-    [SerializeField] private tragectoryLine line;
+    [SerializeField] tragectoryLine line;
     public float mass = 10;
 
-    public NetworkVariable<bool> enableLine = new NetworkVariable<bool>(false);
+    public NetworkVariable<bool> enableLine = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    //public NetworkVariable<bool> enableLine;
 
     public override void OnNetworkSpawn()
     {
-        enableLine.Value = false;
+        enableLine.OnValueChanged += OnEnableLineChanged;
     }
 
 
@@ -33,65 +39,106 @@ public class PickupControllerNet : NetworkBehaviour
     {
         // Get current scene name
         currentScene = SceneManager.GetActiveScene();
+        
         //PICKING UP-----------------------------
-        //NEED TO CHECK TAG OF OBJECT BEFORE PICKING UP
         if (Keyboard.current.iKey.wasPressedThisFrame) //if i was pressed to pick up
         {
             Debug.Log("i was presssed to pickup object");
+            
+            if (IsHost)
+            {
+                Debug.Log("HOST pressed I");
+                
+                //request the server to pick up the object
+                if (heldObj == null) //if an object is NOT already being held
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
+                    {
+                        //pick up the object
+                        pickupObject(hit.transform.gameObject);
+                        Debug.Log("host requested to pickup");
+                    }
+                }
+            }
+            else if (IsClient)
+            {
+                Debug.Log("CLIENT pressed I");
 
-            if (heldObj == null)
+                //request the server to pick up the object
+                if (heldObj == null) //if an object is NOT already being held
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
+                    {
+                        //pick up the object
+                        pickupObject(hit.transform.gameObject);
+                        Debug.Log("client requested to pickup");
+                    }
+                }
+            }
+
+            /*if (heldObj == null) //if an object is NOT already being held
             {
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
                 {
-                    pickupObject(hit.transform.gameObject);
+                    //if (hit.collider.CompareTag("Interactable")){
+                    //pick up the object
+                    pickupObject(hit.transform.gameObject);//pickup object
+                    //}
                 }
-            }
+            }*/
         }
 
-        // DROP
-        if (Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame && heldObj != null)
+        //DROPPING-----------------------------
+        if (Keyboard.current.tabKey.wasPressedThisFrame && heldObj != null) //if tab was pressed to drop
         {
-            PieceNet piece = heldObj.GetComponent<PieceNet>();
-            if (piece == null || !piece.IsPlaced)
-            {
-                Debug.Log("tab was presssed to drop object");
-                dropObject();
-            }
+            Debug.Log("tab was presssed to drop object");
+            dropObject();
         }
 
-        // MOVE HELD OBJECT
-        if (heldObj != null)
+        //MOVING-----------------------------
+        if (heldObj != null) //if an object is currently being held
         {
             //move the object around
             moveObject();
-
         }
 
-        // Beer pong line
-        if (currentScene.name == "beerPong")
+        //----Draw the tragectory line BeerPong scene only and only if holding ball
+        if (currentScene.name == "beerPong")//only enable in beerPong scene
         {
-            if (heldObj != null && heldObj.name == "ball(Clone)")
+            if (heldObj != null && heldObj.name == "ball(Clone)")//if the held object is not null and is the ball clone
             {
-                enableLine.Value = true;
-                line.drawTragectory(transform.forward * throwForce, enableLine);
+                Debug.Log("ball line true");
+                //enableLine.Value = true;
+                setEnableLineRpc(true);
+                line.drawTragectory(transform.forward * throwForce, enableLine);//turn on the tragectory line
             }
             else
             {
-                enableLine.Value = false;
-                line.drawTragectory(transform.forward * throwForce, enableLine);
+                Debug.Log("ball line false");
+                setEnableLineRpc(false);
+                //enableLine.Value = false;
+                line.drawTragectory(transform.forward * throwForce, enableLine);//hide the tragectory line
             }
         }
+
+        //-----------------------------------
+
+
+
+
     }
 
+    /*----------------FUNCTIONS---------------*/
     void pickupObject(GameObject pickObj)
     {
-        if (!IsOwner) return;
+        if (!IsOwner) return; //only the player controlling this can request pickup
 
-        NetworkObject netObj = pickObj.GetComponent<NetworkObject>();
+        NetworkObject netObj = pickObj.GetComponent<NetworkObject>(); //get the network object of the pickObj
         if (netObj == null) return;
-
-        PickupObjectServerRpc(netObj.NetworkObjectId, OwnerClientId);
+        PickupObjectServerRpc(netObj.NetworkObjectId, OwnerClientId); //ask server to pick it up with RPC
     }
 
     void dropObject()
@@ -99,10 +146,11 @@ public class PickupControllerNet : NetworkBehaviour
         if (!IsOwner) return;
         if (heldObj == null) return;
 
-        NetworkObject netObj = heldObj.GetComponent<NetworkObject>();
+        NetworkObject netObj = heldObj.GetComponent<NetworkObject>(); //get network object of heldObj
         if (netObj != null)
             DropObjectServerRpc(netObj.NetworkObjectId);
 
+        //clear local reference
         heldObj = null;
         heldObjRB = null;
     }
@@ -110,53 +158,32 @@ public class PickupControllerNet : NetworkBehaviour
     void moveObject()
     {
         if (heldObj == null) return;
-
+        
         heldObj.transform.position = holdArea.position;
-        heldObj.transform.rotation = holdArea.rotation;
-    }
-
-    public void ForceClearHeldObject()
-    {
-        if (heldObj == null) return;
-
-        heldObj.transform.SetParent(null, true);
-
-        PieceNet piece = heldObj.GetComponent<PieceNet>();
-        Rigidbody rb = heldObj.GetComponent<Rigidbody>();
-
-        if (rb != null)
+        if (currentScene.name != "beerPong")//only enable in beerPong scene
         {
-            if (piece != null && piece.IsPlaced)
-            {
-                rb.useGravity = false;
-                rb.isKinematic = true;
-            }
-            else
-            {
-                rb.useGravity = true;
-                rb.isKinematic = false;
-            }
+            heldObj.transform.rotation = holdArea.rotation;//if this is enabled in beer pong player cannot rotate their cup; therefore any other scene can have this enabled
         }
-
-        heldObj = null;
-        heldObjRB = null;
+        //heldObj.transform.rotation = holdArea.rotation;
+        if (currentScene.name == "beerPong")//only enable in beerPong scene
+        {
+            heldObjRB.constraints = RigidbodyConstraints.FreezeRotationY;//prevents object from rotating on Y
+            heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating on Z
+        }
     }
+
 
     [ServerRpc(RequireOwnership = false)]
     void PickupObjectServerRpc(ulong objectId, ulong playerClientId)
     {
-        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.ContainsKey(objectId)) return;
-
+        //retrieve the object's network object from the server's record of spawned objects
         NetworkObject netObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[objectId];
-        netObj.ChangeOwnership(playerClientId);
 
-        NetworkObject playerObj = NetworkManager.Singleton.ConnectedClients[playerClientId].PlayerObject;
-        if (playerObj == null) return;
+        //transfer ownership so the client can interact with it
+        netObj.ChangeOwnership(playerClientId); //give client ownership access
 
-        PickupControllerNet pickup = playerObj.GetComponentInChildren<PickupControllerNet>();
-        if (pickup == null || pickup.holdArea == null) return;
-
-        netObj.transform.SetParent(pickup.holdArea);
+        //parent the object to the player's hold area
+        netObj.transform.SetParent(NetworkManager.Singleton.ConnectedClients[playerClientId].PlayerObject.transform);
 
         AssignHeldObjectClientRpc(netObj.NetworkObjectId);
     }
@@ -164,76 +191,103 @@ public class PickupControllerNet : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     void DropObjectServerRpc(ulong objectId)
     {
-        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.ContainsKey(objectId)) return;
-
         NetworkObject netObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[objectId];
-        GameObject obj = netObj.gameObject;
 
-        PieceNet piece = obj.GetComponent<PieceNet>();
-
+        //unparent the object
         netObj.transform.SetParent(null);
 
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        Rigidbody rb = netObj.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            if (piece != null && piece.IsPlaced)
-            {
-                rb.useGravity = false;
-                rb.isKinematic = true;
-            }
-            else
-            {
-                rb.useGravity = true;
-                rb.isKinematic = false;
-                rb.constraints = RigidbodyConstraints.None;
+            //clear the rigidbody's attributes
+            rb.useGravity = true; //enable gravity again
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints.None; //allow full movement
 
-                if (!rb.isKinematic)
-                {
-                    rb.linearVelocity = Vector3.zero;
-                    rb.angularVelocity = Vector3.zero;
-
-                    if (currentScene.name == "beerPong")
-                    {
-                        Debug.Log("beerpong scene");
-                        rb.linearVelocity = transform.forward * throwForce;
-                    }
-                }
+            //if the current scene is the beer pong minigame, add force so that the object can be thrown
+            if (currentScene.name == "beerPong")
+            {
+                //heldObjRB.AddForce(transform.forward * throwForce);
+                Debug.Log("beerpong scene");
+                rb.linearVelocity = transform.forward * throwForce;
             }
         }
-
-        ClearHeldObjectClientRpc();
+        ClearHeldObjectClientRpc(netObj.NetworkObjectId);
     }
 
     [ClientRpc]
     void AssignHeldObjectClientRpc(ulong objectId)
     {
-        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.ContainsKey(objectId)) return;
-
         NetworkObject netObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[objectId];
         heldObj = netObj.gameObject;
         heldObjRB = heldObj.GetComponent<Rigidbody>();
 
-        PieceNet piece = heldObj.GetComponent<PieceNet>();
-        if (piece != null && piece.IsPlaced)
-        {
-            ForceClearHeldObject();
-            return;
-        }
-
+        //snap object instantly to hold area
         heldObj.transform.position = holdArea.position;
         heldObj.transform.rotation = holdArea.rotation;
 
+        if (currentScene.name != "beerPong")//only enable in beerPong scene
+        {
+            heldObj.transform.rotation = holdArea.rotation;//if this is enabled in beer pong player cannot rotate their cup; therefore any other scene can have this enabled
+        }
         if (heldObjRB != null)
         {
-            heldObjRB.useGravity = false;
-            heldObjRB.isKinematic = true;
+            if (currentScene.name == "beerPong")//only enable in beerPong scene
+            {
+                heldObjRB.constraints = RigidbodyConstraints.FreezeRotationY;//prevents object from rotating on Y
+                heldObjRB.constraints = RigidbodyConstraints.FreezeRotationZ;//prevents object from rotating on Z
+            }
+            heldObjRB.useGravity = false; //turn gravity off so it floats in the air
         }
     }
 
     [ClientRpc]
-    void ClearHeldObjectClientRpc()
+    void ClearHeldObjectClientRpc(ulong objectId)
     {
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[objectId];
+
+        //unparent the object
+        netObj.transform.SetParent(null);
+
+        Rigidbody rb = netObj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            //clear the rigidbody's attributes
+            rb.useGravity = true; //enable gravity again
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints.None; //allow full movement
+
+            //if the current scene is the beer pong minigame, add force so that the object can be thrown
+            if (currentScene.name == "beerPong")
+            {
+                //heldObjRB.AddForce(transform.forward * throwForce);
+                Debug.Log("beerpong scene");
+                rb.linearVelocity = transform.forward * throwForce;
+            }
+        }
+
+        //reset the held object from the client
         heldObj = null;
         heldObjRB = null;
     }
+
+
+
+    //change the Enable line value
+    [Rpc(SendTo.Owner)]
+    void setEnableLineRpc(bool value)
+    {
+        enableLine.Value = value;
+    }
+
+
+    private void OnEnableLineChanged(bool previous, bool current)
+    {
+        Debug.Log($"Detected NetworkVariable Change: Previous: {previous} | Current: {current}");
+    }
+
+   
+
 }
