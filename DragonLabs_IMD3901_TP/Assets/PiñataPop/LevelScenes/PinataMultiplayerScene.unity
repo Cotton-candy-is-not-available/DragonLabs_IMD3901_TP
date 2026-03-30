@@ -461,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2824795176778561841, guid: 09129f591ab889648a4acef36106a741, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6885689032081235582, guid: 09129f591ab889648a4acef36106a741, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -727,9 +727,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   candy_prefab_list:
-  - {fileID: 5941443866788580655, guid: fc23562066aae0a4c9be0ae0a9678600, type: 3}
-  - {fileID: 7587244230581886860, guid: ec748c8605bfa9941b2b35b1b017dbfa, type: 3}
-  - {fileID: 768970057953742631, guid: ff1e053a607445b45ac2e0c3f4cb7d6c, type: 3}
+  - {fileID: 6885689032081235582, guid: 5f267daba6d737d4cbe060eadb55cd70, type: 3}
+  - {fileID: 6885689032081235582, guid: 65e87c2dfe4bc234e966155453d364f0, type: 3}
+  - {fileID: 6885689032081235582, guid: cbc2023099547d140b6ec4a6f2c281d5, type: 3}
 --- !u!1 &252187631
 GameObject:
   m_ObjectHideFlags: 0
@@ -2638,7 +2638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2824795176778561841, guid: 09129f591ab889648a4acef36106a741, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6885689032081235582, guid: 09129f591ab889648a4acef36106a741, type: 3}
       propertyPath: GlobalObjectIdHash

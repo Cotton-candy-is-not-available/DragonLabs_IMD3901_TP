@@ -33,7 +33,7 @@ public class NetworkManagerHud : MonoBehaviour
         // Only cache networking manager but not transport here because transport could change anytime.
         m_NetworkManager = GetComponent<NetworkManager>();
         m_LabelTextStyle = new GUIStyle(GUIStyle.none);
-        NetworkManager.Singleton.SceneManager.ActiveSceneSynchronizationEnabled = true;
+        //NetworkManager.Singleton.SceneManager.ActiveSceneSynchronizationEnabled = true;
     }
 
     void OnGUI()
