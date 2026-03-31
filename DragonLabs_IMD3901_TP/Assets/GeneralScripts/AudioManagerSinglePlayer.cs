@@ -29,7 +29,10 @@ public class AudioManagerSinglePlayer : MonoBehaviour
       public AudioClip ticTacToe_background;
       public AudioClip parkour_background; */
 
-
+    //parkour sound effects
+    [Header("---- Parkour Audio Clip ----")]
+    public AudioClip parkour_background;
+    public AudioClip parkour_jumpSound;
 
 
     private void Start()
@@ -65,12 +68,12 @@ public class AudioManagerSinglePlayer : MonoBehaviour
                 musicSource.clip = ticTacToe_background;
                 musicSource.Play();
                 break;
-
+            */
             case "ParkourRace":
                 musicSource.clip = parkour_background;
                 musicSource.Play();
                 break;
-            */
+            
         }
     }
 
