@@ -4,7 +4,7 @@ public class MovingPlatform : MonoBehaviour
 {
     public Transform pointA;
     public Transform pointB;
-    public float speed = 0.3f;
+    public float speed = 0.2f;
 
     void Update()
     {
