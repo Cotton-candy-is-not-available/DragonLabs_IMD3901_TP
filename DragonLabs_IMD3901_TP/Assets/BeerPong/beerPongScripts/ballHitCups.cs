@@ -108,6 +108,7 @@ public class ballHitCups : NetworkBehaviour
         if (gameObject.transform.position.y < 0)
         {
             manager.despawnBallServerRpc();
+            Debug.Log("OUT OF BOUNDS");
 
             //manager.newBall = null;
             //gameObject.SetActive(turnOffBall.Value);

@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.61960787}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -759,7 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1956720330
+  GlobalObjectIdHash: 1713257887
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  fillLevel: 0
+  fillLevel: {x: 0, y: -0.23, z: 0}
   beerLiquid: {fileID: 8648031579178837687}
   rotationProgress: 0
   PCStartRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -857,6 +857,8 @@ MonoBehaviour:
   pressDistance: 0.3
   pressSpeed: 2
   cupNetObj: {fileID: 2415338472961847623}
+  gameManager: {fileID: 0}
+  blurEffect: {fileID: 0}
 --- !u!114 &3820491638673204851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,6 +954,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91900cc79dc402478ca11a163bc9690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   cup: {fileID: 2415338472961847623}
   drinkMeSign: {fileID: 5179848649327927567}
   cupVRgrabInteractable: {fileID: 9195741231972917833}
+  gameManager: {fileID: 0}
+  Player1Drink: 0
+  Player2Drink: 0
+  activate:
+    m_InternalValue: 0
