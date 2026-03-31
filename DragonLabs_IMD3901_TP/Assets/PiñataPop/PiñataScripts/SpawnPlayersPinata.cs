@@ -1,104 +1,81 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnPlayersPinata : NetworkBehaviour
 {
-    public NetworkObject player1;
-    public NetworkObject player2;
+    // public NetworkObject player1;
+    //public NetworkObject player2;
 
-    //public Transform p1StartPos;
-    //public Transform p2StartPos;
+    public GameObject player1;
+    public GameObject player2;
 
-    public NetworkObject p1StartPos;
-    public NetworkObject p2StartPos;
+    public Transform p1StartPos;
+    public Transform p2StartPos;
 
-    private void Update()
+
+    private void Start()
     {
+        player1 = GameObject.FindWithTag("Player1");
+        player2 = GameObject.FindWithTag("Player2");
 
-        if (!IsServer)
-        {
-            return;
-        }
+        Debug.Log("host joined the scene");
+        player1.transform.transform.position = p1StartPos.position;
 
-        if (NetworkManager.IsServer)
-        {
-            player1 = GetComponent<NetworkObject>();
-            Debug.Log("host joined the scene");
-        }
-        else if (NetworkManager.IsClient && !IsServer)
-        {
-
-            player2 = GetComponent<NetworkObject>();
-            Debug.Log("client joined the scene");
-
-        }
-
-
-
-        /*  //check if the players have both spawned in the scene
-          if (player1 != null)
-          {
-              spawnP1();
-          }
-
-          if (player2 != null)
-          {
-              spawnP2();
-          }
-  */
-
+        Debug.Log("client joined the scene");
+        player2.transform.transform.position = p2StartPos.position;
     }
 
-
-    public override void OnNetworkSpawn()
-    {
-        if (!IsServer)
+    /*
+        public override void OnNetworkSpawn()
         {
-            return;
-        }
+            if (!IsServer)
+            {
+                return;
+            }
 
-        //find both player in the scene
-        //player1 = GameObject.FindWithTag("Player1");
-        //player2 = GameObject.FindWithTag("Player2");
-
-        
+            //find both player in the scene
+            //player1 = GameObject.FindWithTag("Player1");
+            //player2 = GameObject.FindWithTag("Player2");
 
 
 
-        /*
-        //spawning the players at their given spawn points
-        if (NetworkManager.Singleton.LocalClientId == 0) //host
-        {
-            Debug.Log("placed host at spawn point");
-            //player1.transform.transform.position = p1StartPos.position;
-            player1.transform.transform.position = p1StartPos.transform.position;
 
-        }
-        else if (NetworkManager.Singleton.LocalClientId == 1) //client
-        {
-            Debug.Log("placed client at spawn point");
-            //player2.transform.transform.position = p2StartPos.position;
-            player2.transform.transform.position = p2StartPos.transform.position;
-        }*/
 
-        /*
-            private void spawnP1()
+            *//*
+            //spawning the players at their given spawn points
+            if (NetworkManager.Singleton.LocalClientId == 0) //host
             {
                 Debug.Log("placed host at spawn point");
                 //player1.transform.transform.position = p1StartPos.position;
                 player1.transform.transform.position = p1StartPos.transform.position;
 
             }
-
-            private void spawnP2()
+            else if (NetworkManager.Singleton.LocalClientId == 1) //client
             {
                 Debug.Log("placed client at spawn point");
                 //player2.transform.transform.position = p2StartPos.position;
                 player2.transform.transform.position = p2StartPos.transform.position;
-            }
-        */
+            }*/
 
-    }
+    /*
+        private void spawnP1()
+        {
+            Debug.Log("placed host at spawn point");
+            //player1.transform.transform.position = p1StartPos.position;
+            player1.transform.transform.position = p1StartPos.transform.position;
+
+        }
+
+        private void spawnP2()
+        {
+            Debug.Log("placed client at spawn point");
+            //player2.transform.transform.position = p2StartPos.position;
+            player2.transform.transform.position = p2StartPos.transform.position;
+        }
+    *//*
+
+}*/
 }
