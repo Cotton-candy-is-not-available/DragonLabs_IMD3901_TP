@@ -14,6 +14,8 @@ public class PlayerJump : MonoBehaviour
     public float jumpCooldown = 1f;
     private float jumpCooldownTimer = 0f;
 
+    public AudioManagerSinglePlayer jumpAudio;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -28,6 +30,7 @@ public class PlayerJump : MonoBehaviour
         {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
             jumpCooldownTimer = jumpCooldown;
+            jumpAudio.PlaySFX(jumpAudio.parkour_jumpSound);
         }
         
         verticalVelocity += gravity * Time.deltaTime;
