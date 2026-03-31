@@ -6,13 +6,13 @@ public class DisappearingPlatform : MonoBehaviour
     public float disappearTime = 3f;
     public float visableTime = 6f;
 
-    private Renderer platformRenderer;
-    private Collider platformCollider;
+    private Renderer[] renderers;
+    private Collider[] colliders;
 
     void Start()
     {
-        platformRenderer = GetComponent<Renderer>();
-        platformCollider = GetComponent<Collider>();
+        renderers = GetComponentsInChildren<Renderer>();
+        colliders = GetComponentsInChildren<Collider>();
 
         StartCoroutine(PlatformCycle());
     }
@@ -22,12 +22,18 @@ public class DisappearingPlatform : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(visableTime);
-            platformRenderer.enabled = false;
-            platformCollider.enabled = false;
+            foreach (Renderer r in renderers)
+                r.enabled = false;
+
+            foreach (Collider c in colliders)
+                c.enabled = false;
 
             yield return new WaitForSeconds(disappearTime);
-            platformRenderer.enabled = true;
-            platformCollider.enabled = true;
+            foreach (Renderer r in renderers)
+                r.enabled = true;
+
+            foreach (Collider c in colliders)
+                c.enabled = true;
         }
     }
 }
