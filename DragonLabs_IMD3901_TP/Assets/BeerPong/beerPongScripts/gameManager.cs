@@ -27,9 +27,6 @@ public class gameManager : NetworkBehaviour
     public NetworkObject[] PCballPrefab;//prefab with network object attached
     public NetworkObject[] VRballPrefab;//prefab with network object attached
 
-
-    //public beerPongScoreManger scoreManger;
-
     public NetworkVariable<int> turn = new NetworkVariable<int>(2);
 
     public GameObject player1;
@@ -47,7 +44,6 @@ public class gameManager : NetworkBehaviour
     public NetworkVariable<bool> activateWinnerPanel = new NetworkVariable<bool>(false);
 
     public NetworkVariable<bool> spawnFirstBall = new NetworkVariable<bool>(true);
-    //public NetworkVariable<bool> goToLobby;
 
     [Header("------------ Winner panels -------------")]
     public GameObject P1WinnerPanel;
@@ -83,14 +79,15 @@ public class gameManager : NetworkBehaviour
         {
             Debug.Log("Use PC ball");
             ballPrefab[0] = PCballPrefab[0];//set the ball prefab list to the PC working one
-            //Player 1&2 PC cups activate
+
+           
+
         }
         else if (staticClass.VROn)//if VR mode was chosen in the game setup scene
         {
             Debug.Log("Use VR ball");
 
             ballPrefab[0] = VRballPrefab[0];//set the ball prefab list to the VR working one
-            //Player 1&2 VR cups activate
 
             //set start positions to VR start positions
             p1StartPos = VRp1StartPos;
@@ -100,11 +97,11 @@ public class gameManager : NetworkBehaviour
 
         //find both player in the scene
         player1 = GameObject.FindWithTag("Player1");
-        //player2 = GameObject.FindWithTag("Player2");
+        player2 = GameObject.FindWithTag("Player2");
 
         //Set players start positions
         player1.transform.transform.position = p1StartPos.position;
-        //player2.transform.transform.position = p2StartPos.position;
+        player2.transform.transform.position = p2StartPos.position;
 
         //---------------- Post processign ------------------------//
         //add volume component to them so the blur/drunk effect can be called; this will be deleted when they leave the scenes
@@ -126,8 +123,6 @@ public class gameManager : NetworkBehaviour
         P2BallStartPos = new Vector3(0f, 4.5f, 5);
         Debug.Log("Start turn: "+ turn.Value);
 
-        //turn.Value = 1;
-        //spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
     }
 
     // Update is called once per frame
@@ -143,7 +138,7 @@ public class gameManager : NetworkBehaviour
         {
             //Set their start positions
             player1.transform.transform.position = p1StartPos.position;
-            //player2.transform.transform.position = p2StartPos.position;
+            player2.transform.transform.position = p2StartPos.position;
             Debug.Log("newBall Update: " + newBall);
             //Debug.Log("newBall.IsSpawned " + newBall.IsSpawned);
 

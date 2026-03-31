@@ -137,7 +137,7 @@ public class pourDetector : NetworkBehaviour
             //gameManager.player2.GetComponent<Volume>().profile = ;//get their volume
             beerLiquid.GetComponent<startBlurEffect>().Player2Drink = false; // set back to false
         }
-        //cupNetObj.SetActive(false);//hide the cup
+        //cupObj.SetActive(false);//hide the cup
         NetworkObject cupNetObj = cupObj.GetComponent<NetworkObject>();
         cupNetObj.DestroyWithScene = true;
 
