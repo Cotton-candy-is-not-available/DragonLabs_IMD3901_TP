@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
 public class PlayerJump : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class PlayerJump : MonoBehaviour
     private CharacterController controller;
     private float verticalVelocity;
 
+    public float jumpCooldown = 1f;
+    private float jumpCooldownTimer = 0f;
+
+    public AudioManagerSinglePlayer jumpAudio;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -17,8 +23,16 @@ public class PlayerJump : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (jumpCooldownTimer > 0f)
+            jumpCooldownTimer -= Time.deltaTime;
+
+        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame && jumpCooldownTimer <= 0f)
+        {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            jumpCooldownTimer = jumpCooldown;
+            jumpAudio.PlaySFX(jumpAudio.parkour_jumpSound);
+        }
+        
         verticalVelocity += gravity * Time.deltaTime;
         controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
     }

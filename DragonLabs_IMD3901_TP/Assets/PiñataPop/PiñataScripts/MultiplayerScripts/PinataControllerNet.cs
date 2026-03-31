@@ -75,6 +75,7 @@ public class PinataControllerNet : NetworkBehaviour
         if(collision.gameObject.name == "BatP1")
         {
             //Debug.Log("P1 hit the pinata");
+            audioManMultiPlayer.PlaySFX(audioManMultiPlayer.batHitSound);
 
             if (isGameOver.Value == false) //only increase points if game is not over
             {
@@ -90,6 +91,8 @@ public class PinataControllerNet : NetworkBehaviour
         else if(collision.gameObject.name == "BatP2")
         {
             //Debug.Log("P2 hit the pinata");
+            audioManMultiPlayer.PlaySFX(audioManMultiPlayer.batHitSound);
+
             if (isGameOver.Value == false)
             {
                 scoresManagerNet_access.addP2HitPointServerRpc();
@@ -145,6 +148,7 @@ public class PinataControllerNet : NetworkBehaviour
     public void playConfettiClientRpc()
     {
         confettiPopParticles.Play();
+        audioManMultiPlayer.PlaySFX(audioManMultiPlayer.partyBlower);
     }
 
 }

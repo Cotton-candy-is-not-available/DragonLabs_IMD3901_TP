@@ -1,31 +1,25 @@
+using System.Collections;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
-using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class pourDetector : NetworkBehaviour
 {
-    public int pourThreshold = 45;
-
-    public Transform origin = null;
-
-    public bool isPouring = false;
-
-    public float fillLevel;
+    //this script is attached to the cup itself
+    public Vector3 fillLevel = new Vector3(0f, -0.23f, 0f);
 
     Renderer rend;
 
     public GameObject beerLiquid;//beer liquid
-    float time = 0.5f;
 
 
     // ------ PC variables --------------
     [SerializeField] float rotationProgress;
     [SerializeField] Quaternion PCStartRotation;
     [SerializeField] Quaternion PCEndRotation;
-
-    [SerializeField] Quaternion cupRotation;
 
     // ------ VR variables --------------
 
@@ -35,23 +29,26 @@ public class pourDetector : NetworkBehaviour
     public float pressDistance = 0.3f;
     public float pressSpeed = 2f;
 
-    public NetworkObject cupNetObj;
+    public GameObject cupNetObj;
 
 
-    public PickupControllerNet PickupControllerNet;
+    float fillElaspsedTime;
+    float lerpDuration = 3;
 
-    public GameObject held;
-
-    public Transform holdArea;
+    public gameManager gameManager;
+    public DepthOfField blurEffect;
 
 
     private void Start()
     {
         rend = beerLiquid.GetComponent<Renderer>();//get the renderer from the gameobject
+        fillLevel.y = 0.10f;//set fill level
+        rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph so that it matches the fill level in this script
+
+
         PCStartRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//default rotation
 
-        PCEndRotation = Quaternion.Euler(-90.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//rotates 90degrees towards player
-
+        PCEndRotation = Quaternion.Euler(-135.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//rotates 90degrees towards player
 
     }
 
@@ -61,38 +58,89 @@ public class pourDetector : NetworkBehaviour
     public void lowerFillLevel()
     {
         //lower fill level
-        time += Time.deltaTime;
+          
+                // decrease fill level over time
+                fillLevel.y = Mathf.Lerp(fillLevel.y, -0.5f, fillElaspsedTime/lerpDuration);
 
-        //set fill level variable from script to be original fill level then chnage it
-        //otherwise it is always 0
-        // decrease fill level over time
-        //fillLevel = Mathf.Lerp(fillLevel, 0, Time.deltaTime);
+            //send over to shader new value of fill level
+            Debug.Log("fillLevel: " + fillLevel.y);
+            Debug.Log("fill down");
 
-        //send over to shader new value of fill level
-        rend.material.SetFloat("_fillLevel", fillLevel);//reference names in shader graph
-        Debug.Log("fillLevel: " + fillLevel);
-        Debug.Log("fill down");
+            fillElaspsedTime += Time.deltaTime;
+
+            rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph
+
 
     }
 
     public void rotateCup()
     {
-        rotationProgress += Time.deltaTime * 5;//somewhat slowly rotate; Note: smaller number slower, bigger number faster
-        holdArea.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress);//rotates watering can smoothly
-        lowerFillLevel();//lower the liquid inside the cup
 
-        StartCoroutine(destroyCup(PickupControllerNet.heldObj.GetComponent<NetworkObject>()));//destoy the cup
+            transform.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress/lerpDuration);//rotates watering can smoothly
+            rotationProgress += Time.deltaTime * 7;//slowly rotate
+
+            lowerFillLevel();
+
+            StartCoroutine(destroyCup(cupNetObj));//destoy the cup
+
     }
 
 
-    IEnumerator destroyCup(NetworkObject heldObj)
+
+    [ServerRpc(RequireOwnership = false)]
+    public void rotateCupServerRpc(ulong objectId, ServerRpcParams rpcParams = default)
+    {
+        //if (cupNetObj.TryGetComponent<NetworkObject>(out cupNetObj))
+        //{
+            cupNetObj.GetComponent<NetworkObject>().ChangeOwnership(rpcParams.Receive.SenderClientId);
+
+            rotateCupClientRpc();
+        //}
+    }
+
+
+    [ClientRpc]
+    private void rotateCupClientRpc()
+    {
+            rotateCup();
+        
+    }
+
+
+
+
+
+
+
+
+
+    IEnumerator destroyCup(GameObject cupObj)
     {
         //play poof soundFX
         //show poof effect(particles?)
-        heldObj = heldObj.GetComponent<NetworkObject>();//instatiate the object
+        //cupNetObj = cupNetObj.GetComponent<NetworkObject>();
         yield return new WaitForSeconds(3); //waits 3 seconds
-        heldObj.Despawn();
-        //Destroy(heldObj); //destroy the cup
+        //cupNetObj.Despawn();
+        if (beerLiquid.GetComponent<startBlurEffect>().Player1Drink == true)
+        {//if player 1 needs to drink
+            Volume playerVolume = gameManager.player1.GetComponent<Volume>();//get their volume
+                                                                            
+            playerVolume.profile.TryGet(out blurEffect);
+            blurEffect.focalLength.value += 100;//increase the focal length value
+
+
+            beerLiquid.GetComponent<startBlurEffect>().Player1Drink = false; // set back bool to false
+
+        }
+        else if (beerLiquid.GetComponent<startBlurEffect>().Player2Drink == true)
+        {
+            //gameManager.player2.GetComponent<Volume>().profile = ;//get their volume
+            beerLiquid.GetComponent<startBlurEffect>().Player2Drink = false; // set back to false
+        }
+        //cupNetObj.SetActive(false);//hide the cup
+        NetworkObject cupNetObj = cupObj.GetComponent<NetworkObject>();
+        cupNetObj.DestroyWithScene = true;
+
     }
 
 
