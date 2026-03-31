@@ -1,0 +1,109 @@
+fileFormatVersion: 2
+guid: b95f2c83f1f3e4159bb873be6ea39bb6
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 715df9372183c47e389bb6e19fbc3b52, type: 3}
+  editorImportSettings:
+    generateSecondaryUVSet: 0
+  importSettings:
+    nodeNameMethod: 1
+    animationMethod: 2
+    generateMipMaps: 1
+    texturesReadable: 0
+    defaultMinFilterMode: 9729
+    defaultMagFilterMode: 9729
+    anisotropicFilterLevel: 1
+  instantiationSettings:
+    mask: -1
+    layer: 0
+    skinUpdateWhenOffscreen: 1
+    lightIntensityFactor: 1
+    sceneObjectCreation: 2
+  assetDependencies:
+  - type: 0
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/Unity2Skfb.bin
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/Unity2Skfb.bin
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107652_DJControl_Emission.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107652_DJControl_Emission.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164244_DJControl_NM.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164244_DJControl_NM.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107638_DJControl.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107638_DJControl.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164248_DJControl_Metallic.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164248_DJControl_Metallic.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107644_DJControl02_Emission.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107644_DJControl02_Emission.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164252_DJControl02_NM.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164252_DJControl02_NM.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107640_DJControl02.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107640_DJControl02.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164256_DJControl02_Metallic.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164256_DJControl02_Metallic.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107690_DMXController01_Emission.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107690_DMXController01_Emission.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164258_DMXController01_NM.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164258_DMXController01_NM.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107686_DMXController01.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107686_DMXController01.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164262_DMXController01_Metallic.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164262_DMXController01_Metallic.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107670_DJMidiKeyboard01_Emission.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107670_DJMidiKeyboard01_Emission.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164264_DJMidiKeyboard01_NM.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164264_DJMidiKeyboard01_NM.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107666_DJMidiKeyboard01.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107666_DJMidiKeyboard01.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164268_DJMidiKeyboard01_Metallic.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164268_DJMidiKeyboard01_Metallic.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107680_DJTable01_Emission.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107680_DJTable01_Emission.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164270_DJTable01_NM.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164270_DJTable01_NM.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107676_DJTable01.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107676_DJTable01.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164274_DJTable01_Metallic.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164274_DJTable01_Metallic.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164278_Headphones01_NM.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164278_Headphones01_NM.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107712_Headphones01.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107712_Headphones01.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164282_Headphones01_Metallic.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164282_Headphones01_Metallic.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164284_DJControlHolder01_NM.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164284_DJControlHolder01_NM.png
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107658_DJControlHolder01.jpg
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/107658_DJControlHolder01.jpg
+  - type: 1
+    originalUri: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164288_DJControlHolder01_Metallic.png
+    assetPath: Assets/TicTacToe/FBX modles/just downlaoded/dj-roomv01/source/Unity2Skfb/164288_DJControlHolder01_Metallic.png
+  reportItems: []
