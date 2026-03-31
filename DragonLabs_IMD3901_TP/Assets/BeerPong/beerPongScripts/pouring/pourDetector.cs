@@ -29,7 +29,7 @@ public class pourDetector : NetworkBehaviour
     public float pressDistance = 0.3f;
     public float pressSpeed = 2f;
 
-    public GameObject cupNetObj;
+    public GameObject cupObj;
 
 
     float fillElaspsedTime;
@@ -39,10 +39,13 @@ public class pourDetector : NetworkBehaviour
     public DepthOfField blurEffect;
 
 
+    public NetworkVariable<bool> turnOffCup = new NetworkVariable<bool>(false);
+
+
     private void Start()
     {
         rend = beerLiquid.GetComponent<Renderer>();//get the renderer from the gameobject
-        fillLevel.y = 0.10f;//set fill level
+        fillLevel.y = -0.23f;//set fill level
         rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph so that it matches the fill level in this script
 
 
@@ -53,14 +56,34 @@ public class pourDetector : NetworkBehaviour
     }
 
 
+    private void Update()
+    {
+        Debug.Log("cupObj.transform.rotation.x: " + cupObj.transform.rotation.x);
+
+        if (staticClass.VROn)
+        { //if vr is enabled
+            Debug.Log("VR ON pour");
+
+            if (cupObj.transform.rotation.x <= -0.5 || cupObj.transform.rotation.x >= 0.5)// if rotated then start pouring
+            {
+                Debug.Log("POUR VRRRRR");
+                //Debug.Log("rot.z more " + wateringCanRotation.z);
+
+                lowerFillLevelServerRPC();//lower the fill level
+
+            }
+        }
+
+    }
 
 
     public void lowerFillLevel()
     {
         //lower fill level
-          
-                // decrease fill level over time
-                fillLevel.y = Mathf.Lerp(fillLevel.y, -0.5f, fillElaspsedTime/lerpDuration);
+            rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph
+
+        // decrease fill level over time
+            //fillLevel.y = Mathf.Lerp(fillLevel.y, -0.5f, fillElaspsedTime/lerpDuration);
 
             //send over to shader new value of fill level
             Debug.Log("fillLevel: " + fillLevel.y);
@@ -81,7 +104,7 @@ public class pourDetector : NetworkBehaviour
 
             lowerFillLevel();
 
-            StartCoroutine(destroyCup(cupNetObj));//destoy the cup
+            StartCoroutine(destroyCup(cupObj));//destoy the cup
 
     }
 
@@ -92,7 +115,7 @@ public class pourDetector : NetworkBehaviour
     {
         //if (cupNetObj.TryGetComponent<NetworkObject>(out cupNetObj))
         //{
-            cupNetObj.GetComponent<NetworkObject>().ChangeOwnership(rpcParams.Receive.SenderClientId);
+            cupObj.GetComponent<NetworkObject>().ChangeOwnership(rpcParams.Receive.SenderClientId);
 
             rotateCupClientRpc();
         //}
@@ -106,16 +129,20 @@ public class pourDetector : NetworkBehaviour
         
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    void lowerFillLevelServerRPC()
+    {
+        lowerFillLevel();
+        StartCoroutine(destroyCup(cupObj));//destoy the cup
 
-
-
-
-
+    }
 
 
 
     IEnumerator destroyCup(GameObject cupObj)
     {
+        NetworkObject cupNetObj = cupObj.GetComponent<NetworkObject>();
+        cupNetObj.DestroyWithScene = true;
         //play poof soundFX
         //show poof effect(particles?)
         //cupNetObj = cupNetObj.GetComponent<NetworkObject>();
@@ -137,9 +164,8 @@ public class pourDetector : NetworkBehaviour
             //gameManager.player2.GetComponent<Volume>().profile = ;//get their volume
             beerLiquid.GetComponent<startBlurEffect>().Player2Drink = false; // set back to false
         }
-        //cupObj.SetActive(false);//hide the cup
-        NetworkObject cupNetObj = cupObj.GetComponent<NetworkObject>();
-        cupNetObj.DestroyWithScene = true;
+        cupObj.SetActive(turnOffCup.Value);//hide the cup
+        
 
     }
 
