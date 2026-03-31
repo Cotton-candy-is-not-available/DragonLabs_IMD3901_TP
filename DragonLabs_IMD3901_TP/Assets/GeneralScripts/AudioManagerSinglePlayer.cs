@@ -24,10 +24,9 @@ public class AudioManagerSinglePlayer : MonoBehaviour
     public AudioClip batHitSound;
 
     //other game sound effects (type below) >>>
-    /*add other background music for the other minigames
-      public AudioClip beerPong_background;
-      public AudioClip ticTacToe_background;
-      public AudioClip parkour_background; */
+    //add other background music for the other minigames
+    public AudioClip beerPong_background;
+    public AudioClip ticTacToe_background;
 
     //parkour sound effects
     [Header("---- Parkour Audio Clip ----")]
@@ -58,7 +57,6 @@ public class AudioManagerSinglePlayer : MonoBehaviour
                 musicSource.Play();
                 break;
 
-            /*
             case "BeerPong":
                 musicSource.clip = beerPong_background;
                 musicSource.Play();
@@ -68,7 +66,7 @@ public class AudioManagerSinglePlayer : MonoBehaviour
                 musicSource.clip = ticTacToe_background;
                 musicSource.Play();
                 break;
-            */
+
             case "ParkourRace":
                 musicSource.clip = parkour_background;
                 musicSource.Play();
