@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.Netcode;
 
 public class PlayerJump : MonoBehaviour
 {
@@ -19,6 +18,7 @@ public class PlayerJump : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        jumpAudio = FindFirstObjectByType<AudioManagerSinglePlayer>();
     }
 
     void Update()
