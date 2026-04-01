@@ -83,9 +83,9 @@ public class pourDetector : NetworkBehaviour
             rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph
 
         // decrease fill level over time
-            //fillLevel.y = Mathf.Lerp(fillLevel.y, -0.5f, fillElaspsedTime/lerpDuration);
+            fillLevel.y = Mathf.Lerp(fillLevel.y, -0.5f, fillElaspsedTime/lerpDuration);
 
-            //send over to shader new value of fill level
+        //send over to shader new value of fill level
             Debug.Log("fillLevel: " + fillLevel.y);
             Debug.Log("fill down");
 
@@ -101,14 +101,10 @@ public class pourDetector : NetworkBehaviour
 
             transform.rotation = Quaternion.Lerp(PCStartRotation, PCEndRotation, rotationProgress/lerpDuration);//rotates watering can smoothly
             rotationProgress += Time.deltaTime * 7;//slowly rotate
-
             lowerFillLevel();
-
             StartCoroutine(destroyCup(cupObj));//destoy the cup
 
     }
-
-
 
     [ServerRpc(RequireOwnership = false)]
     public void rotateCupServerRpc(ulong objectId, ServerRpcParams rpcParams = default)
