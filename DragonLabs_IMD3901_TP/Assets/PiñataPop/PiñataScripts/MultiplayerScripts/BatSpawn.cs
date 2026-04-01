@@ -47,7 +47,7 @@ public class BatSpawn : NetworkBehaviour
 
                     NetworkObject newBat2 = Instantiate(bat, spawnPosBat2.position, Quaternion.identity);
                     newBat2.GetComponent<NetworkObject>().Spawn();
-                    newBat.gameObject.name = "BatP2";
+                    newBat2.gameObject.name = "BatP2";
                     Debug.Log("BatSpawn p2");
                 }
             }
