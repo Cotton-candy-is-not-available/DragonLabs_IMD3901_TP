@@ -23,7 +23,6 @@ public class TicTacToeGameManager : MonoBehaviour
     public float placeDistance = 10f;
 
     [Header("UI")]
-    public GameObject startPanel;
     public GameObject restartButton;
     public TMP_Text resultText;
 
@@ -37,14 +36,11 @@ public class TicTacToeGameManager : MonoBehaviour
     void Start()
     {
         gameOver = false;
-        gameStarted = false;
+        gameStarted = true;
         currentTurn = TicTacToePieceType.X;
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        if (startPanel != null)
-            startPanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         if (restartButton != null)
             restartButton.SetActive(false);
@@ -54,6 +50,10 @@ public class TicTacToeGameManager : MonoBehaviour
             resultText.text = "";
             resultText.gameObject.SetActive(false);
         }
+
+        SpawnTurnPiece();
+
+        if (debugLogs) Debug.Log("Game Started Automatically");
     }
 
     void Update()
@@ -67,32 +67,6 @@ public class TicTacToeGameManager : MonoBehaviour
 
         if (placePressed)
             TryPlaceLookingAtTile();
-    }
-
-    public void StartGame()
-    {
-        gameStarted = true;
-        gameOver = false;
-        currentTurn = TicTacToePieceType.X;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        if (startPanel != null)
-            startPanel.SetActive(false);
-
-        if (restartButton != null)
-            restartButton.SetActive(false);
-
-        if (resultText != null)
-        {
-            resultText.text = "";
-            resultText.gameObject.SetActive(false);
-        }
-
-        SpawnTurnPiece();
-
-        if (debugLogs) Debug.Log("Game Started");
     }
 
     public void RestartGame()
@@ -155,9 +129,7 @@ public class TicTacToeGameManager : MonoBehaviour
         }
 
         if (debugLogs)
-        {
             Debug.Log("Spawned new piece: " + currentTurn + " at " + spawnPos);
-        }
     }
 
     void TryPlaceLookingAtTile()
@@ -255,6 +227,12 @@ public class TicTacToeGameManager : MonoBehaviour
         {
             gameOver = true;
             ShowResult(currentTurn + " Wins!");
+
+            if (AudioManagerSinglePlayer.instance != null)
+                AudioManagerSinglePlayer.instance.PlaySFX(
+                    AudioManagerSinglePlayer.instance.ttt_winSound
+                );
+
             if (debugLogs) Debug.Log(currentTurn + " wins!");
             return true;
         }
@@ -263,11 +241,19 @@ public class TicTacToeGameManager : MonoBehaviour
         {
             gameOver = true;
             ShowResult("Draw!");
+
+            if (AudioManagerSinglePlayer.instance != null)
+                AudioManagerSinglePlayer.instance.PlaySFX(
+                    AudioManagerSinglePlayer.instance.ttt_drawSound
+                );
+
             if (debugLogs) Debug.Log("Draw!");
             return true;
         }
 
-        currentTurn = currentTurn == TicTacToePieceType.X ? TicTacToePieceType.O : TicTacToePieceType.X;
+        currentTurn = currentTurn == TicTacToePieceType.X
+            ? TicTacToePieceType.O
+            : TicTacToePieceType.X;
 
         if (debugLogs) Debug.Log("Placed successfully. Next turn: " + currentTurn);
 
