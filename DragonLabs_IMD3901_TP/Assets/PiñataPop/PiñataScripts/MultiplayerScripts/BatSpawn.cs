@@ -23,10 +23,12 @@ public class BatSpawn : NetworkBehaviour
                 {
                     NetworkObject newBat = Instantiate(bat, spawnPosBat1.position, Quaternion.identity);
                     newBat.GetComponent<NetworkObject>().Spawn();
+                    newBat.gameObject.name = "BatP1";
                     Debug.Log("BatSpawn p1");
 
                     NetworkObject newBat2 = Instantiate(bat, spawnPosBat2.position, Quaternion.identity);
                     newBat2.GetComponent<NetworkObject>().Spawn();
+                    newBat2.gameObject.name = "BatP2";
                     Debug.Log("BatSpawn p2");
                 }
             }
@@ -40,10 +42,12 @@ public class BatSpawn : NetworkBehaviour
                 {
                     NetworkObject newBat = Instantiate(bat, spawnPosBat1.position, Quaternion.identity);
                     newBat.GetComponent<NetworkObject>().Spawn();
+                    newBat.gameObject.name = "BatP1";
                     Debug.Log("BatSpawn p1");
 
                     NetworkObject newBat2 = Instantiate(bat, spawnPosBat2.position, Quaternion.identity);
                     newBat2.GetComponent<NetworkObject>().Spawn();
+                    newBat.gameObject.name = "BatP2";
                     Debug.Log("BatSpawn p2");
                 }
             }
