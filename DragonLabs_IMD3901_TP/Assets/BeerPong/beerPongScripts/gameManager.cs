@@ -97,11 +97,11 @@ public class gameManager : NetworkBehaviour
 
         //find both player in the scene
         player1 = GameObject.FindWithTag("Player1");
-        //player2 = GameObject.FindWithTag("Player2");
+        player2 = GameObject.FindWithTag("Player2");
 
         //Set players start positions
         player1.transform.transform.position = p1StartPos.position;
-        //player2.transform.transform.position = p2StartPos.position;
+        player2.transform.transform.position = p2StartPos.position;
 
         //---------------- Post processign ------------------------//
         //add volume component to them so the blur/drunk effect can be called; this will be deleted when they leave the scenes
@@ -138,23 +138,20 @@ public class gameManager : NetworkBehaviour
         {
             //Set their start positions
             player1.transform.transform.position = p1StartPos.position;
-            //player2.transform.transform.position = p2StartPos.position;
+            player2.transform.transform.position = p2StartPos.position;
             Debug.Log("newBall Update: " + newBall);
-            //Debug.Log("newBall.IsSpawned " + newBall.IsSpawned);
-
 
             //instatiate ball depending on who's turn it is
             if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
             {
                 spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
-                                                   //turn.Value = 2;//now player 2's turn
                 changeTurnRpc(2);//now player 2's turn
                 Debug.Log("NOW player 2: "+ turn.Value);
             }
             else if (turn.Value == 2 && !newBall.IsSpawned)//if player 2 turn
             {
                 spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
-                                                   //turn.Value = 1;//now player 1's turn
+                                                  
                 changeTurnRpc(1);//now player 1's turn
 
                 Debug.Log("NOW player 1: "+ turn.Value);
@@ -233,6 +230,7 @@ public class gameManager : NetworkBehaviour
             //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
             newBall = Instantiate(ball, startPos, Quaternion.identity);
             newBall.GetComponent<NetworkObject>().Spawn();
+
             Debug.Log("newBal SPAWN:"+ newBall);
 
             //Debug.Log("newBall: ", newBall);
@@ -264,6 +262,19 @@ public class gameManager : NetworkBehaviour
     void changeSpanwFirstBallBoolRpc()
     {
         spawnFirstBall.Value = false;
+    }
+
+
+    [Rpc(SendTo.Owner)]
+    public void increaseP1PointsRpc()
+    {
+        player1Points.Value ++;
+    }
+
+    [Rpc(SendTo.Owner)]
+   public void increaseP2PointsRpc()
+    {
+        player2Points.Value++;
     }
 
 

@@ -79,6 +79,8 @@ public class ballHitCups : NetworkBehaviour
             //despawnBallServerRpc();
             //manager.newBall = null;
             //despawnBallRpc();
+            manager.increaseP2PointsRpc();//increase player 2 points
+
             manager.despawnBallServerRpc();
             //gameObject.SetActive(turnOffBall.Value);
 
@@ -95,6 +97,7 @@ public class ballHitCups : NetworkBehaviour
             //despawnBallRpc();
             //manager.newBall = null;
             //gameObject.SetActive(turnOffBall.Value);
+            manager.increaseP1PointsRpc();//increase player 1 points
 
             manager.despawnBallServerRpc();
 

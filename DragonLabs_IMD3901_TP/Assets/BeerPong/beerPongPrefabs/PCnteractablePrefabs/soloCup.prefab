@@ -282,9 +282,11 @@ MonoBehaviour:
   VRPourRotation: 30
   pressDistance: 0.3
   pressSpeed: 2
-  cupNetObj: {fileID: 2824795176778561841}
+  cupObj: {fileID: 2824795176778561841}
   gameManager: {fileID: 0}
   blurEffect: {fileID: 0}
+  turnOffCup:
+    m_InternalValue: 0
 --- !u!65 &-2441078861029167151
 BoxCollider:
   m_ObjectHideFlags: 0

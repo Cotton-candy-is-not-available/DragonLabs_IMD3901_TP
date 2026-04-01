@@ -423,7 +423,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2824795176778561841, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808714196721612210, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
+      propertyPath: m_TagString
+      value: cup2
       objectReference: {fileID: 0}
     - target: {fileID: 6107583948604509049, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: gameManager
@@ -912,7 +916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &351139223
 Transform:
   m_ObjectHideFlags: 0
@@ -1049,7 +1053,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2824795176778561841, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808714196721612210, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
+      propertyPath: m_TagString
+      value: cup1
       objectReference: {fileID: 0}
     - target: {fileID: 6107583948604509049, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: gameManager
@@ -1458,7 +1466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_TagString
@@ -1693,7 +1701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_TagString
@@ -1917,7 +1925,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &774145368
 Transform:
   m_ObjectHideFlags: 0
@@ -2207,7 +2215,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2824795176778561841, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808714196721612210, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
+      propertyPath: m_TagString
+      value: cup2
       objectReference: {fileID: 0}
     - target: {fileID: 6107583948604509049, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: gameManager
@@ -2423,7 +2435,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2824795176778561841, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808714196721612210, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
+      propertyPath: m_TagString
+      value: cup1
       objectReference: {fileID: 0}
     - target: {fileID: 6107583948604509049, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: gameManager
@@ -2501,7 +2517,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2824795176778561841, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808714196721612210, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
+      propertyPath: m_TagString
+      value: cup1
       objectReference: {fileID: 0}
     - target: {fileID: 6107583948604509049, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: gameManager
@@ -2591,7 +2611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_TagString
@@ -2928,7 +2948,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2824795176778561841, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808714196721612210, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
+      propertyPath: m_TagString
+      value: cup2
       objectReference: {fileID: 0}
     - target: {fileID: 6107583948604509049, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
       propertyPath: gameManager
@@ -3414,7 +3438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_TagString
@@ -3770,7 +3794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_TagString
@@ -4442,7 +4466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2415338472961847623, guid: 30c51fd466d1fc74d8b1fb5cee23edff, type: 3}
       propertyPath: m_TagString
