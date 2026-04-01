@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using Unity.Netcode;
@@ -23,8 +24,8 @@ public class gameManager : NetworkBehaviour
     [Header("------------ Prefabs -------------")]
     public NetworkObject[] ballPrefab;//prefab with network object attached
 
-
-    //public beerPongScoreManger scoreManger;
+    public NetworkObject[] PCballPrefab;//prefab with network object attached
+    public NetworkObject[] VRballPrefab;//prefab with network object attached
 
     public NetworkVariable<int> turn = new NetworkVariable<int>(2);
 
@@ -34,13 +35,15 @@ public class gameManager : NetworkBehaviour
     public Transform p1StartPos;
     public Transform p2StartPos;
 
+    public Transform VRp1StartPos;
+    public Transform VRp2StartPos;
+
     public VolumeProfile playerVolumeProfile;
 
     public NetworkVariable<bool> isGameOver = new NetworkVariable<bool>(false);
     public NetworkVariable<bool> activateWinnerPanel = new NetworkVariable<bool>(false);
 
     public NetworkVariable<bool> spawnFirstBall = new NetworkVariable<bool>(true);
-    //public NetworkVariable<bool> goToLobby;
 
     [Header("------------ Winner panels -------------")]
     public GameObject P1WinnerPanel;
@@ -63,10 +66,35 @@ public class gameManager : NetworkBehaviour
 
         spawnFirstBall.OnValueChanged += OnSpawnFirstBall;
 
+       
+
+
     }
 
     void Start()
     {
+
+        //activate different interactable pbjects depending on the chosen game mode
+        if (staticClass.PCOn)//if PC mode was chosen in the game setup scene
+        {
+            Debug.Log("Use PC ball");
+            ballPrefab[0] = PCballPrefab[0];//set the ball prefab list to the PC working one
+
+           
+
+        }
+        else if (staticClass.VROn)//if VR mode was chosen in the game setup scene
+        {
+            Debug.Log("Use VR ball");
+
+            ballPrefab[0] = VRballPrefab[0];//set the ball prefab list to the VR working one
+
+            //set start positions to VR start positions
+            p1StartPos = VRp1StartPos;
+            p2StartPos = VRp2StartPos;
+
+        }
+
         //find both player in the scene
         player1 = GameObject.FindWithTag("Player1");
         player2 = GameObject.FindWithTag("Player2");
@@ -95,8 +123,6 @@ public class gameManager : NetworkBehaviour
         P2BallStartPos = new Vector3(0f, 4.5f, 5);
         Debug.Log("Start turn: "+ turn.Value);
 
-        //turn.Value = 1;
-        //spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
     }
 
     // Update is called once per frame
@@ -114,21 +140,18 @@ public class gameManager : NetworkBehaviour
             player1.transform.transform.position = p1StartPos.position;
             player2.transform.transform.position = p2StartPos.position;
             Debug.Log("newBall Update: " + newBall);
-            //Debug.Log("newBall.IsSpawned " + newBall.IsSpawned);
-
 
             //instatiate ball depending on who's turn it is
             if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
             {
                 spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
-                                                   //turn.Value = 2;//now player 2's turn
                 changeTurnRpc(2);//now player 2's turn
                 Debug.Log("NOW player 2: "+ turn.Value);
             }
             else if (turn.Value == 2 && !newBall.IsSpawned)//if player 2 turn
             {
                 spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
-                                                   //turn.Value = 1;//now player 1's turn
+                                                  
                 changeTurnRpc(1);//now player 1's turn
 
                 Debug.Log("NOW player 1: "+ turn.Value);
@@ -207,6 +230,7 @@ public class gameManager : NetworkBehaviour
             //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
             newBall = Instantiate(ball, startPos, Quaternion.identity);
             newBall.GetComponent<NetworkObject>().Spawn();
+
             Debug.Log("newBal SPAWN:"+ newBall);
 
             //Debug.Log("newBall: ", newBall);
@@ -238,6 +262,19 @@ public class gameManager : NetworkBehaviour
     void changeSpanwFirstBallBoolRpc()
     {
         spawnFirstBall.Value = false;
+    }
+
+
+    [Rpc(SendTo.Owner)]
+    public void increaseP1PointsRpc()
+    {
+        player1Points.Value ++;
+    }
+
+    [Rpc(SendTo.Owner)]
+   public void increaseP2PointsRpc()
+    {
+        player2Points.Value++;
     }
 
 
