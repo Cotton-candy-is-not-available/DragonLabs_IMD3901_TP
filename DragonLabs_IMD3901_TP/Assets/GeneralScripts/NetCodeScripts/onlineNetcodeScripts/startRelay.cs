@@ -56,16 +56,12 @@ public class startRelay : MonoBehaviour
 
     private async void Start()
     {
-        //if (hasStarted.gameHasStarted && !startGameAccesss.multiPlayerMode) return;//don't run relay authentication if game has already started and multiplayer mode is off
-
         await UnityServices.InitializeAsync();//initialises unity services so that API and relay can run
         AuthenticationService.Instance.SignedIn += () =>
         {
             Debug.Log("Signed in: " + AuthenticationService.Instance.PlayerId);//get player ID
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();//creates account for user anonymously
-
-
     }
 
     //Same as create host button
@@ -122,13 +118,8 @@ public class startRelay : MonoBehaviour
 
             NetworkManager.Singleton.StartClient();
             joinCanvas.SetActive(false);//hide the join panel
-            //gameSetUpCanvas.SetActive(false);//hide the set up cnavas
-            //startGameAccesss.clientStartServerRpc();//client has started
+         
             Debug.Log("Client started Relay");
-            //chooseGameAccess.switchScenesNetServerRpc("Lobby");
-
-
-
 
         }
         catch (RelayServiceException err)

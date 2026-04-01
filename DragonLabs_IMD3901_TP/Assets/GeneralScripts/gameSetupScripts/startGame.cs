@@ -112,6 +112,7 @@ public class startGame : NetworkBehaviour
         VRMode = true;//player chose to use VR headset to play
         staticClass.VROn = VRMode;//save to a static variable
 
+
     }
 
     //If user chooses to use PC
