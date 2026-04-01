@@ -1,38 +1,45 @@
 using System;
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
-
 
 public class AudioManagerSinglePlayer : MonoBehaviour
 {
-    Scene currentScene;
-    public String chosenGame;
+    public static AudioManagerSinglePlayer instance;
+
+    public string chosenGame;
 
     [Header("---- Audio Source ----")]
-    [SerializeField] AudioSource musicSource;
-    [SerializeField] AudioSource SFXSource;
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource SFXSource;
 
     [Header("---- Audio Clip ----")]
 
-    //pinata pop sound effects
+    // Pinata Pop
     public AudioClip pinata_background;
     public AudioClip pinataPopSound;
     public AudioClip pickupORdrop;
     public AudioClip partyBlower;
     public AudioClip batHitSound;
 
-    //other game sound effects (type below) >>>
-    //add other background music for the other minigames
+    // Other game background music
     public AudioClip beerPong_background;
     public AudioClip ticTacToe_background;
 
-    //parkour sound effects
     [Header("---- Parkour Audio Clip ----")]
     public AudioClip parkour_background;
     public AudioClip parkour_jumpSound;
 
+    [Header("---- TicTacToe Audio ----")]
+    public AudioClip ttt_winSound;
+    public AudioClip ttt_loseSound;
+    public AudioClip ttt_drawSound;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     private void Start()
     {
@@ -42,12 +49,14 @@ public class AudioManagerSinglePlayer : MonoBehaviour
 
     public void PlaySFX(AudioClip clip)
     {
+        if (clip == null || SFXSource == null) return;
         SFXSource.PlayOneShot(clip);
     }
-    
-    //takes in a string of which game is selected (aka which minigame's scene the audio manager prfab is in)
+
     public void PlayBackgroundMusic(string chosenGame)
     {
+        if (musicSource == null) return;
+
         Debug.Log("chosen game is " + chosenGame);
 
         switch (chosenGame)
@@ -71,8 +80,6 @@ public class AudioManagerSinglePlayer : MonoBehaviour
                 musicSource.clip = parkour_background;
                 musicSource.Play();
                 break;
-            
         }
     }
-
 }
