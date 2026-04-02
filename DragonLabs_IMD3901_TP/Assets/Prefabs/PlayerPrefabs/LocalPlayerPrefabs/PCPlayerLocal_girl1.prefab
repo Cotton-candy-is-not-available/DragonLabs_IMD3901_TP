@@ -112,6 +112,8 @@ MonoBehaviour:
   jumpHeight: 1.2
   gravity: -20
   groundCheckDistance: 0.2
+  jumpCooldown: 1
+  jumpAudio: {fileID: 0}
 --- !u!1 &525578296958858651
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +174,7 @@ Transform:
   m_GameObject: {fileID: 1567635332458221024}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12, y: 0.237, z: 0}
+  m_LocalPosition: {x: 0.22, y: 0.237, z: -0.021}
   m_LocalScale: {x: 1, y: 0.8707, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -668,10 +670,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2464249
-  m_Height: 0.73439324
+  m_Radius: 0.16325264
+  m_Height: 0.48403135
   m_Direction: 1
-  m_Center: {x: -0.12637854, y: 0.1328034, z: -0.0084926635}
+  m_Center: {x: 0.14185409, y: 0.0003696085, z: -0.008492649}
 --- !u!4 &4572102033226066662 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 245fd9e0bf4e74054b008fc0dc0d49d9, type: 3}
