@@ -35,7 +35,7 @@ public class pourDetector : NetworkBehaviour
     float fillElaspsedTime;
     float lerpDuration = 3;
 
-    public gameManager gameManager;
+    public gameManager gameManager_access;
     public DepthOfField blurEffect;
 
 
@@ -44,6 +44,8 @@ public class pourDetector : NetworkBehaviour
 
     private void Start()
     {
+        gameManager_access = FindFirstObjectByType<gameManager>(); //find the gameManager in the scene
+
         rend = beerLiquid.GetComponent<Renderer>();//get the renderer from the gameobject
         fillLevel.y = -0.23f;//set fill level
         rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph so that it matches the fill level in this script
@@ -58,7 +60,7 @@ public class pourDetector : NetworkBehaviour
 
     private void Update()
     {
-        Debug.Log("cupObj.transform.rotation.x: " + cupObj.transform.rotation.x);
+        //Debug.Log("cupObj.transform.rotation.x: " + cupObj.transform.rotation.x);
 
         if (staticClass.VROn)
         { //if vr is enabled
@@ -146,8 +148,8 @@ public class pourDetector : NetworkBehaviour
         //cupNetObj.Despawn();
         if (beerLiquid.GetComponent<startBlurEffect>().Player1Drink == true)
         {//if player 1 needs to drink
-            Volume playerVolume = gameManager.player1.GetComponent<Volume>();//get their volume
-                                                                            
+            Volume playerVolume = gameManager_access.player1.GetComponent<Volume>();//get their volume
+
             playerVolume.profile.TryGet(out blurEffect);
             blurEffect.focalLength.value += 100;//increase the focal length value
 
@@ -160,12 +162,41 @@ public class pourDetector : NetworkBehaviour
             //gameManager.player2.GetComponent<Volume>().profile = ;//get their volume
             beerLiquid.GetComponent<startBlurEffect>().Player2Drink = false; // set back to false
         }
-        cupObj.SetActive(turnOffCup.Value);//hide the cup
-        
+        //cupObj.SetActive(turnOffCup.Value);//hide the cup
+        Debug.Log("cup start despawn");
 
+        if (cupNetObj.IsSpawned)
+        {
+            Debug.Log("cup is gonnn ");
+
+            cupNetObj.Despawn();
+        }
+
+   
     }
 
+    //[ServerRpc(RequireOwnership = false)]
+    //public void despawnBallServerRpc()
+    //public void despawnCup()
+    //{
 
+    //    foreach (NetworkObject ball in ballPrefab)
+    //    {
+    //        if (!IsServer) return;
+
+    //        if (ball != null)
+    //        {
+    //            Debug.Log("ball is not null");
+    //            if (newBall.IsSpawned)
+    //            {
+    //                Debug.Log("newBal despawn:"+ newBall);
+    //                newBall.Despawn();
+    //                Debug.Log("Its GONE");
+
+    //            }
+    //        }
+    //    }
+    //}
     //For VR
     //If gameobject.rotation.x < 90//being  poured/rotated
     //lowerFillLevel

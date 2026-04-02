@@ -14,6 +14,8 @@ public class activateLobbyObjects : MonoBehaviour
 
 
     public GameObject SingleVRPlayer;
+    public GameObject[] SingleVRPlayerList;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

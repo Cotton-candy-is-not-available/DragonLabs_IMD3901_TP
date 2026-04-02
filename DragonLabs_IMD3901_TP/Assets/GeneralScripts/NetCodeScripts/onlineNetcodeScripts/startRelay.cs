@@ -22,8 +22,9 @@ public class startRelay : MonoBehaviour
 
     //This script can be on an empty game object
     //is currently on a canvas
+    public AudioManagerSinglePlayer audioManager;
 
-     public Button hostButton;
+    public Button hostButton;
      public Button joinButton;
      public  TMP_InputField codeJoin;
 
@@ -45,10 +46,14 @@ public class startRelay : MonoBehaviour
     {
         hostButton.onClick.AddListener(() =>
         {
+            
+            audioManager.PlaySFX(audioManager.gmaeSetup_buttonClick);//play button click SFX when pressed
             createRelay();
+
         });
         joinButton.onClick.AddListener(() =>
         {
+            audioManager.PlaySFX(audioManager.gmaeSetup_buttonClick);//play button click SFX when pressed
             JoinRelay(codeJoin.text);
         });
     }

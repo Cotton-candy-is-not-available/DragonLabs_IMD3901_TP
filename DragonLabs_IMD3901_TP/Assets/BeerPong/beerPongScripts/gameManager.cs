@@ -97,11 +97,11 @@ public class gameManager : NetworkBehaviour
 
         //find both player in the scene
         player1 = GameObject.FindWithTag("Player1");
-        player2 = GameObject.FindWithTag("Player2");
+        //player2 = GameObject.FindWithTag("Player2");
 
         //Set players start positions
         player1.transform.transform.position = p1StartPos.position;
-        player2.transform.transform.position = p2StartPos.position;
+        //player2.transform.transform.position = p2StartPos.position;
 
         //---------------- Post processign ------------------------//
         //add volume component to them so the blur/drunk effect can be called; this will be deleted when they leave the scenes
@@ -138,7 +138,7 @@ public class gameManager : NetworkBehaviour
         {
             //Set their start positions
             player1.transform.transform.position = p1StartPos.position;
-            player2.transform.transform.position = p2StartPos.position;
+            //player2.transform.transform.position = p2StartPos.position;
             Debug.Log("newBall Update: " + newBall);
 
             //instatiate ball depending on who's turn it is
@@ -192,31 +192,7 @@ public class gameManager : NetworkBehaviour
 
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void despawnBallServerRpc()
-    {
-
-        foreach (NetworkObject ball in ballPrefab)
-        {
-            if (!IsServer) return;
-
-            if (ball != null)
-            {
-                Debug.Log("ball is not null");
-                if (newBall.IsSpawned)
-                {
-                    Debug.Log("newBal despawn:"+ newBall);
-                    newBall.Despawn();
-                    Debug.Log("Its GONE");
-
-                }
-            }
-        }
-    }
-
-
-
-
+ 
 
     //Ball spawning and despawning
     [ServerRpc(RequireOwnership = false)]
@@ -237,6 +213,29 @@ public class gameManager : NetworkBehaviour
             //Debug.Log("newBall is spawned: "+ newBall.IsSpawned);
         }
 
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    public void despawnBallServerRpc()
+    {
+
+        foreach (NetworkObject ball in ballPrefab)
+        {
+            if (!IsServer) return;
+
+            if (ball != null)
+            {
+                Debug.Log("ball is not null");
+                if (newBall.IsSpawned)
+                {
+                    Debug.Log("newBal despawn:"+ newBall);
+                    newBall.Despawn();
+                    Debug.Log("Its GONE");
+
+                }
+            }
+        }
     }
 
 
