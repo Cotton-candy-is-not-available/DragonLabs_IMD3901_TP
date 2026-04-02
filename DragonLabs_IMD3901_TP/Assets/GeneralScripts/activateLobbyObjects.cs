@@ -10,6 +10,9 @@ public class activateLobbyObjects : MonoBehaviour
     public GameObject singleAudioManager;
 
     public GameObject SinglePCPlayer;
+    public GameObject[] SinglePCPlayerList;
+
+
     public GameObject SingleVRPlayer;
 
 
@@ -26,7 +29,11 @@ public class activateLobbyObjects : MonoBehaviour
 
             if (staticClass.PCOn)//if pc mode was chosen
             {
-                SinglePCPlayer.SetActive(true);//turn on PC player prefab
+                int randomNum = Random.Range(0, 4);//choose a random player from 0 to 3 in the array
+
+                Debug.Log("random Num: " + randomNum);
+                SinglePCPlayerList[randomNum].SetActive(true);//turn the player on
+                //SinglePCPlayer.SetActive(true);//turn on PC player prefab
             }
             else if(staticClass.VROn)//if VR mode was chosen
             {
