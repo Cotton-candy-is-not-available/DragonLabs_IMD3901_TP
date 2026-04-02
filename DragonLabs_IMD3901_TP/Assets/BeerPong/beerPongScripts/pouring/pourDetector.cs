@@ -36,6 +36,7 @@ public class pourDetector : NetworkBehaviour
     float lerpDuration = 3;
 
     public gameManager gameManager_access;
+    public AudioManager audioManager_access;
     public DepthOfField blurEffect;
 
 
@@ -45,6 +46,7 @@ public class pourDetector : NetworkBehaviour
     private void Start()
     {
         gameManager_access = FindFirstObjectByType<gameManager>(); //find the gameManager in the scene
+        audioManager_access = FindFirstObjectByType<AudioManager>(); //find the gameManager in the scene
 
         rend = beerLiquid.GetComponent<Renderer>();//get the renderer from the gameobject
         fillLevel.y = -0.23f;//set fill level
@@ -130,6 +132,7 @@ public class pourDetector : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     void lowerFillLevelServerRPC()
     {
+        audioManager_access.PlaySFX(audioManager_access.drinkingSFX);//play drinking sfx
         lowerFillLevel();
         StartCoroutine(destroyCup(cupObj));//destoy the cup
 

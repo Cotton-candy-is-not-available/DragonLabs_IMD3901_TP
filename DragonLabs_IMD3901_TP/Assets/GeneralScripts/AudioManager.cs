@@ -26,6 +26,7 @@ public class AudioManager : NetworkBehaviour
 
     [Header("---- BeerPong Audio Clip ----")]
     //pinata pop sound effects
+    public AudioClip ballSpawnSFX;
     public AudioClip ballFloorSFX;
     public AudioClip ballTableSFX;
     public AudioClip ballBeerSFX;

@@ -6,46 +6,32 @@ using UnityEngine;
 
 public class ballHitCups : NetworkBehaviour
 {
-    public static ballHitCups Instance;
-
-
     public NetworkVariable<bool> turnOffBall = new NetworkVariable<bool>(false);
 
     public gameManager manager;
+
+    public AudioManager audioManager;
     public override void OnNetworkSpawn()
     {
 
-        //P1Point.Value = false;
-        //P2Point.Value = false;
+        audioManager = FindFirstObjectByType<AudioManager>(); //find the audio manager in the scene
 
-        ////nonCup.Value = false;
+        manager = GameObject.Find("BeerPongGameManager").GetComponent<gameManager>(); //find the gameManager in the scene
 
-        //if (Instance != null)
-        //{
-        //    gameObject.GetComponent<NetworkObject>().Despawn();
+        audioManager.PlaySFX(audioManager.ballSpawnSFX);//play SFX
 
-        //}
-        //else
-        //{
-        //    Instance = this;
-
-        //}
-        manager = GameObject.Find("BeerPongGameManager").GetComponent<gameManager>(); ;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
 
 
-        //if (collision.gameObject.tag == "floor" || collision.gameObject.tag == "table")//if ball touches the floor or table
         if (collision.gameObject.tag == "floor")//if ball touches the floor or table
         {
+            audioManager.PlaySFX(audioManager.ballFloorSFX);//play SFX
+
             Debug.Log("Floor");
-            //nonCup.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
-            //despawnBallServerRpc();
-            //manager.newBall = null;
-            //despawnBallRpc();
-            //gameObject.SetActive(turnOffBall.Value);
+           
             manager.despawnBallServerRpc();
 
 
@@ -53,12 +39,10 @@ public class ballHitCups : NetworkBehaviour
 
         if (collision.gameObject.tag == "table")//if ball touches the floor or table
         {
+            audioManager.PlaySFX(audioManager.ballTableSFX);//play SFX
+
             Debug.Log("table");
-            //nonCup.Value = true;//to be used when it is thrown and has not hit any beer/cups so it needs to reset
-            //despawnBallServerRpc();
-            //manager.newBall = null;
-            //despawnBallRpc();
-            //gameObject.SetActive(turnOffBall.Value);
+           
             manager.despawnBallServerRpc();
 
 
@@ -73,12 +57,12 @@ public class ballHitCups : NetworkBehaviour
     {
         if (trigger.gameObject.tag == "cup1")//if the ball hits player 1 Cup 
         {
+
             //manager.changeTurnRpc(2);//now player 2's turn
             Debug.Log("cup1");
 
-            //despawnBallServerRpc();
-            //manager.newBall = null;
-            //despawnBallRpc();
+            audioManager.PlaySFX(audioManager.ballBeerSFX);//play SFX
+
             manager.increaseP2PointsRpc();//increase player 2 points
 
             manager.despawnBallServerRpc();
@@ -91,12 +75,8 @@ public class ballHitCups : NetworkBehaviour
         {
             //manager.changeTurnRpc(1);//now player 2's turn
             Debug.Log("cup2");
+            audioManager.PlaySFX(audioManager.ballBeerSFX);//play SFX
 
-            //gameObject.GetComponent<NetworkObject>().Despawn();//destroy the ball
-            //despawnBallServerRpc();
-            //despawnBallRpc();
-            //manager.newBall = null;
-            //gameObject.SetActive(turnOffBall.Value);
             manager.increaseP1PointsRpc();//increase player 1 points
 
             manager.despawnBallServerRpc();
@@ -113,10 +93,7 @@ public class ballHitCups : NetworkBehaviour
             manager.despawnBallServerRpc();
             Debug.Log("OUT OF BOUNDS");
 
-            //manager.newBall = null;
-            //gameObject.SetActive(turnOffBall.Value);
-            //despawnBallServerRpc();
-            //despawnBallRpc();
+           
         }
     }
 
@@ -133,28 +110,6 @@ public class ballHitCups : NetworkBehaviour
         netBall.Despawn();
     }
 
-
-    //[ServerRpc(RequireOwnership = false)]
-    //public void despawnBallServerRpc()
-    //{
-    //    //despawnBallClientRpc();
-    //}
-
-    //[ClientRpc]
-    //public void despawnBallClientRpc()
-    //{
-    //    if (IsServer)
-    //    {
-    //        Debug.Log("is server: despawn");
-    //        StartCoroutine(WaitToDestroy());//destoy the ball
-
-    //        gameObject.GetComponent<NetworkObject>().Despawn();//destroy ball when it goes anywhere below floor level
-    //    }
-    //    else if (!IsServer)
-    //    {
-    //        return;
-    //    }
-    //}
 
 
     IEnumerator WaitToDestroy()
