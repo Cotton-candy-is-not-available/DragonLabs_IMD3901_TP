@@ -926,7 +926,7 @@ Transform:
   m_GameObject: {fileID: 281465468}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2635,7 +2635,7 @@ Transform:
   m_GameObject: {fileID: 1056515698}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2683,8 +2683,10 @@ MonoBehaviour:
   - {fileID: 6885689032081235582, guid: bf86c228aa05a034aa3db17b64b287f5, type: 3}
   cupPrefabListPCPlayer2:
   - {fileID: 6885689032081235582, guid: b4e417e597e43684d9c9f3dd537245f4, type: 3}
-  cupPrefabListVRPlayer1: []
-  cupPrefabListVRPlayer2: []
+  cupPrefabListVRPlayer1:
+  - {fileID: 4528916569671949240, guid: 053e32138f657eb4d971ffe66f6d312d, type: 3}
+  cupPrefabListVRPlayer2:
+  - {fileID: 4528916569671949240, guid: 574eee8c988a33242a000cea3614fc65, type: 3}
   spawnPos1Cup: {fileID: 4419744}
   spawnPos2Cup: {fileID: 41635552}
   spawnPos3Cup: {fileID: 1039451554}

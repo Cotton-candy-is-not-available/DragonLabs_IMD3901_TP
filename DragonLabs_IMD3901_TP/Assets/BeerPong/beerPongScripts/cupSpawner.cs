@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class cupSpawner : NetworkBehaviour
 {
+    //Need 2 prefab lists each because cups have tag inside on whater they are player 1 or 2
     public NetworkObject[] cupPrefabListPCPlayer1;
-    public NetworkObject[] cupPrefabListPCPlayer2
-        ;
+    public NetworkObject[] cupPrefabListPCPlayer2;
+
     public NetworkObject[] cupPrefabListVRPlayer1;
     public NetworkObject[] cupPrefabListVRPlayer2;
 
@@ -67,24 +68,49 @@ public class cupSpawner : NetworkBehaviour
             }
         }
 
-        ////spawn VR cups
-        //else if (staticClass.VROn == true)
-        //{
-        //    for (int i = 0; i < 1; i++)
-        //    {
-        //        //instantiate one of the bat prefabs from the list
-        //        foreach (NetworkObject bat in cupPrefabListVR)
-        //        {
-        //            NetworkObject newBat = Instantiate(bat, spawnPos1Cup.position, Quaternion.identity);
-        //            newBat.GetComponent<NetworkObject>().Spawn();
-        //            Debug.Log("BatSpawn p1");
+        //spawn VR cups
+        else if (staticClass.VROn == true)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                //instantiate the player 1 cup prefab from the list
 
-        //            NetworkObject newBat2 = Instantiate(bat, spawnPos2Cup.position, Quaternion.identity);
-        //            newBat2.GetComponent<NetworkObject>().Spawn();
-        //            Debug.Log("BatSpawn p2");
-        //        }
-        //    }
-        //}
+                //For player 1
+                foreach (NetworkObject cup in cupPrefabListVRPlayer1)
+                {
+                    NetworkObject newCup1 = Instantiate(cup, spawnPos1Cup.position, Quaternion.identity);
+                    newCup1.GetComponent<NetworkObject>().Spawn();
+                    Debug.Log("cup spawn 1");
+
+                    NetworkObject newCup2 = Instantiate(cup, spawnPos2Cup.position, Quaternion.identity);
+                    newCup2.GetComponent<NetworkObject>().Spawn();
+                    Debug.Log("cup spawn 2");
+
+
+                    NetworkObject newCup3 = Instantiate(cup, spawnPos3Cup.position, Quaternion.identity);
+                    newCup3.GetComponent<NetworkObject>().Spawn();
+                    Debug.Log("cup spawn 3");
+                }
+
+
+                //For player 2
+                foreach (NetworkObject cup in cupPrefabListVRPlayer2)
+                {
+                    NetworkObject newCup1 = Instantiate(cup, spawnPos4Cup.position, Quaternion.identity);
+                    newCup1.GetComponent<NetworkObject>().Spawn();
+                    Debug.Log("cup spawn 4");
+
+                    NetworkObject newCup2 = Instantiate(cup, spawnPos5Cup.position, Quaternion.identity);
+                    newCup2.GetComponent<NetworkObject>().Spawn();
+                    Debug.Log("cup spawn 5");
+
+
+                    NetworkObject newCup3 = Instantiate(cup, spawnPos6Cup.position, Quaternion.identity);
+                    newCup3.GetComponent<NetworkObject>().Spawn();
+                    Debug.Log("cup spawn 6");
+                }
+            }
+        }
     }
 
 
