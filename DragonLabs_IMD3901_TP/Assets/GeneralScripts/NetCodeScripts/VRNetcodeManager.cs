@@ -7,6 +7,7 @@ public class VRNetcodeManager : NetworkBehaviour
 
     public Camera VrCamera;
 
+    [SerializeField] Vector3 lobbyStartPos;
     // Update is called once per frame
     public override void OnNetworkSpawn()
     {
@@ -14,6 +15,10 @@ public class VRNetcodeManager : NetworkBehaviour
         {
             VrCamera.enabled = false;
         }
+
+        lobbyStartPos = new Vector3(0.05f, 0.46f, -19.02f);
+
+        gameObject.transform.position = lobbyStartPos;//make the player spawn here
 
         //check that there is only one object in the scene with this script
 
