@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: -7967910005088158543}
   - component: {fileID: 8777188222097438960}
   m_Layer: 0
-  m_Name: soloCup
+  m_Name: soloCupP1
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -633,7 +633,7 @@ GameObject:
   - component: {fileID: 1613661548467923501}
   m_Layer: 0
   m_Name: inside_geo
-  m_TagString: beer
+  m_TagString: cup1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

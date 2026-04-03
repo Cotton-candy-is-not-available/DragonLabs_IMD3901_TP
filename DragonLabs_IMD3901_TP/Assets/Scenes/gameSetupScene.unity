@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &71546874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+  m_PrefabInstance: {fileID: 1880761705}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21e7a9a39bc79dc48ae893ce121c3edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &129331998
 GameObject:
   m_ObjectHideFlags: 0
@@ -5244,6 +5255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e050afabfcfc541499be0e9b2487a19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 71546874}
   hostButton: {fileID: 1016676897}
   joinButton: {fileID: 630479747}
   codeJoin: {fileID: 1900695169}
@@ -5267,6 +5279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  audioManager: {fileID: 71546874}
   VRMode: 0
   PCMode: 0
   multiPlayerMode: 0
@@ -5277,13 +5290,18 @@ MonoBehaviour:
   gameModeOptionPanel: {fileID: 129331998}
   startNetPanel: {fileID: 271683837}
   PCplayer: {fileID: 123514706950494819, guid: 3432999a8b86d1f40abb4a398ff16d03, type: 3}
+  PCNetListplayer:
+  - {fileID: 123514706950494819, guid: 76136dd05ee589d4ab8440d9b162d9b6, type: 3}
+  - {fileID: 123514706950494819, guid: b66faa4909fcc4c4490a05ab60f10132, type: 3}
+  - {fileID: 123514706950494819, guid: bf8a3565498509347b770cf1058ecb15, type: 3}
+  - {fileID: 123514706950494819, guid: 9f19b37397c49b54589612168572ec05, type: 3}
   VRplayer: {fileID: 2865438684419936513, guid: 66fdf2e66f33ee64cad1a9eb3e10e5ff, type: 3}
   localPCPlayer: {fileID: 1686308092}
   localVRPlayer: {fileID: 1577935404}
   NetworkManagerObject: {fileID: 1674299566}
   chooseGameAccess: {fileID: 974390632}
-  LANHostButton: {fileID: 0}
-  LANClientButton: {fileID: 0}
+  LANHostButton: {fileID: 1108857918}
+  LANClientButton: {fileID: 1358228335}
 --- !u!114 &1181784892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7290,9 +7308,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: chosenGame
+      value: gameSetup
+      objectReference: {fileID: 0}
+    - target: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: gmaeSetup_background
+      value: 
+      objectReference: {fileID: 8300000, guid: 368209074a6f30c4fbe4b1b5e090a548, type: 3}
+    - target: {fileID: 74237076888998241, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: gmaeSetup_buttonClick
+      value: 
+      objectReference: {fileID: 8300000, guid: 9dfb3eaa1adcd914e96afaf5aaed1564, type: 3}
     - target: {fileID: 1215309364188712390, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
       propertyPath: m_Name
       value: AudioManagerSinglePlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334926778548526016, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334926778548526016, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
+      propertyPath: m_Volume
+      value: 0.448
       objectReference: {fileID: 0}
     - target: {fileID: 8893742780116670987, guid: 893f0b83166646247a91605d1bf911d1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7872,6 +7910,7 @@ SceneRoots:
   - {fileID: 529129831}
   - {fileID: 1607151598}
   - {fileID: 1077670163}
+  - {fileID: 1880761705}
   - {fileID: 974390633}
   - {fileID: 1181784896}
   - {fileID: 2109426542}
@@ -7882,4 +7921,3 @@ SceneRoots:
   - {fileID: 1202038829}
   - {fileID: 725843754}
   - {fileID: 990718174}
-  - {fileID: 1880761705}

@@ -25,6 +25,10 @@ public class AudioManagerSinglePlayer : MonoBehaviour
     public AudioClip ticTacToe_background;
 
 
+    [Header("---- Game Setup Audio Clip ----")]
+    public AudioClip gmaeSetup_background;
+    public AudioClip gmaeSetup_buttonClick;
+
     [Header("---- Lobby Audio Clip ----")]
     public AudioClip lobby_background;
 
@@ -65,6 +69,13 @@ public class AudioManagerSinglePlayer : MonoBehaviour
 
         switch (chosenGame)
         {
+
+            case "gameSetup":
+                musicSource.clip = gmaeSetup_background;
+                musicSource.Play();
+                break;
+
+
             case "Lobby":
                 musicSource.clip = parkour_background;
                 musicSource.Play();

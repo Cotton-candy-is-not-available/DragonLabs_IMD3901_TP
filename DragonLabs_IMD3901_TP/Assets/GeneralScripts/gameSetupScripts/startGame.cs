@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class startGame : NetworkBehaviour
 {
+    public AudioManagerSinglePlayer audioManager;
+
     [Header("---Bools----")]
 
     //bools will be called in other scenes to determine which prefabs and function need to be in use
@@ -25,10 +27,13 @@ public class startGame : NetworkBehaviour
     public GameObject startNetPanel;
 
     [Header("---Player prefabs ----")]
+    [Header("---Net ----")]
+
     //Network player prefabs
     public GameObject PCplayer;
+    public GameObject[] PCNetListplayer;
     public GameObject VRplayer;
-
+    [Header("---Local ----")]
     //local single players
     public GameObject localPCPlayer;
     public GameObject localVRPlayer;
@@ -98,6 +103,7 @@ public class startGame : NetworkBehaviour
     //start button function to get players into the game
     public void startButton()
     {
+        audioManager.PlaySFX(audioManager.gmaeSetup_buttonClick);//play button click SFX when pressed
         startPanel.SetActive(false);//hides start panel on click
         plateformOptionPanel.SetActive(true);//shows choose plateform panel on click
 
@@ -107,6 +113,8 @@ public class startGame : NetworkBehaviour
     //if user chooses to use VR
     public void VROptionButton()
     {
+        audioManager.PlaySFX(audioManager.gmaeSetup_buttonClick);//play button click SFX when pressed
+
         plateformOptionPanel.SetActive(false);//hides choose plateform panel on click
         gameModeOptionPanel.SetActive(true);//shows choose game mode panel on click
         VRMode = true;//player chose to use VR headset to play
@@ -118,6 +126,8 @@ public class startGame : NetworkBehaviour
     //If user chooses to use PC
     public void PCOptionButton()
     {
+        audioManager.PlaySFX(audioManager.gmaeSetup_buttonClick);//play button click SFX when pressed
+
         plateformOptionPanel.SetActive(false);//hides choose plateform panel on click
         gameModeOptionPanel.SetActive(true);//shows choose game mode panel on click
         PCMode = true;//player chose to use computer to play
@@ -128,6 +138,8 @@ public class startGame : NetworkBehaviour
     //If user chooses the multiplayer option
     public void multiPlayerOptionButton()
     {
+        audioManager.PlaySFX(audioManager.gmaeSetup_buttonClick);//play button click SFX when pressed
+
         gameModeOptionPanel.SetActive(false);//hides choose game mode panel on click
         startNetPanel.SetActive(true);//show network option(host, client, server)
 
@@ -136,9 +148,14 @@ public class startGame : NetworkBehaviour
 
         if (PCMode)//if pc button was clicked earlier
         {
+            int randomNum = Random.Range(0, 4);//choose a random player from 0 to 3 in the array
+
+            Debug.Log("random Num: " + randomNum);//print the random num
+
             NetworkManagerObject.SetActive(true);//activate the networkmanager
 
-            NetworkManager.Singleton.NetworkConfig.PlayerPrefab = PCplayer;
+            //NetworkManager.Singleton.NetworkConfig.PlayerPrefab = PCplayer;
+            NetworkManager.Singleton.NetworkConfig.PlayerPrefab = PCNetListplayer[randomNum];//choose a random polayer from the list
             //PCNetworkManager.SetActive(true);//activate PC network manager
 
         }
@@ -156,6 +173,8 @@ public class startGame : NetworkBehaviour
     //If user chooses the single player option
     public void singlePlayerOptionButton()
     {
+        audioManager.PlaySFX(audioManager.gmaeSetup_buttonClick);//play button click SFX when pressed
+
         gameModeOptionPanel.SetActive(false);//hides choose game mode panel on click
 
         gameSteupCanvas.SetActive(false);//hides canvas
@@ -194,6 +213,8 @@ public class startGame : NetworkBehaviour
 
     public void startHost()
     {
+        audioManager.PlaySFX(audioManager.gmaeSetup_buttonClick);//play button click SFX when pressed
+
         NetworkManager.Singleton.StartHost();//start host
         gameSteupCanvas.SetActive(false );//hide net connect panel
         Debug.Log("Host started LAN");
@@ -208,6 +229,7 @@ public class startGame : NetworkBehaviour
 
     public void startClient()
     {
+        audioManager.PlaySFX(audioManager.gmaeSetup_buttonClick);//play button click SFX when pressed
 
         //IPAdressText.SetActive(false);//hides ip address if not already
         NetworkManager.Singleton.StartClient();//join game as client

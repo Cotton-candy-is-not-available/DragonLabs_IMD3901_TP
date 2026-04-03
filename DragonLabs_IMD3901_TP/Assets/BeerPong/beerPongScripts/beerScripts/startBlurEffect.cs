@@ -7,10 +7,11 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class startBlurEffect : NetworkBehaviour
 {
+    public AudioManager AudioManager_access;
     public GameObject cup;
     public GameObject drinkMeSign;
     public XRGrabInteractable cupVRgrabInteractable;
-    public gameManager gameManager;
+    public gameManager gameManager_access;
 
     public bool Player1Drink;
     public bool Player2Drink;
@@ -23,6 +24,9 @@ public class startBlurEffect : NetworkBehaviour
     }
     void Start()
     {
+        gameManager_access = FindFirstObjectByType<gameManager>(); //find the gameManager in the scene
+
+        AudioManager_access = FindFirstObjectByType<AudioManager>(); //find the audiomanager in the scene
         //find the players 1 and 2 by tag
         //get their post processing volumes
 
@@ -45,6 +49,8 @@ public class startBlurEffect : NetworkBehaviour
     {
         if (other.gameObject.name == "ball(Clone)")//if the ball touches the beer 
         {
+            AudioManager_access.PlaySFX(AudioManager_access.ballBeerSFX);//player SFX when ball falls intop the cup
+
             Debug.Log("touched beer");
             cup.tag = "Interactable";//change cup to interactable to player can drink
             //cupVRgrabInteractable.enabled = true;//allow VR player to grab cup 
@@ -89,14 +95,14 @@ public class startBlurEffect : NetworkBehaviour
     [Rpc(SendTo.Owner)]
     void addP1PointRpc(int num)
     {
-        gameManager.player1Points.Value += num;
+        gameManager_access.player1Points.Value += num;
     }
 
     //change turn value
     [Rpc(SendTo.Owner)]
     void addP2PointRpc(int num)
     {
-        gameManager.player2Points.Value += num;
+        gameManager_access.player2Points.Value += num;
     }
 
 
