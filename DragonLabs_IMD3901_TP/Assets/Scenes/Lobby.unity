@@ -4964,6 +4964,7 @@ MonoBehaviour:
   - {fileID: 1983801309}
   - {fileID: 571226239}
   SingleVRPlayer: {fileID: 160025800}
+  SingleVRPlayerList: []
 --- !u!1001 &439046362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8925,6 +8926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  audioManager: {fileID: 0}
   VRMode: 0
   PCMode: 0
   multiPlayerMode: 0
@@ -8935,6 +8937,7 @@ MonoBehaviour:
   gameModeOptionPanel: {fileID: 263262639}
   startNetPanel: {fileID: 1520698315}
   PCplayer: {fileID: 123514706950494819, guid: 3432999a8b86d1f40abb4a398ff16d03, type: 3}
+  PCNetListplayer: []
   VRplayer: {fileID: 8842678829648397640, guid: b3883406c87b82648af8f753fe5abcd4, type: 3}
   localPCPlayer: {fileID: 1167243904}
   localVRPlayer: {fileID: 0}
@@ -8954,6 +8957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e050afabfcfc541499be0e9b2487a19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 0}
   hostButton: {fileID: 612984053}
   joinButton: {fileID: 1829245637}
   codeJoin: {fileID: 162598556}
@@ -13652,7 +13656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneManager: {fileID: 229652708}
-  sceneName: 
+  sceneName: MaryamTestScene
 --- !u!65 &1280220333
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15608,7 +15612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6795048928699815896, guid: 4d47711461fea420bb611e46e8d78a9e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.506
+      value: 0.466
       objectReference: {fileID: 0}
     - target: {fileID: 6795048928699815896, guid: 4d47711461fea420bb611e46e8d78a9e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17706,7 +17710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3159446556806113447, guid: ce977db03345b4f47944f5354e632f1e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.62
+      value: -0.22
       objectReference: {fileID: 0}
     - target: {fileID: 3159446556806113447, guid: ce977db03345b4f47944f5354e632f1e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17718,7 +17722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3159446556806113447, guid: ce977db03345b4f47944f5354e632f1e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3159446556806113447, guid: ce977db03345b4f47944f5354e632f1e, type: 3}
       propertyPath: m_LocalRotation.x
@@ -17726,11 +17730,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3159446556806113447, guid: ce977db03345b4f47944f5354e632f1e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3159446556806113447, guid: ce977db03345b4f47944f5354e632f1e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3159446556806113447, guid: ce977db03345b4f47944f5354e632f1e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -17738,7 +17742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3159446556806113447, guid: ce977db03345b4f47944f5354e632f1e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -360
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 3159446556806113447, guid: ce977db03345b4f47944f5354e632f1e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

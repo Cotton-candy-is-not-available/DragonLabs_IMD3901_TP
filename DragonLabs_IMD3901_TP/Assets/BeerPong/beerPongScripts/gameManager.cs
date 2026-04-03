@@ -52,7 +52,7 @@ public class gameManager : NetworkBehaviour
 
     public ChooseGame sceneManager;
 
-
+    public Transform lobbyStartPos;
 
     public override void OnNetworkSpawn()
     {
@@ -295,6 +295,8 @@ public class gameManager : NetworkBehaviour
     {
 
         yield return new WaitForSeconds(10); //waits 5 seconds
+        player1.transform.transform.position = lobbyStartPos.position;
+        player2.transform.transform.position = lobbyStartPos.position;
         sceneManager.switchScenesNetServerRpc("Lobby");//switches players back to lobby scene
 
     }
