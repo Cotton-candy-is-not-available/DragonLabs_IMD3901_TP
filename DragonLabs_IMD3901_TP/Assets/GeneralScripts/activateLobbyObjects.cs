@@ -33,13 +33,19 @@ public class activateLobbyObjects : MonoBehaviour
             {
                 int randomNum = Random.Range(0, 4);//choose a random player from 0 to 3 in the array
 
-                Debug.Log("random Num: " + randomNum);
+                Debug.Log("random Num PC local: " + randomNum);
                 SinglePCPlayerList[randomNum].SetActive(true);//turn the player on
                 //SinglePCPlayer.SetActive(true);//turn on PC player prefab
             }
             else if(staticClass.VROn)//if VR mode was chosen
             {
-                SingleVRPlayer.SetActive(true);//turn on VR player prefab
+
+                int randomNum = Random.Range(0, 4);//choose a random player from 0 to 3 in the array
+
+                Debug.Log("random Num VR local: " + randomNum);
+                SingleVRPlayerList[randomNum].SetActive(true);//turn the player on
+
+                //SingleVRPlayer.SetActive(true);//turn on VR player prefab
 
             }
         }
