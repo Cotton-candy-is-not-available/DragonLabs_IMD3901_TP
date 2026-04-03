@@ -16,6 +16,7 @@ public class activateLobbyObjects : MonoBehaviour
     public GameObject SingleVRPlayer;
     public GameObject[] SingleVRPlayerList;
 
+    public GameObject PCBoardInstructions;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,6 +40,7 @@ public class activateLobbyObjects : MonoBehaviour
             }
             else if(staticClass.VROn)//if VR mode was chosen
             {
+                PCBoardInstructions.SetActive(false);//turn off the pc baord instructions
 
                 int randomNum = Random.Range(0, 4);//choose a random player from 0 to 3 in the array
 
