@@ -10,16 +10,18 @@ public class localPlayerLobbySpawn : MonoBehaviour
 
     void Start()
     {
-        localPlayer = GameObject.FindWithTag("Player");//find the player
+        if (staticClass.SingleON)
+        {//if single player mode was chosen
+            localPlayer = GameObject.FindWithTag("Player");//find the player
 
-        Debug.Log("local player: " + localPlayer);
+            Debug.Log("local player: " + localPlayer);
 
-        lobbyStartPos = new Vector3(0.05f, 0.46f, -19.02f);//set the spawn position
+            lobbyStartPos = new Vector3(0.05f, 0.46f, -19.02f);//set the spawn position
 
-        localPlayer.transform.position = lobbyStartPos;//make the player spawn here
-        Debug.Log("local player transform: " + localPlayer.transform.position );
+            localPlayer.transform.position = lobbyStartPos;//make the player spawn here
+            Debug.Log("local player transform: " + localPlayer.transform.position);
 
+        }
     }
-
 
 }
