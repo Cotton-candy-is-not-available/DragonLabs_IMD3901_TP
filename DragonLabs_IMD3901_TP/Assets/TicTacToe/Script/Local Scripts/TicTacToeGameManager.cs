@@ -35,11 +35,12 @@ public class TicTacToeGameManager : MonoBehaviour
 
     void Start()
     {
- 
-        playerCamera = GameObject.FindWithTag("localPlayerCamera").GetComponent<Camera>();//get players camera
-        holdPoint = playerCamera.gameObject.transform.GetChild(0);//get hold area of player which is the child of the camera
-        pickupController = playerCamera.GetComponent<PickupController>();//get pickup controller form players camera
-
+        if (staticClass.PCOn)
+        { //if te player hcose pc mode
+            playerCamera = GameObject.FindWithTag("localPlayerCamera").GetComponent<Camera>();//get players camera
+            holdPoint = playerCamera.gameObject.transform.GetChild(0);//get hold area of player which is the child of the camera
+            pickupController = playerCamera.GetComponent<PickupController>();//get pickup controller form players camera
+        }
         gameOver = false;
         gameStarted = true;
         currentTurn = TicTacToePieceType.X;

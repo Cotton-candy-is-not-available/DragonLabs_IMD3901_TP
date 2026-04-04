@@ -52,11 +52,11 @@ public class pourDetector : NetworkBehaviour
         fillLevel.y = -0.23f;//set fill level
         rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph so that it matches the fill level in this script
 
-
         PCStartRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//default rotation
 
         PCEndRotation = Quaternion.Euler(-135.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);//rotates 90degrees towards player
 
+        gameObject.GetComponent<NetworkObject>().DestroyWithScene = true;
     }
 
 
@@ -83,8 +83,10 @@ public class pourDetector : NetworkBehaviour
 
     public void lowerFillLevel()
     {
+        audioManager_access.PlaySFX(audioManager_access.drinkingSFX);//play drinking sfx
+
         //lower fill level
-            rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph
+        rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph
 
         // decrease fill level over time
             fillLevel.y = Mathf.Lerp(fillLevel.y, -0.5f, fillElaspsedTime/lerpDuration);
@@ -132,7 +134,6 @@ public class pourDetector : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     void lowerFillLevelServerRPC()
     {
-        audioManager_access.PlaySFX(audioManager_access.drinkingSFX);//play drinking sfx
         lowerFillLevel();
         StartCoroutine(destroyCup(cupObj));//destoy the cup
 
@@ -145,23 +146,46 @@ public class pourDetector : NetworkBehaviour
         NetworkObject cupNetObj = cupObj.GetComponent<NetworkObject>();
         cupNetObj.DestroyWithScene = true;
         //play poof soundFX
-        //show poof effect(particles?)
         //cupNetObj = cupNetObj.GetComponent<NetworkObject>();
         yield return new WaitForSeconds(3); //waits 3 seconds
         //cupNetObj.Despawn();
         if (beerLiquid.GetComponent<startBlurEffect>().Player1Drink == true)
         {//if player 1 needs to drink
-            Volume playerVolume = gameManager_access.player1.GetComponent<Volume>();//get their volume
 
-            playerVolume.profile.TryGet(out blurEffect);
-            blurEffect.focalLength.value += 100;//increase the focal length value
+            //if (gameManager_access.player2Points.Value == 2)
+            //{
+            //    gameManager_access.player1.AddComponent<Volume>();//add volume to player 1
+            //                                                      //player2.AddComponent<Volume>();
 
+            //    ////set their volume profiles
+            //    gameManager_access.player1.GetComponent<Volume>().profile = gameManager_access.playerVolumeProfile;
+            //    //player2.GetComponent<Volume>().profile = playerVolumeProfile;
+
+
+            //    Volume playerVolume = gameManager_access.player1.GetComponent<Volume>();//get their volume
+
+            //    playerVolume.profile.TryGet(out blurEffect);
+            //    blurEffect.focalLength.value += 100;//increase the focal length value
+            //}
 
             beerLiquid.GetComponent<startBlurEffect>().Player1Drink = false; // set back bool to false
 
         }
         else if (beerLiquid.GetComponent<startBlurEffect>().Player2Drink == true)
         {
+            //if (gameManager_access.player1Points.Value == 2)
+            //{
+            //    gameManager_access.player2.AddComponent<Volume>();//add volume to player 2
+            //                                                      //player2.AddComponent<Volume>();
+
+            //    ////set their volume profiles
+            //    gameManager_access.player2.GetComponent<Volume>().profile = gameManager_access.playerVolumeProfile;
+
+            //    Volume playerVolume = gameManager_access.player2.GetComponent<Volume>();//get their volume
+
+            //    playerVolume.profile.TryGet(out blurEffect);
+            //    blurEffect.focalLength.value += 100;//increase the focal length value
+            //}
             //gameManager.player2.GetComponent<Volume>().profile = ;//get their volume
             beerLiquid.GetComponent<startBlurEffect>().Player2Drink = false; // set back to false
         }
@@ -177,33 +201,6 @@ public class pourDetector : NetworkBehaviour
 
    
     }
-
-    //[ServerRpc(RequireOwnership = false)]
-    //public void despawnBallServerRpc()
-    //public void despawnCup()
-    //{
-
-    //    foreach (NetworkObject ball in ballPrefab)
-    //    {
-    //        if (!IsServer) return;
-
-    //        if (ball != null)
-    //        {
-    //            Debug.Log("ball is not null");
-    //            if (newBall.IsSpawned)
-    //            {
-    //                Debug.Log("newBal despawn:"+ newBall);
-    //                newBall.Despawn();
-    //                Debug.Log("Its GONE");
-
-    //            }
-    //        }
-    //    }
-    //}
-    //For VR
-    //If gameobject.rotation.x < 90//being  poured/rotated
-    //lowerFillLevel
-    //destroy gameobject
 
 
 }
