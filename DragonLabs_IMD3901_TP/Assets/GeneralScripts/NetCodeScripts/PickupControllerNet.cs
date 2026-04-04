@@ -53,7 +53,7 @@ public class PickupControllerNet : NetworkBehaviour
                 if (heldObj == null) //if an object is NOT already being held
                 {
                     RaycastHit hit;
-                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange) && hit.collider.tag == "Interactable")
                     {
                         //pick up the object
                         pickupObject(hit.transform.gameObject);
@@ -69,7 +69,7 @@ public class PickupControllerNet : NetworkBehaviour
                 if (heldObj == null) //if an object is NOT already being held
                 {
                     RaycastHit hit;
-                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange) && hit.collider.tag == "Interactable")
                     {
                         //pick up the object
                         pickupObject(hit.transform.gameObject);

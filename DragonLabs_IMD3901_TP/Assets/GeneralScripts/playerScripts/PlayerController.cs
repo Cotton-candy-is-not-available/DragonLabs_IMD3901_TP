@@ -19,12 +19,17 @@ public class PlayerController : NetworkBehaviour
     public GameObject VRplayer;
     bool isLocked = true;
 
+    [SerializeField] Vector3 lobbyStartPos;
+
     public override void OnNetworkSpawn()
     {
         if (!IsOwner)
         {
             PcCamera.enabled = false;
         }
+        lobbyStartPos = new Vector3(0.05f, 0.46f, -19.02f);
+
+        gameObject.transform.position = lobbyStartPos;//make the player spawn here
 
         Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
         Cursor.visible = false;
@@ -107,7 +112,7 @@ public class PlayerController : NetworkBehaviour
 
 
         //unlock and lock cursor when escape key is pressed
-        if (Keyboard.current.uKey.wasPressedThisFrame)//press u to unlock cursor; change to escape
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)//press u to unlock cursor; 
         {
             if (isLocked)
             {

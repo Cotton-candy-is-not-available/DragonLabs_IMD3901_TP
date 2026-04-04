@@ -73,11 +73,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  chosenGame: 
   musicSource: {fileID: 7002233977333018783}
   SFXSource: {fileID: 5907833953359265229}
   pinata_background: {fileID: 8300000, guid: f38ffa96a9df6ab4b883bf34ff59b1fb, type: 3}
   beerPong_background: {fileID: 8300000, guid: 18186cd5e7442794188d39d45710d045, type: 3}
-  chosenGame: 
+  lobby_background: {fileID: 0}
+  pinataPopSound: {fileID: 0}
+  pickupORdrop: {fileID: 0}
+  partyBlower: {fileID: 0}
+  batHitSound: {fileID: 0}
+  ballSpawnSFX: {fileID: 0}
+  ballFloorSFX: {fileID: 0}
+  ballTableSFX: {fileID: 0}
+  ballBeerSFX: {fileID: 0}
+  drinkingSFX: {fileID: 0}
 --- !u!1 &5654541160901994537
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +135,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

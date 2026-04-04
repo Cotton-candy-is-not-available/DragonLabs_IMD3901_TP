@@ -33,10 +33,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1.2781, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6288090484604659533}
   - {fileID: 1051935172956354051}
   - {fileID: 447222175773861336}
   - {fileID: 377875117858268615}
-  - {fileID: 6288090484604659533}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &5433857536334856552
@@ -112,6 +112,8 @@ MonoBehaviour:
   jumpHeight: 1.2
   gravity: -20
   groundCheckDistance: 0.2
+  jumpCooldown: 1
+  jumpAudio: {fileID: 0}
 --- !u!1 &525578296958858651
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,9 +173,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567635332458221024}
   serializedVersion: 2
-  m_LocalRotation: {x: -6.123234e-17, y: -6.123234e-17, z: -6.123234e-17, w: 1}
-  m_LocalPosition: {x: -0.125, y: 0.251, z: 0.041}
-  m_LocalScale: {x: 1, y: 0.8707, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.125, y: 0.164, z: 0.374}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4518331873797864685}
@@ -591,15 +593,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5bac8f3c1a0fb4b03b5e8dd820c24143, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.39558
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bac8f3c1a0fb4b03b5e8dd820c24143, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.34767228
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bac8f3c1a0fb4b03b5e8dd820c24143, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.05928
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bac8f3c1a0fb4b03b5e8dd820c24143, type: 3}
       propertyPath: m_LocalRotation.w
@@ -673,7 +675,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.18577042
-  m_Height: 0.55633456
+  m_Radius: 0.1670869
+  m_Height: 0.4933857
   m_Direction: 1
-  m_Center: {x: -0.14298916, y: -0.0033802702, z: -0.0075705647}
+  m_Center: {x: 0.14162448, y: 0.028094303, z: -0.0075705647}

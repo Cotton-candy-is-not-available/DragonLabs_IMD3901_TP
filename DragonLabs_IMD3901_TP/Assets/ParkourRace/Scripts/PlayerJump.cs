@@ -18,22 +18,29 @@ public class PlayerJump : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        jumpAudio = FindFirstObjectByType<AudioManagerSinglePlayer>();
+        //jumpAudio = FindFirstObjectByType<AudioManagerSinglePlayer>();
     }
 
     void Update()
     {
-        if (jumpCooldownTimer > 0f)
-            jumpCooldownTimer -= Time.deltaTime;
-
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame && jumpCooldownTimer <= 0f)
+        if (jumpAudio == null)
         {
-            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            jumpCooldownTimer = jumpCooldown;
-            jumpAudio.PlaySFX(jumpAudio.parkour_jumpSound);
+            jumpAudio = FindFirstObjectByType<AudioManagerSinglePlayer>();
         }
-        
-        verticalVelocity += gravity * Time.deltaTime;
-        controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+        else if (jumpAudio!=null)
+        {
+            if (jumpCooldownTimer > 0f)
+                jumpCooldownTimer -= Time.deltaTime;
+
+            if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame && jumpCooldownTimer <= 0f)
+            {
+                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                jumpCooldownTimer = jumpCooldown;
+                jumpAudio.PlaySFX(jumpAudio.parkour_jumpSound);
+            }
+
+            verticalVelocity += gravity * Time.deltaTime;
+            controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+        }
     }
 }

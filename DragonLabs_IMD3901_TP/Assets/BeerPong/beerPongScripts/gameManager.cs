@@ -52,7 +52,7 @@ public class gameManager : NetworkBehaviour
 
     public ChooseGame sceneManager;
 
-
+    public Transform lobbyStartPos;
 
     public override void OnNetworkSpawn()
     {
@@ -138,7 +138,7 @@ public class gameManager : NetworkBehaviour
         {
             //Set their start positions
             player1.transform.transform.position = p1StartPos.position;
-            player2.transform.transform.position = p2StartPos.position;
+            player2.transform.transform.position = p2StartPos.position; 
             Debug.Log("newBall Update: " + newBall);
 
             //instatiate ball depending on who's turn it is
@@ -192,31 +192,7 @@ public class gameManager : NetworkBehaviour
 
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void despawnBallServerRpc()
-    {
-
-        foreach (NetworkObject ball in ballPrefab)
-        {
-            if (!IsServer) return;
-
-            if (ball != null)
-            {
-                Debug.Log("ball is not null");
-                if (newBall.IsSpawned)
-                {
-                    Debug.Log("newBal despawn:"+ newBall);
-                    newBall.Despawn();
-                    Debug.Log("Its GONE");
-
-                }
-            }
-        }
-    }
-
-
-
-
+ 
 
     //Ball spawning and despawning
     [ServerRpc(RequireOwnership = false)]
@@ -237,6 +213,29 @@ public class gameManager : NetworkBehaviour
             //Debug.Log("newBall is spawned: "+ newBall.IsSpawned);
         }
 
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    public void despawnBallServerRpc()
+    {
+
+        foreach (NetworkObject ball in ballPrefab)
+        {
+            if (!IsServer) return;
+
+            if (ball != null)
+            {
+                Debug.Log("ball is not null");
+                if (newBall.IsSpawned)
+                {
+                    Debug.Log("newBal despawn:"+ newBall);
+                    newBall.Despawn();
+                    Debug.Log("Its GONE");
+
+                }
+            }
+        }
     }
 
 
@@ -295,7 +294,9 @@ public class gameManager : NetworkBehaviour
     IEnumerator WaitToGoBack()
     {
 
-        yield return new WaitForSeconds(10); //waits 5 seconds
+        yield return new WaitForSeconds(10); //waits 10 seconds
+        player1.transform.transform.position = lobbyStartPos.position;
+        player2.transform.transform.position = lobbyStartPos.position;
         sceneManager.switchScenesNetServerRpc("Lobby");//switches players back to lobby scene
 
     }

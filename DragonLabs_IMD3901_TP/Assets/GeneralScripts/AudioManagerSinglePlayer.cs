@@ -24,6 +24,14 @@ public class AudioManagerSinglePlayer : MonoBehaviour
     public AudioClip beerPong_background;
     public AudioClip ticTacToe_background;
 
+
+    [Header("---- Game Setup Audio Clip ----")]
+    public AudioClip gmaeSetup_background;
+    public AudioClip gmaeSetup_buttonClick;
+
+    [Header("---- Lobby Audio Clip ----")]
+    public AudioClip lobby_background;
+
     [Header("---- Parkour Audio Clip ----")]
     public AudioClip parkour_background;
     public AudioClip parkour_jumpSound;
@@ -61,6 +69,19 @@ public class AudioManagerSinglePlayer : MonoBehaviour
 
         switch (chosenGame)
         {
+
+            case "gameSetup":
+                musicSource.clip = gmaeSetup_background;
+                musicSource.Play();
+                break;
+
+
+            case "Lobby":
+                musicSource.clip = lobby_background;
+                musicSource.Play();
+                break;
+
+
             case "PinataPop":
                 musicSource.clip = pinata_background;
                 musicSource.Play();
