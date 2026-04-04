@@ -54,6 +54,13 @@ public class gameManager : NetworkBehaviour
 
     public Transform lobbyStartPos;
 
+
+    public GameObject gameBall;
+    public GameObject ballPrefabPC;
+    public GameObject ballPrefabVR;
+
+    public NetworkObject netBallObj;
+
     public override void OnNetworkSpawn()
     {
         turn.OnValueChanged += OnChangedTurn;
@@ -78,7 +85,7 @@ public class gameManager : NetworkBehaviour
         if (staticClass.PCOn)//if PC mode was chosen in the game setup scene
         {
             Debug.Log("Use PC ball");
-            ballPrefab[0] = PCballPrefab[0];//set the ball prefab list to the PC working one
+            //ballPrefab[0] = PCballPrefab[0];//set the ball prefab list to the PC working one
 
            
 
@@ -87,8 +94,8 @@ public class gameManager : NetworkBehaviour
         {
             Debug.Log("Use VR ball");
 
-            ballPrefab[0] = VRballPrefab[0];//set the ball prefab list to the VR working one
-
+            //ballPrefab[0] = VRballPrefab[0];//set the ball prefab list to the VR working one
+            ballPrefabPC = ballPrefabVR;
             //set start positions to VR start positions
             p1StartPos = VRp1StartPos;
             p2StartPos = VRp2StartPos;
@@ -97,11 +104,11 @@ public class gameManager : NetworkBehaviour
 
         //find both player in the scene
         player1 = GameObject.FindWithTag("Player1");
-        player2 = GameObject.FindWithTag("Player2");
+        //player2 = GameObject.FindWithTag("Player2");
 
         //Set players start positions
         player1.transform.transform.position = p1StartPos.position;
-        player2.transform.transform.position = p2StartPos.position;
+        //player2.transform.transform.position = p2StartPos.position;
 
         //---------------- Post processign ------------------------//
         //add volume component to them so the blur/drunk effect can be called; this will be deleted when they leave the scenes
@@ -138,17 +145,19 @@ public class gameManager : NetworkBehaviour
         {
             //Set their start positions
             player1.transform.transform.position = p1StartPos.position;
-            player2.transform.transform.position = p2StartPos.position; 
+            //player2.transform.transform.position = p2StartPos.position; 
             Debug.Log("newBall Update: " + newBall);
 
             //instatiate ball depending on who's turn it is
-            if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
+            //if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
+            if (turn.Value == 1 && gameBall == null)//if player 1 turn
             {
                 spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
                 changeTurnRpc(2);//now player 2's turn
                 Debug.Log("NOW player 2: "+ turn.Value);
             }
-            else if (turn.Value == 2 && !newBall.IsSpawned)//if player 2 turn
+            //else if (turn.Value == 2 && !newBall.IsSpawned)//if player 2 turn
+            else if (turn.Value == 2 && gameBall == null)//if player 2 turn
             {
                 spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
                                                   
@@ -198,20 +207,23 @@ public class gameManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     void spawnBallServerRpc(Vector3 startPos)//allows client to also spawn/ see spawned ball
     {
-        
-        foreach (NetworkObject ball in ballPrefab)
-        {
+        gameBall = Instantiate(ballPrefabPC, startPos, Quaternion.identity);
+         netBallObj = gameBall.GetComponent<NetworkObject>();
+        netBallObj.Spawn(true);
 
-            if (!IsServer) return;
-            //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
-            newBall = Instantiate(ball, startPos, Quaternion.identity);
-            newBall.GetComponent<NetworkObject>().Spawn();
+        //foreach (NetworkObject ball in ballPrefab)
+        //{
 
-            Debug.Log("newBal SPAWN:"+ newBall);
+        //    if (!IsServer) return;
+        //    //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
+        //    newBall = Instantiate(ball, startPos, Quaternion.identity);
+        //    newBall.GetComponent<NetworkObject>().Spawn();
 
-            //Debug.Log("newBall: ", newBall);
-            //Debug.Log("newBall is spawned: "+ newBall.IsSpawned);
-        }
+        //    Debug.Log("newBal SPAWN:"+ newBall);
+
+        //    //Debug.Log("newBall: ", newBall);
+        //    //Debug.Log("newBall is spawned: "+ newBall.IsSpawned);
+        //}
 
     }
 
@@ -219,23 +231,24 @@ public class gameManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void despawnBallServerRpc()
     {
+        //netBallObj.Despawn();
+        Destroy(gameBall);
+        //foreach (NetworkObject ball in ballPrefab)
+        //{
+        //    if (!IsServer) return;
 
-        foreach (NetworkObject ball in ballPrefab)
-        {
-            if (!IsServer) return;
+        //    if (ball != null)
+        //    {
+        //        Debug.Log("ball is not null");
+        //        if (newBall.IsSpawned)
+        //        {
+        //            Debug.Log("newBal despawn:"+ newBall);
+        //            newBall.Despawn();
+        //            Debug.Log("Its GONE");
 
-            if (ball != null)
-            {
-                Debug.Log("ball is not null");
-                if (newBall.IsSpawned)
-                {
-                    Debug.Log("newBal despawn:"+ newBall);
-                    newBall.Despawn();
-                    Debug.Log("Its GONE");
-
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
     }
 
 
@@ -264,14 +277,17 @@ public class gameManager : NetworkBehaviour
     }
 
 
-    [Rpc(SendTo.Owner)]
-    public void increaseP1PointsRpc()
+    //[Rpc(SendTo.Owner)]
+    [ServerRpc(RequireOwnership = false)]
+
+    public void increaseP1PointsServerRpc()
     {
-        player1Points.Value ++;
+        player1Points.Value++;
     }
 
-    [Rpc(SendTo.Owner)]
-   public void increaseP2PointsRpc()
+    //[Rpc(SendTo.Owner)]
+    [ServerRpc(RequireOwnership = false)]
+    public void increaseP2PointsServerRpc()
     {
         player2Points.Value++;
     }

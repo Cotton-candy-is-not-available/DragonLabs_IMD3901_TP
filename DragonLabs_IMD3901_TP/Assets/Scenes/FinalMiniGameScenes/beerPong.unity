@@ -4522,6 +4522,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1271960121}
     - target: {fileID: 328693812341857719, guid: 77045e3cfbc0809438e63c4e28614995, type: 3}
+      propertyPath: ballPrefabPC
+      value: 
+      objectReference: {fileID: 2824795176778561841, guid: b43f8df6c7c1e7943b6ecdedc546d1db, type: 3}
+    - target: {fileID: 328693812341857719, guid: 77045e3cfbc0809438e63c4e28614995, type: 3}
+      propertyPath: ballPrefabVR
+      value: 
+      objectReference: {fileID: 2824795176778561841, guid: e844e81b35c686d4095ef61a6705f0b2, type: 3}
+    - target: {fileID: 328693812341857719, guid: 77045e3cfbc0809438e63c4e28614995, type: 3}
       propertyPath: sceneManager
       value: 
       objectReference: {fileID: 281465469}
