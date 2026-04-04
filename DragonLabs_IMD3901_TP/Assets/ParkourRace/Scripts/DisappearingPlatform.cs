@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DisappearingPlatform : MonoBehaviour
 {
+    //var
     public float disappearTime = 3f;
     public float visableTime = 6f;
 
