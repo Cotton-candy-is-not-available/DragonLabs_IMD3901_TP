@@ -162,7 +162,7 @@ public class gameManager : NetworkBehaviour
             Debug.Log("player2Points.Value: " + player2Points.Value);
 
 
-            if (player1Points.Value == 3)
+            if (player1Points.Value >= 3)
             {
                 Debug.Log("Game is over");
                 //isGameOver.Value == true;
@@ -174,7 +174,7 @@ public class gameManager : NetworkBehaviour
                 //sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
 
             }
-            else if (player2Points.Value == 3)
+            else if (player2Points.Value >= 3)
             {
                 Debug.Log("Game is over");
                 //isGameOver.Value == true;
