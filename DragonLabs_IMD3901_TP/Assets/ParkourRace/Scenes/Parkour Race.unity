@@ -3705,6 +3705,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PCPlayerLocal_girl1
       objectReference: {fileID: 0}
+    - target: {fileID: 123514706950494819, guid: 979660bba26d548338429ae2f41e7c20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 280837874692047900, guid: 979660bba26d548338429ae2f41e7c20, type: 3}
       propertyPath: jumpAudio
       value: 
