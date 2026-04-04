@@ -83,7 +83,7 @@ public class pourDetector : NetworkBehaviour
 
     public void lowerFillLevel()
     {
-        audioManager_access.PlaySFX(audioManager_access.drinkingSFX);//play drinking sfx
+        audioManager_access.PlaySFXServerRpc(AudioManager.SFXList.Drinking);//play drinking sfx
 
         //lower fill level
         rend.material.SetVector("_fillLevel", fillLevel);//reference names in shader graph

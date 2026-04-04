@@ -49,7 +49,7 @@ public class startBlurEffect : NetworkBehaviour
     {
         if (other.gameObject.name == "ball(Clone)")//if the ball touches the beer 
         {
-            AudioManager_access.PlaySFX(AudioManager_access.ballBeerSFX);//player SFX when ball falls intop the cup
+            AudioManager_access.PlaySFXServerRpc(AudioManager.SFXList.BallBeer);//player SFX when ball falls intop the cup
 
             Debug.Log("touched beer");
             cup.tag = "Interactable";//change cup to interactable to player can drink

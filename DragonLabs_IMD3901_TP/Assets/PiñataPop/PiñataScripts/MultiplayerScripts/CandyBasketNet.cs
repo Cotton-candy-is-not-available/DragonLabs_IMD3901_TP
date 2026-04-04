@@ -16,7 +16,7 @@ public class CandyBasketNet : NetworkBehaviour
         if (collision.gameObject.CompareTag("Interactable"))
         {
             Debug.Log("candy landed in basket");
-            audioManagerNet_access.PlaySFX(audioManagerNet_access.pickupORdrop);
+            audioManagerNet_access.PlaySFXServerRpc(AudioManager.SFXList.PickupDrop);
 
                                                  //only increase candy points if there's still extra time
             if (gameObject.name == "BasketP1" && timerControllerNet_access.isExtraTimeDone.Value == false)
