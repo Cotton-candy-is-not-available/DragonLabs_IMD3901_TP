@@ -45,7 +45,7 @@ public class startBlurEffect : NetworkBehaviour
         drinkMeSign.SetActive(activate.Value);//activate drink me sign so player knows which cup to drink from
 
     }
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "ball(Clone)")//if the ball touches the beer 
         {
@@ -55,14 +55,12 @@ public class startBlurEffect : NetworkBehaviour
             cup.tag = "Interactable";//change cup to interactable to player can drink
             //cupVRgrabInteractable.enabled = true;//allow VR player to grab cup 
 
-            //activate.Value = true;
             activateDrinkMeCanvasRpc();
-            //drinkMeSign.SetActive(true);//activate drink me sign so player knows which cup to drink from
 
             if (gameObject.tag == "cup1")
             {
                 //add point to player 2
-                //gameManager.player2Points.Value += 1;//tell game manager to give a point to player 2
+                Player1Drink = true;
                 addP2PointRpc(1);
 
                 Debug.Log("player 1 cup ");
@@ -70,6 +68,7 @@ public class startBlurEffect : NetworkBehaviour
             }
             else if(gameObject.tag == "cup2")
             {
+                Player2Drink = true;
                 //add point to player 1
                 //gameManager.player1Points.Value += 1;//tell game manager to give a point to player 1
                 addP1PointRpc(1);

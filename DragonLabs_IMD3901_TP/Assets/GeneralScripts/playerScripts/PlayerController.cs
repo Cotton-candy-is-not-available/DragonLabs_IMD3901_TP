@@ -112,7 +112,7 @@ public class PlayerController : NetworkBehaviour
 
 
         //unlock and lock cursor when escape key is pressed
-        if (Keyboard.current.uKey.wasPressedThisFrame)//press u to unlock cursor; change to escape
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)//press u to unlock cursor; 
         {
             if (isLocked)
             {

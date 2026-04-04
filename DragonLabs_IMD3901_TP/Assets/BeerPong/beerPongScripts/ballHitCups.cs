@@ -53,7 +53,7 @@ public class ballHitCups : NetworkBehaviour
 
     }
 
-    private void OnTriggerStay(Collider trigger)
+    private void OnTriggerEnter(Collider trigger)
     {
         if (trigger.gameObject.tag == "cup1")//if the ball hits player 1 Cup 
         {
