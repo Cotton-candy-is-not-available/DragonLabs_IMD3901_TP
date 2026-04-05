@@ -17,6 +17,7 @@ public class activateLobbyObjects : MonoBehaviour
     public GameObject[] SingleVRPlayerList;
 
     public GameObject PCBoardInstructions;
+    public GameObject onlinePCBoardInstructions;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,13 +37,13 @@ public class activateLobbyObjects : MonoBehaviour
 
                 Debug.Log("random Num PC local: " + randomNum);
                 SinglePCPlayerList[randomNum].SetActive(true);//turn the player on
-                //PCBoardInstructions.SetActive(true);//turn ON the pc baord instructions
+                PCBoardInstructions.SetActive(true);//turn ON the pc baord instructions
 
                 //SinglePCPlayer.SetActive(true);//turn on PC player prefab
             }
             else if(staticClass.VROn)//if VR mode was chosen
             {
-                //PCBoardInstructions.SetActive(false);//turn off the pc baord instructions
+                PCBoardInstructions.SetActive(false);//turn off the pc baord instructions
 
                 int randomNum = Random.Range(0, 4);//choose a random player from 0 to 3 in the array
 
@@ -56,6 +57,7 @@ public class activateLobbyObjects : MonoBehaviour
         }
         else
         {
+            PCBoardInstructions.SetActive(false);//turn off the pc baord instructions
             Debug.Log(" single player off");
         }
 
@@ -68,12 +70,12 @@ public class activateLobbyObjects : MonoBehaviour
 
             if (staticClass.PCOn)
             {
-                PCBoardInstructions.SetActive(true);//turn ON the pc baord instructions
+                onlinePCBoardInstructions.SetActive(true);//turn ON the pc baord instructions
 
             }
             else if (staticClass.VROn)
             {
-                PCBoardInstructions.SetActive(false);//turn off the pc baord instructions
+                onlinePCBoardInstructions.SetActive(false);//turn off the pc baord instructions
 
             }
           
@@ -83,6 +85,8 @@ public class activateLobbyObjects : MonoBehaviour
         else
         {
             Debug.Log("lan and relay off");
+            onlinePCBoardInstructions.SetActive(false);//turn off the pc baord instructions
+
         }
         //multiplayer pressure plates and audio manager will be on by default therefore there is no need to check if online was chosen
     }
