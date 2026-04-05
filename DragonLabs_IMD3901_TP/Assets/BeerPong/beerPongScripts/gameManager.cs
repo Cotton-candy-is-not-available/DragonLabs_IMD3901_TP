@@ -57,16 +57,9 @@ public class gameManager : NetworkBehaviour
     public GameObject P1WinnerPanel;
     public GameObject P2WinnerPanel;
 
-
     public ChooseGame sceneManager;
 
 
-
-    //public GameObject gameBall;
-    //public GameObject ballPrefabPC;
-    //public GameObject ballPrefabVR;
-
-    //public NetworkObject netBallObj;
 
     public override void OnNetworkSpawn()
     {
@@ -115,7 +108,7 @@ public class gameManager : NetworkBehaviour
 
         //Set players start positions
         player1.transform.transform.position = p1StartPos.position;
-        //player2.transform.transform.position = p2StartPos.position;
+        player2.transform.transform.position = p2StartPos.position;
 
         //---------------- Post processign ------------------------//
         //add volume component to them so the blur/drunk effect can be called; this will be deleted when they leave the scenes
@@ -148,18 +141,14 @@ public class gameManager : NetworkBehaviour
             changeSpanwFirstBallBoolRpc();//set to false
         }
 
-        //else if (spawnFirstBall.Value == false)
-        //{
+      
         //Set their start positions
         player1.transform.transform.position = p1StartPos.position;
-        //player2.transform.transform.position = p2StartPos.position; 
-            //Debug.Log("gameBall Update: " + gameBall);
+        player2.transform.transform.position = p2StartPos.position; 
             Debug.Log("newBall Update:+" + newBall);
-            Debug.Log("newBall Update:, " , newBall);
 
         //instatiate ball depending on who's turn it is
         if (turn.Value == 1 && !newBall.IsSpawned || turn.Value == 1 && newBall == null)//if player 1 turn
-        //if (turn.Value == 1 && gameBall == null)//if player 1 turn
             {
                 spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
                 changeTurnRpc(2);//now player 2's turn
@@ -180,23 +169,23 @@ public class gameManager : NetworkBehaviour
             Debug.Log("player2Points.Value: " + player2Points.Value);
 
 
-            if (player1Points.Value >= 6)
+            if (player1Points.Value >= 0)
             {
                 Debug.Log("Game is over");
-                //isGameOver.Value == true;
-                displayWinnerRpc();//set to true
-                P1WinnerPanel.SetActive(activateWinnerPanel.Value);
+                changeTurnRpc(-1);//change to negative number so ball spawning is not called anymore
+
+                p1DisplayWinnerServerRpc();//set to true
                 goToLobbyServerRpc();
            
 
         }
-        else if (player2Points.Value >= 6)
+        else if (player2Points.Value >= 0)
             {
                 Debug.Log("Game is over");
-                //isGameOver.Value == true;
-                displayWinnerRpc();//set to true
-                P2WinnerPanel.SetActive(activateWinnerPanel.Value);
-                goToLobbyServerRpc();
+            changeTurnRpc(-1);//change to negative number so ball spawning is not called anymore
+
+            p2DisplayWinnerServerRpc();//set to true
+            goToLobbyServerRpc();
            
         }
 
@@ -212,11 +201,9 @@ public class gameManager : NetworkBehaviour
     {
         
         newBall = Instantiate(ballPrefab, startPos, Quaternion.identity);//instantiate the ball
-        newBall.Spawn();//spawn so clients can see
+        newBall.Spawn(true);//spawn so clients can see and destroy with the scene
 
     }
-
-
     [ServerRpc(RequireOwnership = false)]
     public void despawnBallServerRpc()
     {
@@ -235,13 +222,41 @@ public class gameManager : NetworkBehaviour
     }
 
 
-    //change activateWinnerPanel value
-    [Rpc(SendTo.Owner)]
-    void displayWinnerRpc()
+    [ServerRpc(RequireOwnership = false)]
+    void p1DisplayWinnerServerRpc()
     {
 
         activateWinnerPanel.Value = true;
+        P1WinnerPanel.SetActive(activateWinnerPanel.Value);
+        p1DisplayWinnerClientRpc();
+
     }
+
+    [ClientRpc]
+    void p1DisplayWinnerClientRpc()
+    {
+
+        activateWinnerPanel.Value = true;
+        P2WinnerPanel.SetActive(activateWinnerPanel.Value);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void p2DisplayWinnerServerRpc()
+    {
+
+        activateWinnerPanel.Value = true;
+        P2WinnerPanel.SetActive(activateWinnerPanel.Value);
+        p2DisplayWinnerClientRpc();
+    }
+
+    [ClientRpc]
+    void p2DisplayWinnerClientRpc()
+    {
+
+        activateWinnerPanel.Value = true;
+        P2WinnerPanel.SetActive(activateWinnerPanel.Value);
+    }
+
 
     [Rpc(SendTo.Owner)]
     void changeSpanwFirstBallBoolRpc()

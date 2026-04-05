@@ -98,24 +98,6 @@ public class ballHitCups : NetworkBehaviour
     }
 
 
-    [ServerRpc(RequireOwnership =false)]
-    public void despawnBallServerRpc()
-    {
-        if (!IsServer) return;
-        Debug.Log("DESPAWN");
-        StartCoroutine(WaitToDestroy());//destoy the ball
+  
 
-        NetworkObject netBall = gameObject.GetComponent<NetworkObject>();//destroy ball when it goes anywhere below floor level
-
-        netBall.Despawn();
-    }
-
-
-
-    IEnumerator WaitToDestroy()
-    {
-       
-        yield return new WaitForSeconds(5); //waits 3 seconds
-
-    }
 }
