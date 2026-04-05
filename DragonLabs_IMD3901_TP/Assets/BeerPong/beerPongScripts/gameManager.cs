@@ -22,24 +22,32 @@ public class gameManager : NetworkBehaviour
     public Vector3 P2BallStartPos;
 
     [Header("------------ Prefabs -------------")]
-    public NetworkObject[] ballPrefab;//prefab with network object attached
+    public NetworkObject ballPrefab;//prefab with network object attached
 
-    public NetworkObject[] PCballPrefab;//prefab with network object attached
-    public NetworkObject[] VRballPrefab;//prefab with network object attached
+    //public NetworkObject[] PCballPrefab;//prefab with network object attached
+    public NetworkObject VRballPrefab;//prefab with network object attached
 
     public NetworkVariable<int> turn = new NetworkVariable<int>(2);
+
+
+    [Header("------------ Players -------------")]
 
     public GameObject player1;
     public GameObject player2;
 
+    [Header("------------ Positions -------------")]
     public Transform p1StartPos;
     public Transform p2StartPos;
 
     public Transform VRp1StartPos;
     public Transform VRp2StartPos;
 
+    public Transform lobbyStartPos;
+
+    [Header("------------ Post processing -------------")]
     public VolumeProfile playerVolumeProfile;
 
+    [Header("------------  Net variables -------------")]
     public NetworkVariable<bool> isGameOver = new NetworkVariable<bool>(false);
     public NetworkVariable<bool> activateWinnerPanel = new NetworkVariable<bool>(false);
 
@@ -52,14 +60,13 @@ public class gameManager : NetworkBehaviour
 
     public ChooseGame sceneManager;
 
-    public Transform lobbyStartPos;
 
 
-    public GameObject gameBall;
-    public GameObject ballPrefabPC;
-    public GameObject ballPrefabVR;
+    //public GameObject gameBall;
+    //public GameObject ballPrefabPC;
+    //public GameObject ballPrefabVR;
 
-    public NetworkObject netBallObj;
+    //public NetworkObject netBallObj;
 
     public override void OnNetworkSpawn()
     {
@@ -78,7 +85,7 @@ public class gameManager : NetworkBehaviour
 
     }
 
-    void Start()
+    private void Start()
     {
 
         //activate different interactable pbjects depending on the chosen game mode
@@ -95,7 +102,7 @@ public class gameManager : NetworkBehaviour
             Debug.Log("Use VR ball");
 
             //ballPrefab[0] = VRballPrefab[0];//set the ball prefab list to the VR working one
-            ballPrefabPC = ballPrefabVR;
+            ballPrefab = VRballPrefab;//set the ball prefab to the vR workign one
             //set start positions to VR start positions
             p1StartPos = VRp1StartPos;
             p2StartPos = VRp2StartPos;
@@ -108,7 +115,7 @@ public class gameManager : NetworkBehaviour
 
         //Set players start positions
         player1.transform.transform.position = p1StartPos.position;
-        player2.transform.transform.position = p2StartPos.position;
+        //player2.transform.transform.position = p2StartPos.position;
 
         //---------------- Post processign ------------------------//
         //add volume component to them so the blur/drunk effect can be called; this will be deleted when they leave the scenes
@@ -133,7 +140,7 @@ public class gameManager : NetworkBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (spawnFirstBall.Value == true)
         {
@@ -141,24 +148,26 @@ public class gameManager : NetworkBehaviour
             changeSpanwFirstBallBoolRpc();//set to false
         }
 
-        else if (spawnFirstBall.Value == false)
-        {
-            //Set their start positions
-            player1.transform.transform.position = p1StartPos.position;
-            player2.transform.transform.position = p2StartPos.position; 
-            Debug.Log("newBall Update: " + newBall);
+        //else if (spawnFirstBall.Value == false)
+        //{
+        //Set their start positions
+        player1.transform.transform.position = p1StartPos.position;
+        //player2.transform.transform.position = p2StartPos.position; 
+            //Debug.Log("gameBall Update: " + gameBall);
+            Debug.Log("newBall Update:+" + newBall);
+            Debug.Log("newBall Update:, " , newBall);
 
-            //instatiate ball depending on who's turn it is
-            //if (turn.Value == 1 && !newBall.IsSpawned)//if player 1 turn
-            if (turn.Value == 1 && gameBall == null)//if player 1 turn
+        //instatiate ball depending on who's turn it is
+        if (turn.Value == 1 && !newBall.IsSpawned || turn.Value == 1 && newBall == null)//if player 1 turn
+        //if (turn.Value == 1 && gameBall == null)//if player 1 turn
             {
                 spawnBallServerRpc(P1BallStartPos);//spawn the ball infornt of player 1
                 changeTurnRpc(2);//now player 2's turn
                 Debug.Log("NOW player 2: "+ turn.Value);
             }
-            //else if (turn.Value == 2 && !newBall.IsSpawned)//if player 2 turn
-            else if (turn.Value == 2 && gameBall == null)//if player 2 turn
-            {
+            else if (turn.Value == 2 && !newBall.IsSpawned || turn.Value == 2 && newBall == null)//if player 2 turn
+                                                                                                    //else if (turn.Value == 2 && gameBall == null)//if player 2 turn
+        {
                 spawnBallServerRpc(P2BallStartPos);//spawn the ball infront of player 2
                                                   
                 changeTurnRpc(1);//now player 1's turn
@@ -171,33 +180,27 @@ public class gameManager : NetworkBehaviour
             Debug.Log("player2Points.Value: " + player2Points.Value);
 
 
-            if (player1Points.Value >= 3)
+            if (player1Points.Value >= 6)
             {
                 Debug.Log("Game is over");
                 //isGameOver.Value == true;
                 displayWinnerRpc();//set to true
                 P1WinnerPanel.SetActive(activateWinnerPanel.Value);
                 goToLobbyServerRpc();
-                //changeGameOverRpc();
-                //StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
-                //sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
+           
 
-            }
-            else if (player2Points.Value >= 3)
+        }
+        else if (player2Points.Value >= 6)
             {
                 Debug.Log("Game is over");
                 //isGameOver.Value == true;
                 displayWinnerRpc();//set to true
                 P2WinnerPanel.SetActive(activateWinnerPanel.Value);
                 goToLobbyServerRpc();
-                //changeGameOverRpc();
-                //StartCoroutine(WaitToGoBack());//wait some seconds ebfor switching players back to lobby
-
-                //sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
-
-            }
-
+           
         }
+
+        
 
     }
 
@@ -205,25 +208,11 @@ public class gameManager : NetworkBehaviour
 
     //Ball spawning and despawning
     [ServerRpc(RequireOwnership = false)]
-    void spawnBallServerRpc(Vector3 startPos)//allows client to also spawn/ see spawned ball
+   private void spawnBallServerRpc(Vector3 startPos)//allows client to also spawn/ see spawned ball
     {
-        gameBall = Instantiate(ballPrefabPC, startPos, Quaternion.identity);
-         netBallObj = gameBall.GetComponent<NetworkObject>();
-        netBallObj.Spawn(true);
-
-        //foreach (NetworkObject ball in ballPrefab)
-        //{
-
-        //    if (!IsServer) return;
-        //    //NetworkObject newBall = Instantiate(ball, startPos, Quaternion.identity);
-        //    newBall = Instantiate(ball, startPos, Quaternion.identity);
-        //    newBall.GetComponent<NetworkObject>().Spawn();
-
-        //    Debug.Log("newBal SPAWN:"+ newBall);
-
-        //    //Debug.Log("newBall: ", newBall);
-        //    //Debug.Log("newBall is spawned: "+ newBall.IsSpawned);
-        //}
+        
+        newBall = Instantiate(ballPrefab, startPos, Quaternion.identity);//instantiate the ball
+        newBall.Spawn();//spawn so clients can see
 
     }
 
@@ -231,24 +220,8 @@ public class gameManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void despawnBallServerRpc()
     {
-        //netBallObj.Despawn();
-        Destroy(gameBall);
-        //foreach (NetworkObject ball in ballPrefab)
-        //{
-        //    if (!IsServer) return;
+        newBall.Despawn();//despawn on server
 
-        //    if (ball != null)
-        //    {
-        //        Debug.Log("ball is not null");
-        //        if (newBall.IsSpawned)
-        //        {
-        //            Debug.Log("newBal despawn:"+ newBall);
-        //            newBall.Despawn();
-        //            Debug.Log("Its GONE");
-
-        //        }
-        //    }
-        //}
     }
 
 
