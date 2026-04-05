@@ -39,7 +39,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScenes/TicTacToeMultiPlayer.unity
     guid: 9d8b9ebf11ce0412b9f89fb59b1e6370
   - enabled: 1
-    path: Assets/Scenes/TestScenes/MaryamTestScene.unity
+    path: Assets/Scenes/FinalMiniGameScenes/TicTacToe.unity
     guid: a9e36512ae635c24aaf565854440623b
   - enabled: 1
     path: Assets/ParkourRace/Scenes/Parkour Race.unity
