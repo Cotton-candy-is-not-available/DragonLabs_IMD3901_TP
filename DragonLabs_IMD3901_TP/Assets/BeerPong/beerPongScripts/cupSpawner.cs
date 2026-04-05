@@ -20,8 +20,16 @@ public class cupSpawner : NetworkBehaviour
     public Transform spawnPos5Cup;
     public Transform spawnPos6Cup;
 
+
+
     void Start()
     {
+
+        //spawnPos4Cup.rotation =  Vector3( 0f,90f, 0f);
+        //public Transform spawnPos5Cup;
+        //public Transform spawnPos6Cup;
+
+
         if (!IsServer) return;
         Debug.Log("Cup Spawn called");
         //spawn PC cups
@@ -52,16 +60,16 @@ public class cupSpawner : NetworkBehaviour
                 //For player 2
                 foreach (NetworkObject cup in cupPrefabListPCPlayer2)
                 {
-                    NetworkObject newCup1 = Instantiate(cup, spawnPos4Cup.position, Quaternion.identity);
+                    NetworkObject newCup1 = Instantiate(cup, spawnPos4Cup.position, Quaternion.Euler(0, 180f, 0));
                     newCup1.GetComponent<NetworkObject>().Spawn();
                     Debug.Log("cup spawn 4");
 
-                    NetworkObject newCup2 = Instantiate(cup, spawnPos5Cup.position, Quaternion.identity);
+                    NetworkObject newCup2 = Instantiate(cup, spawnPos5Cup.position, Quaternion.Euler(0, 180f, 0));
                     newCup2.GetComponent<NetworkObject>().Spawn();
                     Debug.Log("cup spawn 5");
 
 
-                    NetworkObject newCup3 = Instantiate(cup, spawnPos6Cup.position, Quaternion.identity);
+                    NetworkObject newCup3 = Instantiate(cup, spawnPos6Cup.position, Quaternion.Euler(0, 180f, 0));
                     newCup3.GetComponent<NetworkObject>().Spawn();
                     Debug.Log("cup spawn 6");
                 }
@@ -96,16 +104,16 @@ public class cupSpawner : NetworkBehaviour
                 //For player 2
                 foreach (NetworkObject cup in cupPrefabListVRPlayer2)
                 {
-                    NetworkObject newCup1 = Instantiate(cup, spawnPos4Cup.position, Quaternion.identity);
+                    NetworkObject newCup1 = Instantiate(cup, spawnPos4Cup.position, Quaternion.Euler(0, 180f, 0));
                     newCup1.GetComponent<NetworkObject>().Spawn();
                     Debug.Log("cup spawn 4");
 
-                    NetworkObject newCup2 = Instantiate(cup, spawnPos5Cup.position, Quaternion.identity);
+                    NetworkObject newCup2 = Instantiate(cup, spawnPos5Cup.position, Quaternion.Euler(0, 180f, 0));
                     newCup2.GetComponent<NetworkObject>().Spawn();
                     Debug.Log("cup spawn 5");
 
 
-                    NetworkObject newCup3 = Instantiate(cup, spawnPos6Cup.position, Quaternion.identity);
+                    NetworkObject newCup3 = Instantiate(cup, spawnPos6Cup.position, Quaternion.Euler(0, 180f, 0));
                     newCup3.GetComponent<NetworkObject>().Spawn();
                     Debug.Log("cup spawn 6");
                 }

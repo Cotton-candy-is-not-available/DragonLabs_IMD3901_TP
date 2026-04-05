@@ -63,7 +63,7 @@ public class ballHitCups : NetworkBehaviour
 
             audioManager.PlaySFXServerRpc(AudioManager.SFXList.BallBeer);//play SFX
 
-            manager.increaseP2PointsRpc();//increase player 2 points
+            manager.increaseP2PointsServerRpc();//increase player 2 points
 
             manager.despawnBallServerRpc();
             //gameObject.SetActive(turnOffBall.Value);
@@ -77,7 +77,7 @@ public class ballHitCups : NetworkBehaviour
             Debug.Log("cup2");
             audioManager.PlaySFXServerRpc(AudioManager.SFXList.BallBeer);//play SFX
 
-            manager.increaseP1PointsRpc();//increase player 1 points
+            manager.increaseP1PointsServerRpc();//increase player 1 points
 
             manager.despawnBallServerRpc();
 
@@ -98,24 +98,6 @@ public class ballHitCups : NetworkBehaviour
     }
 
 
-    [ServerRpc(RequireOwnership =false)]
-    public void despawnBallServerRpc()
-    {
-        if (!IsServer) return;
-        Debug.Log("DESPAWN");
-        StartCoroutine(WaitToDestroy());//destoy the ball
+  
 
-        NetworkObject netBall = gameObject.GetComponent<NetworkObject>();//destroy ball when it goes anywhere below floor level
-
-        netBall.Despawn();
-    }
-
-
-
-    IEnumerator WaitToDestroy()
-    {
-       
-        yield return new WaitForSeconds(5); //waits 3 seconds
-
-    }
 }
