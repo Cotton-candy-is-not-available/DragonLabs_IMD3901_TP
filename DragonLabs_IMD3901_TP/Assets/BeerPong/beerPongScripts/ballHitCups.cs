@@ -18,7 +18,7 @@ public class ballHitCups : NetworkBehaviour
 
         manager = GameObject.Find("BeerPongGameManager").GetComponent<gameManager>(); //find the gameManager in the scene
 
-        audioManager.PlaySFX(audioManager.ballSpawnSFX);//play SFX
+        audioManager.PlaySFXServerRpc(AudioManager.SFXList.BallSpawn);//play SFX
 
     }
 
@@ -28,7 +28,7 @@ public class ballHitCups : NetworkBehaviour
 
         if (collision.gameObject.tag == "floor")//if ball touches the floor or table
         {
-            audioManager.PlaySFX(audioManager.ballFloorSFX);//play SFX
+            audioManager.PlaySFXServerRpc(AudioManager.SFXList.BallFloor);//play SFX
 
             Debug.Log("Floor");
            
@@ -39,7 +39,7 @@ public class ballHitCups : NetworkBehaviour
 
         if (collision.gameObject.tag == "table")//if ball touches the floor or table
         {
-            audioManager.PlaySFX(audioManager.ballTableSFX);//play SFX
+            audioManager.PlaySFXServerRpc(AudioManager.SFXList.BallTable);//play SFX
 
             Debug.Log("table");
            
@@ -53,7 +53,7 @@ public class ballHitCups : NetworkBehaviour
 
     }
 
-    private void OnTriggerStay(Collider trigger)
+    private void OnTriggerEnter(Collider trigger)
     {
         if (trigger.gameObject.tag == "cup1")//if the ball hits player 1 Cup 
         {
@@ -61,7 +61,7 @@ public class ballHitCups : NetworkBehaviour
             //manager.changeTurnRpc(2);//now player 2's turn
             Debug.Log("cup1");
 
-            audioManager.PlaySFX(audioManager.ballBeerSFX);//play SFX
+            audioManager.PlaySFXServerRpc(AudioManager.SFXList.BallBeer);//play SFX
 
             manager.increaseP2PointsRpc();//increase player 2 points
 
@@ -75,7 +75,7 @@ public class ballHitCups : NetworkBehaviour
         {
             //manager.changeTurnRpc(1);//now player 2's turn
             Debug.Log("cup2");
-            audioManager.PlaySFX(audioManager.ballBeerSFX);//play SFX
+            audioManager.PlaySFXServerRpc(AudioManager.SFXList.BallBeer);//play SFX
 
             manager.increaseP1PointsRpc();//increase player 1 points
 

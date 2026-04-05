@@ -77,7 +77,7 @@ public class AudioManagerSinglePlayer : MonoBehaviour
 
 
             case "Lobby":
-                musicSource.clip = parkour_background;
+                musicSource.clip = lobby_background;
                 musicSource.Play();
                 break;
 

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e7a9a39bc79dc48ae893ce121c3edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chosenGame: 
   musicSource: {fileID: 4334926778548526016}
   SFXSource: {fileID: 3529375949004435892}
   pinata_background: {fileID: 0}
@@ -53,6 +54,16 @@ MonoBehaviour:
   pickupORdrop: {fileID: 0}
   partyBlower: {fileID: 0}
   batHitSound: {fileID: 0}
+  beerPong_background: {fileID: 0}
+  ticTacToe_background: {fileID: 0}
+  gmaeSetup_background: {fileID: 0}
+  gmaeSetup_buttonClick: {fileID: 0}
+  lobby_background: {fileID: 0}
+  parkour_background: {fileID: 0}
+  parkour_jumpSound: {fileID: 0}
+  ttt_winSound: {fileID: 0}
+  ttt_loseSound: {fileID: 0}
+  ttt_drawSound: {fileID: 0}
 --- !u!1 &6064469780509206947
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +240,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

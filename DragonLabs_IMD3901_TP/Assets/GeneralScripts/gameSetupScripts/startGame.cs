@@ -33,6 +33,7 @@ public class startGame : NetworkBehaviour
     public GameObject PCplayer;
     public GameObject[] PCNetListplayer;
     public GameObject VRplayer;
+    public GameObject[] VRNetListplayer;
     [Header("---Local ----")]
     //local single players
     public GameObject localPCPlayer;
@@ -42,9 +43,6 @@ public class startGame : NetworkBehaviour
     //networkmanager to activate
     public GameObject NetworkManagerObject;
 
-    //[Header("--- Join strings ----")]
-    //public GameObject IPAdressText;
-    //public GameObject joinCodeText;
 
     [Header("--- Start camera ----")]
     //public GameObject mainCamera;
@@ -64,30 +62,7 @@ public class startGame : NetworkBehaviour
 
         private void Awake()
     {
-        //LANHostButton.onClick.AddListener(() =>
-        //{
-        //    NetworkManager.Singleton.StartHost();
-        //    Debug.Log("started host");
-        //    gameSteupCanvas.SetActive(false);//hide net connect panel
-        //    Debug.Log("Host started LAN");
-
-
-        //    chooseGameAccess.switchScenesNetServerRpc("Lobby");
-
-        //    staticClass.LANOn = true;
-        //});
-
-        //LANClientButton.onClick.AddListener(() =>
-        //{
-        //    NetworkManager.Singleton.StartClient();
-        //    Debug.Log("started client");
-        //    //NetworkManager.Singleton.StartClient();//join game as client
-        //    gameSteupCanvas.SetActive(false);//hide net connect panel
-        //                                     //clientStartServerRpc();//client has started
-        //    Debug.Log("Client started LAN");
-          
-
-        //});
+        
     }
 
     private void Start()
@@ -150,22 +125,25 @@ public class startGame : NetworkBehaviour
         {
             int randomNum = Random.Range(0, 4);//choose a random player from 0 to 3 in the array
 
-            Debug.Log("random Num: " + randomNum);//print the random num
+            Debug.Log("random Num PC net: " + randomNum);//print the random num
 
             NetworkManagerObject.SetActive(true);//activate the networkmanager
 
             //NetworkManager.Singleton.NetworkConfig.PlayerPrefab = PCplayer;
-            NetworkManager.Singleton.NetworkConfig.PlayerPrefab = PCNetListplayer[randomNum];//choose a random polayer from the list
-            //PCNetworkManager.SetActive(true);//activate PC network manager
+            NetworkManager.Singleton.NetworkConfig.PlayerPrefab = PCNetListplayer[randomNum];//choose a random VR player from the list
 
         }
         else if (VRMode)//if VR button was clicked earlier
         {
+            int randomNum = Random.Range(0, 4);//choose a random player from 0 to 3 in the array
+
+            Debug.Log("random Num VR net: " + randomNum);//print the random num
+
             NetworkManagerObject.SetActive(true);//activate the networkmanager
 
-            NetworkManager.Singleton.NetworkConfig.PlayerPrefab = VRplayer;
+            //NetworkManager.Singleton.NetworkConfig.PlayerPrefab = VRplayer;
+            NetworkManager.Singleton.NetworkConfig.PlayerPrefab = VRNetListplayer[randomNum];//choose a random VR player from the list
 
-            //VRNetworkManager.SetActive(true);//activate VR network manager
 
         }
     }
@@ -185,7 +163,7 @@ public class startGame : NetworkBehaviour
 
         if (PCMode)//if pc button was clicked earlier
         {
-            localPCPlayer.SetActive(true);//activate local PC 
+            //localPCPlayer.SetActive(true);//activate local PC 
             //mainCamera.enabled = false;//turn off the main camera
             //mainCamera.SetActive(false);//turn off the main camera
             chooseGameAccess.switchScenes("Lobby");//Move player to lobby
@@ -194,7 +172,7 @@ public class startGame : NetworkBehaviour
         }
         else if (VRMode)//if VR button was clicked earlier
         {
-            localVRPlayer.SetActive(true);//activate local VR 
+            //localVRPlayer.SetActive(true);//activate local VR 
             //mainCamera.enabled = false;//turn off the main camera
             //mainCamera.SetActive(false);//turn off the main camera
             chooseGameAccess.switchScenes("Lobby");//Move player to lobby

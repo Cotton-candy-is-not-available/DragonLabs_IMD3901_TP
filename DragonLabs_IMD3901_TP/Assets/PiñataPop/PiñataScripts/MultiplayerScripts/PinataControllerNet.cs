@@ -64,7 +64,7 @@ public class PinataControllerNet : NetworkBehaviour
 
             //play confetti particles
             playConfettiServerRpc();
-            audioManMultiPlayer.PlaySFX(audioManMultiPlayer.partyBlower);
+            audioManMultiPlayer.PlaySFXServerRpc(AudioManager.SFXList.PartyBlower);
             candySpawner_access.SpawnCandyServerRpc();
         }
         
@@ -75,7 +75,7 @@ public class PinataControllerNet : NetworkBehaviour
         if(collision.gameObject.name == "BatP1")
         {
             //Debug.Log("P1 hit the pinata");
-            audioManMultiPlayer.PlaySFX(audioManMultiPlayer.batHitSound);
+            audioManMultiPlayer.PlaySFXServerRpc(AudioManager.SFXList.BatHit);
 
             if (isGameOver.Value == false) //only increase points if game is not over
             {
@@ -91,7 +91,7 @@ public class PinataControllerNet : NetworkBehaviour
         else if(collision.gameObject.name == "BatP2")
         {
             //Debug.Log("P2 hit the pinata");
-            audioManMultiPlayer.PlaySFX(audioManMultiPlayer.batHitSound);
+            audioManMultiPlayer.PlaySFXServerRpc(AudioManager.SFXList.BatHit);
 
             if (isGameOver.Value == false)
             {
@@ -148,7 +148,7 @@ public class PinataControllerNet : NetworkBehaviour
     public void playConfettiClientRpc()
     {
         confettiPopParticles.Play();
-        audioManMultiPlayer.PlaySFX(audioManMultiPlayer.partyBlower);
+        audioManMultiPlayer.PlaySFXServerRpc(AudioManager.SFXList.PartyBlower);
     }
 
 }

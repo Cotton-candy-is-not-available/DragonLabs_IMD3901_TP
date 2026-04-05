@@ -138,7 +138,7 @@ public class gameManager : NetworkBehaviour
         {
             //Set their start positions
             player1.transform.transform.position = p1StartPos.position;
-            player2.transform.transform.position = p2StartPos.position;
+            player2.transform.transform.position = p2StartPos.position; 
             Debug.Log("newBall Update: " + newBall);
 
             //instatiate ball depending on who's turn it is
@@ -162,7 +162,7 @@ public class gameManager : NetworkBehaviour
             Debug.Log("player2Points.Value: " + player2Points.Value);
 
 
-            if (player1Points.Value == 3)
+            if (player1Points.Value >= 3)
             {
                 Debug.Log("Game is over");
                 //isGameOver.Value == true;
@@ -174,7 +174,7 @@ public class gameManager : NetworkBehaviour
                 //sceneManager.switchScenesNetServerRpc("Lobby");//bring players back to the lobby
 
             }
-            else if (player2Points.Value == 3)
+            else if (player2Points.Value >= 3)
             {
                 Debug.Log("Game is over");
                 //isGameOver.Value == true;
@@ -294,7 +294,7 @@ public class gameManager : NetworkBehaviour
     IEnumerator WaitToGoBack()
     {
 
-        yield return new WaitForSeconds(10); //waits 5 seconds
+        yield return new WaitForSeconds(10); //waits 10 seconds
         player1.transform.transform.position = lobbyStartPos.position;
         player2.transform.transform.position = lobbyStartPos.position;
         sceneManager.switchScenesNetServerRpc("Lobby");//switches players back to lobby scene
