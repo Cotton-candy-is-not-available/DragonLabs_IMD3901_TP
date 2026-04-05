@@ -169,7 +169,7 @@ public class gameManager : NetworkBehaviour
             Debug.Log("player2Points.Value: " + player2Points.Value);
 
 
-            if (player1Points.Value >= 0)
+            if (player1Points.Value >= 6)
             {
                 Debug.Log("Game is over");
                 changeTurnRpc(-1);//change to negative number so ball spawning is not called anymore
@@ -179,7 +179,7 @@ public class gameManager : NetworkBehaviour
            
 
         }
-        else if (player2Points.Value >= 0)
+        else if (player2Points.Value >= 6)
             {
                 Debug.Log("Game is over");
             changeTurnRpc(-1);//change to negative number so ball spawning is not called anymore
