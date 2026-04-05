@@ -29,7 +29,7 @@ public class PinataControllerNet : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         //set initial value
-        pinataHealth.Value = 10;
+        pinataHealth.Value = 50;
         isGameOver.Value = false;
         once.Value = false;
 
