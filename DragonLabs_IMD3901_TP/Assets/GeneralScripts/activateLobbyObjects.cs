@@ -17,6 +17,7 @@ public class activateLobbyObjects : MonoBehaviour
     public GameObject[] SingleVRPlayerList;
 
     public GameObject PCBoardInstructions;
+    public GameObject onlinePCBoardInstructions;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -68,12 +69,12 @@ public class activateLobbyObjects : MonoBehaviour
 
             if (staticClass.PCOn)
             {
-                PCBoardInstructions.SetActive(true);//turn ON the pc baord instructions
+                onlinePCBoardInstructions.SetActive(true);//turn ON the pc baord instructions
 
             }
             else if (staticClass.VROn)
             {
-                PCBoardInstructions.SetActive(false);//turn off the pc baord instructions
+                onlinePCBoardInstructions.SetActive(false);//turn off the pc baord instructions
 
             }
           
