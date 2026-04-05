@@ -26,19 +26,26 @@ public class TicTacToeTileSlot : MonoBehaviour
 
     public void PlacePiece(Piece piece)
     {
-        if (piece == null) return;
-        if (placedPiece != null) return;
+        if (piece == null)
+            return;
 
+        if (placedPiece != null)
+            return;
+
+        // Get the correct snap point depending on X or O
         Transform targetPoint = GetTargetPoint(piece.Type);
+
         if (targetPoint == null)
         {
             Debug.LogWarning("Missing correct spawn point on tile: " + gameObject.name);
             return;
         }
 
+        // Store what piece is now on this tile
         placedPiece = piece;
         occupyingType = piece.Type;
 
+        // Snap the piece into place
         piece.SnapToTile(targetPoint);
         piece.MarkPlaced(true);
         piece.SetHeld(false);
@@ -46,11 +53,18 @@ public class TicTacToeTileSlot : MonoBehaviour
 
     public bool TryAutoPlacePiece(Piece piece)
     {
-        if (piece == null) return false;
-        if (placedPiece != null) return false;
-        if (piece.IsPlaced) return false;
+        if (piece == null)
+            return false;
 
+        if (placedPiece != null)
+            return false;
+
+        if (piece.IsPlaced)
+            return false;
+
+        // Find the game manager and let it handle the placement rules
         TicTacToeGameManager gameManager = FindFirstObjectByType<TicTacToeGameManager>();
+
         if (gameManager == null)
         {
             Debug.LogWarning("No TicTacToeGameManager found in scene.");
@@ -70,6 +84,7 @@ public class TicTacToeTileSlot : MonoBehaviour
 
     public void ClearTile()
     {
+        // Reset tile data if the board gets cleared
         placedPiece = null;
         occupyingType = null;
     }

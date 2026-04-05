@@ -2471,6 +2471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   VrCamera: {fileID: 3464239940963862619}
+  lobbyStartPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1601400651521947591
 MonoBehaviour:
   m_ObjectHideFlags: 0
