@@ -6,7 +6,7 @@ using UnityEngine;
 public class PinataController : MonoBehaviour
 {
 
-    int pinataHealth = 10;
+    int pinataHealth = 50;
     Rigidbody pinata_RB;
 
     public ScoresManager scoresManager_access;
