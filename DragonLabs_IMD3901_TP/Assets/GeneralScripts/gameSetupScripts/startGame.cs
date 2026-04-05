@@ -54,17 +54,7 @@ public class startGame : NetworkBehaviour
     public Button LANClientButton;
 
 
-    public override void OnNetworkSpawn()
-    {
-        //clientStarted.OnValueChanged += OnP1HitPointsChanged;
-
-    }
-
-        private void Awake()
-    {
-        
-    }
-
+   
     private void Start()
     {
 
