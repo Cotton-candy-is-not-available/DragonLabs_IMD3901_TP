@@ -27,9 +27,7 @@ public class PlayerController : NetworkBehaviour
         {
             PcCamera.enabled = false;
         }
-        lobbyStartPos = new Vector3(0.05f, 0.46f, -19.02f);
-
-        gameObject.transform.position = lobbyStartPos;//make the player spawn here
+      
 
         Cursor.lockState = CursorLockMode.Locked; //locks the cursor to the screen, so it moves with the camera
         Cursor.visible = false;
@@ -50,7 +48,11 @@ public class PlayerController : NetworkBehaviour
             PcCamera.tag = "p2Camera";//set camera tags
             Debug.Log("P2 Camera tag: " + PcCamera.tag);
 
-         
+            lobbyStartPos = new Vector3(0.05f, 0.46f, -19.02f);
+
+            gameObject.transform.position = lobbyStartPos;//make the player spawn here
+
+
         }
         else//otherwise they are player 1
         {
@@ -60,7 +62,9 @@ public class PlayerController : NetworkBehaviour
             PcCamera.tag = "p1Camera";//set camera tags
             Debug.Log("P1 Camera tag: " + PcCamera.tag);
 
+            lobbyStartPos = new Vector3(0.05f, 0.46f, -19.02f);
 
+            gameObject.transform.position = lobbyStartPos;//make the player spawn here
         }
 
 
