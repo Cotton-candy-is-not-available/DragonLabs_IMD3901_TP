@@ -12860,7 +12860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneManager: {fileID: 229652708}
-  sceneName: beerPong
+  sceneName: beerPong2
 --- !u!4 &1065894116 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4352172622079444, guid: a7cd92f894fc7ea4eb6021dd841daa58, type: 3}
