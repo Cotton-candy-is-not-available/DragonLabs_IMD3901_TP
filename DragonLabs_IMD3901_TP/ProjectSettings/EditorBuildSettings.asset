@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScenes/BitaTestScene.unity
     guid: f0916883790c00d49848eccdd848e9c0
   - enabled: 1
-    path: Assets/Scenes/FinalMiniGameScenes/beerPong.unity
+    path: Assets/BeerPong/oldBeerPongScene/beerPong.unity
     guid: ac56b4eeb7b0ef948b6cebf488a61be6
   - enabled: 0
     path: "Assets/Pi\xF1ataPop/LevelScenes/EasyLevel.unity"
